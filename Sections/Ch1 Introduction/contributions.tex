@@ -1,0 +1,15 @@
+\section{Contributions}
+\todo{Write aims and outcomes section heading/intro.}
+
+The proposed thesis will be a systems report regarding the software design space of a GPU-based radar tracking pipeline for a small monopulse radar. The problems of poor resolution and low signal strength described above will be addressed in the proposed project, a systems report that compares different signal processing and tracking algorithms for their ability to detect faint targets from small UAV platforms. Due to the growing interest in the hardware for UAV applications, these algorithms will be implemented on GPUs and their throughput and latency will be measured. Questions about the cost of memory movement and synchronisation will be addressed through integration testing and profiling of the entire pipeline. A portion of the research will also contribute to an understanding of the effect that different hardware contexts on the optimal design of these radar processing pipelines.
+
+In summary, the project will contribute the following:
+\begin{itemize}
+    \item A comparison of candidate detection, angle-estimation, and tracking algorithm combinations, assessed by detection sensitivity and track quality in multi-target aerial scenarios, to inform algorithm selection.
+    \item A comparison of alternative low-level implementations of the selected algorithms, quantifying their effects on end-to-end throughput and latency in highly parallelised GPU pipelines, to inform implementation choices.
+    \item An assessment of how these algorithm and implementation conclusions vary across embedded hardware configurations, providing hardware-aware design recommendations.
+\end{itemize}
+
+\todo{Add any missing aims/outcomes content that is not present in the provided text.}
+
+\todo{Tie the aims and outcomes into the motivation}

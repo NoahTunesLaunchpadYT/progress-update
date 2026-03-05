@@ -1,0 +1,165 @@
+% Configuration
+
+\def\degree{Bachelor of Engineering (Honours)}
+\def\department{School of Aerospace Mechanical and Mechatronics Engineering \\ Faculty of Engineering}
+\def\mydegrees{B.Eng (Hons)}
+
+%\def\sid{200342291}
+
+\def\supervisor{Dr. Donald Dansereau}
+% \def\assocsupervisora{Other supervisor}
+%\def\assocsupervisorb{Optional third supervisor}
+
+\documentclass[logo]{style/usydthesis}
+% Remove the optional 'logo' argument to remove the logo from the title page
+
+% Uncomment these two lines out if you want a watermark
+%\usepackage[timestamp]{draftcopy}
+%\draftcopyVersion{Printed\space}
+
+% Displaying inkscape figures
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+
+\pdfsuppresswarningpagegroup=1
+
+% Remove weird spaces in List of Figures
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+%%%%%%%%%%%%
+% Packages
+%\usepackage[dvips]{graphics,color}
+\usepackage{amstext,amssymb,amsfonts,latexsym}
+%\usepackage[procnames]{listings2}
+%\usepackage{fancyhdr}
+%\usepackage[nolineno,norules]{lgrind}
+%\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+\usepackage{style/bib}
+\usepackage[UKenglish]{babel}
+\usepackage{csquotes}% Recommended
+\usepackage{animate}
+\usepackage{setspace}
+\usepackage{pdfpages}% for hosting full pdf docs as in appendix
+\usepackage[pdftex,bookmarks=true]{hyperref}
+%\usepackage[xindy]{glossaries} % must be after hyperref
+\hypersetup{
+    pdfauthor = {Noah West},
+    pdftitle = {Radar Tracking Software Pipeline for
+UAV Detect-and-Avoid},
+    colorlinks,
+%    linkcolor={blue},
+%    citecolor={blue}
+    linkcolor={black},
+    citecolor={black}
+    }
+%%%%%%%%%%%%
+% Maths functions
+\def\O{\mbox{O}}
+\newcommand{\bsigma}{{\boldsymbol\sigma}}
+\newcommand{\bepsilon}{{\boldsymbol\epsilon}}
+%%%%%%%%%%%%
+% Setup
+\newenvironment{myquote}{\list{}{\leftmargin=2.5cm\rightmargin=2.5cm}\item[]}{\endlist}
+\usepackage[style=ieee,
+            backend=biber,
+%            firstinits=true,
+%            terseinits=true,
+            uniquename=false,
+            uniquelist=false,
+            hyperref=true]{biblatex}
+\addbibresource{thesis.bib}
+% IEEE-ish online formatting
+\ExecuteBibliographyOptions{
+  url=false,
+  doi=false,
+  isbn=false,
+  eprint=false
+}
+\usepackage{microtype}
+%\setlength{\parskip}{3mm plus0.5mm minus0.5mm}
+%\parindent 0pt
+%\renewcommand{\thepage}{\roman{page}}
+%\makeindex
+
+%   Page size:
+\oddsidemargin=0.2in	% really +1in
+\evensidemargin=0in
+\textwidth=6.1in
+
+%\textheight=22cm
+%\topmargin=-1cm
+
+%%%%%%%%%%%%
+% Start
+%\input{src/glossary.tex}
+%\makeglossaries
+\begin{document}
+
+% % initial page numbers:  i, ii, iii, ...
+\renewcommand{\thepage}{\roman{page}}	
+\pagestyle{plain} % force page number in the footer for all roman pages
+%%%%%%%%%%%%
+% Title page
+\title{{\bf\Huge Radar Tracking Software Pipeline Optimisation for
+UAV Detect-and-Avoid}}
+\author{Noah West}
+
+\maketitle
+\setstretch{1.5}
+
+% \input{Sections/0 Title.tex}
+\input{Sections/3 Abstract.tex}
+\newpage
+\input{Sections/2 Statement of Contribution.tex}
+\newpage
+\input{Sections/4 Acknowledgements.tex}
+
+
+\setcounter{tocdepth}{2}
+\newpage
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+\listoffigures
+%\listoftables
+
+%%%%%%%%%%%%
+% Chapters
+
+\setcounter{page}{1}
+\setcounter{chapter}{0}
+
+% main page numbers:  1, 2, 3, ...
+\renewcommand{\thepage}{\arabic{page}}	
+\setupParagraphs
+
+\input{Sections/Ch1 Introduction/main.tex}
+\input{Sections/Ch2 Background/main.tex}
+\input{Sections/Ch3 Literature Review/main.tex}
+\input{Sections/Ch4 Methodology/main.tex}
+\input{Sections/Ch5 Results/main.tex} 
+\input{Sections/Ch6 Discussion/main.tex}
+\input{Sections/Ch7 Conclusion/main.tex}
+
+%%%%%%%%%%%%
+% End
+
+% Bibliography
+%\bibliographystyle{style/mybibstyle}
+%\bibliography{thesis}
+\printbibliography
+
+% Appendices
+\appendix
+\chapter{Appendix}
+\input{Sections/5 Case Studies.tex}
+\input{Sections/5 Health and Safety Report.tex}
+\input{Sections/6 Practical Experience Logbook.tex}
+\end{document}
