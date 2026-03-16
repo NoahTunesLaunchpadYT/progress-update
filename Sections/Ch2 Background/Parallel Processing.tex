@@ -1,5 +1,14 @@
 \section{Parallel Processing}
-\todo{Roles of CPUs, GPUs, ASICs, and other architectures in radar pipelines}
-\todo{Architecture of GPUs and how its lends itself to high performance for specific operations}
-\todo{The roles of L2 cache, branch predicability, warp and block sizes on speed of GPU based algorithms}
-\todo{Maybe a bit on how we utilise this understand to inform our experiment?}
+
+\begin{itemize}
+    \item Parallel processing is important in radar systems because many stages of the pipeline, such as FFTs, beamforming, matrix operations, and detection, involve applying the same operation across large volumes of data.
+    \item CPUs, GPUs, ASICs, and other specialised architectures each offer different trade-offs between flexibility, throughput, power efficiency, and development time.
+    \item CPUs are well suited to control logic and sequential tasks, while GPUs are attractive for highly data-parallel workloads and ASICs offer high efficiency at the cost of reduced programmability.
+    \item For UAV radar applications, software-defined GPU-based systems are often preferred because they allow algorithms to be updated more easily than fixed-function hardware.
+
+    \item GPUs achieve high performance by executing many threads in parallel, making them well suited to radar operations with regular memory access patterns and repeated arithmetic across large arrays.
+    \item Their performance depends not only on raw parallelism, but also on architectural factors such as cache behaviour, memory access patterns, branch divergence, and the choice of warp and block sizes.
+    \item In particular, effective use of L2 cache and predictable control flow can significantly improve throughput, while poor memory locality or divergent branches can reduce performance.
+
+    \item This architectural understanding helps inform the design of our experiments by motivating attention to data layout, kernel structure, and the balance between computation and data movement on embedded GPU platforms.
+\end{itemize}

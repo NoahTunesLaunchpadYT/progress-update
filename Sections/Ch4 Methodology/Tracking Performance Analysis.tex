@@ -1,3 +1,11 @@
 \section{Tracking Performance Analysis}
-\todo{Ablation Study}
-\todo{Try different alternatives for each operation}
+
+\begin{itemize}
+    \item This section evaluates how different algorithmic choices affect tracking performance, not just computational speed.
+    \item In addition to runtime analysis, we compare the effect of each design on sensitivity in detection and tracking tasks.
+    \item An ablation study is used to test alternative implementations for key operations and measure their impact on tracking quality.
+    \item One framework that allows the testing of many different tracking algorithms is Stone Soup \cite{}. The tracking stages of the pipeline are implemented in Stone Soup, which allows us to test for correctness and performance across a variety of tracking algorithms.
+    \item This allows us to identify which optimisations preserve accuracy and which introduce unacceptable performance loss.
+    \item After both computational and sensitivity analysis, a trade-off table is produced to compare candidate pipeline designs.
+    \item This table summarises the computational cost and tracking performance of each design and is used to inform the final embedded implementation.
+\end{itemize}

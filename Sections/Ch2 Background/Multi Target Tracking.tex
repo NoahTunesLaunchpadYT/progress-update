@@ -4,7 +4,26 @@
     \incfig[]{tracker}
 \end{figure}
 
-\todo{Filtering, Kalman Theory}
-\todo{Coordinate Systems (polar for radar)}
-\todo{Gating and data ascociation}
-\todo{Track Life Management}
+\begin{itemize}
+    \item Multi-target tracking converts a sequence of noisy radar detections into stable target tracks over time.
+    \item Its purpose is to estimate the current state of each target, including position and velocity, while maintaining continuity between successive radar updates.
+    \item In radar systems, tracking is typically performed after detection and angle estimation, using range, Doppler, and angle measurements as inputs.
+
+    \item A tracking filter is used to smooth noisy measurements and predict target motion between radar updates.
+    \item Kalman filtering provides a common framework for this process by combining a motion model with uncertain measurements to produce an improved estimate of target state.
+    \item The filter alternates between prediction and update stages, using the predicted target state to guide association and the new measurements to refine the estimate.
+    \item Variants such as the Extended Kalman Filter may be required when the measurement model is nonlinear.
+
+    \item Radar measurements are naturally produced in polar coordinates, typically as range, bearing, elevation, and sometimes Doppler.
+    \item For tracking, these measurements may be processed either directly in polar form or transformed into Cartesian coordinates depending on the filter design and motion model.
+    \item The choice of coordinate system affects the linearity of the model, the form of the measurement uncertainty, and the complexity of the update equations.
+
+    \item Gating is used to restrict which detections are considered plausible matches for an existing track.
+    \item This reduces computational cost and helps reject unlikely associations caused by clutter or nearby targets.
+    \item Data association then determines which measurement should be assigned to each predicted track when multiple candidates are present.
+
+    \item Track life management controls how tracks are initiated, confirmed, maintained, and deleted over time.
+    \item New detections may first form tentative tracks, which are only promoted to confirmed tracks after consistent observations across multiple updates.
+    \item Similarly, tracks may be deleted after repeated missed detections to avoid maintaining false or stale targets.
+    \item These stages allow the tracker to balance responsiveness to new targets with robustness against clutter and intermittent measurement loss.
+\end{itemize}

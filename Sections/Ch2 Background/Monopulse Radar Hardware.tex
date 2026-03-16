@@ -1,5 +1,18 @@
 \section{Monopulse Radar Hardware}
-\todo{Principles and methods of monopulse radar. Angle discrimination}
-\todo{Go into phased array antennas}
-\todo{Discuss Hardware Choices (out of scope)}
-\todo{Expected Accuracy, error, noises, simulation}
+
+\begin{itemize}
+    \item Radar is a active sensing system that utilises radio waves to determine the distance, direction and velocity of objects in the environment. 
+    \item Monopulse radar is a specific radar technique that, allows for the estimation of target position from a single transmitted pulse (as the name suggests). This is achieved by comparing the received signal across multiple receiver antennae simultaneously, rather than sequentially as seen in mechanical scanning radar systems. As a results, monopulse radar can scan targets rapidly and with low latency \cite{}. 
+    \item Another quality of monopulse radar is that it can be implemented using phased array antennas, which allow for electronic beam steering without moving parts. 
+    \item While the electronics are complex, the mechanical simplicity of a solid-state radar system can be advantageous for UAV applications, where size, weight and power constraints are critical. This combined with the low latency tracking makes monopulse radar suitable for DAA systems 
+    \item This single-look angle measurement capability is valuable for DAA applications, where encounter geometries can change quickly and the sensing system must provide timely and stable bearing information. (TIMING DIAGRAM MAYBE) 
+    \item Radar systems are fundamentally limited by the diffraction of radio waves, which sets a lower bound on the angular resolution that can be achieved for a given antenna aperture and operating frequency. 
+    \item The angular resolution limit is often expressed as the beamwidth, which is approximately proportional to the wavelength divided by the antenna diameter. This means that for a given frequency, a larger antenna can achieve finer angular resolution. Due to the infeasibility of large antennas on small UAVs, we need to have an angular accuracy that is higher than the beamwidth, which is possible with angle discrimination, a core principle of monopulse radar. 
+    \item Figure (MONOPULSE FIG) illustrates how monopulse radar can achieve angle estimation accuracy that is finer than the beamwidth by comparing the received signal across multiple channels. (INCLUDE FIGURE)
+    \item Monopulse processing may be implemented in amplitude-comparison form, phase-comparison form, or hybrid forms depending on the antenna architecture, frequency band, and required accuracy.
+    \item The achievable angular accuracy of a monopulse radar depends on several factors, including antenna aperture, frequency, signal-to-noise ratio, and calibration quality.
+    \item In general, narrower beams and higher signal-to-noise ratios lead to better angle estimation accuracy because the monopulse slope near boresight becomes steeper and measurement noise has less influence.
+    \item Important error sources include thermal noise, receiver imbalance, gain and phase mismatch between channels, quantisation effects, multipath, clutter, sidelobe interference, and target glint.
+    \item Simulation is therefore important for characterising expected performance before hardware deployment.
+    \item The performance of digital processing stages such as amplitude comparison will be evaluated in terms of its resulting angular accuracy, range accuracy, and ability to track multiple targets, under simulation and real world conditions.  
+\end{itemize}

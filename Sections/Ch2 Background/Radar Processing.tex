@@ -1,4 +1,13 @@
 \section{Radar Processing}
-\todo{Talk about radar hardware and software fundamentals}
-\todo{How radar works (brief)}
-\todo{The typical stages, matched filtering vs mixing and fft, role of spectral domain. Ranging. Coherent integration and slow trasform to measure Doppler.}
+
+\begin{itemize}
+    \item Radar processing converts received echoes into target measurements such as range, velocity, and angle.
+    \item Radar hardware performs transmission, reception, amplification, pulse-compression, downconversion, and analogue-to-digital conversion, while software extracts useful target information from sampled data.
+    \item In software, a typical processing chain begins by organising the pulse-compressed samples across fast time, slow time, and antenna channels.
+    \item By considering the samples the spectral domain (either with matched filtering or a fast time Fourier Transform), we can estimate the range of targets. 
+    \item Optionally, a long time Fourier transform can be applied across slow time to estimate Doppler, which provides target radial velocity and helps separate moving targets from clutter. 
+    \item Coherent integration across multiple pulses improves detectability of weak targets. This involves summing the complex samples across pulses.
+    \item After integration detection algorithms such as Constant False Alarm Rate (CFAR) can identify candidate target returns, which are then passed to angle estimation and tracking stages. 
+    \item The bearing and elevation of targets can be estimated using monopulse processing, which compares the received signal across multiple antenna channels to infer angle with high accuracy.
+    \item The resulting range, Doppler, and angle measurements form the basis for later tracking and classification stages in a DAA system.
+\end{itemize}

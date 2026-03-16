@@ -1,5 +1,14 @@
 \section{Orchestration and Dataflow}
-\subsection{Threads and Batching}
-\subsection{Reading data}
-\subsection{Writing data}
-\subsection{Aggregating Data Streams}
+\label{sec:orchestration}
+
+\begin{itemize}
+    \item This section examines how radar data is moved, buffered, and scheduled through the pipeline, and how these choices affect latency and throughput.
+
+    \item \textbf{Threads and Batching:} We will compare threading and batching strategies to understand the trade-off between throughput and end-to-end delay.
+
+    \item \textbf{Reading data:} As a baseline, input will be read from \texttt{stdin} streams, then compared against lower-overhead approaches such as direct memory access into kernel buffers. The \texttt{vivid} virtual video device will be used for controlled testing.
+
+    \item \textbf{Writing data:} We will compare whether stages should communicate through standard application pipes or through lower-copy shared-memory style interfaces.
+
+    \item \textbf{Aggregating Data Streams:} Data from the four AWR chips must be combined with minimal delay while remaining robust to missing or late packets. We will compare strict synchronisation against timeout-based and best-effort aggregation policies.
+\end{itemize}

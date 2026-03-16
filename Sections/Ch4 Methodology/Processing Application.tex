@@ -1,4 +1,5 @@
 \section{Processing Application}
+\label{sec:processing_app}
 \todo{Complete the following sections. How do the experiments resolve the gaps in the literature.}
 \subsection{Data Input}
 \subsection{Shaping Data}
@@ -6,3 +7,36 @@
 \subsection{Fast Fourier Transforms}
 \subsection{Coherent Integration}
 
+\subsubsection{Windowing}
+To reveal target range from a signal radar pulse, we need to take an FFT (Fast Fourier Transform) of the dechirped pulse. When an FFT is performed on a finite signal, the theoretically infinite signal is implicitly multiplied by a rectangular window. A term-wise multiplication in time is a convolution in the frequency domain. A rectangular window has large spectral sidelobes, resulting in a smearing of the original signal's frequencies. By windowing our signal more strategically, we can minimise the smearing of frequencies (see Figure \ref{fig:hann filter}). \\
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.5\linewidth]{Images/ffts1}
+    \caption{Results of an FFT performed on a signal with two frequencies and Gaussian noise with and without a Hann window. Without the Hann window there bins that are close to the peak frequency bins 40 and 45 are significantly larger than the bins further away, which misrepresents the homogeneity of the Gaussian noise}
+    \label{fig:hann filter}
+\end{figure}
+
+This thesis will evaluate a range of practical window functions and their implementation on CPU and GPU. Candidate windows include common real-time tapers such as Hann and Hamming, lower-sidelobe windows such as Blackman and Blackman--Harris, and adjustable-parameter windows (e.g., Kaiser) that allow explicit control of sidelobe level versus mainlobe width. Because windowing is a point-wise multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution. \\
+
+Performance profiling will measure the latency contribution and throughput associated with each filter and implementation method. A cost benefit analysis will weight the latency cost against the downstream benefits of a cleaner signal, such as less sidelobe-induced false positives. These procedures will provide a basis for selecting windows that are spectrally well behaved, computationally efficient, reduce detection false alarms, and reduce the computation workload of downstream algorithms such as CFAR.
+
+\subsubsection{FFTs}
+FFTs are an essential processing step in any radar processing pipeline, as they convert time series signals to target ranges. The interplay between the asymptotic performance of the FFT algorithm as an \(\mathcal{O}(N\log N)\) operation, and the constant and linear time memory access patterns on CPU and GPU implementations make the optimal FFT length, batching strategy, and dimensionality unclear. While \cite{zaknoun2024_gpu_radar} assessed an implementation that used an dedicated GPU, GPU with shared memory, and more modern NVIDIA accelerators such as the programmable vision accelerator may show differ performances, that the proposed project will measure. This thesis will compare CPU and GPU FFT implementations under streaming workloads using optimised libraries (e.g., FFTW/MKL on CPU and cuFFT on GPU with shared memory, and using the PVA). Trade-offs will be analysed by relating FFT choices to latency, throughput, memory usage, and downstream detection quality.
+
+\subsubsection{CFAR}
+Constant False Alarm Rate (CFAR) detection is a key mechanism for resolving a map of noisy range data into discrete detections given a target false alarm rate. It does this by masking out any samples with magnitude below a threshold determined by the power of the samples around it. There are several variants of CFAR that each require consideration (see Figure \ref{fig:cfar}). Cell averaging (CA)-CFAR is the most appropriate for homogeneous sample data, greatest of (GO)-CFAR performs well with cluttered edges, smallest of (SO)-CFAR is suitable for multi target tracking, and ordered statistic (OS)-CFAR is appropriate for non-homogenous multi-target settings \cite{}. A sweep of window size and false alarm rate values will be conducted for each CFAR mode on real and simulated data and on the CPU and GPU. The performance (throughput, latency, memory, false alarm rate, sensitivity) will be compared across configurations in a cost benefit analysis. This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour trade off against latency and throughput under SWaP constraints.
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.7\linewidth]{Images/cfar_stacked_matched_colours}
+    \caption{ Performance of four CFAR variants. Each algorithm registers a detection when its threshold is below the signal. The test signal has 5 peaks that are each surrounded by different noisy distributions. The bottom plot illustrates the detections made by each algorithm. OS-CFAR performs well in this example.}
+    \label{fig:cfar}
+\end{figure}
+
+% \begin{figure}
+%     \incfig[]{}
+% \end{figure}
+
+\subsubsection{Time Integration}
+Time integration accumulates energy across pulses to improve effective SNR for detection and tracking. We will compare coherent and non-coherent integration on real data, measuring how detection sensitivity and false alarm behaviour change as integration increases. We will compare CPU and GPU implementations, and quantify the downstream impact on angle sensing stability. An ablation study will hold the window, FFT size, and CFAR parameters fixed while varying only the integration policy to isolate its effect. Different locations for the integration to take place in will also be compared.
