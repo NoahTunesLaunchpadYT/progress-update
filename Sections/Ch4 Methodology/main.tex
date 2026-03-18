@@ -1,18 +1,23 @@
 \chapter{Methodology}
 % \todo{Describe the design of our experiment. Break down experiment into sub experiments, how does that relate to the different application we are building.}
 % \todo{Describe the tools and processes we will use to validate our software. Nsight systems, nsight compute, other tools for measuring memory. Bash scripts for testing}
-
+\section{Overview}
 \begin{itemize}
-    \item The methodology of this thesis involves designing and implementing a software-defined radar processing pipeline for a small monopulse radar system, and evaluating its performance in terms of both computational efficiency and tracking accuracy.
-    \item This section firstly outlines all the difference techniques we will use to evaluate the performance of our software, including the datasets we will use for testing, the metrics we will report, and the tools we will use for performance analysis.
-    \item We then outline what algorithms we are applying these validation techniques to and how these experiments fulfil the goals of the thesis.   
+    \item The methodology of this thesis involves designing and implementing parts of a software-defined radar processing pipeline for a small monopulse radar system, and evaluating its performance in terms of both computational efficiency and tracking accuracy.
+    \item The first sections in this define the pipeline, its applications and their constituent operations. The questions and solution space for each operation is outlined, and the questions mirror the gaps identified in the literature review.
+    \item Then the section describes the datasets that will be used for testing, which include both synthetic data and real radar data recorded from our AWR2243 radar system.    
+    \item Lastly the section outlines the difference techniques used to evaluate the performance of the software pipeline, the metrics we will report, and the tools we will use for performance analysis.
+    \item The evaluation procedure for each operation in our pipeline is outlined in Sections \ref{sec:processing_app}, and \ref{sec:tracking_app}. \item The experiments are designed to fill the identified gaps in the literature.   
 \end{itemize}
 
-
+\input{Sections/Ch4 Methodology/Software Design.tex}
+\FloatBarrier
+\input{Sections/Ch4 Methodology/Processing Application Evaluation.tex}
+\input{Sections/Ch4 Methodology/Tracking Application Evaluation.tex}
+% \input{Sections/Ch4 Methodology/Orchestration Evaluation.tex}
 \input{Sections/Ch4 Methodology/Testing Datasets.tex}
-\input{Sections/Ch4 Methodology/Computation Performance Analysis.tex}
-\input{Sections/Ch4 Methodology/Tracking Performance Analysis.tex}
+\input{Sections/Ch4 Methodology/Computational Performance Metrics and Analysis Methods.tex}
+\input{Sections/Ch4 Methodology/Tracking Performance Metrics and Analysis Methods.tex}
 
-\input{Sections/Ch4 Methodology/Processing Application.tex}
-\input{Sections/Ch4 Methodology/Tracking Application.tex}
-\input{Sections/Ch4 Methodology/Orchestration.tex}
+
+% Summary is unnecessary

@@ -1,0 +1,139 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'gpu_cfar.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{510.23622047bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.66666667)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.38465652,0.5874374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1944188\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{gpu_cfar.pdf}}%
+    \put(0.32323252,0.59465781){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0.39334886,0.59465781){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}14\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{gpu_cfar.pdf}}%
+    \put(0.46536348,0.59467841){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8\end{tabular}}}}%
+    \put(0.53575677,0.59495536){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}15\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{gpu_cfar.pdf}}%
+    \put(0.60716578,0.59467841){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}53\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{gpu_cfar.pdf}}%
+    \put(0.67775417,0.59467841){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}50\end{tabular}}}}%
+    \put(0.74865036,0.59438087){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}12\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{gpu_cfar.pdf}}%
+    \put(0.81881773,0.59530691){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{gpu_cfar.pdf}}%
+    \put(0.18148164,0.59528639){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{gpu_cfar.pdf}}%
+    \put(0.25159781,0.59465781){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}14\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{gpu_cfar.pdf}}%
+    \put(0.1344606,0.3619165){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Noise \\Statistic\end{tabular}}}}%
+    \put(0.32292171,0.33881522){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{gpu_cfar.pdf}}%
+    \put(0.39379726,0.33881522){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}23\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{gpu_cfar.pdf}}%
+    \put(0.46502168,0.33883574){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}32\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{gpu_cfar.pdf}}%
+    \put(0.53625632,0.33911277){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}22\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{gpu_cfar.pdf}}%
+    \put(0.60719321,0.33883574){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{gpu_cfar.pdf}}%
+    \put(0.67713517,0.33883574){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{gpu_cfar.pdf}}%
+    \put(0.74839071,0.33853819){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{gpu_cfar.pdf}}%
+    \put(0.81874305,0.33944473){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}26\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{gpu_cfar.pdf}}%
+    \put(0.18123237,0.33946525){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}6\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{gpu_cfar.pdf}}%
+    \put(0.25240546,0.33881522){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}6\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{gpu_cfar.pdf}}%
+    \put(0.13235447,0.62125373){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Signal\\Power\end{tabular}}}}%
+    \put(0.85996422,0.45728492){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}GPU \\Threads\end{tabular}}}}%
+    \put(0.13456847,0.08790179){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Detection \\Mask\end{tabular}}}}%
+    \put(0.32215924,0.20232544){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{gpu_cfar.pdf}}%
+    \put(0.39347382,0.20232544){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}47\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{gpu_cfar.pdf}}%
+    \put(0.46513952,0.20234629){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}64\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{gpu_cfar.pdf}}%
+    \put(0.53681535,0.20232544){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}44\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{gpu_cfar.pdf}}%
+    \put(0.60819202,0.20204688){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}22\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{gpu_cfar.pdf}}%
+    \put(0.67856687,0.20232544){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{gpu_cfar.pdf}}%
+    \put(0.75026364,0.20234629){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}34\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{gpu_cfar.pdf}}%
+    \put(0.82105162,0.20234629){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}52\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{gpu_cfar.pdf}}%
+    \put(0.17959217,0.19970178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}13\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{gpu_cfar.pdf}}%
+    \put(0.25120616,0.20232544){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{gpu_cfar.pdf}}%
+    \put(0.13579845,0.20315723){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Threshold\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{gpu_cfar.pdf}}%
+    \put(0.3239239,0.0661577){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.39447445,0.0661577){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{gpu_cfar.pdf}}%
+    \put(0.46693514,0.06617839){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.53776427,0.06645728){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{gpu_cfar.pdf}}%
+    \put(0.60961596,0.06617839){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{gpu_cfar.pdf}}%
+    \put(0.68064139,0.06617839){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.75197678,0.06587897){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{gpu_cfar.pdf}}%
+    \put(0.82257885,0.06681078){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{gpu_cfar.pdf}}%
+    \put(0.1812948,0.06679009){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{gpu_cfar.pdf}}%
+    \put(0.25184532,0.0661577){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{gpu_cfar.pdf}}%
+  \end{picture}%
+\endgroup%

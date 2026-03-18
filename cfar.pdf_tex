@@ -1,0 +1,152 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'cfar.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{510.23622047bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.66666667)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.38465652,0.5874374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1944188\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{cfar.pdf}}%
+    \put(0.34736608,0.49369829){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0.41791662,0.49369829){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}14\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{cfar.pdf}}%
+    \put(0.49037734,0.49371897){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8\end{tabular}}}}%
+    \put(0.56120673,0.4939977){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}15\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{cfar.pdf}}%
+    \put(0.63305804,0.49371897){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}53\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{cfar.pdf}}%
+    \put(0.70408359,0.49371897){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}50\end{tabular}}}}%
+    \put(0.77541894,0.49341956){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}12\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{cfar.pdf}}%
+    \put(0.84602102,0.49435137){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{cfar.pdf}}%
+    \put(0.20473703,0.49433068){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{cfar.pdf}}%
+    \put(0.27528752,0.49369829){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}14\end{tabular}}}}%
+    \put(0.60108244,0.65732409){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.24078449\unitlength}\raggedright \end{minipage}}}%
+    \put(0.16111506,0.5178128){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Signal\\Power\end{tabular}}}}%
+    \put(-0.35206377,1.73425828){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{4.52368751\unitlength}\raggedright \end{minipage}}}%
+    \put(0.15702862,0.34233492){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Noise \\Statistic\end{tabular}}}}%
+    \put(0.15845885,0.06976487){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Detection \\Mask\end{tabular}}}}%
+    \put(1.78688965,0.59835442){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.54138116\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{cfar.pdf}}%
+    \put(0.4891421,0.62007294){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Sample Under \\Test\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{cfar.pdf}}%
+    \put(0.6095069,0.44593557){\color[rgb]{0,0,0.76470588}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Guard\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{cfar.pdf}}%
+    \put(0.74470198,0.43080063){\color[rgb]{1,0,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Size\end{tabular}}}}%
+    \put(0.66869566,0.62007294){\color[rgb]{0,0.7372549,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Training \\Cells\end{tabular}}}}%
+    \put(0.31212279,0.61873254){\color[rgb]{0,0.7372549,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Training \\Cells\end{tabular}}}}%
+    \put(0.50472535,0.38628082){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Mean of Training Cells\end{tabular}}}}%
+    \put(-0.3595445,0.23463025){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{4.28314544\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{cfar.pdf}}%
+    \put(0.51129867,0.25011944){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\times \alpha$\end{tabular}}}}%
+    \put(0.34604963,0.1841885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{cfar.pdf}}%
+    \put(0.41736416,0.1841885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}47\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{cfar.pdf}}%
+    \put(0.48902986,0.18420936){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}64\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{cfar.pdf}}%
+    \put(0.56070574,0.1841885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}44\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{cfar.pdf}}%
+    \put(0.63208241,0.18390995){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}22\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{cfar.pdf}}%
+    \put(0.70245726,0.1841885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{cfar.pdf}}%
+    \put(0.77415398,0.18420936){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}34\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{cfar.pdf}}%
+    \put(0.84494197,0.18420936){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}52\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{cfar.pdf}}%
+    \put(0.20348254,0.18156484){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}13\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{cfar.pdf}}%
+    \put(0.27509653,0.1841885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{cfar.pdf}}%
+    \put(0.15968884,0.18502031){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Threshold\end{tabular}}}}%
+    \put(0.34665718,0.31909061){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{cfar.pdf}}%
+    \put(0.41797176,0.31909061){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}23\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{cfar.pdf}}%
+    \put(0.48963742,0.31911121){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}32\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{cfar.pdf}}%
+    \put(0.56131329,0.31939002){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}22\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{cfar.pdf}}%
+    \put(0.63268979,0.31911121){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}11\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{cfar.pdf}}%
+    \put(0.70306481,0.31911121){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{cfar.pdf}}%
+    \put(0.77476162,0.31881197){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}17\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{cfar.pdf}}%
+    \put(0.84554969,0.3197241){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}26\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{cfar.pdf}}%
+    \put(0.2040901,0.3197447){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}6\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{cfar.pdf}}%
+    \put(0.27570411,0.31909061){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}6\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{cfar.pdf}}%
+    \put(0.50837453,0.12276306){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Signal > Threshold \end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{cfar.pdf}}%
+    \put(0.34781426,0.04802077){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.4183648,0.04802077){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{cfar.pdf}}%
+    \put(0.49082548,0.04804145){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.56165466,0.04832035){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{cfar.pdf}}%
+    \put(0.63350635,0.04804145){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{cfar.pdf}}%
+    \put(0.70453173,0.04804145){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.77586712,0.04774204){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{cfar.pdf}}%
+    \put(0.8464692,0.04867384){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{cfar.pdf}}%
+    \put(0.20518519,0.04865316){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{cfar.pdf}}%
+    \put(0.27573569,0.04802077){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

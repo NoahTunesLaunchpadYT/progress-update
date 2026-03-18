@@ -1,0 +1,28 @@
+\section{Processing Application Evaluation}
+\label{sec:processing_app}
+
+\subsection{Windowing}
+To reveal target range from a single radar pulse, an FFT (Fast Fourier Transform) is applied to the dechirped pulse. When an FFT is performed on a finite signal, the theoretically infinite signal is implicitly multiplied by a rectangular window. A term-wise multiplication in time corresponds to a convolution in the frequency domain. Since a rectangular window has large spectral sidelobes, it causes smearing of the signal's true frequency content. By applying a more suitable window function prior to the FFT, this spectral smearing can be reduced, as shown in Figure \ref{fig:hann filter}.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.5\linewidth]{Images/ffts1}
+    \caption{Results of an FFT performed on a signal with two frequencies and Gaussian noise, with and without a Hann window. Without the Hann window, the bins close to the peak frequency bins 40 and 45 are significantly larger than bins further away, misrepresenting the homogeneity of the Gaussian noise.}
+    \label{fig:hann filter}
+\end{figure}
+
+This thesis evaluates a range of practical window functions and their implementation on CPU and GPU. Candidate windows include common real-time tapers such as Hann and Hamming, lower-sidelobe windows such as Blackman and Blackman--Harris, and adjustable-parameter windows such as Kaiser, which allow explicit control over sidelobe level and mainlobe width. Because windowing is a point-wise multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution.
+
+Performance profiling measures the latency contribution and throughput associated with each window and implementation method. A cost-benefit analysis weighs the latency cost against downstream benefits of a cleaner signal, including reduced sidelobe-induced false positives. These procedures provide a basis for selecting windows that are spectrally well behaved, computationally efficient, reduce detection false alarms, and reduce the computational workload of downstream algorithms such as CFAR.
+
+\subsection{Coherent Integration}
+Because aerial hazards are often small and distant, the SNR of their radar returns can be indistinguishable from noise. After the FFT, the signal represents the intensity of reflection as a function of range, where the phase of each sample corresponds to the phase of the received signal, a value necessary for phased-based angle discrimination. By summing the complex range bin values of identical pulses close together in time, the effective signal to noise ratio is improved while the phase information is preserved. Careful attention towards not summing different types of pulses together is required. The process of coherent integration is depicted in Figure \ref{fig:coherent integration}. 
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{figures/phasor_bins_multi_chirp}
+    \caption{Coherent integration across five chirps for each range bin. Each arrow represents the complex FFT value of a single bin, with the real and imaginary components shown on the horizontal and vertical axes of each chirp panel. Most bins contain noise-like phasors with varying direction, so their coherent sum remains small. The highlighted bin contains a weak but consistent signal component across chirps, so its phasors add constructively, producing a larger resultant in the coherent-sum panel.}
+    \label{fig:coherent integration}
+\end{figure}
+
+Different integration window sizes are compared on real data, and the resulting changes in detection sensitivity and false alarm behaviour are measured. CPU and GPU implementations are also compared, and the downstream effect on angle sensing stability is quantified. An ablation study holds the window, FFT size, and CFAR parameters fixed while varying only the integration policy, isolating its effect. The contribution of the integration stage to the overall latency and throughput of the pipeline is also measured. 

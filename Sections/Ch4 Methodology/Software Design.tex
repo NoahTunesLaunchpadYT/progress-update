@@ -1,0 +1,40 @@
+\section{Software Design}
+The software processing pipeline is designed to receive the radar data from four Texas Instruments AWR2243 radar chips, and produce tracks of targets in the radar's field of view. The software is designed to be modular, with each stage of the pipeline performing a specific function. The pipeline is comprised of three applications, a pre-processing applications which is concerned with preparing the raw radar data for detection, an aggregator application, which is concerned with combining the processed data from the four video streams into a single stream, and a detection and tracking application, which is concerned with detecting targets in the radar data and tracking them over time. This application level design is depicted in Figure \ref{fig:application-level-dataflow}. 
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{application_level_dataflow} 
+    \caption{Application level dataflow. The pre-processing application receives the AWR2243's raw radar data over four CSI video data streams. The data is organised into frames. The processing application then outputs the data in the form of chirps containing target ranges. The aggregator application receives the four processed data streams, and combines them into a single data stream organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing. The detection and tracking application receives a stream of quadruplets, and produces tracks of targets in the radar's field of view.}
+    \label{fig:application-level-dataflow}
+\end{figure}
+
+\subsection{Data Types and Protocols}
+The specifications for the data types and protocols used for communication between the different stages of the pipeline are outlined in the Appendix.
+
+\todo{Add them to Appendix, what is a chirp?, what is a quadruplet?, how are the organised in memory?, how are they transmitted between stages?}
+
+\subsection{Preprocessing Application}
+The preprocessing application is responsible for receiving the raw radar data from the AWR2243 radar chips, and preparing it for detection. An instance of the application runs per incoming video stream. The application performs the following operations sequentially: formatting, windowing, FFT, and coherent integration, see Figure \ref{fig:preprocessing-dataflow}. The implementation and experiment details for these operations are outlined in Section \ref{sec:processing_app}. 
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{preprocessing_dataflow} 
+    \caption{Dataflow for the preprocessing application. Multiple instances of the application run on separate processes, with each instance receiving compressed baseband radar data samples from an incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards empty chirps. The windowing stage applies a window function to the data to reduce spectral smearing in the next state. The FFT stage applies a Fourier Transform across fast time into the frequency domain, revealing target range. The coherent integration stage sums the complex FFT values of identical pulses within the same frame. } 
+    \label{fig:preprocessing-dataflow}
+\end{figure}
+
+\subsection{Aggregator Application}
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{aggregator_dataflow} 
+    \caption{Dataflow for the aggregator application. The application receives the four processed data streams from the preprocessing application, and combines them into a single data stream organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing.}
+    \label{fig:aggregator-dataflow}
+\end{figure}
+
+\subsection{Detection and Tracking Application}
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{detection_and_tracking_dataflow} 
+    \caption{Dataflow for the detection and tracking application. The application receives a stream of quadruplets, and produces tracks of targets in the radar's field of view. By applying the following operations: CFAR, monopulse angle sensing, polar transform, data association, and tracking filters.}
+    \label{fig:detection-and-tracking-dataflow}
+\end{figure}
