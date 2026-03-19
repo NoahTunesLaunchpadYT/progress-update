@@ -5,7 +5,7 @@
 \todo{Use NSight}
 \todo{Ablation Study}
 \todo{Explore the effect of different hardware contexts on the performance. What contexts prevent us from implementing certain solutions and why}
-
+\label{sec:computational-performance-metrics}
 
 \section{Computational Performance Metrics and Analysis Methods}
 
@@ -20,5 +20,6 @@
     \item An ablation study is used to evaluate the impact of individual optimisation choices by noting how the performance of the pipelines change when specific operations are removed from the process.
     \item This helps identify which design decisions provide meaningful performance gains, and where further optimisation efforts should be focused. A table will illustrate the latency and throughput contribution of each stage of the pipeline.  
     \item Performance is also compared across different hardware contexts to understand how architectural constraints affect implementation choices and runtime behaviour, e.g. physically unified memory vs managed memory.
+    \item The Xavier has physically unified memory and the desktop environment has managed memory, with a Ryzen "Threadripper" 3960X CPU and an NVIDIA RTX A6000 GPU.  
     \item This informs which solutions are practical on embedded and GPU-based radar platforms.
 \end{itemize}

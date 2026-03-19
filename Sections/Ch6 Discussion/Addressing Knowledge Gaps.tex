@@ -1,6 +1,14 @@
 \section{Addressing the Identified Knowledge Gaps}
-\begin{figure}
-    \incfig[1]{knowledge}
-    \caption{Me just messing around with Inkscape}
-\end{figure}
-\todo{Explicitely address the knowledge gaps}
+Although our work has made progress in building a radar processing pipeline suitable for small UAVs, the main knowledge gaps identified in Chapter 2 still remain. In this section, we will discuss how our work has addressed these gaps, and what further research is needed to fully address them.
+
+% End-to-end systems level comparisons under SWaP contraints
+% Realistic small-target and encounter-focused evaluation
+% GPU-oriented onboard pipeline evidence, including data movement costs
+% Hardware-aware design conclusions across embedded configurations
+
+\begin{itemize}
+    \item Our work has made progress towards end-to-end systems level comparisons under SWaP constraints by implementing and evaluating a complete radar processing pipeline on embedded GPU hardware. However, further research is needed to explore a wider range of algorithm combinations and optimisations, and to evaluate the performance of the pipeline in more realistic encounter scenarios with small targets.
+    \item Our experimental design has included small moving aerial targets and encounter-like scenarios in both simulation and real data collection, which has provided a more realistic evaluation of the performance of our radar processing pipeline. However, further research is needed to explore a wider range of target types, encounter scenarios, and environmental conditions to fully understand the performance of the pipeline in real-world settings.
+    \item Our work has provided GPU-oriented onboard pipeline evidence by implementing and evaluating our radar processing pipeline on embedded GPU hardware, and by quantifying the impacts of data movement costs and architectural constraints on performance. However, further research is needed to explore a wider range of hardware configurations, power modes, and clock settings to fully understand the implications of these factors for real-time UAV DAA applications.
+    \item Our experiments have been repeated across multiple hardware contexts, including CPU-only, unified-memory embedded GPU, and discrete CPU+GPU settings where available. This has provided insights into how architectural constraints affect implementation choices and runtime behaviour. However, further research is needed to explore a wider range of hardware configurations and to evaluate the performance of the pipeline under different power and clock modes to fully understand the implications for embedded UAV radar platforms.
+\end{itemize}

@@ -1,2 +1,16 @@
 \section{Tracking Application}
 \todo{Discuss the results for each of those. relate to our contributions, gaps and results from the other areas of research.}
+
+\subsection{CFAR Operation}
+% Three variations, discuss how they perform different with processing buffer size, and number of training cells. Talk about how these influence the reliability of CFAR in ideal noise regimes. Talk about the 2 fold improve in SNR when combining receiver energy.  
+\begin{itemize}
+    \item Discuss the correctness of the CFAR implementation, and how the results from the synthetic dataset validate our implementation.
+    \item Discuss the computational performance of the three CFAR implementations, and how they scale with buffer size and number of training cells. Discuss how the GPU implementation is faster for larger buffer sizes, but the prefix sum table implementation is faster for smaller buffer sizes. Discuss how the naive CPU implementation is significantly slower than the other two implementations, and how its performance degrades with increasing buffer size and number of training cells. 
+    \item Discuss the implications of these results for the design of radar processing pipelines.
+\end{itemize}
+
+
+\subsection{Monopulse Angle Sensing Operation}
+\begin{itemize}
+    \item Our results indicate that the monopulse angle sensing implementation is correct, and provides accurate estimates of targets within the require range and signal to noise ratio. Although only one implementation was explored, the strong results provide a baseline for future work to explore different implementations and optimisations.  
+\end{itemize}
