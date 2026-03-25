@@ -1,0 +1,33 @@
+\subsection{Contributions}
+
+The core problem this thesis addresses is the absence of a principled, 
+hardware-aware understanding of how algorithm selection and implementation 
+choices jointly affect the sensitivity and computational performance of compact 
+monopulse radar systems for UAV DAA. While the constituent pieces have each 
+been studied in isolation, system designers currently lack the evidence needed 
+to make informed trade-offs between detection sensitivity, processing latency, 
+and throughput when deploying radar DAA on small UAV platforms with constrained 
+compute and power budgets.
+
+This thesis addresses this problem through a systems-level investigation of the 
+software design space of a GPU-based radar tracking pipeline for a small 
+monopulse radar. The challenges of poor angular resolution and low signal 
+strength under SWaP constraints are addressed by comparing signal processing 
+and tracking algorithms for their ability to detect faint targets from small 
+UAV platforms. These algorithms are implemented on GPU hardware, with 
+throughput, latency, memory movement costs, and synchronisation overhead 
+measured through integration testing and profiling of the complete pipeline. 
+The effect of different hardware contexts on optimal pipeline design is also 
+investigated. The specific contributions are:
+
+\begin{itemize}
+    \item A comparison of candidate detection, angle-estimation, and tracking 
+    algorithm combinations, assessed by detection sensitivity and track quality 
+    in multi-target aerial scenarios, to inform algorithm selection.
+    \item A comparison of alternative low-level implementations of the selected 
+    algorithms, quantifying their effects on end-to-end throughput and latency 
+    in highly parallelised GPU pipelines, to inform implementation choices.
+    \item An assessment of how these algorithm and implementation conclusions 
+    vary across embedded hardware configurations, providing hardware-aware 
+    design recommendations.
+\end{itemize}

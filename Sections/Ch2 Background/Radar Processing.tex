@@ -11,3 +11,49 @@
     \item The bearing and elevation of targets can be estimated using monopulse processing, which compares the received signal across multiple antenna channels to infer angle with high accuracy.
     \item The resulting range, Doppler, and angle measurements form the basis for later tracking and classification stages in a DAA system.
 \end{itemize}
+
+Every radar system operates by transmitting electromagnetic waves into an environment and 
+receiving the reflected signals to detect and locate targets, (Figure \ref{fig:radar_operation}). 
+The strength of the received signal is given by the equation,
+\begin{equation}
+P_r = \frac{P_t G_t G_r \lambda^2 \sigma}{(4\pi)^3 R^4 L}
+\end{equation}
+where $P_r$ is the received power, $P_t$ is the transmitted power, $G_t$ and $G_r$ are the gains 
+of the transmitting and receiving antennas, $\lambda$ is the wavelength, $\sigma$ is the radar 
+cross-section of the target, $R$ is the range to the target, and $L$ represents system losses.
+
+Hence, the received signal informs us about the target's radar cross-section, reflectivity and 
+range, while the time delay between transmission and reception gives us just range. The 
+Doppler shift of the received signal provides information about the target's radial 
+velocity. If there are multiple receiving channels, the relative phase and amplitude of 
+the received signals across channels can be used to estimate the bearing and elevation of 
+the target.  
+
+\begin{figure}
+    \incfig[0.6]{radar_operation}
+    \label{fig:radar_operation}
+\end{figure}
+
+To measure the range of targets, radar systems need to transmit the signal as pulses. To transmit 
+the pulses so the start of the pulse can be identified and the effects of frequency-selective 
+attenuation can be mitigated, the transmitted signal is often modulated in frequency or phase.
+For frequency modulation, the transmitted signal is often a linear frequency modulated (LFM) chirp, 
+which sweeps across a range of frequencies during the pulse duration (see Figure \ref{fig:LFM}). 
+The received signal is then 
+processed with a matched filter to compress the pulse in time, improving range resolution and 
+signal-to-noise ratio.
+
+\begin{figure}
+    \incfig[1]{LFM}
+    \label{fig:LFM}
+\end{figure}
+
+For radar systems where the receiver is close to the transmitter, the transmitter signal can leak
+into the receiver, creating a strong interference signal that can cover weak pulse echoes from 
+targets. To mitigate this, radar systems often switch between transmission and reception modes 
+using a duplexer, so that the transmitter isn't active when receiving. 
+
+Because radar operates in the radio frequency spectrum, the received signal is often downconverted 
+to an intermediate frequency (IF) or baseband for easier processing. This involves mixing the 
+received signal with the transmitted signal to encode the difference between the two signals
+at a lower frequency.  

@@ -1,6 +1,124 @@
 \chapter{Literature Review}
-\input{Sections/Ch3 Literature Review/UAV Radar System Feasibility.tex}
-\input{Sections/Ch3 Literature Review/GPU radar processing performance.tex}
-\input{Sections/Ch3 Literature Review/Low SNR Monopulse feasability.tex}
-\input{Sections/Ch3 Literature Review/Programmable Vision Acceleration for Radar.tex}
-\input{Sections/Ch3 Literature Review/Summary.tex}
+\label{ch:literature_review}
+% \input{Sections/Ch3 Literature Review/Low SWaP Aerial Radar.tex}
+% \input{Sections/Ch3 Literature Review/GPU radar processing performance.tex}
+% \input{Sections/Ch3 Literature Review/Low SNR Monopulse feasability.tex}
+% \input{Sections/Ch3 Literature Review/Programmable Vision Acceleration for Radar.tex}
+% \input{Sections/Ch3 Literature Review/Summary.tex}
+
+\section{Compact Airborne Radar for UAV DAA}
+
+Early demonstrations established that capable radar sensing is achievable 
+under UAV SWaP constraints. Sysak et al.\ 
+\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance} 
+present a lightweight X-band monopulse radar for mid-air collision avoidance 
+on medium UAV platforms, integrating a multi-channel forward-looking antenna 
+with FPGA-based pulse compression on a single 60 gram PCB, with average power 
+below 80 Watts. Field trials demonstrate reliable detection of large obstacles 
+at 1--3 km, and the work validates a simple online pipeline from range 
+compression to TCPA estimation. However, validation is conducted exclusively 
+against large, high radar cross-section targets, and system latency is not 
+reported. This thesis addresses these gaps by characterising detection 
+sensitivity against small moving airborne targets and by measuring end-to-end 
+pipeline latency on embedded hardware.
+
+Wang et al.\ \cite{Wang2016} demonstrate a complete low-SWaP LFMCW system for 
+group 2/3 UAS incorporating FFT-based detection, digital beamforming, 
+multi-target tracking, and GPU-accelerated FFT for update rate improvement. 
+However, performance is validated in simulation only, with no latency 
+measurements, no throughput figures, and no benchmarking of the GPU claim. 
+This thesis addresses these gaps by providing hardware-validated latency and 
+throughput measurements for a comparable pipeline, and by substantiating the 
+GPU acceleration argument with systematic benchmarks.
+
+Moses et al.\ \cite{6044363} introduce a 230 gram miniature radar mountable 
+on a small quadcopter, demonstrating that radar hardware can be integrated onto 
+very small platforms. Their evaluation emphasises target identification via 
+micro-Doppler signatures rather than ranging or tracking, leaving open 
+questions about how the small aperture affects range-domain SNR, range 
+resolution, and false alarm behaviour. This thesis addresses this gap by 
+benchmarking range--Doppler processing, CFAR detection, and multi-target 
+tracking under the SNR conditions characteristic of small-aperture UAV radars.
+
+
+\section{Embedded Radar Processing Under SWaP Constraints}
+
+Shi et al.\ \cite{6712628} describe a small FMCW phased array built from 
+off-the-shelf development boards, validating that continuous real-time 2D FFTs 
+are achievable on a 100 MHz FPGA. However, processing was split between an 
+onboard FPGA and offboard post-processing, and signal coherence problems 
+prevented real-world validation. This thesis addresses this gap by implementing 
+a fully onboard, online pipeline and validating it against real target returns.
+
+Newmeyer et al.\ \cite{7577322} demonstrated a 120 gram, 8 Watt FMCW phased 
+array pipeline on a Zynq ARM CPU, closely monitoring power, latency 
+distributions, and hardware resources. This work clearly establishes that 
+radar DAA can operate under strict SWaP constraints. However, only one 
+hardware configuration and one algorithm sequence are evaluated. This thesis 
+addresses this gap by systematically comparing alternative algorithmic 
+pathways and evaluating how pipeline bottlenecks change across embedded 
+compute configurations, including GPU-based architectures.
+
+Zhao et al.\ \cite{rs15225421} implement CUDA acceleration for a passive 
+bistatic radar pipeline, reporting up to a 113.13$\times$ speedup over a CPU 
+baseline across three algorithm stages. However, the study covers only clutter 
+suppression, range--Doppler processing, and CA-CFAR detection, omitting angle 
+estimation, coordinate transforms, and Kalman filtering, and does not discuss 
+memory reallocation or thread synchronisation costs. This thesis addresses 
+these gaps by benchmarking a more comprehensive algorithm selection and 
+profiling host--device transfer and synchronisation overhead explicitly.
+
+Zaknoun \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} provides 
+a comprehensive treatment of GPU radar software architecture for real-time 
+processing. However, this work is not situated in a UAV DAA context and does 
+not evaluate performance under UAV SWaP constraints. This thesis adapts these 
+architectural insights to the UAV DAA problem, evaluating how conclusions 
+change under constrained power and memory budgets.
+
+
+\section{Sensitivity and Detection in Low-SNR Regimes}
+
+A key consequence of SWaP-constrained hardware is reduced aperture, which 
+simultaneously lowers SNR and degrades angular resolution, increasing the 
+likelihood that multiple targets occupy the same resolution cell.
+
+An et al.\ 
+\cite{an2024_time_varying_angle_estimation_unresolved_extended_targets_monopulse} 
+propose an efficient method for resolving two unresolved targets within a 
+single monopulse cell. However, evaluation is limited to simulated white-noise 
+conditions, the method is not integrated into an end-to-end range--Doppler 
+pipeline, and explicit failure modes exist for same-angle targets and 
+cells containing three or more targets. This thesis addresses these gaps by 
+testing the algorithm under non-white noise conditions and within a complete 
+tracking pipeline, measuring the effect on track quality.
+
+Aubry et al.\ 
+\cite{aubry2020_single_pulse_simultaneous_detection_angle_estimation_multichannel} 
+demonstrate that detection and angle estimation can be treated jointly in a 
+multichannel array, increasing sensitivity to targets not visible in any single 
+channel and avoiding the brittleness of early thresholding under low SNR. 
+However, validation is limited to single simulated targets in Gaussian 
+interference. This thesis addresses this gap by applying the algorithm to 
+multiple targets under non-Gaussian noise regimes and measuring both 
+sensitivity and track-quality impacts alongside compute cost.
+
+
+\section{Summary and Research Gap}
+Across the UAV DAA radar literature three gaps emerge. First, existing 
+hardware demonstrations validate detection against large, high radar 
+cross-section targets only; no work characterises sensitivity to small 
+moving airborne targets under realistic encounter conditions. Second, 
+processing feasibility on constrained embedded hardware has been demonstrated 
+on FPGAs and ARM CPUs, but no work benchmarks a GPU-based pipeline in a UAV 
+DAA context with comprehensive algorithm coverage and architectural profiling. 
+Third, sensitivity algorithms for low-SNR monopulse radar exist but have only 
+been validated under idealised white Gaussian noise with single targets, with 
+no integration into complete pipelines or evaluation under realistic multi-target 
+conditions.
+
+This thesis addresses all three gaps by characterising detection and tracking 
+sensitivity against small moving airborne targets, by benchmarking a 
+comprehensive selection of radar processing and tracking algorithms on embedded 
+GPU hardware with explicit profiling of host--device transfer and 
+synchronisation overhead, and by evaluating monopulse sensitivity algorithms 
+within a complete multi-target tracking pipeline under realistic noise conditions.

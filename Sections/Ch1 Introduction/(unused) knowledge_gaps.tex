@@ -1,0 +1,40 @@
+The literature reviewed in Chapter \ref{ch:literature_review} collectively demonstrates that compact radar hardware is now sufficiently mature for UAV DAA applications. SWaP-compliant systems have been built, detection at DAA-relevant ranges has been achieved, and processing feasibility on constrained embedded platforms has been established. However, three important gaps are identified.
+
+First, existing hardware demonstrations validate detection performance against 
+large, high radar cross-section targets such as buildings and fixed-wing aircraft. 
+No work in the UAV DAA literature characterises how compact radar systems perform 
+against small moving airborne targets under realistic encounter conditions, leaving 
+the practical sensitivity floor of these systems unknown.
+
+Second, while GPU acceleration has been shown to offer substantial speedups for 
+radar signal processing in non-UAV contexts, no work has benchmarked a 
+GPU-based radar pipeline in a UAV DAA setting. Existing UAV DAA processing 
+studies are limited to FPGA and ARM CPU implementations, evaluate single 
+algorithm sequences on single hardware configurations, and do not profile 
+architectural bottlenecks such as host--device data transfer and thread 
+synchronisation overhead. As a result, it remains unclear which algorithm 
+combinations and implementation strategies are most effective when jointly 
+optimising for sensitivity, latency, and throughput on modern embedded GPU 
+platforms.
+
+Third, sensitivity algorithms for low-SNR monopulse radar --- including methods 
+for resolving unresolved targets within a single angular cell and for jointly 
+treating detection and angle estimation across channels --- have only been 
+validated under idealised white Gaussian noise conditions with single simulated 
+targets. None of these methods have been integrated into a complete end-to-end 
+range--Doppler tracking pipeline, and their behaviour under realistic 
+multi-target, non-Gaussian noise conditions is unknown.
+
+This thesis addresses all three gaps. Small moving airborne targets are 
+included explicitly in both simulation and real data collection, and performance 
+is measured not only by detection range but by false alarm behaviour, track 
+continuity, and sensitivity in low-SNR regimes. A comprehensive selection of 
+radar processing and tracking algorithms is benchmarked on embedded GPU 
+hardware, with explicit profiling of host--device transfer costs, memory layout 
+decisions, and synchronisation overhead across multiple hardware configurations. 
+Finally, monopulse sensitivity algorithms are evaluated within a complete 
+multi-target tracking pipeline under realistic noise conditions, with track 
+quality measured alongside compute cost. Together, these experiments provide 
+the first consolidated, systems-level evaluation of UAV DAA radar processing 
+that jointly addresses sensitivity, latency, and throughput on modern embedded 
+platforms.
