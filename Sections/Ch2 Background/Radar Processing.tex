@@ -29,31 +29,51 @@ velocity. If there are multiple receiving channels, the relative phase and ampli
 the received signals across channels can be used to estimate the bearing and elevation of 
 the target.  
 
-\begin{figure}
+\begin{figure}[htb]
     \incfig[0.6]{radar_operation}
     \label{fig:radar_operation}
 \end{figure}
 
-To measure the range of targets, radar systems need to transmit the signal as pulses. To transmit 
-the pulses so the start of the pulse can be identified and the effects of frequency-selective 
-attenuation can be mitigated, the transmitted signal is often modulated in frequency or phase.
-For frequency modulation, the transmitted signal is often a linear frequency modulated (LFM) chirp, 
-which sweeps across a range of frequencies during the pulse duration (see Figure \ref{fig:LFM}). 
-The received signal is then 
-processed with a matched filter to compress the pulse in time, improving range resolution and 
-signal-to-noise ratio.
+To measure the range of targets, radar systems need to transmit the signal as pulses. Pulses are 
+generally preferred over continuous constant frequency signal because the time difference between
+the transmitted pulse and the received echo can be easily measured to estimate range. The 
+transmitted signal is often modulated in frequency or phase. Linearly frequency modulation,
+(LFM) creates pulses that involve a continuous sweep of frequencies during the pulse duration
+(see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to 
+frequency dependent interference, and improved range resolution due to the effect of pulse compression.
+Through pulse compression, the long duration LFM pulse can be compressed in time to illustrate 
+the difference between the transmitted and received signals. One pulse compression technique
+for LFMCW signals is described as "de-chirping", which involves mixing (multiplying) the received 
+signal with the transmitted signal to produce a "beat" frequency that is proportional to the 
+range of the target (See Figure \ref{fig:de-chirping}). The resulting signal's frequencies are given by the product of cosines
+identity,
+\begin{equation}
+    \cos A \cos B = \frac{1}{2} [\cos(A-B) + \cos(A+B)]
+\end{equation}
+where $A$ is the transmitted signal and $B$ is the received signal. By applying a low-pass filter 
+to the mixed signal, we obtain the lower frequency component, which is the beat frequency. 
+The beat frequency is directly proportional to the range of the target, allowing us to estimate the 
+target's distance from the radar with a precision much high than the estimate obtained from the 
+time of flight.  
 
-\begin{figure}
+\begin{figure}[htb]
     \incfig[1]{LFM}
     \label{fig:LFM}
 \end{figure}
+\begin{figure}[htb]
+    \incfig[1]{de-chirping}
+    \label{fig:de-chirping}
+    \caption{The transmitted LFMCW chirp (top), delayed echo (middle), and resulting beat 
+    signal after mixing and low-pass filtering (bottom), shown for a close target (left, 0.5 µs 
+    delay) and far target (right, 2 µs delay). The far target has a higher beat frequency that the 
+    close target.}
+\end{figure}
+
 
 For radar systems where the receiver is close to the transmitter, the transmitter signal can leak
 into the receiver, creating a strong interference signal that can cover weak pulse echoes from 
-targets. To mitigate this, radar systems often switch between transmission and reception modes 
-using a duplexer, so that the transmitter isn't active when receiving. 
+targets. To mitigate this, radar systems rapidly switch between transmission and reception modes 
+so that the transmitter isn't active when receiving. 
 
-Because radar operates in the radio frequency spectrum, the received signal is often downconverted 
-to an intermediate frequency (IF) or baseband for easier processing. This involves mixing the 
-received signal with the transmitted signal to encode the difference between the two signals
-at a lower frequency.  
+The compressed pulses are sampled at a lower rate than the original signal, capturing the important
+beat frequency information. 
