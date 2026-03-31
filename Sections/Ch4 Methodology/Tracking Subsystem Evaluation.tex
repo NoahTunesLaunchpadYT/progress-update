@@ -9,28 +9,53 @@ Hence, for a desired false alarm rate $P_{fa}^{\star}$, $\alpha$ is found by sol
 \begin{equation}
     P_{fa}(\alpha;N) = P_{fa}^{\star}
 \end{equation}
-using bisection. The method begins with $\alpha_{lo}=0$ and increases an upper bound $\alpha_{hi}$ until $P_{fa}(\alpha_{hi};N) \leq P_{fa}^{\star}$. It then repeatedly bisects the interval and evaluates $P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending on whether the resulting false alarm rate is above or below the target. This continues until the interval is sufficiently small. In this way, $\alpha$ is obtained as the numerical solution that gives the required false alarm rate.
+using bisection. The method begins with $\alpha_{lo}=0$ and increases an upper bound $\alpha_{hi}$ until 
+$P_{fa}(\alpha_{hi};N) \leq P_{fa}^{\star}$. It then repeatedly bisects the interval and evaluates 
+$P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending on whether the resulting 
+false alarm rate is above or below the target. This continues until the interval is sufficiently small. 
+In this way, $\alpha$ is obtained as the numerical solution that gives the required false alarm rate.
 
-The correctness of the implementation is verified by comparing the desired false alarm rate to the actual false alarm rate when there is no target signal present when alpha is calculated under the assumption of a chi-squared distribution.
+The correctness of the implementation is verified by comparing the desired false alarm rate to the 
+actual false alarm rate when there is no target signal present when alpha is calculated under the 
+assumption of a chi-squared distribution.
 
-Additionally, three different implementations of CFAR are compared for their latency, a naive implementation on the CPU, an implementation that uses a prefix sum table, and a naive solution on the GPU. Additionally different noise assumptions are tested. The naive implementation involves calculating the noise statistic with a repeated sum per sample of interest. The prefix sum table method reduces the number of sums required to four per sample of interest regardless of the number of training cells (see Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see Figure \ref{fig:gpu-cfar}). A sweep of window size, frame buffer size and false alarm rate values is conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, memory, false alarm rate, sensitivity) is compared across configurations in a cost benefit analysis. This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour trade off against latency and throughput under SWaP constraints.
+Additionally, three different implementations of CFAR are compared for their latency, a naive 
+implementation on the CPU, an implementation that uses a prefix sum table, and a naive solution on the 
+GPU. Additionally different noise assumptions are tested. The naive implementation involves calculating 
+the noise statistic with a repeated sum per sample of interest. The prefix sum table method reduces the 
+number of sums required to four per sample of interest regardless of the number of training cells (see 
+Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see 
+Figure \ref{fig:gpu-cfar}). A sweep of window size, frame buffer size and false alarm rate values is 
+conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, 
+memory, false alarm rate, sensitivity) is compared across configurations in a cost benefit analysis. 
+This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour 
+trade off against latency and throughput under SWaP constraints.
 
 \begin{figure}[htbp]
     \incfig[0.75]{cfar}
-    \caption{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold determined by the power of the samples around it. The threshold is calculated by taking the average power of the surrounding samples and multiplying it by a factor \(\alpha\) determined by the desired false alarm rate.}
+    \caption{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold 
+    determined by the power of the samples around it. The threshold is calculated by taking the 
+    average power of the surrounding samples and multiplying it by a factor \(\alpha\) determined 
+    by the desired false alarm rate.}
     \label{fig:naive-cfar}
 \end{figure}
 
 \begin{figure}[htbp]
     \incfig[0.75]{prefix_sum_table}
     \label{fig:prefix-sum-table}
-    \caption{CFAR implementation using a prefix sum table (cumulative signal power). The prefix sum table allows the noise statistic to be calculated with a fixed number of sums per sample of interest, regardless of the number of training cells. In this specific case, after the cumulative signal power is calculated in preprocessing, it only takes four sums of to find the sum of eight training cells.}
+    \caption{CFAR implementation using a prefix sum table (cumulative signal power). The prefix sum 
+    table allows the noise statistic to be calculated with a fixed number of sums per sample of 
+    interest, regardless of the number of training cells. In this specific case, after the cumulative 
+    signal power is calculated in preprocessing, it only takes four sums of to find the sum of eight 
+    training cells.}
 \end{figure}
 
 \begin{figure}[htbp]
     \incfig[0.75]{gpu_cfar}
     \label{fig:gpu-cfar}
-    \caption{CFAR implementation on the GPU. Threads (each depicted as a unique colours) are each responsible for a sample, allowing for parallel processing of the CFAR algorithm across the entire range profile. Each thread calculates its own noise statistic, threshold, and mask.}
+    \caption{CFAR implementation on the GPU. Threads (each depicted as a unique colours) are each 
+    responsible for a sample, allowing for parallel processing of the CFAR algorithm across the entire 
+    range profile. Each thread calculates its own noise statistic, threshold, and mask.}
 \end{figure}
 
 
@@ -43,6 +68,15 @@ Additionally, three different implementations of CFAR are compared for their lat
 
 \subsection{Monopulse Angle Sensing}
 
-Angle sensing converts multi-channel measurements into angle estimates that drive association and tracking. We will assess candidate angle discriminators by running controlled sweeps over SNR, channel imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. The latency and throughput of CPU and GPU implementations will be measured. We will explicitly quantify the time and compute costs of stabilisation strategies such as sum-channel gating, regularised ratios, and calibration placement. The "Amplitude Angle Discriminator" and "Phase Angle Discriminator" methods will be compared for their computation requirements, angular bias and variance \cite{mitll_radar_lecture9_tracking_2008}. The algorithm will be validated on data obtained from flight tests. This addresses the gap in validating monopulse angle estimation methods beyond idealised simulations, which often assume Gaussian noise and clean single detections per target.  
+Angle sensing converts multi-channel measurements into angle estimates that drive association and 
+tracking. We will assess candidate angle discriminators by running controlled sweeps over SNR, channel 
+imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
+The latency and throughput of CPU and GPU implementations will be measured. We will explicitly quantify 
+the time and compute costs of stabilisation strategies such as sum-channel gating, regularised ratios, 
+and calibration placement. The "Amplitude Angle Discriminator" and "Phase Angle Discriminator" methods 
+will be compared for their computation requirements, angular bias and variance 
+\cite{mitll_radar_lecture9_tracking_2008}. The algorithm will be validated on data obtained from flight 
+tests. This addresses the gap in validating monopulse angle estimation methods beyond idealised 
+simulations, which often assume Gaussian noise and clean single detections per target.  
 
 

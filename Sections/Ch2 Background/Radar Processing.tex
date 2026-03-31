@@ -96,17 +96,28 @@ necessary for later angle estimation stages.
 \begin{figure}[htbp]
     \centering
     \incfig[1]{figures/phasor_bins_multi_chirp}
-    \caption{Coherent integration across five chirps for each range bin. Each arrow represents the complex FFT value of a single bin, with the real and imaginary components shown on the horizontal and vertical axes of each chirp panel. Most bins contain noise-like phasors with varying direction, so their coherent sum remains small. The highlighted bin contains a weak but consistent signal component across chirps, so its phasors add constructively, producing a larger resultant in the coherent-sum panel.}
+    \caption{Coherent integration across five chirps for each range bin. The amplitude of each arrow 
+    corresponds to the presence of a target at a corresponding range from the radar, and the argument
+    of the arrow corresponds to the phase of the signal for that range bin. 
+    Most bins contain noise-like phasors with varying direction, so their coherent sum remains small. 
+    The highlighted bin contains a weak but consistent DC offset across chirps, so its values 
+    add constructively, producing a larger resultant value in the coherent-sum.}
     \label{fig:coherent integration}
 \end{figure}
 
-Constant False Alarm Rate (CFAR) detection is a key mechanism for resolving a map of noisy range data into discrete detections given a target false alarm rate. It does this by masking out any samples with magnitude below a threshold determined by the power of the samples around it (see Figure \ref{fig:naive-cfar}). This threshold is calculated as,
+Constant False Alarm Rate (CFAR) detection is a key mechanism for resolving a map of noisy range data 
+into discrete detections given a target false alarm rate. It does this by masking out any samples with 
+magnitude below a threshold determined by the power of the samples around it (see Figure 
+\ref{fig:naive-cfar}). This threshold is calculated as,
 \begin{equation}
     \label{eqn:threshold}
     T = \alpha \cdot \frac{1}{N} \sum_{i=1}^{N} x_i
 \end{equation}
 
-Where $T$ is the threshold, $\alpha$ is a factor determined by the desired false alarm rate, $N$ is the number of training samples, and $x_i$ are the power (magnitude squared) of the training samples. Under a Gaussian noise assumption, the coefficient $\alpha$ that leads to a desired false alarm rate $P_{fa}$ can be calculated as, 
+Where $T$ is the threshold, $\alpha$ is a factor determined by the desired false alarm rate, $N$ is 
+the number of training samples, and $x_i$ are the power (magnitude squared) of the training samples. 
+Under a Gaussian noise assumption, the coefficient $\alpha$ that leads to a desired false alarm rate 
+$P_{fa}$ can be calculated as, 
 
 \begin{equation}
     P_{fa}(\alpha;N) = \left( \frac{N}{N+\alpha} \right)^N
@@ -114,10 +125,13 @@ Where $T$ is the threshold, $\alpha$ is a factor determined by the desired false
     \left( \frac{\alpha}{N+\alpha} \right)^k
 \end{equation}
 
-where k is one less than the number of receiver channels \cite{Richards2010}. In this case, \(k=3\). Figure \ref{fig:cfar_detection} illustrates how CFAR generates detections by comparing a signal to a threshold determined by the power of the surrounding samples.
+where k is one less than the number of receiver channels \cite{Richards2010}. In this case, \(k=3\). 
+Figure \ref{fig:cfar_detection} illustrates how CFAR generates detections by comparing a signal to a 
+threshold determined by the power of the surrounding samples.
 
 \begin{figure}
     \incfig[1]{figures/cfar_detection}
-    \caption{CFAR detection process. The threshold is calculated based on the power of surrounding samples, and the signal is compared to this threshold to generate detections.}
+    \caption{CFAR detection process. The threshold is calculated based on the power of surrounding 
+    samples, and the signal is compared to this threshold to generate detections.}
     \label{fig:cfar_detection}    
 \end{figure}

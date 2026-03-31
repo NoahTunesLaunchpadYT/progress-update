@@ -1,6 +1,44 @@
 \section{Testing Datasets}
 The datasets described below are used for the experiments outlined in the following sections (see Sections \ref{sec:processing_app}, and \ref{sec:tracking_app})
 \begin{itemize}
-    \item \textbf{Generic Sine Waves with Noise}: To validate the correctness of our processing algorithms as well as their speed, we generate binary files of synthetic radar data consisting of a complex sine wave with additive white Gaussian noise. This allows us to test the software under controlled conditions where we can precompute the expected output, and to evaluate the performance of the software in terms of latency and throughput without the confounding factors of real-world data. (INCLUDE FIGURE HERE illustrating the signal)  
-    \item \textbf{AWR2243 Recorded Data}: To validate the operation of our pipeline with realistic data speeds, timing uncertainties, and electrical noise, we record data from our AWR2243 radar system in TEST\_SOURCE mode. In test source mode, two targets can be simulated on the chip with position velocity and bounds. The receivers record what the reflected signals from these targets would look like. While the data recorded is not fully representative of real-world data, it allows us to test the software with realistic data rates and noise characteristics. 
+    \item \textbf{Generic Sine Waves with Noise}: To validate the correctness of our processing 
+    algorithms as well as their speed, we generate binary files of synthetic radar data consisting of 
+    a complex sine wave with additive white Gaussian noise. This allows us to test the software under 
+    controlled conditions where we can precompute the expected output, and to evaluate the performance 
+    of the software in terms of latency and throughput without the confounding factors of real-world 
+    data. (INCLUDE FIGURE HERE illustrating the signal)  
+    \item \textbf{AWR2243 Recorded Data}: To validate the operation of our pipeline with realistic 
+    data speeds, timing uncertainties, and electrical noise, we record data from our AWR2243 radar 
+    system in TEST\_SOURCE mode. In test source mode, two targets can be simulated on the chip with 
+    position velocity and bounds. The receivers record what the reflected signals from these targets 
+    would look like. While the data recorded is not fully representative of real-world data, it allows 
+    us to test the software with realistic data rates and noise characteristics. 
 \end{itemize}
+
+\section{Testing Datasets}
+The datasets described below are used for the experiments outlined in the following sections, namely 
+Sections \ref{sec:processing_app} and \ref{sec:tracking_app}.
+
+The first dataset consists of generic sine waves with noise. This synthetic radar data is used 
+to validate both the correctness and the speed of our processing algorithms. By generating binary files 
+containing complex sine waves with Gaussian noise, we can test the software under 
+controlled conditions where the expected output can be precomputed in advance. This makes it possible to 
+verify algorithmic correctness while also evaluating latency and throughput without the additional 
+complexity introduced by real-world data. 
+
+
+(A figure would be beneficial here to illustrate an example of 
+the synthetic signal, such as the waveform itself, its noisy variant, or a simple waterfall 
+representation.)
+
+The second dataset consists of recorded data from the AWR2243 radar system operating in TEST\_SOURCE 
+mode. This dataset is used to validate the behaviour of the processing pipeline under more realistic 
+data rates, timing uncertainties, and electrical noise conditions. In TEST\_SOURCE mode, the chip can 
+simulate two targets with configurable position, velocity, and bounds, and the receivers capture the 
+signals that would be reflected from these targets. Although this recorded data is still not fully 
+representative of real-world radar returns, it provides a more realistic approximation of practical 
+operating conditions than the synthetic sine wave dataset. 
+
+(A figure would also be useful here, for 
+example a diagram or screenshot showing the simulated target setup, or a sample output frame from the 
+recorded data.)

@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{1076.03168638bp}%
+    \setlength{\unitlength}{1068.55665793bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,48 +50,45 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,1.15363789)%
+  \begin{picture}(1,1.10082944)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.4554273,1.07685288){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.23047535\unitlength}\raggedright \end{minipage}}}%
-    \put(0.08088295,1.12514029){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Radar\\Hardware\end{tabular}}}}%
+    \put(0.45161783,1.02350728){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.23208764\unitlength}\raggedright \end{minipage}}}%
+    \put(0.07445336,1.07213249){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Radar\\Hardware\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{application_level_dataflow.pdf}}%
-    \put(0.1983351,0.37040361){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Quadruplets\end{tabular}}}}%
+    \put(0.22148833,0.44065229){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Quadruplets\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{application_level_dataflow.pdf}}%
-    \put(0.39920008,0.37020946){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Detection \\Masks\end{tabular}}}}%
+    \put(0.48967904,0.42867388){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Masks\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{application_level_dataflow.pdf}}%
-    \put(0.1445116,0.01315004){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Polar Detections\end{tabular}}}}%
+    \put(0.1621411,0.0079722){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Polar Detections\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{application_level_dataflow.pdf}}%
-    \put(0.33177431,0.01339002){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Centroids\end{tabular}}}}%
+    \put(0.38322155,0.00825535){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Centroids\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{application_level_dataflow.pdf}}%
-    \put(0.70453277,0.34017485){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Tracks\end{tabular}}}}%
-    \put(0.46557711,0.10279642){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Tracking\end{tabular}}}}%
+    \put(0.78303212,0.3677314){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Tracks\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{application_level_dataflow.pdf}}%
-    \put(0.27061292,1.00887972){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Video \\Stream\end{tabular}}}}%
-    \put(0.40873455,1.05129735){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Captured Chirps\end{tabular}}}}%
+    \put(0.28687392,0.97464164){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Video \\Stream\end{tabular}}}}%
+    \put(0.4259618,1.017356){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Captured Chirps\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{application_level_dataflow.pdf}}%
-    \put(0.61951605,1.062685){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Windowed \\Chirps\end{tabular}}}}%
+    \put(0.63821781,1.02882332){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Windowed \\Chirps\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{application_level_dataflow.pdf}}%
-    \put(0.62960525,0.8778437){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Chirp Ranges\end{tabular}}}}%
+    \put(0.8617711,1.02773946){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Chirp Ranges\end{tabular}}}}%
+    \put(0.72576225,0.98286791){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}FFT\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{application_level_dataflow.pdf}}%
-    \put(0.70228538,0.97329531){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}FFT\end{tabular}}}}%
+    \put(0.83737259,0.83892415){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrated Chirps\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{application_level_dataflow.pdf}}%
-    \put(0.36352351,0.87587299){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrated Chirps\end{tabular}}}}%
+    \put(0.8669799,0.67194099){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{4x Processing}\\\textbf{Subsystem }\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{application_level_dataflow.pdf}}%
-    \put(0.89265463,0.9622718){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{4x Processing }\\\textbf{Subsystem}\end{tabular}}}}%
+    \put(0.25667186,0.77127922){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Integrated Chirps\end{tabular}}}}%
+    \put(0.22078004,0.74246308){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D1\end{tabular}}}}%
+    \put(0.21900067,0.67080371){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D2\end{tabular}}}}%
+    \put(0.22060862,0.60331366){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D3\end{tabular}}}}%
+    \put(0.22194857,0.53582332){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D4\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{application_level_dataflow.pdf}}%
-    \put(0.22176606,0.70951597){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Integrated Chirps\end{tabular}}}}%
-    \put(0.18612357,0.68090001){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D1\end{tabular}}}}%
-    \put(0.18435656,0.60973846){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D2\end{tabular}}}}%
-    \put(0.18595334,0.54271725){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D3\end{tabular}}}}%
-    \put(0.18728398,0.47569575){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D4\end{tabular}}}}%
+    \put(0.60079282,0.7426643){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Quadruplets\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{application_level_dataflow.pdf}}%
-    \put(0.54536383,0.644563){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Quadruplets\end{tabular}}}}%
+    \put(0.45749123,0.744682){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(remapping)\end{tabular}}}}%
+    \put(0.78469085,0.58785754){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Aggregator }\end{tabular}}}}%
+    \put(0.86498772,0.51327717){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Detection and }\\\textbf{Tracking }\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{application_level_dataflow.pdf}}%
-    \put(0.42876756,0.67824609){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(remapping)\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=15]{application_level_dataflow.pdf}}%
-    \put(0.71900593,0.62890771){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Aggregator }\\\textbf{Subsystem}\end{tabular}}}}%
-    \put(0.83056748,0.4581996){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Detection and }\\\textbf{Tracking Subsystem}\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=16]{application_level_dataflow.pdf}}%
   \end{picture}%
 \endgroup%
