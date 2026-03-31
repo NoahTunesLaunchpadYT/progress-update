@@ -1,29 +1,47 @@
 \section{Multi Target Tracking}
 
-\begin{figure}
-    \incfig[]{tracker}
+% \begin{figure}
+%     \incfig[]{tracker}
+% \end{figure}
+
+% \begin{itemize}
+%     \item Multi-target tracking converts a sequence of noisy radar detections into stable target tracks over time.
+%     \item Its purpose is to estimate the current state of each target, including position and velocity, while maintaining continuity between successive radar updates.
+%     \item In radar systems, tracking is typically performed after detection and angle estimation, using range, Doppler, and angle measurements as inputs.
+
+%     \item A tracking filter is used to smooth noisy measurements and predict target motion between radar updates.
+%     \item Kalman filtering provides a common framework for this process by combining a motion model with uncertain measurements to produce an improved estimate of target state.
+%     \item The filter alternates between prediction and update stages, using the predicted target state to guide association and the new measurements to refine the estimate.
+%     \item Variants such as the Extended Kalman Filter may be required when the measurement model is nonlinear.
+
+%     \item Radar measurements are naturally produced in polar coordinates, typically as range, bearing, elevation, and sometimes Doppler.
+%     \item For tracking, these measurements may be processed either directly in polar form or transformed into Cartesian coordinates depending on the filter design and motion model.
+%     \item The choice of coordinate system affects the linearity of the model, the form of the measurement uncertainty, and the complexity of the update equations.
+
+%     \item Gating is used to restrict which detections are considered plausible matches for an existing track.
+%     \item This reduces computational cost and helps reject unlikely associations caused by clutter or nearby targets.
+%     \item Data association then determines which measurement should be assigned to each predicted track when multiple candidates are present.
+
+%     \item Track life management controls how tracks are initiated, confirmed, maintained, and deleted over time.
+%     \item New detections may first form tentative tracks, which are only promoted to confirmed tracks after consistent observations across multiple updates.
+%     \item Similarly, tracks may be deleted after repeated missed detections to avoid maintaining false or stale targets.
+%     \item These stages allow the tracker to balance responsiveness to new targets with robustness against clutter and intermittent measurement loss.
+% \end{itemize}
+
+Multi-target tracking (MTT) converts a sequence of noisy radar detections into stable estimates of target state over time. Each radar update produces a set of detections characterised by range, bearing, and elevation, as described in the preceding sections. The role of the tracker is to associate these detections across successive updates, filter out noise, and maintain a continuous estimate of each target's position and velocity to support detect-and-avoid (DAA) decision making.
+
+A tracking filter combines a model of target motion with incoming measurements to produce an optimal state estimate. The Kalman filter \cite{jazwinski1970stochastic} is the standard framework, alternating between a prediction stage, in which the current state is propagated forward using a motion model, and an update stage, in which a new measurement corrects the prediction. The constant velocity (CV) model is the most common motion model, with process noise absorbing small deviations from straight-line flight. For manoeuvring targets the interacting multiple model (IMM) \cite{blom1988imm} maintains a bank of filters under different motion assumptions and blends their outputs probabilistically.
+
+Since radar measurements are expressed in spherical coordinates while motion models are most naturally formulated in Cartesian space, the measurement equation is nonlinear. The Extended Kalman Filter (EKF) handles this via first-order linearisation, while the Unscented Kalman Filter (UKF) \cite{julier1997newextension} propagates sigma points through the nonlinear transformation for improved accuracy when the nonlinearity is significant.
+
+At each update the tracker must determine which detections correspond to which tracks. Gating first restricts candidates for each track to detections falling within an ellipsoidal region around the predicted measurement, based on the Mahalanobis distance, reducing both computational cost and spurious assignments. The Global Nearest Neighbour (GNN) algorithm then solves the assignment across all tracks and detections simultaneously as an optimisation problem.
+
+In dense clutter, hard assignment methods can be insufficient. Probabilistic data association (PDA) updates each track as a weighted combination of all gated detections, with weights proportional to measurement likelihood. Joint PDA (JPDA) extends this to the multi-target case. Multiple hypothesis tracking (MHT) defers the association decision by maintaining a tree of hypotheses across multiple scans (see Figure \ref{fig:mht}).
+
+\begin{figure}[htb]
+    \incfig[0.8]{mht}
+    \label{fig:mht}
+    \caption{Multiple hypothesis tracking algorithm maintaining branching tracks of two different targets}
 \end{figure}
 
-\begin{itemize}
-    \item Multi-target tracking converts a sequence of noisy radar detections into stable target tracks over time.
-    \item Its purpose is to estimate the current state of each target, including position and velocity, while maintaining continuity between successive radar updates.
-    \item In radar systems, tracking is typically performed after detection and angle estimation, using range, Doppler, and angle measurements as inputs.
-
-    \item A tracking filter is used to smooth noisy measurements and predict target motion between radar updates.
-    \item Kalman filtering provides a common framework for this process by combining a motion model with uncertain measurements to produce an improved estimate of target state.
-    \item The filter alternates between prediction and update stages, using the predicted target state to guide association and the new measurements to refine the estimate.
-    \item Variants such as the Extended Kalman Filter may be required when the measurement model is nonlinear.
-
-    \item Radar measurements are naturally produced in polar coordinates, typically as range, bearing, elevation, and sometimes Doppler.
-    \item For tracking, these measurements may be processed either directly in polar form or transformed into Cartesian coordinates depending on the filter design and motion model.
-    \item The choice of coordinate system affects the linearity of the model, the form of the measurement uncertainty, and the complexity of the update equations.
-
-    \item Gating is used to restrict which detections are considered plausible matches for an existing track.
-    \item This reduces computational cost and helps reject unlikely associations caused by clutter or nearby targets.
-    \item Data association then determines which measurement should be assigned to each predicted track when multiple candidates are present.
-
-    \item Track life management controls how tracks are initiated, confirmed, maintained, and deleted over time.
-    \item New detections may first form tentative tracks, which are only promoted to confirmed tracks after consistent observations across multiple updates.
-    \item Similarly, tracks may be deleted after repeated missed detections to avoid maintaining false or stale targets.
-    \item These stages allow the tracker to balance responsiveness to new targets with robustness against clutter and intermittent measurement loss.
-\end{itemize}
+Detections that cannot be associated with any existing track initialise tentative tracks, which are promoted to confirmed only after receiving consistent detections across a minimum number of updates — commonly an M-of-N logic. This prevents transient clutter returns from generating false confirmed tracks. Conversely, tracks accumulating consecutive missed detections are allowed to coast for a limited number of updates before being deleted. The promotion and deletion thresholds balance responsiveness to new targets against robustness to clutter and intermittent detection loss.

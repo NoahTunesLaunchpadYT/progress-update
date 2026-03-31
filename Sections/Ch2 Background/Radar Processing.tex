@@ -1,17 +1,4 @@
 \section{Radar Processing}
-
-\begin{itemize}
-    \item Radar processing converts received echoes into target measurements such as range, velocity, and angle.
-    \item Radar hardware performs transmission, reception, amplification, pulse-compression, downconversion, and analogue-to-digital conversion, while software extracts useful target information from sampled data.
-    \item In software, a typical processing chain begins by organising the pulse-compressed samples across fast time, slow time, and antenna channels.
-    \item By considering the samples the spectral domain (either with matched filtering or a fast time Fourier Transform), we can estimate the range of targets. 
-    \item Optionally, a long time Fourier transform can be applied across slow time to estimate Doppler, which provides target radial velocity and helps separate moving targets from clutter. 
-    \item Coherent integration across multiple pulses improves detectability of weak targets. This involves summing the complex samples across pulses.
-    \item After integration detection algorithms such as Constant False Alarm Rate (CFAR) can identify candidate target returns, which are then passed to angle estimation and tracking stages. 
-    \item The bearing and elevation of targets can be estimated using monopulse processing, which compares the received signal across multiple antenna channels to infer angle with high accuracy.
-    \item The resulting range, Doppler, and angle measurements form the basis for later tracking and classification stages in a DAA system.
-\end{itemize}
-
 Every radar system operates by transmitting electromagnetic waves into an environment and 
 receiving the reflected signals to detect and locate targets, (Figure \ref{fig:radar_operation}). 
 The strength of the received signal is given by the equation,
@@ -41,16 +28,18 @@ transmitted signal is often modulated in frequency or phase. Linearly frequency 
 (LFM) creates pulses that involve a continuous sweep of frequencies during the pulse duration
 (see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to 
 frequency dependent interference, and improved range resolution due to the effect of pulse compression.
-Through pulse compression, the long duration LFM pulse can be compressed in time to illustrate 
+Through pulse compression, the long duration LFM pulse can be compressed in time and usually illustrates 
 the difference between the transmitted and received signals. One pulse compression technique
-for LFMCW signals is described as "de-chirping", which involves mixing (multiplying) the received 
+for LFMCW signals is described as "de-chirping", which involves mixing (multiplying) the 
+received 
 signal with the transmitted signal to produce a "beat" frequency that is proportional to the 
 range of the target (See Figure \ref{fig:de-chirping}). The resulting signal's frequencies are given by the product of cosines
 identity,
 \begin{equation}
-    \cos A \cos B = \frac{1}{2} [\cos(A-B) + \cos(A+B)]
+    \cos \omega_1 \cos \omega_2 = \frac{1}{2} [\cos(\omega_1-\omega_2) + \cos(\omega_1+\omega_2)]
 \end{equation}
-where $A$ is the transmitted signal and $B$ is the received signal. By applying a low-pass filter 
+where $\omega_1$ is the transmitted signal's frequency and $\omega_2$ is the received signal's frequency. By 
+applying a low-pass filter 
 to the mixed signal, we obtain the lower frequency component, which is the beat frequency. 
 The beat frequency is directly proportional to the range of the target, allowing us to estimate the 
 target's distance from the radar with a precision much high than the estimate obtained from the 
@@ -69,11 +58,66 @@ time of flight.
     close target.}
 \end{figure}
 
+Since the frequency of the transmitted and received signals are linearly increasing in time, knowing
+the frequency difference between the transmitted and received signals \(\Delta \omega = \omega_1-\omega_2\) allows us 
+to estimate the time delay between the signals and thus the range of the target by the formula,
+\begin{equation}
+    R = \frac{c \cdot \Delta t}{2} = \frac
+{c \cdot \Delta \omega}{2 \cdot S}
+\end{equation}
+where \(c\) is the speed of light, \(\Delta t\) is the time delay between the transmitted and 
+received signals, \(\Delta \omega\) is the frequency difference, and \(S\) is the slope of the frequency 
+modulation (\(\theta\)/\(s^2\)). 
 
-For radar systems where the receiver is close to the transmitter, the transmitter signal can leak
-into the receiver, creating a strong interference signal that can cover weak pulse echoes from 
-targets. To mitigate this, radar systems rapidly switch between transmission and reception modes 
-so that the transmitter isn't active when receiving. 
+% For radar systems where the receiver is close to the transmitter, the transmitter signal can leak
+% into the receiver, creating a strong interference signal that can cover weak pulse echoes from 
+% targets. To mitigate this, radar systems rapidly switch between transmission and reception modes 
+% so that the transmitter isn't active when receiving. 
 
-The compressed pulses are sampled at a lower rate than the original signal, capturing the important
-beat frequency information. 
+The compressed pulses are often pass through a low pass filter and sampled at a lower 
+rate than the original signal by an Analog to Digital Converter (ADC), attenuating the frequency 
+sum \(\cos(\omega_1+\omega_2)\) while preserving the useful difference frequency 
+\(\cos(\omega_1-\omega_2)\).  
+
+Exiting the analogue domain and entering the digital domain, the frequency information in the 
+radar signals can be extracted by applying a Discrete Fourier Transform (DFT) to the sampled data.
+At this stage the range of clear targets can be estimated by identifying the peaks in the DFT output.
+At this stage many radar systems also apply a long time Fourier transform on a larger time scale 
+(slow time) to extract the Doppler frequency shift, which provides information on the target's 
+radial frequency. 
+
+To improve the detectability of weak targets, radar systems often apply coherent integration 
+across multiple pulses. This involves summing the complex samples across pulses for each range bin 
+after the DFT. By summing the complex range bins across multiple pulses, the signal from a target 
+will add constructively while noise will add incoherently improving signal to noise ratio as 
+illustrated in Figure \ref{fig:coherent integration}. Phase is preserved during integration, which is 
+necessary for later angle estimation stages.
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{figures/phasor_bins_multi_chirp}
+    \caption{Coherent integration across five chirps for each range bin. Each arrow represents the complex FFT value of a single bin, with the real and imaginary components shown on the horizontal and vertical axes of each chirp panel. Most bins contain noise-like phasors with varying direction, so their coherent sum remains small. The highlighted bin contains a weak but consistent signal component across chirps, so its phasors add constructively, producing a larger resultant in the coherent-sum panel.}
+    \label{fig:coherent integration}
+\end{figure}
+
+Constant False Alarm Rate (CFAR) detection is a key mechanism for resolving a map of noisy range data into discrete detections given a target false alarm rate. It does this by masking out any samples with magnitude below a threshold determined by the power of the samples around it (see Figure \ref{fig:naive-cfar}). This threshold is calculated as,
+\begin{equation}
+    \label{eqn:threshold}
+    T = \alpha \cdot \frac{1}{N} \sum_{i=1}^{N} x_i
+\end{equation}
+
+Where $T$ is the threshold, $\alpha$ is a factor determined by the desired false alarm rate, $N$ is the number of training samples, and $x_i$ are the power (magnitude squared) of the training samples. Under a Gaussian noise assumption, the coefficient $\alpha$ that leads to a desired false alarm rate $P_{fa}$ can be calculated as, 
+
+\begin{equation}
+    P_{fa}(\alpha;N) = \left( \frac{N}{N+\alpha} \right)^N
+    \sum_{k=0}^{3} \binom{N+k-1}{k}
+    \left( \frac{\alpha}{N+\alpha} \right)^k
+\end{equation}
+
+where k is one less than the number of receiver channels \cite{Richards2010}. In this case, \(k=3\). Figure \ref{fig:cfar_detection} illustrates how CFAR generates detections by comparing a signal to a threshold determined by the power of the surrounding samples.
+
+\begin{figure}
+    \incfig[1]{figures/cfar_detection}
+    \caption{CFAR detection process. The threshold is calculated based on the power of surrounding samples, and the signal is compared to this threshold to generate detections.}
+    \label{fig:cfar_detection}    
+\end{figure}

@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{510.23622047bp}%
+    \setlength{\unitlength}{461.88240592bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,11 +50,19 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.66666667)%
+  \begin{picture}(1,0.71489678)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.38465652,0.5874374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1944188\unitlength}\raggedright \end{minipage}}}%
-    \put(0.2814888,0.38463932){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}A beautiful illustration of\\the aggregator piece\end{tabular}}}}%
+    \put(0.41431548,0.6373444){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21477223\unitlength}\raggedright \end{minipage}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{aggregator_dataflow.pdf}}%
+    \put(0.18694255,0.68199814){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Integrated Chirps\end{tabular}}}}%
+    \put(0.09500789,0.60818741){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Device 1\end{tabular}}}}%
+    \put(0.09045017,0.42463658){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Device 2\end{tabular}}}}%
+    \put(0.09456882,0.2517651){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Device 3\end{tabular}}}}%
+    \put(0.09800103,0.07889296){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Device 4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{aggregator_dataflow.pdf}}%
+    \put(0.68494909,0.50345285){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Quadruplets\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{aggregator_dataflow.pdf}}%
+    \put(-0.075652,0.67765804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.30385203\unitlength}\raggedright \end{minipage}}}%
   \end{picture}%
 \endgroup%

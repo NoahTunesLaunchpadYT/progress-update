@@ -1,0 +1,21 @@
+\section{Software Design}
+
+    
+\subsection{Preprocessing Application}
+
+
+% \subsection{Aggregator Application}
+% \begin{figure}[htbp]
+%     \centering
+%     \incfig[1]{aggregator_dataflow} 
+%     \caption{Dataflow for the aggregator application. The application receives the four processed data streams from the preprocessing application, and combines them into a single data stream organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing.}
+%     \label{fig:aggregator-dataflow}
+% \end{figure}
+
+\subsection{Detection and Tracking Application}
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{detection_and_tracking_dataflow} 
+    \caption{Dataflow for the detection and tracking application. The application receives a stream of quadruplets, and produces tracks of targets in the radar's field of view. By applying the following operations: CFAR, monopulse angle sensing, clustering, and tracking.}
+    \label{fig:detection-and-tracking-dataflow}
+\end{figure}

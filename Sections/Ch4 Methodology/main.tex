@@ -1,19 +1,67 @@
 \chapter{Methodology}
-% \todo{Describe the design of our experiment. Break down experiment into sub experiments, how does that relate to the different application we are building.}
+\label{sec:methodology}
+% \todo{Describe the design of our experiment. Break down experiment into sub experiments, how does that relate to the different subsystem we are building.}
 % \todo{Describe the tools and processes we will use to validate our software. Nsight systems, nsight compute, other tools for measuring memory. Bash scripts for testing}
 \section{Overview}
-\begin{itemize}
-    \item The methodology of this thesis involves designing and implementing parts of a software-defined radar processing pipeline for a small monopulse radar system, and evaluating its performance in terms of both computational efficiency and tracking accuracy.
-    \item The first sections in this define the pipeline, its applications and their constituent operations. The questions and solution space for each operation is outlined, and the questions mirror the gaps identified in the literature review.
-    \item Then the section describes the datasets that will be used for testing, which include both synthetic data and real radar data recorded from our AWR2243 radar system.    
-    \item Lastly the section outlines the difference techniques used to evaluate the performance of the software pipeline, the metrics we will report, and the tools we will use for performance analysis.
-    \item The evaluation procedure for each operation in our pipeline is outlined in Sections \ref{sec:processing_app}, and \ref{sec:tracking_app}. \item The experiments are designed to fill the identified gaps in the literature.   
-\end{itemize}
+% \begin{itemize}
+%     \item The methodology of this thesis involves designing and implementing parts of a 
+%     software-defined radar processing pipeline for a small monopulse radar system, and 
+%     evaluating its performance in terms of both computational efficiency and tracking accuracy.
+%     \item The first sections in this define the pipeline, its subsystems and their constituent 
+%     operations. The questions and solution space for each operation is outlined, and the questions 
+%     mirror the gaps identified in the literature review.
+%     \item Then the section describes the datasets that will be used for testing, which include both 
+%     synthetic data and real radar data recorded from our AWR2243 radar system.    
+%     \item Lastly the section outlines the difference techniques used to evaluate the performance of 
+%     the software pipeline, the metrics we will report, and the tools we will use for performance 
+%     analysis.
+%     \item The evaluation procedure for each operation in our pipeline is outlined in Sections 
+%     \ref{sec:processing_app}, and \ref{sec:tracking_app}. \item The experiments are designed to 
+%     fill the identified gaps in the literature.   
+% \end{itemize}
 
-\input{Sections/Ch4 Methodology/Software Design.tex}
+This thesis designs, implements, and evaluates a software-defined radar processing 
+pipeline for a small monopulse radar system, assessing both computational efficiency 
+and tracking accuracy on an NVIDIA Jetson Xavier NX embedded GPU platform. The methodology
+is structured to directly address the gaps identified in the literature review: the
+absence of comprehensive systems-level evidence of algorithm selection, low level
+implementation trade-offs, and hardware-aware design conclusions under SWaP constraints.
+Through the methodology outlined in this chapter, we fulfill the contributions of this 
+thesis, to compare radar algorithm configurations by sensitivity and track quality, to compare
+low-level implementations by computational performance, and to derive hardware-aware design 
+recommendations.
+
+The software processing pipeline is designed to receive the radar data from four Texas Instruments 
+AWR2243 radar chips, and produce tracks of targets in the radar's field of view. The software is 
+designed to be modular, with each stage of the pipeline performing a specific function. The pipeline 
+is comprised of three subsystems, a pre-processing subsystems which is concerned with preparing 
+the raw radar data for detection, an aggregator subsystem, which is concerned with combining the 
+processed data from the four video streams into a single stream, and a detection and tracking 
+subsystem, which is concerned with detecting targets in the radar data and tracking them over time. 
+This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow}. 
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[0.98]{application_level_dataflow} 
+    \caption{\small System level dataflow diagram. The pre-processing subsystem receives the AWR2243's raw 
+    radar data over four CSI video streams. The data is organised into frames, each containing many 
+    chirps. The processing subsystem then outputs 
+    the data in the form of chirps containing target range information. The aggregator subsystem
+    receives the four resulting processed data streams, and combines them into a single data stream 
+    organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing. 
+    The detection and tracking subsystem receives a stream of quadruplets, and produces tracks of 
+    targets in the radar's field of view.}
+    \label{fig:system-level-dataflow}
+\end{figure}
+
+The methodology is organised into three parts. Firstly, we propose a design of a (pre-)processing 
+subsystem that performs formatting, windowing, FFTs, and coherent integration on dense radar data. 
+Then, we propose the design of a novel detection and tracking subsystem that performs CFAR, monopulse angle 
+sensing, clustering, and multi-target tracking. Lastly, we describe the datasets used for testing.
+
 \FloatBarrier
-\input{Sections/Ch4 Methodology/Processing Application Evaluation.tex}
-\input{Sections/Ch4 Methodology/Tracking Application Evaluation.tex}
+\input{Sections/Ch4 Methodology/Processing Subsystem Evaluation.tex}
+\input{Sections/Ch4 Methodology/Tracking Subsystem Evaluation.tex}
 % \input{Sections/Ch4 Methodology/Orchestration Evaluation.tex}
 \input{Sections/Ch4 Methodology/Testing Datasets.tex}
 \input{Sections/Ch4 Methodology/Computational Performance Metrics and Analysis Methods.tex}

@@ -1,14 +1,29 @@
 \section{Parallel Processing}
 
-\begin{itemize}
-    \item Parallel processing is important in radar systems because many stages of the pipeline, such as FFTs, beamforming, matrix operations, and detection, involve applying the same operation across large volumes of data.
-    \item CPUs, GPUs, ASICs, and other specialised architectures each offer different trade-offs between flexibility, throughput, power efficiency, and development time.
-    \item CPUs are well suited to control logic and sequential tasks, while GPUs are attractive for highly data-parallel workloads and ASICs offer high efficiency at the cost of reduced programmability.
-    \item For UAV radar applications, software-defined GPU-based systems are often preferred because they allow algorithms to be updated more easily than fixed-function hardware.
+Many stages of a radar signal processing pipeline — range compression, coherent integration, CFAR, and angle estimation — involve applying the same operation independently across large volumes of data. CPUs, GPUs, FPGAs, and ASICs each offer different trade-offs between flexibility, throughput, power efficiency, and development effort.
 
-    \item GPUs achieve high performance by executing many threads in parallel, making them well suited to radar operations with regular memory access patterns and repeated arithmetic across large arrays.
-    \item Their performance depends not only on raw parallelism, but also on architectural factors such as cache behaviour, memory access patterns, branch divergence, and the choice of warp and block sizes.
-    \item In particular, effective use of L2 cache and predictable control flow can significantly improve throughput, while poor memory locality or divergent branches can reduce performance.
+\begin{figure}
+    \includegraphics[width=0.8\linewidth]{Images/gpu-devotes-more-transistors-to-data-processing.png}
+    \caption{The GPU devotes more transistors to data processing than the CPU, each (green) core acts as a thread that executes the same instruction on different data elements.}
+    \label{fig:gpu-architecture}
+\end{figure}        
 
-    \item This architectural understanding helps inform the design of our experiments by motivating attention to data layout, kernel structure, and the balance between computation and data movement on embedded GPU platforms.
-\end{itemize}
+A GPU executes a large number of lightweight threads (Figure \ref{fig:gpu-architecture}), organised into warps, groups of 32 threads that execute the same instruction simultaneously on a single streaming multiprocessor (SM). This single-instruction multiple-thread (SIMT) model maps directly onto operations such as FFTs, element-wise multiplication, and threshold comparisons, where the same computation is applied independently to many data elements. When threads within a warp follow different control flow paths — a condition known as warp divergence — the divergent branches must be executed serially, reducing parallelism (see Figure \ref{fig:warp-diverge}).
+
+\begin{figure}
+    \includegraphics[width=0.8\linewidth]{Images/active-warp-lanes.png}
+    \caption{In this example, only threads with even thread index execute the body of the if statement, the others are masked off while the body is executed.}
+    \label{fig:warp-diverge}
+\end{figure}
+
+Memory access patterns also affect throughput. Global memory is accessed most efficiently when threads in a warp read or write contiguous memory locations simultaneously, a pattern known as coalesced access. Non-coalesced access doesn't utilise memory bandwidth efficiently by not accessing contiguous memory locations. Figure \ref{fig:coalesced-access} illustrates one such situation. The warps will need to retrieve data from global memory more frequently when accessing non-contiguous memory. For this reason, ensuring that as much as possible of the data in each cache line fetched is actually used is an important part of performance optimisation of memory accesses on these devices.
+
+\begin{figure}
+    \includegraphics[width=0.5\linewidth]{Images/adjacent-threads-accessing-memory-with-stride-of-2.png}
+    \caption{Figure 6: Adjacent threads accessing memory with a stride of 2. A stride of 2 results in a 50\% of load/store efficiency since half the elements in the transaction are not used and represent wasted bandwidth.}
+    \label{fig:coalesced-access}
+\end{figure}
+
+In discrete GPU systems, the CPU and GPU maintain separate physical memory pools connected by a bus such as PCIe, and data must be explicitly transferred between host and device memory. In system-on-chip (SoC) platforms such as the NVIDIA Jetson family, the CPU and GPU share the same physical DRAM. This is called physically shared memory. Both processors access the same physical addresses, and the memory subsystem handles coherency, eliminating the explicit transfer step.
+
+Shared memory is a separate, small, low-latency scratchpad memory local to each SM, explicitly managed by the programmer. It allows threads within a thread block to exchange data and cache intermediate results without accessing global memory. It is used in GPU implementations of reductions, transpose operations, and tiled matrix multiplications, where threads cooperatively load a tile of data into shared memory and reuse it across multiple operations.

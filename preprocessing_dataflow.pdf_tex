@@ -54,7 +54,17 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0.38465652,0.5874374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1944188\unitlength}\raggedright \end{minipage}}}%
-    \put(0.2168979,0.34568854){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}A beautiful illustration of the \\tinysar-bat-redux application\end{tabular}}}}%
+    \put(0.11344487,0.51438377){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Video \\Stream\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{preprocessing_dataflow.pdf}}%
+    \put(0.35515334,0.62632838){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Captured \\Frames\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{preprocessing_dataflow.pdf}}%
+    \put(0.74861716,0.6240593){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Windowed \\Frames\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{preprocessing_dataflow.pdf}}%
+    \put(0.68638134,0.24312238){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Range Bins\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{preprocessing_dataflow.pdf}}%
+    \put(0.90179605,0.30240949){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}FFT\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{preprocessing_dataflow.pdf}}%
+    \put(0.31454668,0.26670519){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrated \\Range Bins\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{preprocessing_dataflow.pdf}}%
   \end{picture}%
 \endgroup%

@@ -54,7 +54,21 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0.38465652,0.5874374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1944188\unitlength}\raggedright \end{minipage}}}%
-    \put(0.2560119,0.41198035){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}A beautiful illustration of the \\detection and tracking \\application\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.27305014,0.6296396){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Quadruplets\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.46291046,0.61943995){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CFAR\end{tabular}}}}%
+    \put(0.66478687,0.61646296){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Detection Masks\end{tabular}}}}%
+    \put(0.09781593,0.35139169){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Angle \\Sensing\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.20686985,0.00542823){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Polar Detections\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.43661037,0.2893792){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Clustering\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.53483904,0.00584869){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Centroids\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{detection_and_tracking_dataflow.pdf}}%
+    \put(0.85786752,0.01934916){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Target Tracks\end{tabular}}}}%
+    \put(0.71525599,0.28661762){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Tracking\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{detection_and_tracking_dataflow.pdf}}%
   \end{picture}%
 \endgroup%

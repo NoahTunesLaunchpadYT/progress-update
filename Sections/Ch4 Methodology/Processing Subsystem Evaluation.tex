@@ -1,0 +1,58 @@
+\section{Processing Application Evaluation}
+\label{sec:processing_app}
+The preprocessing application is responsible for receiving the raw radar data from the AWR2242 radar 
+chips, and preparing it for detection. An instance of the application runs per incoming video stream. 
+The application performs the following operations sequentially: formatting, windowing, FFT, and 
+coherent integration, see Figure \ref{fig:preprocessing-dataflow}. The implementation and experiment 
+details for these operations are outlined in Section \ref{sec:processing_app}. 
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{preprocessing_dataflow} 
+    \caption{Dataflow for the preprocessing application. Multiple instances of the application run on 
+    separate processes, with each instance receiving compressed baseband radar data samples from an 
+    incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards 
+    empty chirps. The windowing stage applies a window function to the data to reduce spectral smearing 
+    in the next state. The FFT stage applies a Fourier Transform across fast time into the frequency 
+    domain, revealing target range. The coherent integration stage sums the complex FFT values of 
+    identical pulses within the same frame. } 
+    \label{fig:preprocessing-dataflow}
+\end{figure}
+
+\subsection{Windowing}
+To reveal target range from a single radar pulse, an FFT (Fast Fourier Transform) is applied to the 
+dechirped pulse. When an FFT is performed on a finite signal, the theoretically infinite signal is 
+implicitly multiplied by a rectangular window. A term-wise multiplication in time corresponds to a 
+convolution in the frequency domain. Since a rectangular window has large spectral sidelobes, it 
+causes smearing of the signal's true frequency content. By applying a more suitable window function 
+prior to the FFT, this spectral smearing can be reduced, as shown in Figure \ref{fig:hann filter}.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.5\linewidth]{Images/ffts1}
+    \caption{Results of an FFT performed on a signal with two frequencies and Gaussian noise, with 
+    and without a Hann window. Without the Hann window, the bins close to the peak frequency bins 40 
+    and 45 are significantly larger than bins further away, misrepresenting the homogeneity of the 
+    Gaussian noise.}
+    \label{fig:hann filter}
+\end{figure}
+
+This thesis evaluates a range of practical window functions and their implementation on CPU and GPU. 
+Candidate windows include common real-time tapers such as Hann and Hamming, lower-sidelobe windows 
+such as Blackman and Blackman--Harris, and adjustable-parameter windows such as Kaiser, which allow 
+explicit control over sidelobe level and mainlobe width. Because windowing is a point-wise 
+multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution.
+
+Performance profiling measures the latency contribution and throughput associated with each window and 
+implementation method. A cost-benefit analysis weighs the latency cost against downstream benefits of 
+a cleaner signal, including reduced sidelobe-induced false positives. These procedures provide a basis 
+for selecting windows that are spectrally well behaved, computationally efficient, reduce detection 
+false alarms, and reduce the computational workload of downstream algorithms such as CFAR.
+
+\subsection{Coherent Integration}
+Different integration window sizes are compared on real data, and the resulting changes in detection 
+sensitivity and false alarm behaviour are measured. CPU and GPU implementations are also compared, and 
+the downstream effect on angle sensing stability is quantified. An ablation study holds the window, 
+FFT size, and CFAR parameters fixed while varying only the integration policy, isolating its effect. 
+The contribution of the integration stage to the overall latency and throughput of the pipeline is also 
+measured. 
