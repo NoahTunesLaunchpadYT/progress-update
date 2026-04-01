@@ -1,0 +1,81 @@
+\section{Windowing}
+The Hann and Hamming windows are firstly evaluated for the prominence of their main lobe and side lobes
+in the frequency domain on the synthetic datasets. Figure \ref{fig:clean filters} illustrates the 
+performance of each of the filters on a clear sine wave with no noise. Figure \ref{fig:noisy filters}
+illustrates the performance of each of the filters on a noisy sine wave. 
+
+\begin{figure}
+    \incfig[0.8]{filter_clear_comparison}
+    \caption{Results of an FFT performed on a single frequency signal without noise without a filter, 
+    with a Hann window, and a Hamming window. Each of the tests correctly produce a peak near 
+    bin 334, the target range. The no filter option's peak is wider than the filtered options. 
+    The Hann window performs the best globally, with a 100 dB reduction in power when more than 40 
+    bin away from the target bin. The Hamming window performs significantly worse globally, with 
+    only a 70 dB reduction when more than 40 bins away, but has a steeper drop of close to the 
+    target bin, which may result in better resolution of closely spaced targets. }
+    \label{fig:clean filters}
+\end{figure}
+
+\begin{figure}
+    \incfig[0.8]{filter_noisy_comparison}
+    \caption{Results of an FFT performed on a single frequency signal with an SNR of 1 with no 
+    window filter, with a Hann window filter, and a Hamming window filter. The no filter option's 
+    spectral leakage acts to deform the peak at bin 334. The Hann and Hamming windows perform similarly
+    globally but the Hamming window features a slightly higher peak, and a less spectral leakage into
+    the adjacent bins.}
+    \label{fig:noisy filters}
+\end{figure}
+
+In terms of computational performance, the latency contribution of the filters does not significantly 
+differ across implementations. Figure \ref{fig:latency} shows the average time taken to process
+a single frame of 7 670 000 samples (over 50 runs). 
+
+\begin{figure}
+    \incfig[0.8]{filter_latency_comparison}
+    \caption{Latency contribution of the windowing stage to the overall pipeline. The latency does not 
+    significantly differ across implementations, with all implementations taking around 9-12 ms to 
+    process a single frame of 7 670 000 samples. The difference in latency between no filter and 
+    filters suggests that the delay is primarily due to the overhead of handling the data. }
+    \label{fig:latency}
+\end{figure}
+
+\FloatBarrier
+\section{Coherent Integration}
+The coherent integration stage is validated on synthetic test data from software scripts and the 
+test-source mode of the AWR2243 radar chips. The results from the former illustrate the expected increase
+in SNR with increasing integration window size as demonstrated in Figure \ref{fig:integration-waterfall}. 
+The results from the latter illustrate no increase in SNR because the test-source mode does not generate 
+any noisy. Meaningfully, the results from the AWR test-source mode indicate that the integration stage 
+behaves correctly on data from the radar chips, and can "keep" up with the data rate with the integration 
+stage involved, (see Figure \ref{fig:integration-waterfall-orac}).   
+
+\begin{figure}
+    \incfig[0.8]{integration_waterfall}
+    \caption{Results of the coherent integration stage on synthetic data. 
+    The top window shows a low SNR waterfall plot of data, with the y-axis representing range samples and
+    the x-axis representing chirps that are streaming into the integrate stage.  
+    while the AWR2243 test-source data illustrates no increase in SNR because the test-source mode does not 
+    generate any noise. The results from the AWR test-source mode indicate that the integration stage 
+    behaves correctly on data from the radar chips, and can "keep" up with the data rate with the integration 
+    stage involved.}
+    \label{fig:integration-waterfall}
+\end{figure}
+
+\begin{figure}
+    \incfig[0.8]{integration_waterfall_orac}
+    \caption{Results of the coherent integration stage on AWR2243 test-source data. The results indicate 
+    that the integration stage behaves correctly on data from the radar chips, and can "keep" up with the 
+    data rate with the integration stage involved.}
+    \label{fig:integration-waterfall-orac}
+\end{figure}
+
+
+% \begin{itemize}
+%     \item Show that the coherent integration implementation is correct and working on both dataset, 
+%     show the different in SNR visually with waterfall plots. 
+%     \item Show the Nsight results for the different implementations, and show the latency contribution 
+%     of the integration stage to the overall pipeline.
+%     \item Show the effect of different integration window sizes on detection sensitivity and false alarm 
+%     rate.  
+% \end{itemize}
+

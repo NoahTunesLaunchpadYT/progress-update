@@ -1,15 +1,16 @@
-\section{Processing Application Evaluation}
+\section{Processing Subsystem Evaluation}
 \label{sec:processing_app}
-The preprocessing application is responsible for receiving the raw radar data from the AWR2242 radar 
-chips, and preparing it for detection. An instance of the application runs per incoming video stream. 
-The application performs the following operations sequentially: formatting, windowing, FFT, and 
-coherent integration, see Figure \ref{fig:preprocessing-dataflow}. The implementation and experiment 
-details for these operations are outlined in Section \ref{sec:processing_app}. 
+The proposed preprocessing subsystem is responsible for receiving the raw radar data from the AWR2242 
+radar 
+chips, and preparing the data for detection. An instance of the subsystem runs per incoming video stream. 
+The subsystem performs the following operations sequentially: formatting, windowing, FFT, and 
+coherent integration, see Figure \ref{fig:preprocessing-dataflow}. Below are the implementation and 
+experiment details for each of the operations. 
 
 \begin{figure}[htbp]
     \centering
     \incfig[1]{preprocessing_dataflow} 
-    \caption{Dataflow for the preprocessing application. Multiple instances of the application run on 
+    \caption{Dataflow for the preprocessing subsystem. Multiple instances of the subsystem run on 
     separate processes, with each instance receiving compressed baseband radar data samples from an 
     incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards 
     empty chirps. The windowing stage applies a window function to the data to reduce spectral smearing 
@@ -21,7 +22,12 @@ details for these operations are outlined in Section \ref{sec:processing_app}.
 
 \subsection{Windowing}
 To reveal target range from a single radar pulse, an FFT (Fast Fourier Transform) is applied to the 
-dechirped pulse. When an FFT is performed on a finite signal, the theoretically infinite signal is 
+de-chirped pulse. Since the Discrete Fourier Transform (DFT) of a finite signal is equivalent a
+discretised Fourier series expansion of that signal repeated infinitely in time, our resulting 
+spectrum will feature high frequency component that pick up the discontinuity between the end and the
+beginning of the signal. 
+
+When an FFT is performed on a finite signal, the theoretically infinite signal is 
 implicitly multiplied by a rectangular window. A term-wise multiplication in time corresponds to a 
 convolution in the frequency domain. Since a rectangular window has large spectral sidelobes, it 
 causes smearing of the signal's true frequency content. By applying a more suitable window function 
@@ -29,7 +35,7 @@ prior to the FFT, this spectral smearing can be reduced, as shown in Figure \ref
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.5\linewidth]{Images/ffts1}
+    \includesvg[width=0.6\linewidth]{Images/ffts1}
     \caption{Results of an FFT performed on a signal with two frequencies and Gaussian noise, with 
     and without a Hann window. Without the Hann window, the bins close to the peak frequency bins 40 
     and 45 are significantly larger than bins further away, misrepresenting the homogeneity of the 
@@ -41,13 +47,14 @@ This thesis evaluates a range of practical window functions and their implementa
 Candidate windows include common real-time tapers such as Hann and Hamming, lower-sidelobe windows 
 such as Blackman and Blackman--Harris, and adjustable-parameter windows such as Kaiser, which allow 
 explicit control over sidelobe level and mainlobe width. Because windowing is a point-wise 
-multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution.
+multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution. These 
+implementations are compared for their resulting spectral behaviour. 
 
-Performance profiling measures the latency contribution and throughput associated with each window and 
+Computational performance profiling measures the latency contribution and throughput associated with each window and 
 implementation method. A cost-benefit analysis weighs the latency cost against downstream benefits of 
 a cleaner signal, including reduced sidelobe-induced false positives. These procedures provide a basis 
-for selecting windows that are spectrally well behaved, computationally efficient, reduce detection 
-false alarms, and reduce the computational workload of downstream algorithms such as CFAR.
+for selecting windows that are spectrally well behaved, computationally efficient, sensitive, and 
+positively affect the ending track quality. 
 
 \subsection{Coherent Integration}
 Different integration window sizes are compared on real data, and the resulting changes in detection 

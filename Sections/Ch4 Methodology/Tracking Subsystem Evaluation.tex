@@ -15,9 +15,6 @@ $P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending 
 false alarm rate is above or below the target. This continues until the interval is sufficiently small. 
 In this way, $\alpha$ is obtained as the numerical solution that gives the required false alarm rate.
 
-The correctness of the implementation is verified by comparing the desired false alarm rate to the 
-actual false alarm rate when there is no target signal present when alpha is calculated under the 
-assumption of a chi-squared distribution.
 
 Additionally, three different implementations of CFAR are compared for their latency, a naive 
 implementation on the CPU, an implementation that uses a prefix sum table, and a naive solution on the 
@@ -69,14 +66,13 @@ trade off against latency and throughput under SWaP constraints.
 \subsection{Monopulse Angle Sensing}
 
 Angle sensing converts multi-channel measurements into angle estimates that drive association and 
-tracking. We will assess candidate angle discriminators by running controlled sweeps over SNR, channel 
+tracking. We assess candidate angle discriminators by running controlled sweeps over SNR, channel 
 imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
-The latency and throughput of CPU and GPU implementations will be measured. We will explicitly quantify 
-the time and compute costs of stabilisation strategies such as sum-channel gating, regularised ratios, 
-and calibration placement. The "Amplitude Angle Discriminator" and "Phase Angle Discriminator" methods 
-will be compared for their computation requirements, angular bias and variance 
-\cite{mitll_radar_lecture9_tracking_2008}. The algorithm will be validated on data obtained from flight 
-tests. This addresses the gap in validating monopulse angle estimation methods beyond idealised 
-simulations, which often assume Gaussian noise and clean single detections per target.  
+The latency and throughput of CPU and GPU implementations are measured. The trade off being software
+implementation details such as warp divergence, and instruction-level parallelism. 
 
-
+The angle sensing algorithm features a few early returns that result in warp divergence on the GPU. 
+For example, if the bearing and elevation ratios are outside of the domain over which the polynomial
+fit is valid. Instruction level parallelism is a measure of how many instructions can be executed 
+in parallel on a single thread. By changing the order of operations, we can potentially increase
+instruction level parallelism, potentially reduce the latency of the GPU implementation.

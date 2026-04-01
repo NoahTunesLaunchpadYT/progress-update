@@ -32,7 +32,7 @@ low-level implementations by computational performance, and to derive hardware-a
 recommendations.
 
 The software processing pipeline is designed to receive the radar data from four Texas Instruments 
-AWR2243 radar chips, and produce tracks of targets in the radar's field of view. The software is 
+AWR2243 radar chips, and produce tracks of targets in the radar's field of view. It is 
 designed to be modular, with each stage of the pipeline performing a specific function. The pipeline 
 is comprised of three subsystems, a pre-processing subsystems which is concerned with preparing 
 the raw radar data for detection, an aggregator subsystem, which is concerned with combining the 
@@ -42,7 +42,7 @@ This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow
 
 \begin{figure}[htbp]
     \centering
-    \incfig[0.98]{application_level_dataflow} 
+    \incfig[1]{application_level_dataflow} 
     \caption{\small System level dataflow diagram. The pre-processing subsystem receives the AWR2243's raw 
     radar data over four CSI video streams. The data is organised into frames, each containing many 
     chirps. The processing subsystem then outputs 
@@ -54,7 +54,7 @@ This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow
     \label{fig:system-level-dataflow}
 \end{figure}
 
-The methodology is organised into three parts. Firstly, we propose a design of a (pre-)processing 
+The methodology is organised into three parts. Firstly, we propose a design of a \mbox{(pre-)processing} 
 subsystem that performs formatting, windowing, FFTs, and coherent integration on dense radar data. 
 Then, we propose the design of a novel detection and tracking subsystem that performs CFAR, monopulse angle 
 sensing, clustering, and multi-target tracking. Lastly, we describe the datasets used for testing.

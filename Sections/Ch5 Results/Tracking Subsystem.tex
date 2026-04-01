@@ -1,0 +1,101 @@
+\section{Constant False Alarm Rate}
+\subsection{Correctness}
+Under the assumption of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise 
+power, the CFAR threshold coefficient $\alpha$ is calculated numerically for a range of false alarm 
+rates. The actual false alarm rate is then measured by running the CFAR algorithm on the synthetic 
+dataset with an SNR of zero. Figure \ref{fig:alpha-cfar-results} illustrates the results.
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[0.4]{pfa_comparison} 
+    \caption{The actual false alarm rate closely matches the desired false alarm rate across a range
+    of false alarm rates. The numerical solution for $\alpha$ is therefore accurate under the assumption
+    of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise power.}
+    \label{fig:alpha-cfar-results}
+\end{figure}
+
+The results indicate that the numerical solution for $\alpha$ is accurate, with the actual false alarm 
+rate closely matching the desired. The successful performance of CFAR with a false alarm rate of 
+\(0.001\) is illustrated in Figure \ref{fig:cfar-0.001-waterfall}.
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{cfar-0.001-waterfall}
+    \label{fig:cfar-0.001-waterfall}
+    \caption{CFAR with a desired false alarm rate of \(0.001\) infrequently detect peaks within a 
+    target less noise as expected. The figure is a waterfall plot, with chirp on the y-axis and range 
+    on the x-axis. The brightness of the cell reflects the power of the corresponding chirp's range bin. 
+    The black space indicates that most cells are masked by CFAR.} 
+\end{figure}
+
+\subsection{Computational Performance}
+The speed of each of the three CFAR implementations is measured across a range of buffer sizes, from 
+one frame of 767 samples, to 4042 frames of 767 samples. This sweep is performed on both the desktop 
+and the Xavier. The results are illustrated in Figures \ref{fig:cfar-implementation-performance-Xavier} 
+and \ref{fig:cfar-implementation-performance-desktop}.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed on desktop.svg} 
+    \caption{Computational Performance of three CFAR implementations as a function of buffer size on the 
+    desktop setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes, 
+    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation 
+    is the slowest across all buffer sizes.}
+    \label{fig:cfar-implementation-performance-desktop}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed on Xavier.svg} 
+    \caption{Computational Performance of three CFAR implementations as a function of buffer size on the 
+    Xavier setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes, 
+    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation 
+    is the slowest across all buffer sizes.}
+    \label{fig:cfar-implementation-performance-Xavier}
+\end{figure}
+
+The speed is also plotted as a function of the number of CFAR training cells. The results are illustrated 
+in Figures \ref{fig:cfar-implementation-performance-Xavier-training-cells} and 
+\ref{fig:cfar-implementation-performance-desktop-training-cells}. The results illustrate that both the 
+GPU and the prefix sum table implementations are not significantly affected by the number of training 
+cells, while the naive CPU implementation's speed increases linearly with the number of training cells.
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed over window size 10.svg} 
+    \caption{Computational Performance of three CFAR implementations as a function of the number of 
+    training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplets.}
+    \label{fig:cfar-implementation-performance-desktop-training-cells}
+\end{figure}
+
+
+\todo{Run window size experiment on Xavier.}
+\begin{figure}
+    \centering
+    % \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed over window size 10 Xavier.svg} 
+    \caption{Computational Performance of three CFAR implementations as a function of the number of 
+    training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplets.}
+    \label{fig:cfar-implementation-performance-Xavier-training-cells}
+\end{figure}
+
+
+\begin{itemize}
+    \item Show results for memory usage
+    \item Show results for NVIDIA NSight
+    \item Show ablation study results 
+\end{itemize}
+
+
+\subsection{Monopulse Angle Sensing}
+\begin{itemize}
+    \item Show results for monopulse, correctness, latency for different implementations, and ablation study results. 
+    \item Memory usage and NSight results for different implementations.
+\end{itemize}
+
+The algorithm is validated on data obtained from flight 
+tests. This addresses the gap in validating monopulse angle estimation methods beyond idealised 
+simulations, which often assume Gaussian noise and clean single detections per target.  
+
+The correctness of the implementation is verified by comparing the desired false alarm rate to the 
+actual false alarm rate when there is no target signal present when alpha is calculated under the 
+assumption of a chi-squared distribution.
