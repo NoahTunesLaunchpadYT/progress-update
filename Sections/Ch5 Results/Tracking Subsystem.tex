@@ -1,3 +1,4 @@
+\FloatBarrier
 \section{Constant False Alarm Rate}
 \subsection{Correctness}
 Under the assumption of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise 
@@ -20,7 +21,7 @@ rate closely matching the desired. The successful performance of CFAR with a fal
 
 \begin{figure}[htbp]
     \centering
-    \incfig[1]{cfar-0.001-waterfall}
+    \incfig[0.8]{cfar-0.001-waterfall}
     \label{fig:cfar-0.001-waterfall}
     \caption{CFAR with a desired false alarm rate of \(0.001\) infrequently detect peaks within a 
     target less noise as expected. The figure is a waterfall plot, with chirp on the y-axis and range 
@@ -56,46 +57,65 @@ and \ref{fig:cfar-implementation-performance-desktop}.
 
 The speed is also plotted as a function of the number of CFAR training cells. The results are illustrated 
 in Figures \ref{fig:cfar-implementation-performance-Xavier-training-cells} and 
-\ref{fig:cfar-implementation-performance-desktop-training-cells}. The results illustrate that both the 
+\ref{fig:cfar-implementation-performance-desktop-training-cells}. The desktop results illustrate that both 
+the 
 GPU and the prefix sum table implementations are not significantly affected by the number of training 
-cells, while the naive CPU implementation's speed increases linearly with the number of training cells.
+cells, while the naive CPU implementation's speed increases linearly with the number of training cells. 
+The Xavier results illustrate that while the prefix sum table implementation remains invariant to the 
+number of training cells (as we expect), the GPU implementation's speed does increase with the number 
+of training cells, due to the fact that each thread has more work to do to calculate the noise statistic. 
+Through simulating on the Xavier, we find that the GPU implementation is faster than either CPU implementation 
+for window sizes within the practical range of 10 - 100 training cells.  
 
 \begin{figure}
     \centering
-    \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed over window size 10.svg} 
+    \includesvg[width=0.8\linewidth]{matplotlib/CFAR implementation speed over window size 10.svg} 
     \caption{Computational Performance of three CFAR implementations as a function of the number of 
     training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplets.}
     \label{fig:cfar-implementation-performance-desktop-training-cells}
 \end{figure}
 
-
-\todo{Run window size experiment on Xavier.}
 \begin{figure}
     \centering
-    % \includesvg[width=0.75\linewidth]{matplotlib/CFAR implementation speed over window size 10 Xavier.svg} 
+    \includesvg[width=0.8\linewidth]{matplotlib/CFAR implementation speed over window size 10 Xavier.svg} 
     \caption{Computational Performance of three CFAR implementations as a function of the number of 
     training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplets.}
     \label{fig:cfar-implementation-performance-Xavier-training-cells}
 \end{figure}
 
-
-\begin{itemize}
-    \item Show results for memory usage
-    \item Show results for NVIDIA NSight
-    \item Show ablation study results 
-\end{itemize}
-
-
 \subsection{Monopulse Angle Sensing}
-\begin{itemize}
-    \item Show results for monopulse, correctness, latency for different implementations, and ablation study results. 
-    \item Memory usage and NSight results for different implementations.
-\end{itemize}
+A simulation tool was built to validate the monopulse angle sensing algorithm on synthetic data. The tool allows the 
+user to create multiple targets, and specify the bearing/elevation ratios of each target. The simulated data is then 
+processed by the preprocessing subsystem, the aggregator, CFAR, and the monopulse angle sensing algorithm. The 
+resulting angle estimates are visualised live in a 3D plot. A frame of this view is illustrated in Figure 
+\ref{fig:monopulse-angle-sensing-results}.
 
-The algorithm is validated on data obtained from flight 
-tests. This addresses the gap in validating monopulse angle estimation methods beyond idealised 
-simulations, which often assume Gaussian noise and clean single detections per target.  
+\begin{figure}
+    \includegraphics[width=0.8\linewidth]{monopulse_angle_sensing_results.png}
+    \caption{Results of the monopulse angle sensing algorithm on synthetic data. The colour of the dots indicate
+    the range of the detections, with green being close and orange being far away. The opacity of the dots indicate
+    the strength of the detections, with more opaque dots being stronger. The plot features the most recently 1000
+    detections. The spread of the dots increase as range increases as expected, and the upper and lower bounds of 
+    elevation and bearing are was is expected based on the polynomial chosen for angle sensing.}
+    \label{fig:monopulse-angle-sensing-results}
+\end{figure}
 
-The correctness of the implementation is verified by comparing the desired false alarm rate to the 
-actual false alarm rate when there is no target signal present when alpha is calculated under the 
-assumption of a chi-squared distribution.
+The relative latency cost of the angle and CFAR operations were measured through an ablation study on the detection 
+subsystem. The results are illustrated in Figure \ref{fig:tracking-latency-trials} which shows the latency 
+of just CFAR, just angle sensing, and both, and Figure \ref{fig:tracking-latency-breakdown}, . 
+
+\begin{figure}
+    \includesvg[width=0.8\linewidth]{matplotlib/tracking_latency_trials.svg}
+    \caption{Latency of the subsystem running CFAR, angle sensing, and both on a log scale. The latency of the subsystem 
+    running CFAR is similar to the latency of the subsystem running both, while angle sensing is 1.5-5 times faster than either. 
+    Suggesting that CFAR dominates the latency of the subsystem}
+    \label{fig:tracking-latency-trials}
+\end{figure}
+
+\begin{figure}
+    \includesvg[width=0.8\linewidth]{matplotlib/tracking_latency_breakdown.svg}
+    \caption{A breakdown of the latency of the subsystem estimated from the ablation study. Most of the latency is split 
+    between CFAR and the overhead of handling the data, which involves synchronising threads and migrating data between 
+    the CPU and GPU.}
+    \label{fig:tracking-latency-breakdown}
+\end{figure}

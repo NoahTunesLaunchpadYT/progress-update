@@ -2,7 +2,7 @@
 The Hann and Hamming windows are firstly evaluated for the prominence of their main lobe and side lobes
 in the frequency domain on the synthetic datasets. Figure \ref{fig:clean filters} illustrates the 
 performance of each of the filters on a clear sine wave with no noise. Figure \ref{fig:noisy filters}
-illustrates the performance of each of the filters on a noisy sine wave. 
+illustrates the performance of each of the filters on the noisy simulated data with an SNR of 1.  
 
 \begin{figure}
     \incfig[0.8]{filter_clear_comparison}
@@ -27,15 +27,15 @@ illustrates the performance of each of the filters on a noisy sine wave.
 \end{figure}
 
 In terms of computational performance, the latency contribution of the filters does not significantly 
-differ across implementations. Figure \ref{fig:latency} shows the average time taken to process
-a single frame of 7 670 000 samples (over 50 runs). 
+differ across implementations. Figure \ref{fig:latency} shows time taken to process
+a single frame of 7 670 000 samples, averaged over 50 runs. 
 
 \begin{figure}
     \incfig[0.8]{filter_latency_comparison}
     \caption{Latency contribution of the windowing stage to the overall pipeline. The latency does not 
     significantly differ across implementations, with all implementations taking around 9-12 ms to 
-    process a single frame of 7 670 000 samples. The difference in latency between no filter and 
-    filters suggests that the delay is primarily due to the overhead of handling the data. }
+    process a single frame of 7 670 000 samples. The insignificant difference in latency between no filter 
+    and filters suggests that the delay is primarily due to the overhead of handling the data. }
     \label{fig:latency}
 \end{figure}
 
@@ -46,36 +46,22 @@ test-source mode of the AWR2243 radar chips. The results from the former illustr
 in SNR with increasing integration window size as demonstrated in Figure \ref{fig:integration-waterfall}. 
 The results from the latter illustrate no increase in SNR because the test-source mode does not generate 
 any noisy. Meaningfully, the results from the AWR test-source mode indicate that the integration stage 
-behaves correctly on data from the radar chips, and can "keep" up with the data rate with the integration 
-stage involved, (see Figure \ref{fig:integration-waterfall-orac}).   
+behaves correctly on data from the radar chips, (see Figure \ref{fig:integration-waterfall-orac}). The 
+subsystem can processing the data at a rate of 9.8 times the incoming data rate on the desktop setup, and 
+3.8 times the incoming data rate on the Xavier setup.  
 
 \begin{figure}
-    \incfig[0.8]{integration_waterfall}
+    \incfig[0.6]{integration_waterfall}
     \caption{Results of the coherent integration stage on synthetic data. 
     The top window shows a low SNR waterfall plot of data, with the y-axis representing range samples and
-    the x-axis representing chirps that are streaming into the integrate stage.  
-    while the AWR2243 test-source data illustrates no increase in SNR because the test-source mode does not 
-    generate any noise. The results from the AWR test-source mode indicate that the integration stage 
-    behaves correctly on data from the radar chips, and can "keep" up with the data rate with the integration 
-    stage involved.}
+    the x-axis representing chirps that are streaming into the integrate stage.} 
     \label{fig:integration-waterfall}
 \end{figure}
 
 \begin{figure}
-    \incfig[0.8]{integration_waterfall_orac}
-    \caption{Results of the coherent integration stage on AWR2243 test-source data. The results indicate 
-    that the integration stage behaves correctly on data from the radar chips, and can "keep" up with the 
-    data rate with the integration stage involved.}
+    \incfig[0.60]{integration_waterfall_orac}
+    \caption{Results of the coherent integration stage on AWR2243 test-source data. Everyone 128 chirps across 8 
+    channels are being compressed into a single chirp across 8 channels, with no noise. As expected, there is 
+    no change in amplitude, validating that the integration stage behaves correctly on radar chip data.}
     \label{fig:integration-waterfall-orac}
 \end{figure}
-
-
-% \begin{itemize}
-%     \item Show that the coherent integration implementation is correct and working on both dataset, 
-%     show the different in SNR visually with waterfall plots. 
-%     \item Show the Nsight results for the different implementations, and show the latency contribution 
-%     of the integration stage to the overall pipeline.
-%     \item Show the effect of different integration window sizes on detection sensitivity and false alarm 
-%     rate.  
-% \end{itemize}
-
