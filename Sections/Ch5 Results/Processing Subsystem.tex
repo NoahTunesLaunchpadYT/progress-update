@@ -48,7 +48,11 @@ The results from the latter illustrate no increase in SNR because the test-sourc
 any noisy. Meaningfully, the results from the AWR test-source mode indicate that the integration stage 
 behaves correctly on data from the radar chips, (see Figure \ref{fig:integration-waterfall-orac}). The 
 subsystem can processing the data at a rate of 9.8 times the incoming data rate on the desktop setup, and 
-3.8 times the incoming data rate on the Xavier setup.  
+3.8 times the incoming data rate on the Xavier setup. We also find that the latency of the integration 
+stage increases with the integration's factor of reduction, since in our implementation, 
+each thread performs all the sum operations for its corresponding range bin 
+(which increases with the reduction factor). 
+
 
 \begin{figure}
     \incfig[0.6]{integration_waterfall}

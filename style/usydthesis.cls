@@ -240,7 +240,7 @@
 % global macros %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Use "... \LaTeX{} ..." when mentioning LaTeX
-\input texnames.sty
+% \input texnames.sty
 
 % Paragraphs should not have their initial line indented, but instead we want
 % a blank line between paragraphs. We do not want this for some stuff, so use

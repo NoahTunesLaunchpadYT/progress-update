@@ -1,0 +1,114 @@
+\chapter{Review of Project Plan}
+\section{Overview}
+This chapter provides an overview of the changes made to the original project 
+plan, the methodology for the remaining work, the timeline for the remaining 
+work, the stakeholder management plan and the risk management plan. Lastly, 
+the contributions of the project to the learning objectives of the AMME5520 and 
+ELEC3305 units are reflected on.
+
+\section{Changes to proposed plan}
+The project plan remains broadly consistent with the original proposal. The core 
+pipeline architecture, evaluation methodology, and hardware platforms are unchanged. 
+However, several adjustments have been made in response to findings from the first 
+phase of work, and some scope items have been deferred pending further information 
+about the radar's noise regime in real operating conditions.
+
+The most significant addition to the plan is a clustering stage, inserted between 
+the angle sensing and tracking stages. This was not included in the original proposal 
+but is motivated by the observed output of the angle sensing visualisation tool, 
+which produces spatially distributed detections per target that must be grouped 
+before being passed to the tracking filter. Without clustering, the data association 
+stage would be presented with far more measurements per target than the tracking 
+filter is designed to handle.
+
+The evaluation of CFAR variants, CA, GO, SO, and OS-CFAR, and additional window 
+functions such as Blackman, Blackman--Harris, and Kaiser, have been deferred 
+rather than removed from scope. Both depend on a better characterisation of the 
+radar's noise regime under real operating conditions, which was not available 
+during the first phase. These evaluations will proceed once sufficient real data 
+has been collected to determine which noise assumptions are appropriate.
+
+Non-coherent integration has been removed from scope. Coherent integration is 
+sufficient for the detection sensitivity requirements of the pipeline, and the 
+additional complexity of summing chirps with different profiles constructively 
+is not worth sacrificing research in the tracking subsystem.
+
+The FFT comparison, PVA evaluation, pipeline design experiment, tracking filter 
+comparison, data association comparison, and flight test validation remain in 
+scope. The pipeline design experiment and CFAR/windowing extensions are sequenced 
+after the core tracking pipeline is complete and unit tested, as meaningful 
+pipeline-level optimisation requires a stable end-to-end system.
+
+\section{Methodology for Remaining Work}
+\subsection{Clustering}
+Detections produced by the angle sensing stage are spatially distributed across multiple range-bearing-elevation cells per physical target. A clustering stage is required to group these detections into candidate target reports before data association. DBSCAN is the primary candidate, as it does not require a prior estimate of the number of clusters and is robust to the irregular cluster shapes expected from monopulse detections at varying range. The sensitivity of cluster quality to the epsilon and minimum points hyperparameters will be evaluated on synthetic multi-target data. CPU and GPU implementations will be compared for latency and throughput.
+\subsection{Tracking Filter}
+The tracking filter fuses clustered detections over time to produce continuous target tracks. Extended Kalman (EKF), unscented Kalman (UKF), and interacting multiple model (IMM) filters will be compared. Evaluation metrics include mean squared error (MSE), normalised estimation error squared (NEES), normalised innovation squared (NIS), average time-to-confirm, track fragmentation, and ID-switch rate under clutter, missed detections, and manoeuvres. CPU and GPU implementations will be compared for latency and throughput. The evaluation will determine whether the additional complexity of UKF and IMM over EKF produces measurable improvements in track quality that justify their computational cost.
+\subsection{Data Association}
+Nearest neighbour (NN), global nearest neighbour (GNN), and joint probabilistic data association (JPDA) will be compared under sweeps of target density and clutter rate. Performance will be assessed using CLEAR MOT metrics alongside latency and throughput measurements. The interaction between data association choice and tracking filter choice will be examined, as some combinations are known to degrade under high clutter.
+\subsection{FFT Comparison}
+CPU and GPU FFT implementations will be compared under streaming workloads using FFTW and MKL on CPU, and cuFFT on GPU. The NVIDIA Programmable Vision Accelerator (PVA) will also be evaluated as an alternative execution target for the FFT stage. Trade-offs will be characterised by latency, throughput, and memory usage at the FFT sizes required by the AWR2243 data format.
+\subsection{Pipeline Design}
+Once the end-to-end pipeline is stable and unit tested, pipeline-level implementation variants will be compared. Stream format choices — interleaved versus per-channel layout, and float precision — will be evaluated alongside memory placement decisions, contrasting CPU memory, device memory, and unified memory configurations. Compatible stages will be evaluated for fusion opportunities. End-to-end latency and sustained throughput are the primary metrics. This directly targets the gap around memory movement and synchronisation overhead in embedded GPU pipelines.
+\subsection{CFAR Variants and Extended Windowing}
+The evaluation of GO, SO, and OS-CFAR variants, and the extended windowing comparison including Blackman, Blackman--Harris, and Kaiser windows, will proceed once sufficient real AWR2243 data has been collected to characterise the radar's noise regime. The appropriate CFAR variant and window function depend on whether the clutter and noise distributions encountered in real operation match the homogeneous Gaussian assumptions under which CA-CFAR and Hamming windowing were selected. These evaluations are therefore sequenced after initial field data collection.
+\subsection{Hardware Profiling}
+All experiments will be repeated across CPU-only, unified-memory CPU+GPU, and discrete-memory CPU+GPU configurations on the Xavier and desktop platforms. Power-constrained regimes will be emulated by restricting clock speeds, active cores, and power modes, then measuring degradation in latency, throughput, and track continuity. Results will identify which pipeline stages become bottlenecks as SWaP constraints tighten, and which algorithm and implementation choices remain viable under those conditions.
+\subsection{Flight Test Validation}
+The completed end-to-end pipeline will be validated on data collected from flight trials using the AWR2243 radar hardware. Flight test validation will confirm that detection and tracking performance observed in simulation and on synthetic data generalises to real airborne targets, and will provide the operating noise regime data required for the deferred CFAR variant and windowing evaluations.
+
+\section{Timeline}
+\begin{table}[H]
+    \centering
+    \caption{Updated project milestones and deliverables (06 Apr to 13 Jul).}
+    \begin{tabular}{p{0.18\textwidth}|p{0.80\textwidth}}
+        \hline
+        \textbf{Date range} & \textbf{Milestone} \\
+        \hline
+        06 Apr, 08 Apr & Finalise and submit progress report. \\
+        06 Apr, 12 Apr & Implement clustering stage. Compare DBSCAN CPU and GPU implementations. \\
+        13 Apr, 19 Apr & Implement and compare tracking filter variants (EKF, UKF, IMM) and data association variants (NN, GNN, JPDA) on synthetic data. Evaluate track quality metrics. \\
+        20 Apr, 26 Apr & FFT comparison across FFTW, cuFFT, and PVA. Integration testing of complete end-to-end pipeline. \\
+        26 Apr, 02 May & Field testing and flight trial validation on AWR2243 hardware. Collect real noise regime data. \\
+        03 May, 09 May & Pipeline design experiment. Compare stream formats, memory placements, and stage fusion strategies. Hardware profiling across CPU-only, unified-memory, and discrete-memory configurations. \\
+        10 May, 16 May & CFAR variant and extended windowing evaluation on real data. Sensitivity analysis and parameter optimisation. \\
+        17 May, 15 Jun & Draft report featuring all simulation and real data experiment results, findings, and conclusions. \\
+        15 Jun, 13 Jul & Final report featuring all real and simulated experiment results, findings, and conclusions. \\
+    \end{tabular}
+    \label{tab:milestones-updated}
+\end{table}
+
+\section{Stakeholder Management Plan}
+
+\section{Risk Management Plan}
+
+\section{Case Studies}
+
+% \input{Sections/Ch7 Proposal/Summary of Findings.tex}
+% A modular radar pipeline for small-UAV detect-and-avoid was successfully designed 
+% and evaluated.
+
+% CFAR was validated, with achieved false alarm rates closely matching desired 
+% values.
+
+% Implementation choice strongly affected runtime, latency, and throughput across 
+% hardware platforms.
+
+% Hardware context changed which implementation was most suitable, supporting 
+% hardware-aware pipeline design.
+
+% % \input{Sections/Ch7 Conclusion/Industry Partner Outcomes.tex}
+% Delivered practical benchmarking evidence to guide embedded radar software 
+% design choices.
+
+% Helped identify implementation trade-offs relevant to Mission Systems’ UAV radar 
+% pipeline.
+
+% Produced a reusable experimental and profiling framework for future internal 
+% development.
+
+% Contributed design guidance with relevance beyond the immediate industry project.
+
+% % \input{Sections/Ch7 Conclusion/Future Work.tex}
+
+% (See Addressing Knowledge Gaps in Chapter 6.)

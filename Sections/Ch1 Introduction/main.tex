@@ -129,8 +129,8 @@ through a systems-level investigation of the software design space of a
 GPU-based radar tracking pipeline, with specific contributions as follows:
 
 \begin{itemize}
-    \item A comparison of candidate detection, angle-estimation, and tracking 
-    algorithm configurations, assessed by detection sensitivity and track quality 
+    \item A comparison of the algorithms necessary for monopulse radar, 
+    assessed by detection sensitivity and track quality 
     in multi-target aerial scenarios, to inform algorithm selection.
     \item A comparison of alternative low-level implementations of the selected 
     algorithms, quantifying their effects on end-to-end throughput and latency 
@@ -166,4 +166,18 @@ companion computers in modern UAV systems. The hardware context of primary
 interest features shared or unified CPU/GPU memory, as found in many embedded 
 systems-on-module, though comparison against CPU-only and discrete-memory 
 configurations is used where available to clarify architectural trade-offs.
+
+\input{Sections/Ch1 Introduction/thesis_structure.tex}
+
+This project targets a practical gap between established airborne radar 
+tracking methods, which are typically developed and validated for large apertures 
+and well-provisioned platforms, and the constraints of small to medium UAV payloads. 
+By evaluating both algorithmic choices and low-level implementations on GPU-enabled 
+embedded hardware, this work provides an evidence-based reference for software-defined 
+radar processing under SWaP constraints. The resulting design recommendations and 
+benchmarking methodology are intended to be reusable by future UAV radar efforts, 
+improving the comparability of results across the field. Evidence of achievable 
+detection and tracking performance under these constraints can also inform 
+requirements for DAA capability, supporting the safer integration of UAVs into 
+controlled airspace \cite{utm_action_plan_2024}.
 

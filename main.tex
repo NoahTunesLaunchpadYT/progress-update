@@ -22,11 +22,12 @@
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{xcolor}
-\usepackage{svg}
+\usepackage[inkscapeversion=1]{svg}
 
 \newcommand{\incfig}[2][1]{%
     \def\svgwidth{#1\columnwidth}
-    \import{./figures/}{#2.pdf_tex}
+    % \import{./figures/}{#2.pdf_tex}
+    \import{}{#2.pdf_tex}
 }
 
 \pdfsuppresswarningpagegroup=1
@@ -122,7 +123,7 @@ UAV Detect-and-Avoid}}
 \newpage
 \input{Sections/2 Statement of Contribution.tex}
 \newpage
-\input{Sections/4 Acknowledgements.tex}
+% \input{Sections/4 Acknowledgements.tex}
 
 
 \setcounter{tocdepth}{2}
@@ -148,7 +149,7 @@ UAV Detect-and-Avoid}}
 \input{Sections/Ch4 Methodology/main.tex}
 \input{Sections/Ch5 Results/main.tex} 
 \input{Sections/Ch6 Discussion/main.tex}
-\input{Sections/Ch7 Conclusion/main.tex}
+\input{Sections/Ch7 Proposal/main.tex}
 
 %%%%%%%%%%%%
 % End
@@ -160,8 +161,8 @@ UAV Detect-and-Avoid}}
 
 % Appendices
 \appendix
-\chapter{Appendix}
-\input{Sections/5 Case Studies.tex}
-\input{Sections/5 Health and Safety Report.tex}
-\input{Sections/6 Practical Experience Logbook.tex}
+% \chapter{Appendix}
+% \input{Sections/5 Case Studies.tex}
+% \input{Sections/5 Health and Safety Report.tex}
+% \input{Sections/6 Practical Experience Logbook.tex}
 \end{document}
