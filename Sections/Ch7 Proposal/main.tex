@@ -2,7 +2,7 @@
 \section{Overview}
 This chapter provides an overview of the changes made to the original project 
 plan, the methodology for the remaining work, the timeline for the remaining 
-work, the stakeholder management plan and the risk management plan. Lastly, 
+work, stakeholder management and risk management. Lastly, 
 the contributions of the project to the learning objectives of the AMME5520 and 
 ELEC3305 units are reflected on.
 
@@ -41,9 +41,25 @@ pipeline-level optimisation requires a stable end-to-end system.
 
 \section{Methodology for Remaining Work}
 \subsection{Clustering}
-Detections produced by the angle sensing stage are spatially distributed across multiple range-bearing-elevation cells per physical target. A clustering stage is required to group these detections into candidate target reports before data association. DBSCAN is the primary candidate, as it does not require a prior estimate of the number of clusters and is robust to the irregular cluster shapes expected from monopulse detections at varying range. The sensitivity of cluster quality to the epsilon and minimum points hyperparameters will be evaluated on synthetic multi-target data. CPU and GPU implementations will be compared for latency and throughput.
+Detections produced by the angle sensing stage are spatially distributed across 
+multiple range-bearing-elevation cells per physical target. A clustering stage is 
+required to group these detections into candidate target reports before data 
+association. DBSCAN is the primary candidate, as it does not require a prior 
+estimate of the number of clusters and is robust to the irregular cluster shapes 
+expected from monopulse detections at varying range. The sensitivity of cluster 
+quality to the epsilon and minimum points hyperparameters will be evaluated on 
+synthetic multi-target data. CPU and GPU implementations will be compared for 
+latency and throughput.
 \subsection{Tracking Filter}
-The tracking filter fuses clustered detections over time to produce continuous target tracks. Extended Kalman (EKF), unscented Kalman (UKF), and interacting multiple model (IMM) filters will be compared. Evaluation metrics include mean squared error (MSE), normalised estimation error squared (NEES), normalised innovation squared (NIS), average time-to-confirm, track fragmentation, and ID-switch rate under clutter, missed detections, and manoeuvres. CPU and GPU implementations will be compared for latency and throughput. The evaluation will determine whether the additional complexity of UKF and IMM over EKF produces measurable improvements in track quality that justify their computational cost.
+The tracking filter fuses clustered detections over time to produce continuous target 
+tracks. Extended Kalman (EKF), unscented Kalman (UKF), and interacting multiple 
+model (IMM) filters will be compared. Evaluation metrics include mean squared 
+error (MSE), normalised estimation error squared (NEES), normalised innovation 
+squared (NIS), average time-to-confirm, track fragmentation, and ID-switch rate 
+under clutter, missed detections, and manoeuvres. CPU and GPU implementations 
+will be compared for latency and throughput. The evaluation will determine 
+whether the additional complexity of UKF and IMM over EKF produces measurable 
+improvements in track quality that justify their computational cost.
 \subsection{Data Association}
 Nearest neighbour (NN), global nearest neighbour (GNN), and joint probabilistic data association (JPDA) will be compared under sweeps of target density and clutter rate. Performance will be assessed using CLEAR MOT metrics alongside latency and throughput measurements. The interaction between data association choice and tracking filter choice will be examined, as some combinations are known to degrade under high clutter.
 \subsection{FFT Comparison}
@@ -58,6 +74,8 @@ All experiments will be repeated across CPU-only, unified-memory CPU+GPU, and di
 The completed end-to-end pipeline will be validated on data collected from flight trials using the AWR2243 radar hardware. Flight test validation will confirm that detection and tracking performance observed in simulation and on synthetic data generalises to real airborne targets, and will provide the operating noise regime data required for the deferred CFAR variant and windowing evaluations.
 
 \section{Timeline}
+The remaining project milestones are outlined in Table \ref{tab:milestones-updated}.
+
 \begin{table}[H]
     \centering
     \caption{Updated project milestones and deliverables (06 Apr to 13 Jul).}
@@ -65,7 +83,7 @@ The completed end-to-end pipeline will be validated on data collected from fligh
         \hline
         \textbf{Date range} & \textbf{Milestone} \\
         \hline
-        06 Apr, 08 Apr & Finalise and submit progress report. \\
+        20 Mar, 08 Apr & Finalise and submit progress report. \\
         06 Apr, 12 Apr & Implement clustering stage. Compare DBSCAN CPU and GPU implementations. \\
         13 Apr, 19 Apr & Implement and compare tracking filter variants (EKF, UKF, IMM) and data association variants (NN, GNN, JPDA) on synthetic data. Evaluate track quality metrics. \\
         20 Apr, 26 Apr & FFT comparison across FFTW, cuFFT, and PVA. Integration testing of complete end-to-end pipeline. \\
@@ -78,37 +96,78 @@ The completed end-to-end pipeline will be validated on data collected from fligh
     \label{tab:milestones-updated}
 \end{table}
 
-\section{Stakeholder Management Plan}
+\section{Stakeholder Management}
+There are three groups of stakeholders who need to be considered throughout the research: the industry partner Mission Systems, regulators such as CASA and EASA, and airspace users. The industry partner will be considered throughout the research through weekly meetings with the director and frequent consultation with the radar engineers, to ensure that the system being developed is useful and that the experiments being performed are insightful. In addition to contributing to the radar project directly, it is important that the tools, methods, and findings are documented so that the partner can continue to make improvements after this research project concludes.
 
-\section{Risk Management Plan}
+Regulators such as CASA and EASA have a stake in this research because DAA capability is a prerequisite for beyond visual line of sight (BVLOS) approval under the regulatory frameworks currently being developed. Evidence of achievable detection and tracking performance under SWaP constraints informs what performance requirements are technically feasible to mandate, and the benchmarking methodology developed in this project may provide a basis for standardised evaluation of DAA systems in future regulatory processes.
 
+Airspace users comprise two groups with related but distinct interests. Manned aircraft operators have a safety interest in UAVs being able to reliably detect and avoid them in shared controlled airspace. Drone operators and commercial UAV service providers have a practical interest in DAA systems that are lightweight, power-efficient, and affordable enough to be deployable on small platforms. The SWaP-constrained design focus of this research directly addresses both concerns, and successful outcomes would support safer and more accessible integration of UAVs into controlled airspace.
+
+\section{Risk Management}
+The remaining work involves a combination of software development, hardware testing, 
+and field trials, which present a range of risks from physical safety to data security. 
+Table \ref{tab:risk_management} outlines the key risks identified for the remaining work, along
+with their likelihood, severity, and mitigation strategies.
+
+\begin{adjustbox}{max width=\linewidth}
+\end{adjustbox}
+\begin{table}[H]
+    \centering
+    \caption{Risk assessment for remaining project work.}
+    \begin{tabular}{p{0.24\textwidth}|p{0.18\textwidth}|p{0.10\textwidth}|p{0.46\textwidth}}
+        \hline
+        \textbf{Risk} & \textbf{Likelihood} & \textbf{Severity} & \textbf{Mitigation} \\
+        \hline
+        Drone collision with environment in trials & Low & High & Trials conducted 
+        in restricted and physically open airspace. Pre-flight checks completed 
+        before each test. \\
+        Fainting or heat exhaustion during field tests & Low & Medium & Field 
+        tests scheduled outside peak heat. Frequent Water and rest breaks. 
+        Trials conducted with at least two people present. \\
+        Fire risk from LiPo battery & Low & High & Batteries stored and charged 
+        in fire-resistant bags. Damaged batteries disposed of appropriately. \\
+        Jetson Xavier NX overheating & Low & Low & Active heatsink fitted. 
+        Thermal throttling monitored during profiling runs. Experiments 
+        repeated if throttling is detected. \\
+        Musculoskeletal strain from prolonged sitting & Medium & Low & Regular 
+        breaks taken during extended development sessions. Frequent changes in 
+        posture. \\
+        Cybersecurity breach of research data or pipeline code & Low & Medium & 
+        Code stored in private repository with access controls. Raw radar data 
+        stored on internal network server. Limit expose of online Language Learning 
+        Models to proprietary software. \\
+    \end{tabular}
+    \label{tab:risk_management}
+\end{table}
 \section{Case Studies}
+\subsection{AMME5520 Advanced Control and Optimisation}
 
-% \input{Sections/Ch7 Proposal/Summary of Findings.tex}
-% A modular radar pipeline for small-UAV detect-and-avoid was successfully designed 
-% and evaluated.
+Progress towards the AMME5520 learning objectives has been partially achieved at 
+this stage of the project. LO1, concerning critical engagement with research 
+literature, has been fully addressed through the literature review and gap 
+synthesis across UAV DAA radar pipelines, GPU radar processing, and multi-target 
+tracking. LO4, concerning cost function framing and objective-driven trade-offs, 
+has been partially addressed through the ablation study and parameter sweeps 
+conducted for the CFAR and angle sensing stages, where detection sensitivity 
+and computational cost are explicitly traded off. LO2 and LO3, which concern 
+the implementation and evaluation of tracking filters, data association, and 
+estimation algorithms, have not yet been addressed, as the tracking stage of the 
+pipeline remains to be implemented. These learning objectives will be met in the 
+remaining work through the implementation and comparison of EKF, UKF, and IMM 
+filters alongside NN, GNN, and JPDA data association variants.
 
-% CFAR was validated, with achieved false alarm rates closely matching desired 
-% values.
+\subsection{ELEC3305 Digital Signal Processing}
 
-% Implementation choice strongly affected runtime, latency, and throughput across 
-% hardware platforms.
-
-% Hardware context changed which implementation was most suitable, supporting 
-% hardware-aware pipeline design.
-
-% % \input{Sections/Ch7 Conclusion/Industry Partner Outcomes.tex}
-% Delivered practical benchmarking evidence to guide embedded radar software 
-% design choices.
-
-% Helped identify implementation trade-offs relevant to Mission Systems’ UAV radar 
-% pipeline.
-
-% Produced a reusable experimental and profiling framework for future internal 
-% development.
-
-% Contributed design guidance with relevance beyond the immediate industry project.
-
-% % \input{Sections/Ch7 Conclusion/Future Work.tex}
-
-% (See Addressing Knowledge Gaps in Chapter 6.)
+Progress towards the ELEC3305 learning objectives is more advanced at this stage. 
+LO1, concerning the mathematical description of signals using transforms, 
+convolutions, and spectral analysis, has been addressed through the implementation 
+and evaluation of windowing, FFT, and coherent integration stages, which directly 
+engage with frequency-domain radar processing and spectral leakage mitigation. 
+LO2, concerning software implementation of DSP stages, has been substantially 
+addressed through the development of the full preprocessing and detection subsystem 
+in C++ and Python, including validation tooling, profiling scripts, and parameter 
+sweeps. LO3, concerning linear signal models, has been partially addressed through 
+the range-domain signal model used in the preprocessing and CFAR stages. LO4, 
+concerning the design and evaluation of signal processing systems, has been 
+partially addressed through the comparative evaluation of windowing functions 
+and CFAR implementations — the remaining pipeline experiments will complete this coverage.

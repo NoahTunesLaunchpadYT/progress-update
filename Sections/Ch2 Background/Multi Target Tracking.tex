@@ -41,7 +41,18 @@ In dense clutter, hard assignment methods can be insufficient. Probabilistic dat
 \begin{figure}[htb]
     \incfig[0.8]{mht}
     \label{fig:mht}
-    \caption{Multiple hypothesis tracking algorithm maintaining branching tracks of two different targets}
+    \caption{Multiple hypothesis tracking algorithm maintaining branching tracks 
+    of two targets (in blue and red) with their measurements indicated by blue 
+    dots.
+    "Clutter" detections that make the path of the targets unclear are indicated 
+    as triangles. The blue and red shaded circles represent several potential 
+    posterior estimates of each of the two targets at the current timestep, 
+    reflecting the ambiguity in associating the measurements to the targets 
+    amongst the clutter. There is also an uncertain "no detection' hypothesis 
+    for each target indicated by the large circles. 
+    where 
+    the targets are with the size
+    indicating the uncertainty.  }
 \end{figure}
 
 Detections that cannot be associated with any existing track initialise tentative tracks, which are promoted to confirmed only after receiving consistent detections across a minimum number of updates — commonly an M-of-N logic. This prevents transient clutter returns from generating false confirmed tracks. Conversely, tracks accumulating consecutive missed detections are allowed to coast for a limited number of updates before being deleted. The promotion and deletion thresholds balance responsiveness to new targets against robustness to clutter and intermittent detection loss.

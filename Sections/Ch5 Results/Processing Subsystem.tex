@@ -55,17 +55,23 @@ each thread performs all the sum operations for its corresponding range bin
 
 
 \begin{figure}
-    \incfig[0.6]{integration_waterfall}
+    \incfig[0.57]{integration_waterfall}
     \caption{Results of the coherent integration stage on synthetic data. 
-    The top window shows a low SNR waterfall plot of data, with the y-axis representing range samples and
-    the x-axis representing chirps that are streaming into the integrate stage.} 
+    The top window shows a low SNR waterfall plot of data, with the y-axis 
+    representing range samples and
+    the x-axis representing chirps that are streaming into the integrate stage. The 
+    colour indicates the power of the range bin, with yellow being the most intense.  
+    The output of the integration stage below has less noise, and the target 
+    signal is more prominent.} 
     \label{fig:integration-waterfall}
 \end{figure}
 
 \begin{figure}
-    \incfig[0.60]{integration_waterfall_orac}
-    \caption{Results of the coherent integration stage on AWR2243 test-source data. Everyone 128 chirps across 8 
-    channels are being compressed into a single chirp across 8 channels, with no noise. As expected, there is 
-    no change in amplitude, validating that the integration stage behaves correctly on radar chip data.}
+    \incfig[0.57]{integration_waterfall_orac}
+    \caption{Results of the coherent integration stage on AWR2243 test-source data. 
+    The 8 windows correspond to 8 channels. 128 chirps are being compressed into a single 
+    chirp with no noise. There is 
+    no change in amplitude, validating that the integration stage behaves 
+    correctly on radar chip data.}
     \label{fig:integration-waterfall-orac}
 \end{figure}

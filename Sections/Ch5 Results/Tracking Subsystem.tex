@@ -95,8 +95,10 @@ resulting angle estimates are visualised live in a 3D plot. A frame of this view
     \caption{Results of the monopulse angle sensing algorithm on synthetic data. The colour of the dots indicate
     the range of the detections, with green being close and orange being far away. The opacity of the dots indicate
     the strength of the detections, with more opaque dots being stronger. The plot features the most recently 1000
-    detections. The spread of the dots increase as range increases as expected, and the upper and lower bounds of 
-    elevation and bearing are was is expected based on the polynomial chosen for angle sensing.}
+    detections. The spread of the dots increase as range increases as expected, and the 
+    upper and lower bounds of 
+    elevation and bearing meet expectations 
+    based on the polynomial chosen for the angle sensing algorithm.}
     \label{fig:monopulse-angle-sensing-results}
 \end{figure}
 
@@ -106,16 +108,19 @@ of just CFAR, just angle sensing, and both, and Figure \ref{fig:tracking-latency
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_trials.svg}
-    \caption{Latency of the subsystem running CFAR, angle sensing, and both on a log scale. The latency of the subsystem 
-    running CFAR is similar to the latency of the subsystem running both, while angle sensing is 1.5-5 times faster than either. 
-    Suggesting that CFAR dominates the latency of the subsystem}
+    \caption{Latency of the subsystem running CFAR, angle sensing, and both on a log scale. 
+    The latency of the subsystem 
+    running CFAR is similar to the latency of the subsystem running both, while angle sensing 
+    is 1.5-5 times faster than either, 
+    suggesting that CFAR dominates the latency of the subsystem.}
     \label{fig:tracking-latency-trials}
 \end{figure}
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_breakdown.svg}
-    \caption{A breakdown of the latency of the subsystem estimated from the ablation study. Most of the latency is split 
-    between CFAR and the overhead of handling the data, which involves synchronising threads and migrating data between 
-    the CPU and GPU.}
+    \caption{A breakdown of the latency of the subsystem estimated from the ablation study. 
+    Most of the latency is split 
+    between CFAR and the overhead of handling the data, which involves synchronising threads 
+    and migrating data between the CPU and GPU.}
     \label{fig:tracking-latency-breakdown}
 \end{figure}

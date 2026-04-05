@@ -52,7 +52,14 @@
 \usepackage{placeins}
 \usepackage{pdfpages}% for hosting full pdf docs as in appendix
 \usepackage[pdftex,bookmarks=true]{hyperref}
+\usepackage[acronym, nogroupskip]{glossaries-extra}
+\makeglossaries
 %\usepackage[xindy]{glossaries} % must be after hyperref
+\makeatletter
+\pdfstringdefDisableCommands{%
+    \def\@glsxtrnotinmark{}%
+}
+\makeatother
 \hypersetup{
     pdfauthor = {Noah West},
     pdftitle = {Radar Tracking Software Pipeline for
@@ -87,6 +94,7 @@ UAV Detect-and-Avoid},
   eprint=false
 }
 \usepackage{microtype}
+\usepackage{adjustbox}
 %\setlength{\parskip}{3mm plus0.5mm minus0.5mm}
 %\parindent 0pt
 %\renewcommand{\thepage}{\roman{page}}
@@ -102,8 +110,7 @@ UAV Detect-and-Avoid},
 
 %%%%%%%%%%%%
 % Start
-%\input{src/glossary.tex}
-%\makeglossaries
+\input{Sections/glossary.tex}
 \begin{document}
 
 % % initial page numbers:  i, ii, iii, ...
@@ -129,9 +136,18 @@ UAV Detect-and-Avoid}}
 \setcounter{tocdepth}{2}
 \newpage
 \addcontentsline{toc}{chapter}{Contents}
+% \tableofcontents
+% \listoffigures
+% \listoftables
+
 \tableofcontents
+\newpage
+\addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
-%\listoftables
+\newpage
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\newpage
 
 %%%%%%%%%%%%
 % Chapters
@@ -157,6 +173,8 @@ UAV Detect-and-Avoid}}
 % Bibliography
 %\bibliographystyle{style/mybibstyle}
 %\bibliography{thesis}
+% \addcontentsline{toc}{chapter}{Acronyms}
+\printglossary[type=\acronymtype, title=Acronyms]
 \printbibliography
 
 % Appendices
