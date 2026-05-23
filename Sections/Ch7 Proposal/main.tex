@@ -3,8 +3,8 @@
 This chapter provides an overview of the changes made to the original project 
 plan, the methodology for the remaining work, the timeline for the remaining 
 work, stakeholder management and risk management. Lastly, 
-the contributions of the project to the learning objectives of the AMME5520 and 
-ELEC3305 units are reflected on.
+the contributions of the project to the learning objectives of the AMME5520 and
+ELEC3305 units are discussed.
 
 \section{Changes to proposed plan}
 The project plan remains broadly consistent with the original proposal. The core 
@@ -65,7 +65,7 @@ Nearest neighbour (NN), global nearest neighbour (GNN), and joint probabilistic 
 \subsection{FFT Comparison}
 CPU and GPU FFT implementations will be compared under streaming workloads using FFTW and MKL on CPU, and cuFFT on GPU. The NVIDIA Programmable Vision Accelerator (PVA) will also be evaluated as an alternative execution target for the FFT stage. Trade-offs will be characterised by latency, throughput, and memory usage at the FFT sizes required by the AWR2243 data format.
 \subsection{Pipeline Design}
-Once the end-to-end pipeline is stable and unit tested, pipeline-level implementation variants will be compared. Stream format choices — interleaved versus per-channel layout, and float precision — will be evaluated alongside memory placement decisions, contrasting CPU memory, device memory, and unified memory configurations. Compatible stages will be evaluated for fusion opportunities. End-to-end latency and sustained throughput are the primary metrics. This directly targets the gap around memory movement and synchronisation overhead in embedded GPU pipelines.
+Once the end-to-end pipeline is stable and unit tested, pipeline-level implementation variants will be compared. Stream format choices, including interleaved versus per-channel layout and float precision, will be evaluated alongside memory placement decisions, contrasting CPU memory, device memory, and unified memory configurations. Compatible stages will be evaluated for fusion opportunities. End-to-end latency and sustained throughput are the primary metrics. This directly targets the gap around memory movement and synchronisation overhead in embedded GPU pipelines.
 \subsection{CFAR Variants and Extended Windowing}
 The evaluation of GO, SO, and OS-CFAR variants, and the extended windowing comparison including Blackman, Blackman--Harris, and Kaiser windows, will proceed once sufficient real AWR2243 data has been collected to characterise the radar's noise regime. The appropriate CFAR variant and window function depend on whether the clutter and noise distributions encountered in real operation match the homogeneous Gaussian assumptions under which CA-CFAR and Hamming windowing were selected. These evaluations are therefore sequenced after initial field data collection.
 \subsection{Hardware Profiling}
@@ -122,7 +122,7 @@ with their likelihood, severity, and mitigation strategies.
         in restricted and physically open airspace. Pre-flight checks completed 
         before each test. \\
         Fainting or heat exhaustion during field tests & Low & Medium & Field 
-        tests scheduled outside peak heat. Frequent Water and rest breaks. 
+        tests scheduled outside peak heat. Frequent water and rest breaks. 
         Trials conducted with at least two people present. \\
         Fire risk from LiPo battery & Low & High & Batteries stored and charged 
         in fire-resistant bags. Damaged batteries disposed of appropriately. \\
@@ -134,7 +134,7 @@ with their likelihood, severity, and mitigation strategies.
         posture. \\
         Cybersecurity breach of research data or pipeline code & Low & Medium & 
         Code stored in private repository with access controls. Raw radar data 
-        stored on internal network server. Limit expose of online Language Learning 
+        stored on internal network server. Limit exposure of online Large Language
         Models to proprietary software. \\
     \end{tabular}
     \label{tab:risk_management}
@@ -170,4 +170,4 @@ sweeps. LO3, concerning linear signal models, has been partially addressed throu
 the range-domain signal model used in the preprocessing and CFAR stages. LO4, 
 concerning the design and evaluation of signal processing systems, has been 
 partially addressed through the comparative evaluation of windowing functions 
-and CFAR implementations — the remaining pipeline experiments will complete this coverage.
+and CFAR implementations; the remaining pipeline experiments will complete this coverage.

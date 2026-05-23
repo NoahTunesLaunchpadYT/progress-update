@@ -54,6 +54,23 @@
 \usepackage[pdftex,bookmarks=true]{hyperref}
 \usepackage[acronym, nogroupskip]{glossaries-extra}
 \makeglossaries
+% glossaries-extra replaces \@starttoc with a 1-arg wrapper, but amsbook
+% defines \@starttoc as 2-arg (extension + title). This causes phantom TOC
+% entries and LOF/LOT headers appearing after their lists. Revert to amsbook's
+% original \@starttoc to fix both issues.
+\glsxtrRevertTocMarks
+% glossaries-extra unconditionally passes toc=true to glossaries, but amsbook's
+% \chapter* already writes TOC entries via \@tocwriteb. Disable the glossaries
+% duplicate to avoid two Acronyms entries in the TOC.
+\glstocfalse
+% usydthesis.cls appends an extra \newpage after \@starttoc inside \tableofcontents,
+% but \@starttoc already ends with \newpage. Remove the duplicate to prevent a
+% blank page before the glossary.
+\makeatletter
+\renewcommand{\tableofcontents}{%
+  \@starttoc{toc}\contentsname%
+}
+\makeatother
 %\usepackage[xindy]{glossaries} % must be after hyperref
 \makeatletter
 \pdfstringdefDisableCommands{%
@@ -141,11 +158,13 @@ UAV Detect-and-Avoid}}
 % \listoftables
 
 \tableofcontents
+\glsaddall
+% Suppress \clearpage so the glossary heading lands on the already-fresh page
+% from \@starttoc rather than triggering another blank page.
+{\let\clearpage\relax\printglossary[type=\acronymtype, title=Acronyms, nonumberlist]}
 \newpage
-\addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 \newpage
-\addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
 \newpage
 
@@ -174,7 +193,6 @@ UAV Detect-and-Avoid}}
 %\bibliographystyle{style/mybibstyle}
 %\bibliography{thesis}
 % \addcontentsline{toc}{chapter}{Acronyms}
-\printglossary[type=\acronymtype, title=Acronyms]
 \printbibliography
 
 % Appendices

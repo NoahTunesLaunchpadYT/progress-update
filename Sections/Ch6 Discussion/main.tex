@@ -12,11 +12,13 @@ Through comparing the two windows, we find that the Hamming
 window is more appropriate 
 for radar purposes with its sharper drop-off that allows detection to 
 be more precise, at the cost of more global spectral leakage. 
-Additionally the insignificant 
-time difference between either window or no window is expected given 
-the simplicity of the function, with each kernel performing just one 
-multiplication. The differing spectral leakage patterns motivate a more
-comprehensive search for window functions that is the most appropriate for 
+Additionally, the insignificant
+time difference between either window or no window is expected given
+the simplicity of the function, with each kernel performing just one
+multiplication. The negligible latency difference across the desktop and Xavier
+platforms further indicates that window selection can be made independently of
+hardware configuration. The differing spectral leakage patterns motivate a more
+comprehensive search for window functions that are most appropriate for
 miniature radar applications. 
 
 The results from the coherent integration experiment find that the signal 
@@ -24,7 +26,7 @@ to noise ratio improves by the square root of the number of chirps summed
 together under Gaussian noise, creating a positive downstream effect on the 
 ability of CFAR to detect weak 
 targets. The difference in throughput of the processing subsystem on 
-the desktop vs the Xavier is likely due to the overhead of handling data,  
+the desktop versus the Xavier is likely due to the overhead of handling data,  
 such as reading and writing. The large amount of work that each thread has to 
 do, summing over many chirps, motivates the exploration of more parallelised 
 implementations that distribute the sums between threads. 
@@ -32,8 +34,8 @@ implementations that distribute the sums between threads.
 The CFAR results outline a method for determining a threshold from a 
 desired false alarm rate. The experiments demonstrate the GPU implementation
 is most appropriate for the Xavier embedded platform, regardless of the size 
-of the buffer for all practical window sizes. The difference between hardware 
-platforms highlight the importance of hardware-aware algorithm selection. The 
+of the buffer for all practical window sizes. The difference between hardware
+platforms highlights the importance of hardware-aware algorithm selection. The 
 results of the angle sensing stage demonstrate the capability of the algorithm 
 to detect multiple targets with different bearing/elevation ratios. The ablation 
 study illustrates that CFAR dominates the latency 
@@ -41,6 +43,17 @@ of the tracking subsystem. The relatively high cost of CFAR motivates the explor
 of more efficient CFAR implementations. Potential approaches include implementing 
 the prefix sum table approach on the GPU, using a reduction approach to calculate the 
 noise floor, and more consciously minimising cache misses within warps. 
+
+The completed results begin to address two of the three research gaps identified in the
+literature review. The GPU pipeline benchmarking across desktop and Xavier platforms, covering CFAR, angle
+sensing, windowing, and coherent integration, directly addresses
+gap 2, providing the hardware-validated latency, throughput, and architectural profiling
+that prior UAV DAA radar work lacked. The hardware-aware implementation comparisons
+partially address gap 3, establishing a baseline for angle sensing performance, though
+evaluation under realistic multi-target and non-Gaussian noise conditions remains to be
+completed. Gap 1, concerning detection sensitivity against small moving airborne targets,
+and the remaining scope of gap 3, require the tracking stage and real flight data, which
+are the subject of the remaining work.
 
 \section{Shortcomings}
 The project has progressed broadly in line with the initial proposal, with the 
@@ -50,22 +63,26 @@ architecture has been validated on both synthetic data and real AWR2243 hardware
 and hardware-aware implementation comparisons have been completed for the CFAR stage 
 across the desktop and Xavier platforms.
 
-Several goals from the initial proposal were not completed within this reporting period. 
-The multi-target tracking stage, comprising clustering and the tracking filter, was not 
-implemented or evaluated. This represents the most significant deviation from the 
-proposed plan, and means that the end-to-end pipeline remains incomplete and that track 
-quality cannot yet be used as an evaluation metric. The primary cause of this delay was 
-the time required to bring up the hardware pipeline and validate each stage on real radar 
-data. The remaining work in the project plan is structured to address this 
-directly.
+Several goals from the initial proposal were not completed within this reporting period.
+The multi-target tracking stage, comprising clustering and the tracking filter, was not
+implemented or evaluated. This represents the most significant deviation from the
+proposed plan, and means that the end-to-end pipeline remains incomplete and that track
+quality cannot yet be used as an evaluation metric. The primary cause of this delay was
+the time required to bring up the hardware pipeline and validate each stage on real radar
+data. The remaining work in the project plan is structured to address this directly.
+Until the tracking stage is complete, gap 1 (detection sensitivity against small moving
+airborne targets) cannot be addressed, as it requires track-level performance metrics
+from real encounter scenarios.
 
-The window function evaluation was narrowed to Hann and Hamming windows, deferring the 
-evaluation of Blackman, Blackman--Harris, and Kaiser windows. The coherent integration 
-comparison was limited to synthetic data for SNR validation and real test-source data for 
-hardware correctness; the parallelised implementation comparison and downstream effect on 
-angle sensing stability were not completed. The angle sensing evaluation did not include 
-the proposed sweeps over SNR, channel imbalance, and multi-target proximity. These items 
-are carried forward into the remaining work plan. 
+The window function evaluation was narrowed to Hann and Hamming windows, deferring the
+evaluation of Blackman, Blackman--Harris, and Kaiser windows. The coherent integration
+comparison was limited to synthetic data for SNR validation and real test-source data for
+hardware correctness; the parallelised implementation comparison and downstream effect on
+angle sensing stability were not completed. The angle sensing evaluation did not include
+the proposed sweeps over SNR, channel imbalance, and multi-target proximity. These items
+are carried forward into the remaining work plan. Additionally, gap 3 — evaluating angle
+sensing algorithms under realistic noise conditions — remains open until real flight data
+is collected to characterise the noise regime of the AWR2243 in airborne operation. 
 
 \section{Recommendations}
 The windowing results support the selection of the Hamming window for radar applications 
@@ -80,9 +97,10 @@ For the CFAR and angle sensing stages, the results support a GPU-based implement
 Xavier embedded platform across all practical training cell window sizes. On the desktop, the 
 prefix sum CPU implementation is competitive for small buffer sizes, but the GPU implementation 
 is preferable at larger buffer sizes. The crossover point differs between platforms, confirming 
-that implementation selection cannot be made platform-agnostically. As CFAR dominates the latency 
-of the detection subsystem --- with angle sensing contributing a factor of 1.5 to 5 times less --- 
-optimisation effort should be directed at the CFAR stage rather than the angle sensing stage. 
+that implementation selection cannot be made platform-agnostically. As CFAR dominates the latency of the detection subsystem, with angle sensing contributing
+a factor of 1.5 to 5 times less, optimisation effort should be directed at the CFAR stage
+rather than the angle sensing stage.
+
 The overhead of host--device data transfer and thread synchronisation constitutes a substantial 
 portion of the remaining latency, and represents the primary target for further pipeline 
 optimisation.

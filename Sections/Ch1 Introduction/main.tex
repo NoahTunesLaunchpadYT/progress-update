@@ -48,12 +48,12 @@ radar stack have miniaturised. Texas Instrument's AWR2243 is a single 76-81 GHz 
 that integrates phase-locked loops (PLLs), three transmitters, four receivers, a mixer, an 
 ADC, and self calibration, all on a 10.4mm $\times$ 10.4mm printed circuit board (PCB)
 -friendly package. Higher frequency, lower noise, electronics and the miniaturisation of 
-the transistor have been key enablers of this technology. Higher frequency radar allows of 
-higher resolution imaging or smaller aperture; lower noise allows for an increase 
+the transistor have been key enablers of this technology. Higher frequency radar allows for
+higher resolution imaging or smaller aperture; lower noise allows for increased
 sensitivity to targets. On the compute side, modern UAV systems often have a dedicated, 
 high compute companion computer in addition to the flight compute. NVIDIA's Jetson series 
-computers such as Xavier NX, Orin Nano and Orin NX providing up 21, 67, 157 trillion 
-operations per second (TOPS) on 8-bit integers respectively, while each weighting under 
+computers such as Xavier NX, Orin Nano and Orin NX provide 21, 67, and 157 trillion 
+operations per second (TOPS) on 8-bit integers respectively, while each weigh under 
 50g (without a heat sink). 
 
 Plextek’s mmWave-based 60 GHz sense-and-avoid radar for UAVs demonstrates the feasibility 
@@ -99,7 +99,7 @@ aerial hazards on UAVs with strict SWaP constraints. Particular emphasis will be
 maximising the sensitivity to faraway targets, a requirement for operating in shared 
 airspace, and minimising computation resources and latency. 
 
-The literature reviewed in Chapter \ref{ch:literature_review} collectively demonstrates 
+Existing research demonstrates 
 that compact radar hardware is now sufficiently mature for UAV DAA applications. 
 SWaP-compliant systems have been built, detection at DAA-relevant ranges has been 
 achieved, and processing feasibility on constrained embedded platforms has been 
@@ -116,10 +116,10 @@ evaluate single algorithm sequences on single hardware configurations, and do
 not profile architectural bottlenecks such as host--device data transfer and 
 thread synchronisation overhead.
 
-Third, sensitivity algorithms for low-SNR monopulse radar have only been 
-validated under idealised white Gaussian noise with single simulated targets, 
-and none have been integrated into a complete end-to-end range--Doppler 
-tracking pipeline.
+Thirdly, angle sensing algorithms for low-SNR monopulse radar have only been 
+validated under idealised white Gaussian noise with single simulated targets; 
+no studies integrate these algorithms into a complete end-to-end range--Doppler 
+tracking pipeline for UAV DAA. 
 
 The core problem this thesis addresses is the absence of a principled, 
 hardware-aware understanding of how algorithm selection and implementation 
@@ -140,44 +140,41 @@ GPU-based radar tracking pipeline, with specific contributions as follows:
     design recommendations.
 \end{itemize}
 
-This thesis concerns the software design and evaluation of radar tracking 
-pipelines for UAV DAA under SWaP constraints. The scope is limited to 
-processing stages occurring after radar sample acquisition, with emphasis on 
-how alternative signal-processing, angle-estimation, and tracking algorithms 
-perform on embedded compute platforms suitable for small and medium UAVs. 
-The processing chain considered spans front-end windowing, FFT, coherent 
-integration, CFAR detection, monopulse angle estimation, coordinate 
-transformation, data association, tracking filters, and track management, 
-together with orchestration decisions such as batching, host--device transfers, 
-and synchronisation overhead.
+This thesis concerns the software design and evaluation of radar tracking pipelines for UAV 
+DAA under SWaP constraints. The scope covers processing stages from raw radar samples through
+windowing, FFT, coherent integration, CFAR detection, monopulse angle estimation, data 
+association, and tracking filters, on embedded GPU platforms suitable for small and medium UAVs.
 
-Several topics are outside scope. Radar front-end hardware design, full-scale 
-field trials, FPGA and ASIC implementations, and cross-modality comparisons 
-with optical or infrared sensing are not addressed. The thesis does not claim 
-certification readiness for operational deployment; rather, it provides 
-comparative evidence and design guidance for onboard radar processing under 
-realistic embedded constraints.
+Radar hardware design, full-scale field trials, FPGA and ASIC implementations, and comparisons 
+with optical or infrared sensing are outside scope. The thesis does not claim certification 
+readiness; it provides comparative evidence and design guidance for onboard radar processing 
+under realistic embedded constraints.
 
-The thesis proceeds under three assumptions. The radar sensor is a small 
-conformal monopulse radar whose aperture and power budget are representative 
-of a UAV-compatible installation. The target compute platform is GPU-enabled 
-embedded hardware, reflecting the increasing use of heterogeneous CPU/GPU 
-companion computers in modern UAV systems. The hardware context of primary 
-interest features shared or unified CPU/GPU memory, as found in many embedded 
-systems-on-module, though comparison against CPU-only and discrete-memory 
-configurations is used where available to clarify architectural trade-offs.
+The radar sensor is assumed to be a small monopulse radar whose aperture and power budget are 
+representative of a UAV-compatible installation. The target compute platform is GPU-enabled 
+embedded hardware with shared or unified CPU/GPU memory, as found in many embedded systems-on-module, 
+though CPU-only and discrete-memory configurations are included where needed to clarify architectural 
+trade-offs.
 
+By benchmarking alternative implementations of radar signal processing stages and comparing 
+tracking algorithms, this work quantifies how these choices affect detection sensitivity, 
+false alarm rate, and computational performance. In addition to characterising the algorithms 
+themselves, the project produces a reproducible evaluation framework — including computational 
+profiling, ablation studies, and parameter sweeps — that can be applied to comparable radar 
+research. The resulting design recommendations provide an evidence-based guide for engineers 
+developing small radar systems, and support the integration of UAVs into civil airspace where 
+reliable onboard tracking of non-cooperative targets is essential.
+
+More broadly, improved DAA capability supports the safe scaling of beyond-visual-line-of-sight 
+UAV operations in shared airspace, enabling high-value public and commercial services. These 
+include faster emergency response and situational awareness, routine environmental and 
+agricultural monitoring, and cost-effective inspection of critical infrastructure such as 
+power lines and transport corridors \cite{casa_bvlos_trial_2025}. Strengthening the safety 
+case for UAV integration also supports national bushfire risk reduction and response, 
+where drones are an identified tool for monitoring, assessment, and operations planning 
+\cite{drones_gov_bushfire}. By reducing uncertainty in achievable performance under SWaP 
+constraints, this work contributes evidence that can inform practical requirements and 
+deployment decisions for safe UAV operations in shared airspace \cite{utm_action_plan_2024}.
+
+\newpage
 \input{Sections/Ch1 Introduction/thesis_structure.tex}
-
-This project targets a practical gap between established airborne radar 
-tracking methods, which are typically developed and validated for large apertures 
-and well-provisioned platforms, and the constraints of small to medium UAV payloads. 
-By evaluating both algorithmic choices and low-level implementations on GPU-enabled 
-embedded hardware, this work provides an evidence-based reference for software-defined 
-radar processing under SWaP constraints. The resulting design recommendations and 
-benchmarking methodology are intended to be reusable by future UAV radar efforts, 
-improving the comparability of results across the field. Evidence of achievable 
-detection and tracking performance under these constraints can also inform 
-requirements for DAA capability, supporting the safer integration of UAVs into 
-controlled airspace \cite{utm_action_plan_2024}.
-

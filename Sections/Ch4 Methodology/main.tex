@@ -34,7 +34,7 @@ recommendations.
 The software processing pipeline is designed to receive the radar data from four Texas Instruments 
 AWR2243 radar chips, and produce tracks of targets in the radar's field of view. It is 
 designed to be modular, with each stage of the pipeline performing a specific function. The pipeline 
-is comprised of three subsystems, a pre-processing subsystems which is concerned with preparing 
+is comprised of three subsystems, a pre-processing subsystem which is concerned with preparing 
 the raw radar data for detection, an aggregator subsystem, which is concerned with combining the 
 processed data from the four video streams into a single stream, and a detection and tracking 
 subsystem, which is concerned with detecting targets in the radar data and tracking them over time. 
@@ -43,13 +43,13 @@ This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow
 \begin{figure}[htbp]
     \centering
     \incfig[1]{application_level_dataflow} 
-    \caption{\small System level dataflow diagram. The pre-processing subsystem receives the AWR2243's raw 
-    radar data over four CSI video streams. The data is organised into frames, each containing many 
-    chirps. The processing subsystem then outputs 
+    \caption[\small System-level dataflow diagram of the radar pipeline.]{\small System level dataflow diagram. The pre-processing subsystem receives the AWR2243's raw
+    radar data over four CSI video streams. The data is organised into frames, each containing many
+    chirps. The processing subsystem then outputs
     the data in the form of chirps containing target range information. The aggregator subsystem
-    receives the four resulting processed data streams, and combines them into a single data stream 
-    organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing. 
-    The detection and tracking subsystem receives a stream of quadruplets, and produces tracks of 
+    receives the four resulting processed data streams, and combines them into a single data stream
+    organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing.
+    The detection and tracking subsystem receives a stream of quadruplets, and produces tracks of
     targets in the radar's field of view.}
     \label{fig:system-level-dataflow}
 \end{figure}

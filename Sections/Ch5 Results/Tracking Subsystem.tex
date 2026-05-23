@@ -3,13 +3,13 @@
 \subsection{Correctness}
 Under the assumption of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise 
 power, the CFAR threshold coefficient $\alpha$ is calculated numerically for a range of false alarm 
-rates. The actual false alarm rate is then measured by running the CFAR algorithm on the synthetic 
-dataset with an SNR of zero. Figure \ref{fig:alpha-cfar-results} illustrates the results.
+rates. The actual false alarm rate is then measured by running the CFAR algorithm on a noise-only
+synthetic dataset. Figure \ref{fig:alpha-cfar-results} illustrates the results.
 
 \begin{figure}[htbp]
     \centering
     \incfig[0.4]{pfa_comparison} 
-    \caption{The actual false alarm rate closely matches the desired false alarm rate across a range
+    \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{The actual false alarm rate closely matches the desired false alarm rate across a range
     of false alarm rates. The numerical solution for $\alpha$ is therefore accurate under the assumption
     of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise power.}
     \label{fig:alpha-cfar-results}
@@ -23,9 +23,9 @@ rate closely matching the desired. The successful performance of CFAR with a fal
     \centering
     \incfig[0.8]{cfar-0.001-waterfall}
     \label{fig:cfar-0.001-waterfall}
-    \caption{CFAR with a desired false alarm rate of \(0.001\) infrequently detect peaks within a 
-    target less noise as expected. The figure is a waterfall plot, with chirp on the y-axis and range 
-    on the x-axis. The brightness of the cell reflects the power of the corresponding chirp's range bin. 
+    \caption[CFAR waterfall at false alarm rate of 0.001.]{CFAR with a desired false alarm rate of \(0.001\) infrequently detects peaks in what is
+    predominantly noise, as expected. The figure is a waterfall plot, with chirp on the y-axis and range
+    on the x-axis. The brightness of the cell reflects the power of the corresponding chirp's range bin.
     The black space indicates that most cells are masked by CFAR.} 
 \end{figure}
 
@@ -38,9 +38,9 @@ and \ref{fig:cfar-implementation-performance-desktop}.
 \begin{figure}[htbp]
     \centering
     \includesvg[width=0.75\linewidth]{CFAR implementation speed on desktop.svg} 
-    \caption{Computational Performance of three CFAR implementations as a function of buffer size on the 
-    desktop setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes, 
-    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation 
+    \caption[CFAR implementation speed vs buffer size on the desktop.]{Computational Performance of three CFAR implementations as a function of buffer size on the
+    desktop setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes,
+    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation
     is the slowest across all buffer sizes.}
     \label{fig:cfar-implementation-performance-desktop}
 \end{figure}
@@ -48,29 +48,28 @@ and \ref{fig:cfar-implementation-performance-desktop}.
 \begin{figure}[htbp]
     \centering
     \includesvg[width=0.75\linewidth]{CFAR implementation speed on Xavier.svg} 
-    \caption{Computational Performance of three CFAR implementations as a function of buffer size on the 
-    Xavier setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes, 
-    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation 
+    \caption[CFAR implementation speed vs buffer size on the Xavier.]{Computational Performance of three CFAR implementations as a function of buffer size on the
+    Xavier setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes,
+    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation
     is the slowest across all buffer sizes.}
     \label{fig:cfar-implementation-performance-Xavier}
 \end{figure}
 
 The speed is also plotted as a function of the number of CFAR training cells. The results are illustrated 
 in Figures \ref{fig:cfar-implementation-performance-Xavier-training-cells} and 
-\ref{fig:cfar-implementation-performance-desktop-training-cells}. The desktop results illustrate that both 
-the 
-GPU and the prefix sum table implementations are not significantly affected by the number of training 
+\ref{fig:cfar-implementation-performance-desktop-training-cells}. The desktop results illustrate that both
+the GPU and the prefix sum table implementations are not significantly affected by the number of training
 cells, while the naive CPU implementation's speed increases linearly with the number of training cells. 
 The Xavier results illustrate that while the prefix sum table implementation remains invariant to the 
 number of training cells (as we expect), the GPU implementation's speed does increase with the number 
 of training cells, due to the fact that each thread has more work to do to calculate the noise statistic. 
-Through simulating on the Xavier, we find that the GPU implementation is faster than either CPU implementation 
+Results on the Xavier show that the GPU implementation is faster than either CPU implementation 
 for window sizes within the practical range of 10 - 100 training cells.  
 
 \begin{figure}
     \centering
     \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10.svg} 
-    \caption{Computational Performance of three CFAR implementations as a function of the number of 
+    \caption[CFAR implementation speed vs training cells on the desktop.]{Computational Performance of three CFAR implementations as a function of the number of
     training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplets.}
     \label{fig:cfar-implementation-performance-desktop-training-cells}
 \end{figure}
@@ -78,7 +77,7 @@ for window sizes within the practical range of 10 - 100 training cells.
 \begin{figure}
     \centering
     \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10 Xavier.svg} 
-    \caption{Computational Performance of three CFAR implementations as a function of the number of 
+    \caption[CFAR implementation speed vs training cells on the Xavier.]{Computational Performance of three CFAR implementations as a function of the number of
     training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplets.}
     \label{fig:cfar-implementation-performance-Xavier-training-cells}
 \end{figure}
@@ -92,35 +91,34 @@ resulting angle estimates are visualised live in a 3D plot. A frame of this view
 
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{monopulse_angle_sensing_results.png}
-    \caption{Results of the monopulse angle sensing algorithm on synthetic data. The colour of the dots indicate
+    \caption[Monopulse angle sensing results on synthetic data.]{Results of the monopulse angle sensing algorithm on synthetic data. The colour of the dots indicate
     the range of the detections, with green being close and orange being far away. The opacity of the dots indicate
     the strength of the detections, with more opaque dots being stronger. The plot features the most recently 1000
-    detections. The spread of the dots increase as range increases as expected, and the 
-    upper and lower bounds of 
-    elevation and bearing meet expectations 
-    based on the polynomial chosen for the angle sensing algorithm.}
+    detections. The spread of the dots increases with range as expected, and the
+    upper and lower bounds of elevation and bearing match the field of view
+    defined by the calibration polynomial.}
     \label{fig:monopulse-angle-sensing-results}
 \end{figure}
 
 The relative latency cost of the angle and CFAR operations were measured through an ablation study on the detection 
 subsystem. The results are illustrated in Figure \ref{fig:tracking-latency-trials} which shows the latency 
-of just CFAR, just angle sensing, and both, and Figure \ref{fig:tracking-latency-breakdown}, . 
+of just CFAR, just angle sensing, and both, and Figure \ref{fig:tracking-latency-breakdown}. 
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_trials.svg}
-    \caption{Latency of the subsystem running CFAR, angle sensing, and both on a log scale. 
-    The latency of the subsystem 
-    running CFAR is similar to the latency of the subsystem running both, while angle sensing 
-    is 1.5-5 times faster than either, 
+    \caption[Detection subsystem latency for CFAR, angle sensing, and both.]{Latency of the subsystem running CFAR, angle sensing, and both on a log scale.
+    The latency of the subsystem
+    running CFAR is similar to the latency of the subsystem running both, while angle sensing
+    is 1.5-5 times faster than either,
     suggesting that CFAR dominates the latency of the subsystem.}
     \label{fig:tracking-latency-trials}
 \end{figure}
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_breakdown.svg}
-    \caption{A breakdown of the latency of the subsystem estimated from the ablation study. 
-    Most of the latency is split 
-    between CFAR and the overhead of handling the data, which involves synchronising threads 
+    \caption[Detection subsystem latency breakdown from ablation study.]{A breakdown of the latency of the subsystem estimated from the ablation study.
+    Most of the latency is split
+    between CFAR and the overhead of handling the data, which involves synchronising threads
     and migrating data between the CPU and GPU.}
     \label{fig:tracking-latency-breakdown}
 \end{figure}
