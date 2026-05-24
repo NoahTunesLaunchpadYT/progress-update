@@ -34,14 +34,23 @@ A tracking filter combines a model of target motion with incoming measurements t
 
 Since radar measurements are expressed in spherical coordinates while motion models are most naturally formulated in Cartesian space, the measurement equation is nonlinear. The Extended Kalman Filter (EKF) handles this via first-order linearisation, while the Unscented Kalman Filter (UKF) \cite{julier1997newextension} propagates sigma points through the nonlinear transformation for improved accuracy when the nonlinearity is significant.
 
-At each update the tracker must determine which detections correspond to which tracks. Gating first restricts candidates for each track to detections falling within an ellipsoidal region around the predicted measurement, based on the Mahalanobis distance, reducing both computational cost and spurious assignments. The Global Nearest Neighbour (GNN) algorithm then solves the assignment across all tracks and detections simultaneously as an optimisation problem.
+At each update the tracker must determine which detections correspond to which tracks. Gating first restricts candidates for each track to detections falling within an ellipsoidal region around the predicted measurement, based on the Mahalanobis distance, reducing both computational cost and spurious assignments. The Global Nearest Neighbour (GNN) algorithm then solves the assignment across all tracks and detections simultaneously as an optimisation problem \cite{barshalom2001estimation}.
 
-In dense clutter, hard assignment methods can be insufficient. Probabilistic data association (PDA) updates each track as a weighted combination of all gated detections, with weights proportional to measurement likelihood. Joint PDA (JPDA) extends this to the multi-target case. Multiple hypothesis tracking (MHT) defers the association decision by maintaining a tree of hypotheses across multiple scans (see Figure \ref{fig:mht}).
+In dense clutter, hard assignment methods can be insufficient. Probabilistic data association (PDA) updates each track as a weighted combination of all gated detections, with weights proportional to measurement likelihood. Joint PDA (JPDA) extends this to the multi-target case \cite{barshalom1988tracking}. Multiple hypothesis tracking (MHT) defers the association decision by maintaining a tree of hypotheses across multiple scans \cite{reid1979mht} (see Figure \ref{fig:mht}).
 
 \begin{figure}[htb]
     \incfig[0.8]{mht}
     \label{fig:mht}
-    \caption{Multiple hypothesis tracking algorithm maintaining branching tracks of two different targets}
+    \caption[Multiple hypothesis tracking with two targets in clutter.]{Multiple hypothesis tracking algorithm maintaining branching tracks
+    of two targets (in blue and red) with their measurements indicated by blue
+    dots.
+    "Clutter" detections that make the path of the targets unclear are indicated
+    as triangles. The blue and red shaded circles represent several potential
+    posterior estimates of each of the two targets at the current timestep,
+    reflecting the ambiguity in associating the measurements to the targets
+    amongst the clutter. There is also an uncertain "no detection' hypothesis
+    for each target indicated by the large circles. The size of the shaded circles 
+    indicate 3 standard deviations of uncertainty.}
 \end{figure}
 
-Detections that cannot be associated with any existing track initialise tentative tracks, which are promoted to confirmed only after receiving consistent detections across a minimum number of updates — commonly an M-of-N logic. This prevents transient clutter returns from generating false confirmed tracks. Conversely, tracks accumulating consecutive missed detections are allowed to coast for a limited number of updates before being deleted. The promotion and deletion thresholds balance responsiveness to new targets against robustness to clutter and intermittent detection loss.
+Detections that cannot be associated with any existing track initialise tentative tracks, which are promoted to confirmed only after receiving consistent detections across a minimum number of updates — commonly an M-of-N logic \cite{blackman1999modern}. This prevents transient clutter returns from generating false confirmed tracks. Conversely, tracks accumulating consecutive missed detections are allowed to coast for a limited number of updates before being deleted. The promotion and deletion thresholds balance responsiveness to new targets against robustness to clutter and intermittent detection loss.

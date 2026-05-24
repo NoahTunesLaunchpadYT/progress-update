@@ -3,7 +3,7 @@
 
 \subsection{CFAR}
 For finding the CFAR coefficient $\alpha$ (defined in \ref{eqn:threshold}) that gives a desired false 
-alarm rate $P_{fa}^{\star}$, we can not rearrange the equation into a closed-form expression. 
+alarm rate $P_{fa}^{\star}$, we cannot rearrange the equation into a closed-form expression. 
 
 Hence, for a desired false alarm rate $P_{fa}^{\star}$, $\alpha$ is found by solving
 \begin{equation}
@@ -30,9 +30,9 @@ trade off against latency and throughput under SWaP constraints.
 
 \begin{figure}[htbp]
     \incfig[0.75]{cfar}
-    \caption{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold 
-    determined by the power of the samples around it. The threshold is calculated by taking the 
-    average power of the surrounding samples and multiplying it by a factor \(\alpha\) determined 
+    \caption[Naive CPU CFAR implementation.]{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold
+    determined by the power of the samples around it. The threshold is calculated by taking the
+    average power of the surrounding samples and multiplying it by a factor \(\alpha\) determined
     by the desired false alarm rate.}
     \label{fig:naive-cfar}
 \end{figure}
@@ -40,18 +40,18 @@ trade off against latency and throughput under SWaP constraints.
 \begin{figure}[htbp]
     \incfig[0.75]{prefix_sum_table}
     \label{fig:prefix-sum-table}
-    \caption{CFAR implementation using a prefix sum table (cumulative signal power). The prefix sum 
-    table allows the noise statistic to be calculated with a fixed number of sums per sample of 
-    interest, regardless of the number of training cells. In this specific case, after the cumulative 
-    signal power is calculated in preprocessing, it only takes four sums of to find the sum of eight 
+    \caption[CFAR using a prefix sum table for constant-time noise statistics.]{CFAR implementation using a prefix sum table (cumulative signal power). The prefix sum
+    table allows the noise statistic to be calculated with a fixed number of sums per sample of
+    interest, regardless of the number of training cells. In this specific case, after the cumulative
+    signal power is calculated in preprocessing, it only takes four sums of to find the sum of eight
     training cells.}
 \end{figure}
 
 \begin{figure}[htbp]
     \incfig[0.75]{gpu_cfar}
     \label{fig:gpu-cfar}
-    \caption{CFAR implementation on the GPU. Threads (each depicted as a unique colours) are each 
-    responsible for a sample, allowing for parallel processing of the CFAR algorithm across the entire 
+    \caption[Parallel GPU CFAR implementation.]{CFAR implementation on the GPU. Threads (each depicted as a unique colours) are each
+    responsible for a sample, allowing for parallel processing of the CFAR algorithm across the entire
     range profile. Each thread calculates its own noise statistic, threshold, and mask.}
 \end{figure}
 

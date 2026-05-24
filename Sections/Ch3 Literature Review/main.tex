@@ -40,7 +40,6 @@ resolution, and false alarm behaviour. This thesis addresses this gap by
 benchmarking range--Doppler processing, CFAR detection, and multi-target 
 tracking under the SNR conditions characteristic of small-aperture UAV radars.
 
-
 \section{Embedded Radar Processing Under SWaP Constraints}
 
 Shi et al.\ \cite{6712628} describe a small FMCW phased array built from 
@@ -101,6 +100,19 @@ interference. This thesis addresses this gap by applying the algorithm to
 multiple targets under non-Gaussian noise regimes and measuring both 
 sensitivity and track-quality impacts alongside compute cost.
 
+The noise and clutter regime experienced by a miniature airborne radar has not been empirically
+characterised in the literature. Ezuma et al.\ \cite{ezuma2019microuav} demonstrate that
+Gaussian and Rayleigh clutter assumptions — the basis of CA-CFAR — already fail for
+ground-based mmWave radar detecting UAVs, finding that a Weibull distribution provides a
+significantly better fit to the measured clutter statistics, and explicitly noting that prior
+UAV detection work had neglected this. The airborne case, where the radar sensor is itself
+mounted on a vibrating UAV platform subject to altitude variation, aspect angle changes, and
+platform-induced interference, introduces further departures from the homogeneous Gaussian
+noise model that underpins standard windowing and CFAR algorithm selection. No published work
+has measured or modelled these statistics for a miniature airborne FMCW radar in real flight
+conditions. As a result, the algorithm choices made in existing pipeline designs, (window
+function selection, CFAR variant, and training cell configuration) lack empirical
+justification for this operating regime.
 
 \section{Summary and Research Gap}
 Across the UAV DAA radar literature three gaps emerge. First, existing 
@@ -110,14 +122,17 @@ moving airborne targets under realistic encounter conditions. Second,
 processing feasibility on constrained embedded hardware has been demonstrated 
 on FPGAs and ARM CPUs, but no work benchmarks a GPU-based pipeline in a UAV 
 DAA context with comprehensive algorithm coverage and architectural profiling. 
-Third, sensitivity algorithms for low-SNR monopulse radar exist but have only 
-been validated under idealised white Gaussian noise with single targets, with 
-no integration into complete pipelines or evaluation under realistic multi-target 
-conditions.
+Third, the noise and clutter regime of miniature airborne FMCW radar has not been empirically
+characterised. Existing work shows that Gaussian clutter assumptions fail even for ground-based
+mmWave radar, yet no study has measured these statistics for an airborne sensor. As a result,
+the window function, CFAR variant, and training cell choices made in existing pipeline designs
+lack empirical justification for this operating regime, and angle sensing algorithms have only
+been validated under idealised white Gaussian noise with single simulated targets.
 
-This thesis addresses all three gaps by characterising detection and tracking 
-sensitivity against small moving airborne targets, by benchmarking a 
-comprehensive selection of radar processing and tracking algorithms on embedded 
-GPU hardware with explicit profiling of host--device transfer and 
-synchronisation overhead, and by evaluating monopulse sensitivity algorithms 
-within a complete multi-target tracking pipeline under realistic noise conditions.
+This thesis addresses all three gaps by characterising detection and tracking
+sensitivity against small moving airborne targets, by benchmarking a
+comprehensive selection of radar processing and tracking algorithms on embedded
+GPU hardware with explicit profiling of host--device transfer and
+synchronisation overhead, and by collecting real flight data to characterise the
+noise regime and evaluate monopulse angle sensing algorithms within a complete
+multi-target tracking pipeline under realistic conditions.

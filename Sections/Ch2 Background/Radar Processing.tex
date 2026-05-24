@@ -5,9 +5,9 @@ The strength of the received signal is given by the equation,
 \begin{equation}
 P_r = \frac{P_t G_t G_r \lambda^2 \sigma}{(4\pi)^3 R^4 L}
 \end{equation}
-where $P_r$ is the received power, $P_t$ is the transmitted power, $G_t$ and $G_r$ are the gains 
-of the transmitting and receiving antennas, $\lambda$ is the wavelength, $\sigma$ is the radar 
-cross-section of the target, $R$ is the range to the target, and $L$ represents system losses.
+where $P_r$ is the received power, $P_t$ is the transmitted power, $G_t$ and $G_r$ are the gains
+of the transmitting and receiving antennas, $\lambda$ is the wavelength, $\sigma$ is the radar
+cross-section of the target, $R$ is the range to the target, and $L$ represents system losses \cite{Skolnik2001IntroRadarSystems}.
 
 Hence, the received signal informs us about the target's radar cross-section, reflectivity and 
 range, while the time delay between transmission and reception gives us just range. The 
@@ -19,6 +19,9 @@ the target.
 \begin{figure}[htb]
     \incfig[0.6]{radar_operation}
     \label{fig:radar_operation}
+    \caption[Radar illustration]{A illustrative diagram of a radar detecting an object. Objects 
+    are detected through the reflection of transmitted radio waves. The time delay and power of 
+    the reflected signal provides information about the range and size of the object}
 \end{figure}
 
 To measure the range of targets, radar systems need to transmit the signal as pulses. Pulses are 
@@ -26,24 +29,22 @@ generally preferred over continuous constant frequency signal because the time d
 the transmitted pulse and the received echo can be easily measured to estimate range. The 
 transmitted signal is often modulated in frequency or phase. Linearly frequency modulation,
 (LFM) creates pulses that involve a continuous sweep of frequencies during the pulse duration
-(see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to 
-frequency dependent interference, and improved range resolution due to the effect of pulse compression.
-Through pulse compression, the long duration LFM pulse can be compressed in time and usually illustrates 
-the difference between the transmitted and received signals. One pulse compression technique
-for LFMCW signals is described as "de-chirping", which involves mixing (multiplying) the 
-received 
-signal with the transmitted signal to produce a "beat" frequency that is proportional to the 
-range of the target (See Figure \ref{fig:de-chirping}). The resulting signal's frequencies are given by the product of cosines
-identity,
+(see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to
+frequency dependent interference, and improved range resolution due to the effect of pulse compression \cite{Richards2005FundamentalsRadarSP}.
+Through pulse compression, the long duration LFM pulse can be compressed in time, resulting a 
+signal that illustrates the difference between the transmitted and received signals. One pulse
+compression technique for LFM signals is described as "de-chirping", which involves mixing
+(term-wise multiplying) the received signal with the transmitted signal to produce a "beat"
+frequency that gives range information (See Figure \ref{fig:de-chirping}). Modelling each signal
+as a cosine, the mixed signal's frequencies are given by the product of cosines identity,
 \begin{equation}
-    \cos \omega_1 \cos \omega_2 = \frac{1}{2} [\cos(\omega_1-\omega_2) + \cos(\omega_1+\omega_2)]
+    \cos(\omega_1 t)\cos(\omega_2 t) = \frac{1}{2} [\cos((\omega_1-\omega_2)t) + \cos((\omega_1+\omega_2)t)]
 \end{equation}
-where $\omega_1$ is the transmitted signal's frequency and $\omega_2$ is the received signal's frequency. By 
-applying a low-pass filter 
-to the mixed signal, we obtain the lower frequency component, which is the beat frequency. 
-The beat frequency is directly proportional to the range of the target, allowing us to estimate the 
-target's distance from the radar with a precision much high than the estimate obtained from the 
-time of flight.  
+where $\omega_1$ is the transmitted signal's frequency and $\omega_2$ is the received signal's frequency.
+Since both signals' frequencies increase linearly in time, the difference (beat) frequency
+$\omega_1-\omega_2$ is constant and proportional to the time delay and thus the range of the
+target. By applying a low-pass filter
+to the mixed signal, we obtain the lower frequency component, which is the beat frequency.  
 
 \begin{figure}[htb]
     \incfig[1]{LFM}
@@ -52,9 +53,9 @@ time of flight.
 \begin{figure}[htb]
     \incfig[1]{de-chirping}
     \label{fig:de-chirping}
-    \caption{The transmitted LFMCW chirp (top), delayed echo (middle), and resulting beat 
-    signal after mixing and low-pass filtering (bottom), shown for a close target (left, 0.5 µs 
-    delay) and far target (right, 2 µs delay). The far target has a higher beat frequency that the 
+    \caption[Transmitted LFM chirp, echo, and beat signal for close and far targets.]{The transmitted LFM chirp (top), delayed echo (middle), and resulting beat
+    signal after mixing and low-pass filtering (bottom), shown for a close target (left, 0.5 µs
+    delay) and far target (right, 2 µs delay). The far target has a higher beat frequency that the
     close target.}
 \end{figure}
 
@@ -88,19 +89,19 @@ radial frequency.
 
 To improve the detectability of weak targets, radar systems often apply coherent integration 
 across multiple pulses. This involves summing the complex samples across pulses for each range bin 
-after the DFT. By summing the complex range bins across multiple pulses, the signal from a target 
-will add constructively while noise will add incoherently improving signal to noise ratio as 
-illustrated in Figure \ref{fig:coherent integration}. Phase is preserved during integration, which is 
+after the DFT. By summing the complex range bins across multiple pulses, the signal from a target
+will add constructively while noise will add incoherently improving signal to noise ratio as
+illustrated in Figure \ref{fig:coherent integration} \cite{Richards2010}. Phase is preserved during integration, which is 
 necessary for later angle estimation stages.
 
 \begin{figure}[htbp]
     \centering
-    \incfig[1]{figures/phasor_bins_multi_chirp}
-    \caption{Coherent integration across five chirps for each range bin. The amplitude of each arrow 
+    \incfig[1]{phasor_bins_multi_chirp}
+    \caption[Coherent integration across five chirps showing constructive summation of target returns.]{Coherent integration across five chirps for each range bin. The amplitude of each arrow
     corresponds to the presence of a target at a corresponding range from the radar, and the argument
-    of the arrow corresponds to the phase of the signal for that range bin. 
-    Most bins contain noise-like phasors with varying direction, so their coherent sum remains small. 
-    The highlighted bin contains a weak but consistent DC offset across chirps, so its values 
+    of the arrow corresponds to the phase of the signal for that range bin.
+    Most bins contain noise-like phasors with varying direction, so their coherent sum remains small.
+    The highlighted bin contains a weak but consistent DC offset across chirps, so its values
     add constructively, producing a larger resultant value in the coherent-sum.}
     \label{fig:coherent integration}
 \end{figure}
@@ -116,8 +117,9 @@ magnitude below a threshold determined by the power of the samples around it (se
 
 Where $T$ is the threshold, $\alpha$ is a factor determined by the desired false alarm rate, $N$ is 
 the number of training samples, and $x_i$ are the power (magnitude squared) of the training samples. 
-Under a Gaussian noise assumption, the coefficient $\alpha$ that leads to a desired false alarm rate 
-$P_{fa}$ can be calculated as, 
+Under the assumption that the noise in each receiver channel is complex Gaussian, the summed
+power across four receivers follows a chi-squared distribution with 8 degrees of freedom.
+For this distribution, the false alarm probability as a function of $\alpha$ is \cite{Richards2010},
 
 \begin{equation}
     P_{fa}(\alpha;N) = \left( \frac{N}{N+\alpha} \right)^N
@@ -125,13 +127,17 @@ $P_{fa}$ can be calculated as,
     \left( \frac{\alpha}{N+\alpha} \right)^k
 \end{equation}
 
-where k is one less than the number of receiver channels \cite{Richards2010}. In this case, \(k=3\). 
+where $k$ is one less than the number of receivers (here $k=3$, since quadruplet samples from
+four receivers are summed before thresholding). 
 Figure \ref{fig:cfar_detection} illustrates how CFAR generates detections by comparing a signal to a 
 threshold determined by the power of the surrounding samples.
 
 \begin{figure}
-    \incfig[1]{figures/cfar_detection}
-    \caption{CFAR detection process. The threshold is calculated based on the power of surrounding 
-    samples, and the signal is compared to this threshold to generate detections.}
+    \incfig[1]{cfar_detection}
+    \caption[CFAR detection process.]{CFAR detection process. The threshold is calculated based on 
+    the power of the samples surround the test cell, and the test cell is compared to this threshold 
+    to identify peaks in the signal. The scenario features three target peaks which are each detected 
+    by CFAR, while the rest of the signal lies below the CFAR threshold, excluding one outlier noise 
+    sample.}
     \label{fig:cfar_detection}    
 \end{figure}

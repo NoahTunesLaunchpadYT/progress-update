@@ -22,11 +22,12 @@
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{xcolor}
-\usepackage{svg}
+\usepackage[inkscapeversion=1]{svg}
 
 \newcommand{\incfig}[2][1]{%
     \def\svgwidth{#1\columnwidth}
-    \import{./figures/}{#2.pdf_tex}
+    % \import{./figures/}{#2.pdf_tex}
+    \import{}{#2.pdf_tex}
 }
 
 \pdfsuppresswarningpagegroup=1
@@ -51,7 +52,31 @@
 \usepackage{placeins}
 \usepackage{pdfpages}% for hosting full pdf docs as in appendix
 \usepackage[pdftex,bookmarks=true]{hyperref}
+\usepackage[acronym, nogroupskip]{glossaries-extra}
+\makeglossaries
+% glossaries-extra replaces \@starttoc with a 1-arg wrapper, but amsbook
+% defines \@starttoc as 2-arg (extension + title). This causes phantom TOC
+% entries and LOF/LOT headers appearing after their lists. Revert to amsbook's
+% original \@starttoc to fix both issues.
+\glsxtrRevertTocMarks
+% glossaries-extra unconditionally passes toc=true to glossaries, but amsbook's
+% \chapter* already writes TOC entries via \@tocwriteb. Disable the glossaries
+% duplicate to avoid two Acronyms entries in the TOC.
+\glstocfalse
+% usydthesis.cls appends an extra \newpage after \@starttoc inside \tableofcontents,
+% but \@starttoc already ends with \newpage. Remove the duplicate to prevent a
+% blank page before the glossary.
+\makeatletter
+\renewcommand{\tableofcontents}{%
+  \@starttoc{toc}\contentsname%
+}
+\makeatother
 %\usepackage[xindy]{glossaries} % must be after hyperref
+\makeatletter
+\pdfstringdefDisableCommands{%
+    \def\@glsxtrnotinmark{}%
+}
+\makeatother
 \hypersetup{
     pdfauthor = {Noah West},
     pdftitle = {Radar Tracking Software Pipeline for
@@ -86,6 +111,7 @@ UAV Detect-and-Avoid},
   eprint=false
 }
 \usepackage{microtype}
+\usepackage{adjustbox}
 %\setlength{\parskip}{3mm plus0.5mm minus0.5mm}
 %\parindent 0pt
 %\renewcommand{\thepage}{\roman{page}}
@@ -101,8 +127,7 @@ UAV Detect-and-Avoid},
 
 %%%%%%%%%%%%
 % Start
-%\input{src/glossary.tex}
-%\makeglossaries
+\input{Sections/glossary.tex}
 \begin{document}
 
 % % initial page numbers:  i, ii, iii, ...
@@ -122,15 +147,26 @@ UAV Detect-and-Avoid}}
 \newpage
 \input{Sections/2 Statement of Contribution.tex}
 \newpage
-\input{Sections/4 Acknowledgements.tex}
+% \input{Sections/4 Acknowledgements.tex}
 
 
 \setcounter{tocdepth}{2}
 \newpage
 \addcontentsline{toc}{chapter}{Contents}
+% \tableofcontents
+% \listoffigures
+% \listoftables
+
 \tableofcontents
+\glsaddall
+% Suppress \clearpage so the glossary heading lands on the already-fresh page
+% from \@starttoc rather than triggering another blank page.
+{\let\clearpage\relax\printglossary[type=\acronymtype, title=Acronyms, nonumberlist]}
+\newpage
 \listoffigures
-%\listoftables
+\newpage
+\listoftables
+\newpage
 
 %%%%%%%%%%%%
 % Chapters
@@ -148,7 +184,7 @@ UAV Detect-and-Avoid}}
 \input{Sections/Ch4 Methodology/main.tex}
 \input{Sections/Ch5 Results/main.tex} 
 \input{Sections/Ch6 Discussion/main.tex}
-\input{Sections/Ch7 Conclusion/main.tex}
+\input{Sections/Ch7 Proposal/main.tex}
 
 %%%%%%%%%%%%
 % End
@@ -156,12 +192,13 @@ UAV Detect-and-Avoid}}
 % Bibliography
 %\bibliographystyle{style/mybibstyle}
 %\bibliography{thesis}
+% \addcontentsline{toc}{chapter}{Acronyms}
 \printbibliography
 
 % Appendices
 \appendix
-\chapter{Appendix}
-\input{Sections/5 Case Studies.tex}
-\input{Sections/5 Health and Safety Report.tex}
-\input{Sections/6 Practical Experience Logbook.tex}
+% \chapter{Appendix}
+% \input{Sections/5 Case Studies.tex}
+% \input{Sections/5 Health and Safety Report.tex}
+% \input{Sections/6 Practical Experience Logbook.tex}
 \end{document}

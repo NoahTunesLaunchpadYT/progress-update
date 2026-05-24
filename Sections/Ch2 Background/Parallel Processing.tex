@@ -4,7 +4,7 @@ Many stages of a radar signal processing pipeline — range compression, coheren
 
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{Images/gpu-devotes-more-transistors-to-data-processing.png}
-    \caption{The GPU devotes more transistors to data processing than the CPU, each (green) core acts as a thread that executes the same instruction on different data elements.}
+    \caption[GPU vs CPU transistor allocation for data processing.]{The GPU devotes more transistors to data processing than the CPU. Each (green) core acts as a thread that executes the same instruction on different data elements. Source: \cite{nvidia2025cuda}.}
     \label{fig:gpu-architecture}
 \end{figure}        
 
@@ -12,7 +12,11 @@ A GPU executes a large number of lightweight threads (Figure \ref{fig:gpu-archit
 
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{Images/active-warp-lanes.png}
-    \caption{In this example, only threads with even thread index execute the body of the if statement, the others are masked off while the body is executed.}
+    \caption[Warp divergence causing serial execution of divergent branches.]{In this example, branching
+    paths in execution between the even and odd threads prevent all threads from executing in parallel.
+    All even threads execute the top branch while all odd threads are idle, then vice versa. As a result,
+    the execution time is the sum of the two branches instead of the maximum. 
+    Source: \cite{nvidia2025cuda}.}
     \label{fig:warp-diverge}
 \end{figure}
 
@@ -20,7 +24,11 @@ Memory access patterns also affect throughput. Global memory is accessed most ef
 
 \begin{figure}
     \includegraphics[width=0.5\linewidth]{Images/adjacent-threads-accessing-memory-with-stride-of-2.png}
-    \caption{Figure 6: Adjacent threads accessing memory with a stride of 2. A stride of 2 results in a 50\% of load/store efficiency since half the elements in the transaction are not used and represent wasted bandwidth.}
+    \caption[Non-coalesced memory access with stride of 2 reducing bandwidth efficiency.]{Figure 6:
+    Adjacent threads (bottom) accessing every second memory location (orange). Since memory is cached in 
+    large blocks,
+    the large stride of 2 results in a 50\% reduction in load/store efficiency, since half of all cached
+    memory is not being used. Source: \cite{nvidia2025cuda}.}
     \label{fig:coalesced-access}
 \end{figure}
 
