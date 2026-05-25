@@ -1,4 +1,34 @@
 \chapter{Background}
+
+\gls{uav}s are becoming more abundant and essential across a wide range of
+applications, including agriculture, inspection, delivery and emergency response.
+Consequently, standards surrounding \gls{bvlos} operation of UAVs are evolving to ensure
+the safe cohabitation of UAVs with other aerial vehicles within shared airspaces.
+Aviation standards authorities such as USA's \gls{rtca}, the \gls{eurocae} and the
+\gls{icao} all incorporated the \gls{acas}, an autonomous collision avoidance logic, 
+into their standards \cite{rtca_do386_2020},
+\cite{eurocae_ed275_2020}, \cite{icao_annex10_vol4_amend91},
+reflecting a shift in attention towards the importance of autonomous DAA. In 2025,
+USA's national aviation authority, the \gls{faa}
+acknowledged this shift by releasing a \gls{nprm} for
+replacing the waiver-based approval system for BVLOS UAVs with a more
+capability-based, scalable nationwide framework
+\cite{faa_part108_nprm_2025}. Australian regulatory bodies such as \gls{casa} are
+orienting themselves similarly, trialing \gls{tmi} 2025-03, a streamlined regulatory
+pathway for certifying \gls{bvlos} operations \cite{casa_tmi202503}.
+
+The ASTM \cite{astm_f3442_2023}, RTCA \cite{rtca_do365c_2022},
+EUROCAE \cite{eurocae_ed322}, FAA \cite{faa_part108_nprm_2025},
+CASA \cite{casa_tmi202503} and ICAO \cite{icao_annex10_vol4_amend91} all specify the importance of avoiding both cooperative and non-cooperative
+aircraft, which are characterised by their use of on-board surveillance transponders
+like the \gls{adsb}. In the presence of
+non-cooperative targets, a DAA system requires sensors such as radar and
+optical/infrared cameras to build tracks that \gls{acas} requires. Due to size, weight,
+power, and compute restrictions, and the variability of hazard size and shapes,
+building a sensor system for small UAVs that will meet performance targets such as
+those outlined in the \gls{astm} F3442 \cite{astm_f3442_2023} will be a necessary area of
+exploration as performance standards and regulatory frameworks are finalised.
+
 \input{Sections/Ch2 Background/Radar Processing.tex}
 \input{Sections/Ch2 Background/Monopulse Angle Estimation.tex}
 \input{Sections/Ch2 Background/Multi Target Tracking.tex}
