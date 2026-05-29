@@ -41,12 +41,152 @@ filter \cite{jazwinski1970stochastic} is
 a standard framework, alternating between a prediction stage, in which the current 
 state is propagated forward using a motion model, and an update stage (see Figure 
 \ref{fig:kalman_filter}), in which a new 
-measurement corrects the prediction. A constant velocity (CV) with noise is a 
-common motion model, and is represented in three dimensions with a matrix for 
-the state transition and a covariance matrix for the process noise. For manoeuvring 
-targets the interacting multiple model (IMM) \cite{blom1988imm} 
-maintains a bank of filters under different motion assumptions and blends their outputs 
+measurement corrects the prediction. 
+
+The variables used throughout the filter derivation are depicted in Table \ref{tab:EKF_variables}
+\begin{table}[h]
+\centering
+\begin{tabular}{cl}
+\hline
+\textbf{Symbol} & \textbf{Description} \\
+\hline
+$\mathbf{x}_k$ & State vector at time step $k$ \\
+$\hat{\mathbf{x}}_k$ & Estimated state at time step $k$ \\
+$\hat{\mathbf{x}}_k^-$ & Predicted (a priori) state estimate \\
+$\mathbf{z}_k$ & Measurement vector \\
+$h(\cdot)$ & Nonlinear measurement model (Cartesian to spherical) \\
+$\mathbf{F}$ & State transition matrix \\
+$\mathbf{H}$ & Jacobian of the measurement model \\
+$\mathbf{P}_k$ & State estimation error covariance \\
+$\mathbf{P}_k^-$ & Predicted (a priori) error covariance \\
+$\mathbf{Q}$ & Process noise covariance \\
+$\mathbf{R}$ & Measurement noise covariance \\
+$\mathbf{y}_k$ & Innovation (measurement residual) \\
+$\mathbf{S}_k$ & Innovation covariance \\
+$\mathbf{K}_k$ & Kalman gain \\
+$q$ & Process noise intensity scalar \\
+$\Delta t$ & Time step between measurements \\
+$r$ & Range, $\sqrt{x^2 + y^2 + z^2}$ \\
+$r_{xy}$ & Horizontal range, $\sqrt{x^2 + y^2}$ \\
+$\theta$ & Azimuth angle \\
+$\phi$ & Elevation angle \\
+$\sigma_\theta^2,\, \sigma_\phi^2,\, \sigma_r^2$ & Measurement noise variances \\
+$d_M$ & Mahalanobis distance \\
+\hline
+\end{tabular}
+\label{tab:EKF_variables}
+\end{table}
+
+For a target in three-dimensional space, the state vector \(\mathbf{x}_k\) typically 
+represents the target's position and velocity in Cartesian coordinates at the time
+step \(k\). 
+\begin{equation}
+    \mathbf{x}_k = [x_k, v_{x,k}, y_k, v_{y,k}, z_k, v_{z,k}]^T
+\end{equation}
+A constant velocity (CV) model with noise is a 
+common motion model, and is represented in three dimensions with a matrix 
+\(\mathbf{F}\) for the state transition and a covariance matrix \(\mathbf{Q}\)
+for the process noise. 
+\begin{equation}
+    \mathbf{F} = \begin{bmatrix}
+    1 & \Delta t & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & \Delta t & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & \Delta t \\
+    0 & 0 & 0 & 0 & 0 & 1
+    \end{bmatrix}, 
+    \quad
+    \mathbf{Q} = q \begin{bmatrix}
+    \frac{\Delta t^3}{3}I_3 & \frac{\Delta t^2}{2}I_3 \\
+    \frac{\Delta t^2}{2}I_3 & \Delta t I_3
+    \end{bmatrix}
+\end{equation}
+
+For manoeuvring targets the interacting multiple model (IMM) \cite{blom1988imm} 
+maintains a bank of filters under different motion model assumptions and blends their outputs 
 probabilistically.
+
+For radar tracking, measurements \(z_k\) come in the form of azimuth \(\theta\), 
+elevation \(\phi\) and range \(r\).   
+\begin{equation}
+    z_k = [r_k, \theta_k, \phi_k]^T
+\end{equation}
+The measurement model \(h(\mathbf{x}_k)\) describes the transformation from 
+cartesian coordinates to spherical coordinates, 
+\begin{equation}
+    h(\mathbf{x}_k) = \begin{bmatrix}
+    \arctan{\frac{y_k}{x_k}} \\
+    \arctan{\frac{z_k}{\sqrt{x_k^2 + y_k^2}}} \\
+    \sqrt{x_k^2 + y_k^2 + z_k^2} \\
+    \end{bmatrix}
+\end{equation}
+
+In order calculate how uncertainty in the state estimate maps to uncertainty in
+the measurement space, the transformation between the two frames is linearised 
+with the Jacobian \(\mathbf{H}\), which is constructed by taking the partial 
+derivatives of the measurement model with respect to the state variables.
+\begin{equation}
+    \mathbf{H} = \begin{bmatrix}
+    \frac{\partial h_1}{\partial x} & \frac{\partial h_1}{\partial v_x} & \frac{\partial h_1}{\partial y} & \frac{\partial h_1}{\partial v_y} & \frac{\partial h_1}{\partial z} & \frac{\partial h_1}{\partial vz} \\
+    \frac{\partial h_2}{\partial x} & \frac{\partial h_2}{\partial v_x} & \frac{\partial h_2}{\partial y} & \frac{\partial h_2}{\partial v_y} & \frac{\partial h_2}{\partial z} & \frac{\partial h_2}{\partial vz} \\
+    \frac{\partial h_3}{\partial x} & \frac{\partial h_3}{\partial v_x} & \frac{\partial h_3}{\partial y} & \frac{\partial h_3}{\partial v_y} & \frac{\partial h_3}{\partial z} & \frac{\partial h_3}{\partial vz}
+    \end{bmatrix}
+    = \begin{bmatrix}
+    -\frac{y_k}{r_{xy}^2} & 0 & \frac{x_k}{r_{xy}^2} & 0 & 0 & 0 \\
+    -\frac{x_k z_k}{r^2 r_{xy}} & 0 & -\frac{y_k z_k}{r^2 r_{xy}} & 0 & \frac{r_{xy}}{r^2} & 0 \\
+    \frac{x_k}{r} & 0 & \frac{y_k}{r} & 0 & \frac{z_k}{r} & 0
+    \end{bmatrix}
+\end{equation}
+
+Where \(r_{xy} = \sqrt{x_k^2 + y_k^2}\) is the range in the xy-plane, and 
+\(r = \sqrt{x_k^2 + y_k^2 + z_k^2}\) is the range in three-dimensional space.
+
+To account for measurement uncertainty we produce the measurement covariance matrix,
+\begin{equation}
+    \mathbf{R} = \begin{bmatrix}
+    \sigma_\theta^2 & 0 & 0 \\
+    0 & \sigma_\phi^2 & 0 \\
+    0 & 0 & \sigma_r^2
+    \end{bmatrix}
+\end{equation}
+
+Upon receiving a new measurement, we calculate the "innovation" \(\mathbf{y}_k\) as the 
+difference between
+the actual measurement and the predicted measurement.  
+\begin{equation}
+    \mathbf{y}_k = z_k - h(\hat{\mathbf{x}}_k^-)
+\end{equation}
+We also calculate the innovation's covariance \(\mathbf{S}_k\) as the sum 
+of the predicted state covariance \(\mathbf{P^-_k}\) transformed into the measurement space by the 
+Jacobian \(\mathbf{H}\), and the measurement noise covariance \(\mathbf{R}\).
+\begin{equation}
+    \mathbf{S}_k = \mathbf{H} \mathbf{P}_k^- \mathbf{H}^T + \mathbf{R}
+\end{equation}
+
+The innovation represents the discrepancy between the predicted measurement and the 
+actual measurement, so we improve our state estimate by applying a correction
+that is proportional to the innovation, proportional to the current state estimate 
+uncertainty, and inversely proportional to the innovation's
+uncertainty, hence the Kalman gain \(\mathbf{K}_k\):
+\begin{equation}
+    \mathbf{K}_k = \mathbf{P}_k^- \mathbf{H}^T \mathbf{S}_k^{-1}
+\end{equation} 
+The state estimate is then updated by with,
+\begin{equation}
+    \hat{\mathbf{x}}_k = \hat{\mathbf{x}}_k^- + \mathbf{K}_k \mathbf{y}_k
+\end{equation}
+
+With the estimation accuracy improving, we reduce the state covariance linearly
+with the Kalman gain, 
+\begin{equation}
+    \mathbf{P}_k = (\mathbf{I} - \mathbf{K}_k \mathbf{H}) \mathbf{P}_k^-
+\end{equation}
+To predict the state and its covariance at the next time step, we apply the transition
+model to the current state and covariance,
+\begin{equation}
+    \hat{\mathbf{x}}_{k+1}^- = \mathbf{F} \hat{\mathbf{x}}_k \qquad \mathbf{P}_{k+1}^- = \mathbf{F} \mathbf{P}_k \mathbf{F}^T + \mathbf{Q}
+\end{equation} 
 
 \begin{figure}[htb]
     \incfig[0.6]{kalman_filter}
@@ -60,12 +200,10 @@ probabilistically.
 \end{figure}
 
 
-Since radar measurements are expressed in spherical coordinates while motion models are 
-most naturally formulated in Cartesian space, the measurement equation is nonlinear. 
-The Extended Kalman Filter (EKF) handles this via first-order linearisation, while the 
-Unscented Kalman Filter (UKF) \cite{julier1997newextension} propagates sigma points 
-through the nonlinear transformation for improved accuracy when the nonlinearity is 
-significant.
+Other filters such as the Unscented Kalman Filter (UKF) \cite{julier1997newextension} 
+avoid linearising the measurement model and instead propagate "sigma" points 
+through the nonlinear transformation to reconstruct the mean and covariance in the 
+transformed spaced. 
 
 In the context of multi-target tracking, the Kalman filter can not be used until 
 detections have been associated with targets. To determine which detections 
@@ -81,12 +219,19 @@ and targets.
     \label{fig:gnn}
     \caption[Global nearest neighbour data association.]{Global nearest neighbour 
     data association algorithm associating three targets measurement predictions 
-    in red with four detections in yellow. The distance based gates are depicted 
+    in red with four detections in yellow. The Mahalanobis distance based gates are depicted 
     as ellipses around the predicted measurements. The algorithm finds a one-to-one 
     assignment between targets and detections by minimising the overall distance 
     between predicted measurements and actual measurements. In this case, the assignment
     would be T1-D1, T2-D3 and T3 with no detection.}
 \end{figure}
+
+To consider the uncertainty in the calculation of distances for gating and association,
+the Mahalanobis distance can be used, which normalises the distance by the covariance
+of the predicted measurement allowing for more accurate association,
+\begin{equation}
+    d_M = \sqrt{(\mathbf{z} - h(\hat{\mathbf{x}}^-))^T \mathbf{S}^{-1} (\mathbf{z} - h(\hat{\mathbf{x}}^-))}
+\end{equation}
 
 In dense clutter, hard assignment methods can be insufficient. Probabilistic data 
 association (PDA) updates each track as a weighted combination of all gated detections, 

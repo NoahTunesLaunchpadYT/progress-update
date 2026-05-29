@@ -27,7 +27,7 @@ the target.
 To measure the range of targets, radar systems need to transmit the signal as pulses. Pulses are 
 generally preferred over continuous constant frequency signal because the time difference between
 the transmitted pulse and the received echo can be easily measured to estimate range. The 
-transmitted signal is often modulated in frequency or phase. Linearly frequency modulation,
+transmitted signal is often modulated in frequency or phase. Linear frequency modulation,
 (LFM) creates pulses that involve a continuous sweep of frequencies during the pulse duration
 (see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to
 frequency dependent interference, and improved range resolution due to the effect of pulse compression \cite{Richards2005FundamentalsRadarSP}.
@@ -38,13 +38,15 @@ compression technique for LFM signals is described as "de-chirping", which invol
 frequency that gives range information (See Figure \ref{fig:de-chirping}). Modelling each signal
 as a cosine, the mixed signal's frequencies are given by the product of cosines identity,
 \begin{equation}
+    \label{eqn:cosine-product}
     \cos(\omega_1 t)\cos(\omega_2 t) = \frac{1}{2} [\cos((\omega_1-\omega_2)t) + \cos((\omega_1+\omega_2)t)]
 \end{equation}
 where $\omega_1$ is the transmitted signal's frequency and $\omega_2$ is the received signal's frequency.
-Since both signals' frequencies increase linearly in time, the difference (beat) frequency
-$\omega_1-\omega_2$ is constant and proportional to the time delay and thus the range of the
-target. By applying a low-pass filter
-to the mixed signal, we obtain the lower frequency component, which is the beat frequency.  
+In the case of LFM, where received and transmitted signals' frequencies generally have 
+the same gradient, the difference $\omega_1-\omega_2$ is constant and proportional to the time delay between 
+the transmitted and received signals and thus the range of the target. 
+By applying a low-pass filter to the mixed signal, we obtain the lower frequency 
+term from equation \ref{eqn:cosine-product}, which is the beat frequency.  
 
 \begin{figure}[htb]
     \incfig[1]{LFM}
@@ -134,7 +136,8 @@ threshold determined by the power of the surrounding samples.
 
 \begin{figure}
     \incfig[1]{cfar_detection}
-    \caption[CFAR detection process.]{CFAR detection process. The threshold is calculated based on 
+    \caption[CFAR detection process.]{The CFAR detection process on simulated data. 
+    The threshold is calculated based on 
     the power of the samples surround the test cell, and the test cell is compared to this threshold 
     to identify peaks in the signal. The scenario features three target peaks which are each detected 
     by CFAR, while the rest of the signal lies below the CFAR threshold, excluding one outlier noise 

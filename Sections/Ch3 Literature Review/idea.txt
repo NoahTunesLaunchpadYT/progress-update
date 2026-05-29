@@ -1,0 +1,123 @@
+Abstract
+- no mention of precedent
+- knowledge gaps
+- significance
+
+Intro: Good 
+- Maybe include some images. 
+Background: Good, maybe talk more about precedent and the current landscape (but don't critique or treat it like a lit review)
+-[x] Improve multi target tracker background to fit our design
+-[ ] Describe that systems are currently used for UAV DAA.
+  - Moses
+  - Wang
+  - Low SWaP-C LFMCW Airborne Radar for Counter-UAS Applications 
+  -    https://www.researchgate.net/publication/303323797_An_airborne_low_SWaP-C_UAS_sense_and_avoid_system
+-[ ] Improve Multi Target Tracker Image. The caption is doing too much of the heavy lifting.   
+
+Lit Review
+- Broaden the lit review in the final thesis to better capture the cross diciplinary precedent in the literature. 
+- Look for techniques from other diciplines that can be applied to this diciplin.  
+
+Methodology and Results
+- Look for opportunities to combine graphs that are meant to be read together. Add bitmaps for interpretability
+- Summarise graphs on shared axis
+- Colour bar
+
+Discussion
+- Should tie back to the literature, explaining the outcomes of the work in scholarly context. Inclusion of limitiation is appropriate (limitations > shortocmings)
+
+References
+- Fix venue naming and capitalisation
+
+Plextek mmWave sense-and-avoid ✓ (mentioned in intro)
+
+Compact Airborne Radar for UAV DAA
+Sysak et al. 2025 ✓
+Wang et al. 2016 ✓
+Moses et al. 2013, 2014 ✓
+Mohammadkarimi & Rajan 2023 — cooperative SAA with secondary radar ✓
+- Presents the design of a cooperative 
+- Only tested in simulation, no indoor or field test. Angle sensing capabilities through beam steering. 
+- Uses triangulation for range instead of RTT (return trip time) and thus is cooperative. 
+
+
+
+
+Federica Radar/visual fusion with fuse-before-track strategy for low altitude non-cooperative sense and avoid
+- Uses camera data 
+- Electronic Scanning Array
+- DAA
+- Field Tests and real data analysis
+- Ground to Air
+- Takes into consideration latency
+- CNN based fusion and track
+- not for being on small UAVs
+- for detecting small UAVs
+
+Giancarmine Fasano Experimental analysis of onboard non-cooperative sense and avoid solutions based on radar, optical sensors, and data fusion
+- Compares accuracy of radar with radar and EO fusion vs EO. Not quite what we're looking into. Also not for UAVs. 
+- Shows that radar is appropriate for SAA
+- 
+
+
+Embedded Radar Processing Under SWaP Constraints (BAD NAME should say GPU somewhere)
+Shi et al. ✓
+Newmeyer et al. ✓  
+Zhao et al. 2023 (Remote Sensing GPU bistatic radar) ✓
+Zaknoun 2024 ✓
+Realisation of Radar Signal Processor on Graphic Processor Unit (GPU) and Performance Comparison with GPP based Platform - Important!
+Real-time Phased Array Radar Tracking on Embedded GPU 2024 — important, closest to your work
+Survey of GPU utilization for radar 2018
+
+Monopulse Angle Sensing in Low SNR regimes
+
+GPU based Tracking 
+Liu et al. 2024 FastTrack — GPU parallel Kalman filter
+GPU-GLMB 2025 — important, GPU multi-hypothesis tracking
+Ai & Raina 2021 — GPU Kalman filter
+"Accelerating the Kalman Filter on a GPU" 2011
+
+What picture am I creating. There is a fair bit of research into compact/small radar, lots of research into optimising individual components for GPU use, FFT, CFAR, TRACKING, Monopulse angle. Applying radar in the DAA context. Showing it is feasible. 
+
+Gaps
+- People who do not explore angle sensing for DAA: Sysak2025, Wang2016, Moses. Mohammed does but doesn't test it. 
+- 
+
+
+
+
+
+
+
+
+
+
+
+NASA DASC 2023 — radar/visual sensing DAA assessment X
+Gogineni & Nehorai 2011 — monopulse MIMO tracking X
+Gogineni & Nehorai 2010 — monopulse MIMO distributed antennas X
+Kim et al. 2024 — multi-target angle estimation FMCW MIMO X
+Conformal monopulse antenna 2015 X
+"Efficient FFT mapping on GPU for radar" 2015
+"Real-Time Embedded Heterogeneous GPU/FPGA" 2016
+"Embedded-GPU-Based ViSAR" 2024
+
+
+
+Gaps
+- GPU-based DAA
+- Conformal monopulse software pipelines
+- Multi-target tracker under SWaP-C for UAV radar
+
+
+Contributions
+- A comparison of the algorithms necessary for monopulse radar, assessed by detection sensitivity and track quality in multi-target aerial scenarios, to inform algorithmic selection. 
+- A comparison of alternative low-level implementations of the selected algorithms, quantifying their effects on end-to-end throughput and latency in highly parallelised GPU pipelines, to inform implementation choices. 
+- An assessment of how these algorithm and implementation findings vary across embedded hardware configurations, providing hardware-aware design recommendations. 
+
+i.e.
+- Different maths techniques
+- Different programming techniques
+- Different hardware 
+
+

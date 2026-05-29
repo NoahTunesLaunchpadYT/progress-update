@@ -7,49 +7,136 @@
 % \input{Sections/Ch3 Literature Review/Summary.tex}
 
 \section{Compact Airborne Radar for UAV DAA}
+% Try to emphasise that there are not field trials that validate a full 
+% target tracking pipeline under realistic encounter conditions
+The work of Sysak et al.\ 
+\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}, 
+Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015}
+each tackle important subproblems in the design of a radar DAA system for 
+small UAVs, but each leave important gaps unaddressed in the literature. 
 
-Early demonstrations established that capable radar sensing is achievable 
-under UAV SWaP constraints. Sysak et al.\ 
+Sysak et al.\ 
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance} 
 present a lightweight X-band monopulse radar for mid-air collision avoidance 
 on medium UAV platforms, integrating a multi-channel forward-looking antenna 
 with FPGA-based pulse compression on a single 60 gram PCB, with average power 
 below 80 Watts. Field trials demonstrate reliable detection of large obstacles 
-at 1--3 km, and the work validates a simple online pipeline from range 
-compression to TCPA estimation. However, validation is conducted exclusively 
-against large, high radar cross-section targets, and system latency is not 
-reported. This thesis addresses these gaps by characterising detection 
-sensitivity against small moving airborne targets and by measuring end-to-end 
-pipeline latency on embedded hardware.
+at 1--3 km (see Figure \ref{fig:sysak}), as well as detection of a 3.15 m 
+wingspan UAV from 6.4 km. The work 
+validates a simple online pipeline from range compression to \gls{tcpa} estimation,
+but does not characterise the pipeline's latency or tracking performance, nor 
+explain if the detections were make during sensing, or post-processed from recorded data. 
 
-Wang et al.\ \cite{Wang2016} demonstrate a complete low-SWaP LFMCW system for 
-group 2/3 UAS incorporating FFT-based detection, digital beamforming, 
-multi-target tracking, and GPU-accelerated FFT for update rate improvement. 
-However, performance is validated in simulation only, with no latency 
-measurements, no throughput figures, and no benchmarking of the GPU claim. 
+\begin{figure}
+    \incfig[0.9]{sysak_radar}
+    \caption{Sysak et al.'s experimental set up and results. The radar is 
+    capable of detecting large targets at 1--3 km with high ranging accuracy. 
+    We observe peaks in amplitude over range that correspond to target position.}
+    \label{fig:sysak}
+\end{figure}
+
+Moses et al.\ \cite{6044363} in a 2013 publication introduces a 230 gram 
+miniature radar mountable 
+on a small quadcopter (see Figure \ref{fig:moses-quadcopter}), to demonstrate the feasibility of integrating radar
+sensing onto very small platforms. Their evaluation emphasises target 
+identification via 
+micro-Doppler signatures rather than ranging or tracking, achieving a 100\% 
+detection rate when 7 meters away from the target. When distance increased
+and both the platform and target took to the air, accuracy dropped significantly.
+This difference in performance between ground-based and airborne targets highlights
+the importance of validating radar pipelines under realistic encounter conditions. 
+While the work provides a dataflow diagram for the processing pipeline, it does not
+characterise the latency of the stages not compare alternative algorithmic choices. 
+Lastly, while the work discusses the difficultly of radar under SWaP-C constraints, 
+the final weight, size, and power consumption of the radar system are not reported.
+
+A follow up 2014 publication by the same group (Moses et al.\ \cite{Moses2015})  
+presents an even smaller radar (see Figure \ref{fig:moses-2014}) with angle sensing 
+capabilities and collision avoidance
+algorithms, in attempt to further demonstrate more capabilities of miniature radar 
+with respect to UAVs DAA systems. In this work, the radar is only evaluated indoors with large reflective 
+targets. While the collision avoidance algorithms are compared thoroughly, no other
+algorithm choices are evaluated and readiness for open air tests was not demonstrated.
+For example, the authors note that a higher transmit power is needed. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Moses 2013 quad copter.png}
+        \caption{Moses et al.'s miniature radar mounted on a small quadcopter.}
+        \label{fig:moses-quadcopter}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{moses-2014.png}
+        \caption{Second Generation of Moses et al.'s miniature radar, now
+     with angle sensing capabilities.}
+        \label{fig:moses-2014}
+    \end{minipage}
+\end{figure}
+
+% Cool work that does ranging with big and small targets with light radar
+% Pretty low-key research that just does some maths
+% 
+Wang et al.\ \cite{Wang2016} demonstrate a complete low-SWaP LFMCW system 
+design for group 2/3 UAS (10-600 kg) group 2/3 UAS incorporating FFT-based 
+detection, digital beamforming, and GPU-accelerated FFT for update rate 
+improvement. The research highlights the feasibility of measuring the range
+of targets 5+ km away through beamforming, but angle sensing capabilities were 
+not explored. Additionally, design performance is validated in simulation only, 
+and does not take into account compute and latency constraints. 
 This thesis addresses these gaps by providing hardware-validated latency and 
 throughput measurements for a comparable pipeline, and by substantiating the 
-GPU acceleration argument with systematic benchmarks.
+choice to use the GPU for certain operations with systematic benchmarks.
 
-Moses et al.\ \cite{6044363} introduce a 230 gram miniature radar mountable 
-on a small quadcopter, demonstrating that radar hardware can be integrated onto 
-very small platforms. Their evaluation emphasises target identification via 
-micro-Doppler signatures rather than ranging or tracking, leaving open 
-questions about how the small aperture affects range-domain SNR, range 
-resolution, and false alarm behaviour. This thesis addresses this gap by 
-benchmarking range--Doppler processing, CFAR detection, and multi-target 
-tracking under the SNR conditions characteristic of small-aperture UAV radars.
+While research such as that of Mohammad Karimi et al. \cite{Mohammadkarimi2024} 
+does support the feasibility of electronically scanning to measurement 
+azimuth and elevation of targets, this work also does not characterise the
+system in a realistic encounter scenario, only validating ranging and
+angle estimation in simulation. While the work is rigorous in its mathematical
+treatment of \gls{daa} requirements, empirical validation of the software
+pipeline is needed to show that such a system can operate under the SWaP constraints
+of a small \gls{uav}. 
 
-\section{Embedded Radar Processing Under SWaP Constraints}
+Angle sensing, an important capability for UAV DAA, is not addressed
+in Sysak et al.\ \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
+Wang et al.\ \cite{Wang2016}, or Moses et al.\ \cite{6044363} \cite{Moses2015}, and is 
+presented but not validated in Mohammad et al.\ \cite{Mohammadkarimi2024}. 
 
-Shi et al.\ \cite{6712628} describe a small FMCW phased array built from 
+This thesis addresses these gaps by characterising the software pipeline by latency and
+track quality, placing an emphasis on angle sensing, and by comparing the performance
+of alternative algorithmic choices.  
+
+This thesis addresses the gaps in Moses et al.'s work by evaluating the radar 
+pipeline on real radar hardware data from open-air long-range scenarios, and 
+by systematically comparing alternative algorithmic choices for each stage of 
+the software pipeline, including FFT, integration, CFAR, monopulse angle sensing
+and multi-target tracking under the SNR conditions characteristic of 
+small-aperture UAV radars.
+
+This thesis addresses the lack of empirically validated radar target tracking
+pipelines by implementing a complete software pipeline and evaluating it and
+comparing generated tracks to ground truth tracks. Additionally, attention will
+be paid towards the ability for the pipeline to run in real time on board a small
+\gls{uav}. 
+
+\section{GPU-based Radar Processing Under SWaP Constraints}
+The work of Shi et al.\ \cite{6712628}, Newmeyer et al.\ \cite{7577322}, 
+Zhao et al.\ \cite{rs15225421}, and Zaknoun 
+\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} 
+each explore the computational challenges of small airborne radar systems
+across different contexts. Still important gaps remain unaddressed across 
+all literature.
+
+Shi et al.\ \cite{6712628} describe a small \gls{fmcw} phased array built from 
 off-the-shelf development boards, validating that continuous real-time 2D FFTs 
 are achievable on a 100 MHz FPGA. However, processing was split between an 
 onboard FPGA and offboard post-processing, and signal coherence problems 
 prevented real-world validation. This thesis addresses this gap by implementing 
 a fully onboard, online pipeline and validating it against real target returns.
 
-Newmeyer et al.\ \cite{7577322} demonstrated a 120 gram, 8 Watt FMCW phased 
+Newmeyer et al.\ \cite{7577322} demonstrated a 120 gram, 8 Watt \gls{fmcw} phased 
 array pipeline on a Zynq ARM CPU, closely monitoring power, latency 
 distributions, and hardware resources. This work clearly establishes that 
 radar DAA can operate under strict SWaP constraints. However, only one 
