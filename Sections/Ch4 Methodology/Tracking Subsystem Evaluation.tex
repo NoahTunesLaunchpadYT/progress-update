@@ -1,5 +1,28 @@
-\section{Tracking Application Evaluation}
+\section{Detection and Tracking Application Evaluation}
 \label{sec:tracking_app}
+The proposed detection and tracking subsystem is responsible for receiving the processed 
+radar data
+across all radar channels from the aggregator subsystem, and producing tracks of
+targets in the radar's field of view. The subsystem performs the following operations
+sequentially (see Figure \ref{fig:tracking-dataflow}): CFAR, clustering, monopulse 
+angle sensing, sidelobe suppression (blanking), and multi-target tracking.
+Below are the implementation and experiment details for each of the operations.
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{tracking_dataflow} 
+    \caption[Dataflow diagram for the tracking subsystem.]{Dataflow for the tracking stage of the 
+    detection and tracking subsystem. Detections are fed into the
+    associator of the multi-target tracker, and are then fed into the hypothesiser. 
+    The hypothesiser produces a hypothesis per track/detection pair. The associator then 
+    finds the optimal assignment
+    of detections to tracks. The updater then updates the tracks, and the deleter deletes 
+    tracks with poor quality. For the detections that are not associated with any tracks,
+    a tentative track is initiated or updated in the initiator, a miniature tracker that
+    handles the track initiation and confirmation process. 
+    }
+    \label{fig:tracking-dataflow}
+\end{figure}
 
 \subsection{CFAR}
 For finding the CFAR coefficient $\alpha$ (defined in \ref{eqn:threshold}) that gives a desired false 
@@ -28,7 +51,7 @@ memory, false alarm rate, sensitivity) is compared across configurations in a co
 This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour 
 trade off against latency and throughput under SWaP constraints.
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
     \incfig[0.75]{cfar}
     \caption[Naive CPU CFAR implementation.]{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold
     determined by the power of the samples around it. The threshold is calculated by taking the

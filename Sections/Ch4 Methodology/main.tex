@@ -22,27 +22,35 @@
 
 This thesis designs, implements, and evaluates a software-defined radar processing 
 pipeline for a small monopulse radar system, assessing both computational efficiency 
-and tracking accuracy on an NVIDIA Jetson Xavier NX embedded GPU platform. The methodology
-is structured to directly address the gaps identified in the literature review: the
-absence of comprehensive systems-level evidence of algorithm selection, low level
-implementation trade-offs, and hardware-aware design conclusions under SWaP constraints.
+and tracking accuracy on an NVIDIA Jetson Xavier NX and a Xavier AGX embedded GPU platform. 
+The methodology is structured to directly address the gaps identified in the literature review: the
+absence of radar algorithm performance evaluation in the noise regimes of air-to-air
+small aperture radar, low level
+implementation analysis, and hardware-aware design conclusions under SWaP constraints.
 Through the methodology outlined in this chapter, we fulfill the contributions of this 
 thesis, to compare radar algorithm configurations by sensitivity and track quality, to compare
 low-level implementations by computational performance, and to derive hardware-aware design 
 recommendations.
 
-The software processing pipeline is designed to receive the radar data from four Texas Instruments 
-AWR2243 radar chips, and produce tracks of targets in the radar's field of view. It is 
-designed to be modular, with each stage of the pipeline performing a specific function. The pipeline 
-is comprised of three subsystems, a pre-processing subsystem which is concerned with preparing 
+The software processing pipeline is designed to receive the radar data from multiple 
+Texas Instruments 
+AWR2243 radar chips, and produce tracks of targets in the radar's field of view. For 
+the experiments performed in this work, we utilise data from a conformal synthetic 
+aperture radar. Both the radar hardware and the software are designed to be modular. 
+The radar module, depicted 
+in Figure \ref{fig:radar-module},
+has up to 12 receiver patches that are arranged in a 6x2 grid, conforming to a curved surface.
+For testability, the software system is broken up into three subsystems, which are in turn 
+comprised of stages that each perform a specific radar processing function. 
+The three subsystems are: a pre-processing subsystem which is concerned with preparing 
 the raw radar data for detection, an aggregator subsystem, which is concerned with combining the 
-processed data from the four video streams into a single stream, and a detection and tracking 
+processed data from multiple video streams into a single stream, and a detection and tracking 
 subsystem, which is concerned with detecting targets in the radar data and tracking them over time. 
 This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow}. 
 
 \begin{figure}[htbp]
     \centering
-    \incfig[1]{application_level_dataflow} 
+    \incfig[0.9]{application_level_dataflow} 
     \caption[\small System-level dataflow diagram of the radar pipeline.]{\small System level dataflow diagram. The pre-processing subsystem receives the AWR2243's raw
     radar data over four CSI video streams. The data is organised into frames, each containing many
     chirps. The processing subsystem then outputs

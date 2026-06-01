@@ -65,8 +65,19 @@ Shi et al. ✓
 Newmeyer et al. ✓  
 Zhao et al. 2023 (Remote Sensing GPU bistatic radar) ✓
 Zaknoun 2024 ✓
+
 Realisation of Radar Signal Processor on Graphic Processor Unit (GPU) and Performance Comparison with GPP based Platform - Important!
+- Mondal
+- Super good
+- Illustrated how to make the while pipeline
+
 Real-time Phased Array Radar Tracking on Embedded GPU 2024 — important, closest to your work
+- Fang 
+- https://ieeexplore.ieee.org/document/10868452 
+- Acheves a 11x speed up with a three layer parallelism structure
+- Intra kernel, CUDA stream, and CPU parallelisation
+- Radar tracking pipelines have poor parallelism between modules
+- Uses an AGX
 Survey of GPU utilization for radar 2018
 
 Monopulse Angle Sensing in Low SNR regimes
