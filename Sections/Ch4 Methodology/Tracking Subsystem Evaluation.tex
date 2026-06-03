@@ -4,24 +4,19 @@ The proposed detection and tracking subsystem is responsible for receiving the p
 radar data
 across all radar channels from the aggregator subsystem, and producing tracks of
 targets in the radar's field of view. The subsystem performs the following operations
-sequentially (see Figure \ref{fig:tracking-dataflow}): CFAR, clustering, monopulse 
+sequentially (see Figure \ref{fig:dat-dataflow}): CFAR, clustering, monopulse 
 angle sensing, sidelobe suppression (blanking), and multi-target tracking.
 Below are the implementation and experiment details for each of the operations.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
-    \incfig[1]{tracking_dataflow} 
-    \caption[Dataflow diagram for the tracking subsystem.]{Dataflow for the tracking stage of the 
-    detection and tracking subsystem. Detections are fed into the
-    associator of the multi-target tracker, and are then fed into the hypothesiser. 
-    The hypothesiser produces a hypothesis per track/detection pair. The associator then 
-    finds the optimal assignment
-    of detections to tracks. The updater then updates the tracks, and the deleter deletes 
-    tracks with poor quality. For the detections that are not associated with any tracks,
-    a tentative track is initiated or updated in the initiator, a miniature tracker that
-    handles the track initiation and confirmation process. 
-    }
-    \label{fig:tracking-dataflow}
+    \incfig[1]{detection_and_tracking_dataflow} 
+    \caption[Dataflow diagram for the detection and tracking subsystem.]{Dataflow for the detection 
+    and tracking subsystem. The subsystem receives the processed radar data across all radar 
+    channels from the aggregator subsystem, and produces tracks of targets in the radar's 
+    field of view. The subsystem performs the following operations sequentially: CFAR, clustering, 
+    monopulse angle sensing, sidelobe suppression (blanking), and multi-target tracking.}
+    \label{fig:dat-dataflow}
 \end{figure}
 
 \subsection{CFAR}
@@ -38,16 +33,18 @@ $P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending 
 false alarm rate is above or below the target. This continues until the interval is sufficiently small. 
 In this way, $\alpha$ is obtained as the numerical solution that gives the required false alarm rate.
 
-
 Additionally, three different implementations of CFAR are compared for their latency, a naive 
-implementation on the CPU, an implementation that uses a prefix sum table, and a naive solution on the 
+implementation on the CPU an implementation that uses a prefix sum table, and a naive solution on the 
 GPU. Additionally different noise assumptions are tested. The naive implementation involves calculating 
-the noise statistic with a repeated sum per sample of interest. The prefix sum table method reduces the 
-number of sums required to four per sample of interest regardless of the number of training cells (see 
+the noise statistic with a repeated sum per sample of interest (see Figure \ref{fig:naive-cfar}). 
+The prefix sum table method reduces the 
+number of sums required to four per sample of interest regardless of the number of training cells, the 
+start and ends of the left and right window (see 
 Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see 
-Figure \ref{fig:gpu-cfar}). A sweep of window size, frame buffer size and false alarm rate values is 
+Figure \ref{fig:gpu-cfar}). A sweep of window size, guard size, frame buffer size and false alarm rate values is 
 conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, 
-memory, false alarm rate, sensitivity) is compared across configurations in a cost benefit analysis. 
+false alarm rate, sensitivity, and track quality) is compared across configurations in a cost benefit 
+analysis. 
 This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour 
 trade off against latency and throughput under SWaP constraints.
 
@@ -78,13 +75,20 @@ trade off against latency and throughput under SWaP constraints.
     range profile. Each thread calculates its own noise statistic, threshold, and mask.}
 \end{figure}
 
+The literature gap regarding algorithmic selection is address through an exploration of different CFAR
+algorithms, including OS-CFAR, CA-CFAR, SO-CFAR, and GO-CFAR. The effect of these algorithms on detection
+sensitivity and track quality is compared. For intuition, Figure \ref{fig:cfar-algorithms} illustrates
+the difference in performance of the algorithms on a synthetic signal with 5 peaks, 
 
-% \begin{figure}
-%     \centering
-%     \includesvg[width=0.7\linewidth]{Images/cfar_stacked_matched_colours}
-%     \caption{ Performance of four CFAR variants. Each algorithm registers a detection when its threshold is below the signal. The test signal has 5 peaks that are each surrounded by different noisy distributions. The bottom plot illustrates the detections made by each algorithm. OS-CFAR performs well in this example.}
-%     \label{fig:cfar}
-% \end{figure}
+\begin{figure}
+    \centering
+    \includesvg[width=0.81\linewidth]{Images/cfar_stacked_matched_colours}
+    \caption{ Performance of four CFAR variants. Each algorithm registers a detection when its threshold is below the signal. The test signal has 5 peaks that are each surrounded by different noisy distributions. The bottom plot illustrates the detections made by each algorithm. OS-CFAR performs well in this example.}
+    \label{fig:cfar-algorithms}
+\end{figure}
+
+\subsection{Clustering}
+
 
 \subsection{Monopulse Angle Sensing}
 
@@ -99,3 +103,64 @@ For example, if the bearing and elevation ratios are outside of the domain over 
 fit is valid. Instruction level parallelism is a measure of how many instructions can be executed 
 in parallel on a single thread. By changing the order of operations, we can potentially increase
 instruction level parallelism, potentially reduce the latency of the GPU implementation.
+
+\subsection{Sidelobe Suppression (Blanking)}
+When a target exists outside of the field of view of a given radar receiver, the receiver may still
+register a detection due to the sidelobes of the antenna pattern. When a target is in the radar's 
+field of view, it will land in the main lobe of some receivers and the sidelobes of others (see Figure 
+\ref{fig:sidelobes}), resulting
+in a strong detection in the correct direction and weaker detections in the wrong directions, all at
+the same range. The blanking stage eliminates detections that are likely to be sidelobes by eliminating
+detections that are close in range to a stronger detection at the same time step. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \incfig[1]{sidelobes}
+        \caption[Sidelobes of the antenna pattern.]{Receivers R1 and R3, which are pointing away from the target,
+        still receive significant power from the 1st sidelobes lining up with the target. }
+        \label{fig:sidelobes}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \incfig[1]{blanking}
+        \caption[Blanking for sidelobe suppression.]{Detections from the sidelobes of R1 and R3 are weaker 
+        than R2's detection from the main lobe, and are close in range to R2's detection. R1 and R3's
+        Detections that are close in range to a stronger detection at the same time step are eliminated.}
+        \label{fig:blanking}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+\end{figure}
+
+The blanking stage will be implemented on both the CPU and GPU. After clustering and angle sensing, 
+the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
+for each time step, iterating through each of the lists simultaneously and sorting them into one ordered list in O(N) 
+time. Then iterating through the ordered list and eliminating detections that are close in range to
+a stronger detection. A GPU implementation would involve creating a thread per detection per quadruplet, 
+performing 3 binary searches to figure out how many detections are nearer than it in range to the radar,
+and mapping itself to the corresponding place in the fully sorted list.In a second pass then, each 
+thread would check the detections near it in the fully sorted list to see if there are any stronger
+detections in range. Since this problem is a standard k-way merge sort, the CUDA Thrust library 
+implementation will be used. 
+
+\subsection{Multi-Target Tracking}
+
+
+\begin{figure}[htbp]
+    \centering
+    \incfig[1]{tracking_dataflow} 
+    \caption[Dataflow diagram for the tracking subsystem.]{Dataflow for the tracking stage of the 
+    detection and tracking subsystem. Detections are fed into the
+    associator of the multi-target tracker, and are then fed into the hypothesiser. 
+    The hypothesiser produces a hypothesis per track/detection pair. The associator then 
+    finds the optimal assignment
+    of detections to tracks. The updater then updates the tracks, and the deleter deletes 
+    tracks with poor quality. For the detections that are not associated with any tracks,
+    a tentative track is initiated or updated in the initiator, a miniature tracker that
+    handles the track initiation and confirmation process. 
+    }
+    \label{fig:tracking-dataflow}
+\end{figure}

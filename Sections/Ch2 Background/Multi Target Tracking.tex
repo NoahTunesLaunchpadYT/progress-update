@@ -191,12 +191,10 @@ model to the current state and covariance,
 \begin{figure}[htb]
     \incfig[0.6]{kalman_filter}
     \label{fig:kalman_filter}
-    \caption{Each time step, the makes a prediction of the target's current state based
+    \caption{The filter makes a prediction of the target's current state based
     on the previous state and a motion model (red), and then updates the prediction based 
-    on the new measurement (yellow) to produce an improved estimate (blue). The detection, 
-    prediction and updated estimation are each represented as a Gaussian distribution, 
-    hence the ellipses, with the mean representing the most likely state and the 
-    covariance representing the uncertainty.}
+    on the new measurement (yellow) to produce an improved estimate (blue). Ellipses 
+    represent Gaussian uncertainty.}
 \end{figure}
 
 

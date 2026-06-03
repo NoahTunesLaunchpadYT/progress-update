@@ -83,30 +83,101 @@ sum \(\cos(\omega_1+\omega_2)\) while preserving the useful difference frequency
 \(\cos(\omega_1-\omega_2)\).  
 
 Exiting the analogue domain and entering the digital domain, the frequency information in the 
-radar signals can be extracted by applying a Discrete Fourier Transform (DFT) to the sampled data.
-At this stage the range of clear targets can be estimated by identifying the peaks in the DFT output.
+radar signals can be extracted by applying a \gls{dft} to the sampled data.
+At this stage the range of clear targets can be estimated by identifying the peaks in the \gls{dft} output.
 At this stage many radar systems also apply a long time Fourier transform on a larger time scale 
 (slow time) to extract the Doppler frequency shift, which provides information on the target's 
 radial frequency. 
 
-To improve the detectability of weak targets, radar systems often apply coherent integration 
-across multiple pulses. This involves summing the complex samples across pulses for each range bin 
-after the DFT. By summing the complex range bins across multiple pulses, the signal from a target
-will add constructively while noise will add incoherently improving signal to noise ratio as
-illustrated in Figure \ref{fig:coherent integration} \cite{Richards2010}. Phase is preserved during integration, which is 
-necessary for later angle estimation stages.
+When a finite segment of a signal is passed to the \gls{dft}, an implicit rectangular window 
+is applied --- the signal is assumed to be zero outside the observed interval. Term-wise 
+multiplication by a window function in the time domain corresponds to convolution in the
+frequency domain, so the rectangular window's sinc-shaped frequency response causes 
+sidelobes that decay slowly at $-13$ dB relative to the main 
+lobe. Ideally we want maximal energy in the main lobe and minimal energy in the sidelobes.
+
+To reduce spectral leakage, a window function $w[n]$ is applied to the $N$-point signal 
+$x[n]$ prior to the DFT:
+
+\begin{equation}
+    x_w[n] = x[n] \cdot w[n], \quad n = 0, 1, \ldots, N-1
+    \label{eq:windowing}
+\end{equation}
+
+The Hann and Hamming windows are members of the generalised cosine family:
+\begin{equation}
+    w[n] = \alpha - \beta\cos\left(\frac{2\pi n}{N-1}\right)
+    \label{eq:cosine_window}
+\end{equation}
+
+where the Hann window uses $\alpha = 0.5,\ \beta = 0.5$ and the Hamming window uses 
+$\alpha = 0.54,\ \beta = 0.46$. These window's sidelobes decay at $-31$ dB and $-41$ dB
+respectively, resulting in a less destructive spectral leakage pattern when compared to
+the rectangular window, (see Figure \ref{fig:hann fourier transform}).
+
+\begin{figure}
+    \incfig[0.9]{hann_transform}
+    \caption[Rectangular window and Hann window frequency responses]{The frequency response
+    of the rectangular (top) and Hann (bottom) windows. We see that the rectangular window
+    has a main lobe with significant sidelobes that decay at -13 dB, while the Hann window
+    has a main lobe with much lower sidelobes that decay at -31 dB. \(\textbf{B}\), the
+    equivalent noise bandwidth, measures how much noise the window generates relative to a
+    rectangular window. The Hann window has a higher equivalent noise bandwidth because of
+    the wider main lobe.}
+    \label{fig:hann fourier transform}
+\end{figure}
+
+To improve the detectability of weak targets, radar systems often apply integration 
+across multiple chirps. This involves summing the complex samples across chirps for each 
+range bin after the \gls{dft}. For a target return with complex amplitude $a$ and additive 
+white Gaussian noise with variance $\sigma^2$ per sample, coherent integration of $N$ 
+chirps produces a signal term of magnitude $Na$ while the noise, being zero-mean and 
+independent across chirps, accumulates with standard deviation $\sigma\sqrt{N}$. The 
+resulting SNR therefore scales as:
+
+\begin{equation}
+    \text{SNR}_{\text{coherent}} = \frac{N^2 |a|^2}{N\sigma^2} = \frac{N|a|^2}{\sigma^2}
+    \label{eq:snr_coherent}
+\end{equation}
+
+giving a linear SNR gain of $N$, as illustrated in Figure \ref{fig:coherent_integration} 
+\cite{Richards2010}. Phase is preserved during integration, which is necessary for later 
+angle estimation stages.
 
 \begin{figure}[htbp]
     \centering
     \incfig[1]{phasor_bins_multi_chirp}
-    \caption[Coherent integration across five chirps showing constructive summation of target returns.]{Coherent integration across five chirps for each range bin. The amplitude of each arrow
-    corresponds to the presence of a target at a corresponding range from the radar, and the argument
-    of the arrow corresponds to the phase of the signal for that range bin.
-    Most bins contain noise-like phasors with varying direction, so their coherent sum remains small.
-    The highlighted bin contains a weak but consistent DC offset across chirps, so its values
-    add constructively, producing a larger resultant value in the coherent-sum.}
-    \label{fig:coherent integration}
+    \caption[Coherent integration across five chirps showing constructive summation of 
+    target returns.]{Coherent integration across five chirps for each range bin. The 
+    amplitude of each arrow corresponds to the presence of a target at a corresponding 
+    range from the radar, and the argument of the arrow corresponds to the phase of the 
+    signal for that range bin. Most bins contain noise-like phasors with varying 
+    direction, so their coherent sum remains small. The highlighted bin contains a weak 
+    but consistent DC offset across chirps, so its values add constructively, producing 
+    a larger resultant value in the coherent sum.}
+    \label{fig:coherent_integration}
 \end{figure}
+
+A downside of coherent integration is that it requires phase coherence across chirps, 
+which is a strong assumption that may not hold in practice due to factors such as target 
+movement, atmospheric disturbances, and hardware imperfections. In cases where phase 
+coherence cannot be maintained, non-coherent integration is more appropriate, which 
+involves summing the squared magnitudes of the range bins across chirps instead of the 
+complex values. While coherent integration is zero-mean (repeated sum of complex zero-mean 
+Gaussians), the incoherent integration is not zero-mean (since total power and noise
+power is always positive). Richards, Scheer \& Holm (2010) \cite{Richards2010} 
+find the following relationship between the SNR of non-coherent integration 
+\(\text{SNR}_{\text{nc}}\) and the number of integrated chirps \(N\):
+
+
+\begin{equation}
+    \sqrt{N} \cdot \text{SNR}(1) \leq \text{SNR}_{\text{nc}} \leq N \cdot \text{SNR}(1)
+    \label{eq:snr_noncoherent}
+\end{equation}
+and for practical purposes,
+\begin{equation}
+    \text{SNR}_{\text{nc}} \approx N^{0.7} \cdot \text{SNR}(1)
+\end{equation}
 
 Constant False Alarm Rate (CFAR) detection is a key mechanism for resolving a map of noisy range data 
 into discrete detections given a target false alarm rate. It does this by masking out any samples with 
@@ -129,8 +200,8 @@ For this distribution, the false alarm probability as a function of $\alpha$ is 
     \left( \frac{\alpha}{N+\alpha} \right)^k
 \end{equation}
 
-where $k$ is one less than the number of receivers (here $k=3$, since quadruplet samples from
-four receivers are summed before thresholding). 
+where $k$ is one less than the number of receivers (here $k=3$, since samples from
+a quadruplet of receivers are summed before thresholding). 
 Figure \ref{fig:cfar_detection} illustrates how CFAR generates detections by comparing a signal to a 
 threshold determined by the power of the surrounding samples.
 

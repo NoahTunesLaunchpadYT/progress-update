@@ -33,7 +33,7 @@ sufficient for the detection sensitivity requirements of the pipeline, and the
 additional complexity of summing chirps with different profiles constructively 
 is not worth sacrificing research in the tracking subsystem.
 
-The FFT comparison, PVA evaluation, pipeline design experiment, tracking filter 
+The \gls{fft} comparison, PVA evaluation, pipeline design experiment, tracking filter 
 comparison, data association comparison, and flight test validation remain in 
 scope. The pipeline design experiment and CFAR/windowing extensions are sequenced 
 after the core tracking pipeline is complete and unit tested, as meaningful 
@@ -63,7 +63,7 @@ improvements in track quality that justify their computational cost.
 \subsection{Data Association}
 Nearest neighbour (NN), global nearest neighbour (GNN), and joint probabilistic data association (JPDA) will be compared under sweeps of target density and clutter rate. Performance will be assessed using CLEAR MOT metrics alongside latency and throughput measurements. The interaction between data association choice and tracking filter choice will be examined, as some combinations are known to degrade under high clutter.
 \subsection{FFT Comparison}
-CPU and GPU FFT implementations will be compared under streaming workloads using FFTW and MKL on CPU, and cuFFT on GPU. The NVIDIA Programmable Vision Accelerator (PVA) will also be evaluated as an alternative execution target for the FFT stage. Trade-offs will be characterised by latency, throughput, and memory usage at the FFT sizes required by the AWR2243 data format.
+CPU and GPU \gls{fft} implementations will be compared under streaming workloads using FFTW and MKL on CPU, and cuFFT on GPU. The NVIDIA Programmable Vision Accelerator (PVA) will also be evaluated as an alternative execution target for the \gls{fft} stage. Trade-offs will be characterised by latency, throughput, and memory usage at the \gls{fft} sizes required by the AWR2243 data format.
 \subsection{Pipeline Design}
 Once the end-to-end pipeline is stable and unit tested, pipeline-level implementation variants will be compared. Stream format choices, including interleaved versus per-channel layout and float precision, will be evaluated alongside memory placement decisions, contrasting CPU memory, device memory, and unified memory configurations. Compatible stages will be evaluated for fusion opportunities. End-to-end latency and sustained throughput are the primary metrics. This directly targets the gap around memory movement and synchronisation overhead in embedded GPU pipelines.
 \subsection{CFAR Variants and Extended Windowing}
@@ -86,7 +86,7 @@ The remaining project milestones are outlined in Table \ref{tab:milestones-updat
         20 Mar, 08 Apr & Finalise and submit progress report. \\
         06 Apr, 12 Apr & Implement clustering stage. Compare DBSCAN CPU and GPU implementations. \\
         13 Apr, 19 Apr & Implement and compare tracking filter variants (EKF, UKF, IMM) and data association variants (NN, GNN, JPDA) on synthetic data. Evaluate track quality metrics. \\
-        20 Apr, 26 Apr & FFT comparison across FFTW, cuFFT, and PVA. Integration testing of complete end-to-end pipeline. \\
+        20 Apr, 26 Apr & \gls{fft} comparison across FFTW, cuFFT, and PVA. Integration testing of complete end-to-end pipeline. \\
         26 Apr, 02 May & Field testing and flight trial validation on AWR2243 hardware. Collect real noise regime data. \\
         03 May, 09 May & Pipeline design experiment. Compare stream formats, memory placements, and stage fusion strategies. Hardware profiling across CPU-only, unified-memory, and discrete-memory configurations. \\
         10 May, 16 May & CFAR variant and extended windowing evaluation on real data. Sensitivity analysis and parameter optimisation. \\

@@ -1,10 +1,11 @@
 \section{Processing Subsystem Evaluation}
 \label{sec:processing_app}
 The proposed preprocessing subsystem is responsible for receiving the raw radar data from the AWR2242 
-radar 
-chips, and preparing the data for detection. An instance of the subsystem runs per incoming video stream. 
-The subsystem performs the following operations sequentially: formatting, windowing, FFT, and 
-coherent integration, (see Figure \ref{fig:preprocessing-dataflow}). Below are the implementation and 
+radar chips, depicted in Figure \ref{fig:AWR2243},
+and preparing the data for detection. An instance of the subsystem runs per incoming video stream. 
+Before outputting the data to the aggregator subsystem which is upstream of the detection and 
+tracking subsystem. The subsystem performs the following operations sequentially: formatting, windowing, FFT, and 
+integration, (see Figure \ref{fig:preprocessing-dataflow}). Below are the implementation and 
 experiment details for each of the operations. 
 
 \begin{figure}[htbp]
@@ -14,20 +15,30 @@ experiment details for each of the operations.
     separate processes, with each instance receiving compressed baseband radar data samples from an
     incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards
     empty chirps. The windowing stage applies a window function to the data to reduce spectral smearing
-    in the next stage. The FFT stage applies a Fourier Transform across fast time into the frequency
-    domain, revealing target range. The coherent integration stage sums the complex FFT values of
+    in the next stage. The \gls{fft} stage applies a Fourier Transform across fast time into the frequency
+    domain, revealing target range. The coherent integration stage sums the complex \gls{fft} values of
     identical pulses within the same frame.} 
     \label{fig:preprocessing-dataflow}
 \end{figure}
 
-\subsection{Windowing}
-To reveal target range from a single radar pulse, an FFT (Fast Fourier Transform) is applied to the
-de-chirped pulse. The DFT assumes the finite signal repeats periodically, so when the signal does
-not start and end at the same value, the implicit periodicity introduces a discontinuity. This
-causes energy from a true frequency to spread into adjacent bins — a phenomenon known as spectral
-leakage.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{AWR2243.png}
+    \caption[Texas Instruments AWR2243 radar chip.]{Photo of the Texas Instruments AWR2243 radar chip, which is
+    used in the radar module. The chip has 3 transmitters and 4 receivers, and outputs the radar data over a CSI
+    video stream. The chip is only 10.4mm x 10.4mm, making it suitable for placement on UAV PCBs.}
+    \label{fig:AWR2243}
+\end{figure}
 
-When an FFT is performed on a finite signal, it is implicitly multiplied by a rectangular window.
+\subsection{Windowing}
+To reveal target range from a single radar pulse, an \gls{fft} is applied to the
+de-chirped pulse. 
+% The  assumes the finite signal repeats periodically, so when the signal does
+% not start and end at the same value, the implicit periodicity introduces a discontinuity. This
+% causes energy from a true frequency to spread into adjacent bins — a phenomenon known as spectral
+% leakage.
+
+When an \gls{fft} is performed on a finite signal, it is implicitly multiplied by a rectangular window.
 A term-wise multiplication in time corresponds to a convolution in the frequency domain, and the
 rectangular window's sinc-shaped frequency response has large sidelobes that spread energy from
 each frequency bin into its neighbours. By applying a more suitable window function prior to the
@@ -36,7 +47,7 @@ FFT, spectral leakage can be reduced, as shown in Figure \ref{fig:hann filter}.
 \begin{figure}[htbp]
     \centering
     \includesvg[width=0.6\linewidth]{Images/ffts1}
-    \caption[FFT with and without a Hann window showing spectral leakage reduction.]{Results of an FFT performed on a signal with two frequencies and Gaussian noise, with
+    \caption[FFT with and without a Hann window showing spectral leakage reduction.]{Results of an \gls{fft} performed on a signal with two frequencies and Gaussian noise, with
     and without a Hann window. Without the Hann window, the bins close to the peak frequency bins 40
     and 45 are significantly elevated due to spectral leakage from those peaks, which would cause
     nearby bins to be falsely detected as targets.}
@@ -50,16 +61,18 @@ explicit control over sidelobe level and mainlobe width. Because windowing is a 
 multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution. These 
 implementations are compared for their resulting spectral behaviour. 
 
-Computational performance profiling measures the latency contribution and throughput associated with each window and 
-implementation method. A cost-benefit analysis weighs the latency cost against downstream benefits of 
-a cleaner signal, including reduced sidelobe-induced false positives. These procedures provide a basis 
-for selecting windows that are spectrally well behaved, computationally efficient, sensitive, and 
+The sidelobe attenuation and resolution loss are compared for each window and a trade off analysis 
+is performed to determine when each window is the most suitable. These procedures provide a basis 
+for selecting windows that are spectrally well behaved, sensitive, and 
 positively affect the ending track quality. 
 
-\subsection{Coherent Integration}
-Different integration window sizes are compared on real data, and the resulting changes in detection 
-sensitivity and false alarm behaviour are measured. CPU and GPU implementations are also compared, and 
-the downstream effect on angle sensing stability is quantified. An ablation study holds the window, 
-FFT size, and CFAR parameters fixed while varying only the integration policy, isolating its effect. 
-The contribution of the integration stage to the overall latency and throughput of the pipeline is also 
-measured. 
+\subsection{Integration}
+Coherent integration is compared with non coherent integration for their resulting SNR 
+improvement, angle estimation quality, and track quality on real and simulated data. 
+The relationship between coherent integration window size and the performance metrics 
+is also explored. 
+
+After, the latency and throughput of coherent integration is characterised in relation to
+the other stages, and the integration window size. The trade off analysis is 
+between SNR and latency is performed. The integration stage is also evaluated in the
+ablation study of the processing application. 

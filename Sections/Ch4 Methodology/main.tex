@@ -37,8 +37,7 @@ Texas Instruments
 AWR2243 radar chips, and produce tracks of targets in the radar's field of view. For 
 the experiments performed in this work, we utilise data from a conformal synthetic 
 aperture radar. Both the radar hardware and the software are designed to be modular. 
-The radar module, depicted 
-in Figure \ref{fig:radar-module},
+The radar module, depicted in Figure \ref{fig:radar-module},
 has up to 12 receiver patches that are arranged in a 6x2 grid, conforming to a curved surface.
 For testability, the software system is broken up into three subsystems, which are in turn 
 comprised of stages that each perform a specific radar processing function. 
@@ -48,6 +47,13 @@ processed data from multiple video streams into a single stream, and a detection
 subsystem, which is concerned with detecting targets in the radar data and tracking them over time. 
 This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow}. 
 
+\begin{figure}
+    \includegraphics[width=0.7\textwidth]{radar_module.png}
+    \caption[Radar Module Photo]{Photo of the radar module with its 6 of its 12 receiver 
+    patches arranged in a 3x2 grid.}
+    \label{fig:radar-module}
+\end{figure}
+
 \begin{figure}[htbp]
     \centering
     \incfig[0.9]{application_level_dataflow} 
@@ -56,15 +62,15 @@ This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow
     chirps. The processing subsystem then outputs
     the data in the form of chirps containing target range information. The aggregator subsystem
     receives the four resulting processed data streams, and combines them into a single data stream
-    organised by quadruplet, a collection of four receivers necessary for monopulse angle sensing.
-    The detection and tracking subsystem receives a stream of quadruplets, and produces tracks of
+    organised by quadruplets, a collection of four receivers necessary for monopulse angle sensing.
+    The detection and tracking subsystem receives a stream of quadruplet chirps, and produces tracks of
     targets in the radar's field of view.}
     \label{fig:system-level-dataflow}
 \end{figure}
 
 The methodology is organised into three parts. Firstly, we propose a design of a \mbox{(pre-)processing} 
 subsystem that performs formatting, windowing, FFTs, and coherent integration on dense radar data. 
-Then, we propose the design of a novel detection and tracking subsystem that performs CFAR, monopulse angle 
+Then, we propose the design of a detection and tracking subsystem that performs CFAR, monopulse angle 
 sensing, clustering, and multi-target tracking. Lastly, we describe the datasets used for testing.
 
 \FloatBarrier

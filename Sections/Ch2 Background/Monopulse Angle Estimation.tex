@@ -13,7 +13,7 @@ of a target can be estimated with the equation,
 \end{equation}
 where \(S_1\) and \(S_2\) are the signal strengths in the two channels being compared, and \(f\) 
 is a function that maps the sum-difference ratio to an angle. This explanation is illustrated in 
-Figure \ref{fig:background_monopulse_principle}.
+Figure \ref{fig:background_monopulse_principle}. 
 
 \begin{figure}
     \incfig[1]{background_monopulse_principle}
@@ -23,9 +23,15 @@ Figure \ref{fig:background_monopulse_principle}.
     \label{fig:background_monopulse_principle}
 \end{figure}
 
-With four receiver channels, bearing and amplitude estimates can be found in two dimensions by 
-comparing the sum-difference ratios across two pairs of channels. The bearing and elevation 
-estimates are given by,
+With a square pattern of four receiver channels (Figure \ref{fig:quadruplet}), azimuth estimations can be obtained by obtaining 
+the sum-difference ratio of the left and right channels, and elevation estimations can be obtained
+by obtaining the sum-difference ratio of the top and bottom channels. 
+\begin{figure}
+    \incfig[0.3]{tetrad}
+    \caption[Four-channel monopulse system.]{A four-channel monopulse receiver pattern, also known as a quadruplet.
+    receivers are labelled \(A_{0,0}\), \(A_{0,1}\), \(A_{1,0}\) and \(A_{1,1}\) as shown.}
+    \label{fig:quadruplet}
+\end{figure}
 
 \begin{equation}
     \delta_b = \frac{|a_{0,0} + a_{1,0}| - |a_{0,1} + a_{1,1}|}{|a_{0,0} + a_{1,0}| + |a_{0,1} + a_{1,1}|}
@@ -34,7 +40,8 @@ estimates are given by,
     \delta_e = \frac{|a_{0,0} + a_{0,1}| - |a_{1,0} + a_{1,1}|}{|a_{0,0} + a_{0,1}| + |a_{1,0} + a_{1,1}|}
 \end{equation}
 
-The relationship between the ratios and true angles is dependent on the specific radar system. 
+Where \(a_{i,j}\) represents the signal strength from receiver \(A_{i,j}\). The relationship between 
+the ratios and true angles is dependent on the specific radar system. 
 Different receivers will have different gains. Calibration allows us to map the sum-difference ratios
 to angle estimates in radians using two polynomial functions of the form,
 
@@ -44,5 +51,17 @@ to angle estimates in radians using two polynomial functions of the form,
     \theta_e = \sum_{i=0}^{4} \sum_{j=0}^{4-i} c_{eij} \delta_b^i \delta_e^j
 \end{equation}
 
-One for bearing and one for elevation, where \(c_{bij}\) and \(c_{eij}\) are the coefficients 
+One for azimuth and one for elevation, where \(c_{bij}\) and \(c_{eij}\) are the coefficients 
 obtained from calibration data.
+
+With multiple quadruplets, multiple fields of view can be stitched together to produce a wide field of view, 
+without the need to scan. Single receivers can be members of multiple quadruplets, resulting in an efficient 
+use of hardware, as 
+depicted in Figure \ref{fig:overlapping_quadruplets}. 
+\begin{figure}
+    \incfig[0.6]{overlapping_tetrads}
+    \caption[Overlapping quadruplets.]{Overlapping quadruplets allow for a wide field of view, a higher capacity
+    to track multiple targets, and efficient use of hardware, as a single receiver can be a member of 
+    multiple quadruplets.}
+    \label{fig:overlapping_quadruplets}
+\end{figure}

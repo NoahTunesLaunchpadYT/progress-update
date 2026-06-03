@@ -109,7 +109,7 @@ Gogineni & Nehorai 2011 — monopulse MIMO tracking X
 Gogineni & Nehorai 2010 — monopulse MIMO distributed antennas X
 Kim et al. 2024 — multi-target angle estimation FMCW MIMO X
 Conformal monopulse antenna 2015 X
-"Efficient FFT mapping on GPU for radar" 2015
+"Efficient \gls{fft} mapping on GPU for radar" 2015
 "Real-Time Embedded Heterogeneous GPU/FPGA" 2016
 "Embedded-GPU-Based ViSAR" 2024
 

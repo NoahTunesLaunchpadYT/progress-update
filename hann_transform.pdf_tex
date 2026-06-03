@@ -1,0 +1,187 @@
+%% Creator: Inkscape 1.3.2 (1:1.3.2+202311252150+091e20ef0f), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'hann_transform.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{877.14930257bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.88064892)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.45982233,0.40309885){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.11309308\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{hann_transform.pdf}}%
+    \put(0.05658111,0.05525648){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{hann_transform.pdf}}%
+    \put(0.05658111,0.09039873){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{hann_transform.pdf}}%
+    \put(0.05658111,0.12562648){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{hann_transform.pdf}}%
+    \put(0.05658111,0.16076873){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.3}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{hann_transform.pdf}}%
+    \put(0.05658111,0.19591098){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{hann_transform.pdf}}%
+    \put(0.05658111,0.23113873){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.5}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{hann_transform.pdf}}%
+    \put(0.05658111,0.26628098){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{hann_transform.pdf}}%
+    \put(0.05658111,0.30142323){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.7}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{hann_transform.pdf}}%
+    \put(0.05658111,0.33665098){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{hann_transform.pdf}}%
+    \put(0.05658111,0.37179323){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.9}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{hann_transform.pdf}}%
+    \put(0.05658111,0.33682199){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{hann_transform.pdf}}%
+    \put(0.05658111,0.44981568){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{hann_transform.pdf}}%
+    \put(0.05658111,0.48495793){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{hann_transform.pdf}}%
+    \put(0.05658111,0.52018568){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{hann_transform.pdf}}%
+    \put(0.05658111,0.55532793){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.3}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{hann_transform.pdf}}%
+    \put(0.05658111,0.59047018){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{hann_transform.pdf}}%
+    \put(0.05658111,0.62569794){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.5}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{hann_transform.pdf}}%
+    \put(0.05658111,0.66084019){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{hann_transform.pdf}}%
+    \put(0.05658111,0.69598243){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.7}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{hann_transform.pdf}}%
+    \put(0.05658111,0.73121019){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{hann_transform.pdf}}%
+    \put(0.05658111,0.76635244){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.9}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{hann_transform.pdf}}%
+    \put(0.05658111,0.80149469){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{hann_transform.pdf}}%
+    \put(0.0181897,0.63997715){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.26298839,0.86245922){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Window}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{hann_transform.pdf}}%
+    \put(0.58499742,0.44981568){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-130}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{hann_transform.pdf}}%
+    \put(0.58499742,0.47700603){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{hann_transform.pdf}}%
+    \put(0.58499742,0.50411088){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-110}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{hann_transform.pdf}}%
+    \put(0.58499742,0.53130124){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{hann_transform.pdf}}%
+    \put(0.58499742,0.55840609){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-90}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{hann_transform.pdf}}%
+    \put(0.58499742,0.58559644){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{hann_transform.pdf}}%
+    \put(0.58499742,0.61270129){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-70}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{hann_transform.pdf}}%
+    \put(0.58499742,0.63989164){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{hann_transform.pdf}}%
+    \put(0.58499742,0.667082){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-50}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{hann_transform.pdf}}%
+    \put(0.58499742,0.69418685){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{hann_transform.pdf}}%
+    \put(0.58499742,0.7213772){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-30}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{hann_transform.pdf}}%
+    \put(0.58499742,0.74848205){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{hann_transform.pdf}}%
+    \put(0.58499742,0.7756724){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-10}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{hann_transform.pdf}}%
+    \put(0.58499742,0.80277725){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{hann_transform.pdf}}%
+    \put(0.53762806,0.63997715){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{decibels}\end{tabular}}}}}%
+    \put(0.79140469,0.86245922){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Fourier transform}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{hann_transform.pdf}}%
+    \put(0.76677947,0.46341086){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.000}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{hann_transform.pdf}}%
+    \put(0.06555905,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{hann_transform.pdf}}%
+    \put(0.46050321,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{  N}\end{tabular}}}}%
+    \put(0.0181897,0.24541794){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.26298838,0.00497997){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{hann_transform.pdf}}%
+    \put(0.58499741,0.05525648){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-130}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{hann_transform.pdf}}%
+    \put(0.58499741,0.08244683){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{hann_transform.pdf}}%
+    \put(0.58499741,0.10955168){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-110}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{hann_transform.pdf}}%
+    \put(0.58499741,0.13674203){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{hann_transform.pdf}}%
+    \put(0.58499741,0.16384688){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-90}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{hann_transform.pdf}}%
+    \put(0.58499741,0.19103724){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{hann_transform.pdf}}%
+    \put(0.58499741,0.21814208){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-70}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{hann_transform.pdf}}%
+    \put(0.58499741,0.24533244){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{hann_transform.pdf}}%
+    \put(0.58499741,0.27252279){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-50}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{hann_transform.pdf}}%
+    \put(0.58499741,0.29962764){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{hann_transform.pdf}}%
+    \put(0.58499741,0.32681799){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-30}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{hann_transform.pdf}}%
+    \put(0.58499741,0.35392284){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{hann_transform.pdf}}%
+    \put(0.58499741,0.3811132){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-10}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{hann_transform.pdf}}%
+    \put(0.58499741,0.40821805){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{hann_transform.pdf}}%
+    \put(0.59397536,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{hann_transform.pdf}}%
+    \put(0.69273278,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{hann_transform.pdf}}%
+    \put(0.79149019,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{hann_transform.pdf}}%
+    \put(0.8901621,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{hann_transform.pdf}}%
+    \put(0.98891952,0.03601802){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{40}\end{tabular}}}}%
+    \put(0.53762805,0.24541794){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{decibels}\end{tabular}}}}}%
+    \put(0.79140469,0.00497997){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{bins}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{hann_transform.pdf}}%
+    \put(0.76677946,0.06885165){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.500}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{hann_transform.pdf}}%
+  \end{picture}%
+\endgroup%

@@ -6,7 +6,7 @@ illustrates the performance of each of the filters on the noisy simulated data w
 
 \begin{figure}
     \incfig[0.8]{filter_clear_comparison}
-    \caption[Window filter comparison on a noise-free signal.]{Results of an FFT performed on a single frequency signal without noise without a filter,
+    \caption[Window filter comparison on a noise-free signal.]{Results of an \gls{fft} performed on a single frequency signal without noise without a filter,
     with a Hann window, and a Hamming window. Each of the tests correctly produces a peak near
     bin 334, the target range. The no filter option's peak is wider than the filtered options.
     The Hann window performs the best globally, with a 100 dB reduction in power when more than 40
@@ -18,7 +18,7 @@ illustrates the performance of each of the filters on the noisy simulated data w
 
 \begin{figure}
     \incfig[0.8]{filter_noisy_comparison}
-    \caption[Window filter comparison at SNR of 1.]{Results of an FFT performed on a single frequency signal with an SNR of 1 with no
+    \caption[Window filter comparison at SNR of 1.]{Results of an \gls{fft} performed on a single frequency signal with an SNR of 1 with no
     window filter, with a Hann window filter, and a Hamming window filter. The no filter option's
     spectral leakage acts to deform the peak at bin 334. The Hann and Hamming windows perform similarly
     globally but the Hamming window features a slightly higher peak, and less spectral leakage into

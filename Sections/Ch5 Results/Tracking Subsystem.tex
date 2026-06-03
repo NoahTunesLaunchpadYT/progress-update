@@ -1,17 +1,20 @@
 \FloatBarrier
 \section{Constant False Alarm Rate}
 \subsection{Correctness}
-Under the assumption of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise 
-power, the CFAR threshold coefficient $\alpha$ is calculated numerically for a range of false alarm 
+Under the assumption of an 8-degrees of freedom chi-squared distribution of sample noise 
+power for a given quadruplet of receivers, the CFAR threshold coefficient $\alpha$ is 
+calculated numerically for a range of false alarm 
 rates. The actual false alarm rate is then measured by running the CFAR algorithm on a noise-only
 synthetic dataset. Figure \ref{fig:alpha-cfar-results} illustrates the results.
 
 \begin{figure}[htbp]
     \centering
     \incfig[0.4]{pfa_comparison} 
-    \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{The actual false alarm rate closely matches the desired false alarm rate across a range
+    \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{The actual 
+    false alarm rate closely matches the desired false alarm rate across a range
     of false alarm rates. The numerical solution for $\alpha$ is therefore accurate under the assumption
-    of an 8-degrees of freedom chi-squared distribution of quadruplet sample noise power.}
+    of an 8-degrees of freedom chi-squared distribution of sample noise power across a quadruplet of 
+    receivers.}
     \label{fig:alpha-cfar-results}
 \end{figure}
 
@@ -70,7 +73,7 @@ for window sizes within the practical range of 10 - 100 training cells.
     \centering
     \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10.svg} 
     \caption[CFAR implementation speed vs training cells on the desktop.]{Computational Performance of three CFAR implementations as a function of the number of
-    training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplets.}
+    training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplet chirps per frame.}
     \label{fig:cfar-implementation-performance-desktop-training-cells}
 \end{figure}
 
@@ -78,7 +81,7 @@ for window sizes within the practical range of 10 - 100 training cells.
     \centering
     \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10 Xavier.svg} 
     \caption[CFAR implementation speed vs training cells on the Xavier.]{Computational Performance of three CFAR implementations as a function of the number of
-    training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplets.}
+    training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplet chirps per frame.}
     \label{fig:cfar-implementation-performance-Xavier-training-cells}
 \end{figure}
 
