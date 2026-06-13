@@ -21,13 +21,19 @@ Below are the implementation and experiment details for each of the operations.
 
 \subsection{CFAR}
 For finding the CFAR coefficient $\alpha$ (defined in \ref{eqn:threshold}) that gives a desired false 
-alarm rate $P_{fa}^{\star}$, we cannot rearrange the equation into a closed-form expression. 
+alarm rate $P_{fa}^{\star}$. The relationship between these variables (Equation 
+\ref{eqn:cfar_false_alarm}), cannot be rearranged into a closed-form expression. 
 
-Hence, for a desired false alarm rate $P_{fa}^{\star}$, $\alpha$ is found by solving
 \begin{equation}
-    P_{fa}(\alpha;N) = P_{fa}^{\star}
+    P_{fa}(\alpha;N) = \left( \frac{N}{N+\alpha} \right)^N
+    \sum_{k=0}^{3} \binom{N+k-1}{k}
+    \left( \frac{\alpha}{N+\alpha} \right)^k
 \end{equation}
-using bisection. The method begins with $\alpha_{lo}=0$ and increases an upper bound $\alpha_{hi}$ until 
+
+Since $P_{fa}(\alpha;N)$ is strictly decreasing in $\alpha$, bisection can be used 
+to find the value of $\alpha$ that gives the desired false alarm rate \(P_{fa}^{\star}\).
+
+The method begins with $\alpha_{lo}=0$ and increases an upper bound $\alpha_{hi}$ until 
 $P_{fa}(\alpha_{hi};N) \leq P_{fa}^{\star}$. It then repeatedly bisects the interval and evaluates 
 $P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending on whether the resulting 
 false alarm rate is above or below the target. This continues until the interval is sufficiently small. 
@@ -88,12 +94,25 @@ the difference in performance of the algorithms on a synthetic signal with 5 pea
 \end{figure}
 
 \subsection{Clustering}
-
+After CFAR occurs, most of the samples (range bins) will be zero. The efficiency loss from 
+processing so many zero samples motivates a stage that transforms the detection sparse 
+representation into a dense one. Additionally, the widening of the main lobe of each of 
+the detections due to the windowing stage creates multiple range bins with detections 
+from the same target, which motivates a stage that groups these samples into a single 
+detection.
+The algorithm that addresses both of these problems, clustering, iterates through the 
+range profile, and creates a cluster for each contiguous set of 
+detection samples. Then, the complex signal from each of the samples are summed together. 
+SNR is expected to improve, as noise will be incoherent within clusters, but the signal
+that corresponds to a target will have the same phase across samples, and thus will be 
+coherent. The latency of both CPU and GPU implementations of the clustering algorithm 
+is measured. Different clustering parameters are tested for their impact on tracking performance, such 
+as the allowed gap size between detections.
 
 \subsection{Monopulse Angle Sensing}
-
-Angle sensing converts multi-channel measurements into angle estimates that drive association and 
-tracking. We assess candidate angle discriminators by running controlled sweeps over SNR, channel 
+Angle sensing converts multi-channel detections into azimuth, elevation and range estimates that 
+drive association and tracking. We assess candidate angle discriminators by running controlled 
+sweeps over SNR, channel 
 imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
 The latency and throughput of CPU and GPU implementations are measured. The trade off being software
 implementation details such as warp divergence, and instruction-level parallelism. 
@@ -141,13 +160,15 @@ for each time step, iterating through each of the lists simultaneously and sorti
 time. Then iterating through the ordered list and eliminating detections that are close in range to
 a stronger detection. A GPU implementation would involve creating a thread per detection per quadruplet, 
 performing 3 binary searches to figure out how many detections are nearer than it in range to the radar,
-and mapping itself to the corresponding place in the fully sorted list.In a second pass then, each 
+and mapping itself to the corresponding place in the fully sorted list. In a second pass then, each 
 thread would check the detections near it in the fully sorted list to see if there are any stronger
 detections in range. Since this problem is a standard k-way merge sort, the CUDA Thrust library 
-implementation will be used. 
+implementation will be used. This stage can also double as a receiver fusion stage, as detections
+from multiple receivers across different chirps that are close in not just range but also angular 
+position can be merged 
+together. 
 
 \subsection{Multi-Target Tracking}
-
 
 \begin{figure}[htbp]
     \centering
@@ -164,3 +185,16 @@ implementation will be used.
     }
     \label{fig:tracking-dataflow}
 \end{figure}
+
+The multi-target tracking stage with be implemented entirely on the CPU due to its sequential nature. 
+Amplitude based association will be compared to non-amplitude based association for their impact on
+track quality. The multi-target tracker has over 20 parameters that can be tuned, and a sweep of 
+these parameters will be conducted to understand their impact on track quality. Experiments will
+be conducted in a variation of SNR, number of targets, and target ranges, in simulated data. Real 
+data will be used to validate the results on static targets. The literature gap regarding the impact
+of algorithmic choices in the tracking stage on track quality is addressed through this experiment. 
+
+% EXPLORE MORE
+- Non amplitude based association
+- Amplitude based association
+- ringing 
