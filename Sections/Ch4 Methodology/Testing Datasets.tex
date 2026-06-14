@@ -43,10 +43,42 @@ for testing.
     \label{fig:synthetic-signal}
 \end{figure}
 
-The second dataset consists of recorded data from the AWR2243 radar system operating in \verb|TEST_SOURCE| 
-mode. This dataset is used to validate the behaviour of the processing pipeline under more realistic 
-data rates, timing uncertainties, and electrical noise conditions. In \verb|TEST_SOURCE| mode, the chip can 
-simulate two targets with configurable position, velocity, and bounds, and the receivers capture the 
-signals that would be reflected from these targets. Although this recorded data is still not fully 
-representative of real-world radar returns, it provides a more realistic approximation of practical 
-operating conditions than the synthetic sine wave dataset. 
+While every component of the software can be tested with this first dataset, stages such as windowing
+CFAR, angle sensing and track benefit from more realistic data. The choice of window heavily relies
+on the spectral characteristics of the pulse compressed signal; the choice of the CFAR algorithm
+relies on the distribution of noise and clutter; the validation of the angle sensing stage requires
+knowledge of the beam shape of the receivers, and the tracking stage relies on the above as well
+as the model of target motion. 
+
+The second dataset used in the methodology overcomes the shortcomings of the first through modelling
+the process of radio wave propagation, pulse compression, the beam shape of the receivers, and the
+motion of targets. The main shortcoming of this second dataset is that it does not model some of 
+the non-idealities of real radar data such as multipath propagation, and non-Gaussian noise.
+
+The third dataset consists of recorded data from the AWR2243 radar system operating in field 
+trial conditions. This dataset is used to validate the behaviour of the processing pipeline 
+under real-world conditions, including the effects of multipath propagation, non-Gaussian noise, 
+clutter, and other phenomena that are not captured in the synthetic datasets. Table 
+\ref{tab:datasets} summarises the datasets and their characteristics.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Summary of testing datasets used in the methodology.}
+    \begin{tabular}{|c|p{3cm}|p{5cm}|p{5cm}|}
+        \hline
+        Dataset & It Tests: & Characteristics & Shortcomings \\
+        \hline
+        DS1 & Correctness and computational performance & Sine + Gaussian noise & Position 
+        accuracy can not be validated, noise is overly simplistic \\
+        \hline
+        DS2 & Measurement and track quality. Robustness against side-lobes radar non-idealities & Models 
+        radio wave propagation, and hardware preprocessing & Does not model multipath propagation and 
+        non-Gaussian noise. \\
+        \hline
+        DS3 & Validation under real-world conditions & Real radar data recorded from the 
+        AWR2243 radar system. Contains all expected non-idealities. & 
+        Contains timing uncertainties and is in limited supply. \\
+        \hline
+    \end{tabular}
+    \label{tab:datasets}
+\end{table}

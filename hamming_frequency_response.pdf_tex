@@ -1,0 +1,130 @@
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'hamming_frequency_response.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{900bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.06458333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.09883333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.13316667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.16741667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.3}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.20166667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.236){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.5}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.27025){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.3045){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.7}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.33883333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.37308333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.9}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{hamming_frequency_response.pdf}}%
+    \put(0.07125,0.40733333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{hamming_frequency_response.pdf}}%
+    \put(0.08,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{hamming_frequency_response.pdf}}%
+    \put(0.46491667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{  N}\end{tabular}}}}%
+    \put(0.03383333,0.24991667){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.27241667,0.01558333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
+    \put(0.27241667,0.46675){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Hamming window (a}\textbf{0}\textbf{= 0.53836)}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.06458333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-130}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.09108333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.1175){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-110}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.144){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.17041667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-90}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.19691667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.22333333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-70}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.24983333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.27633333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-50}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.30275){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.32925){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-30}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.35566667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.38216667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-10}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{hamming_frequency_response.pdf}}%
+    \put(0.58625,0.40858333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{hamming_frequency_response.pdf}}%
+    \put(0.595,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{hamming_frequency_response.pdf}}%
+    \put(0.69125,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{hamming_frequency_response.pdf}}%
+    \put(0.7875,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{hamming_frequency_response.pdf}}%
+    \put(0.88366667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{hamming_frequency_response.pdf}}%
+    \put(0.97991667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{40}\end{tabular}}}}%
+    \put(0.54008333,0.24991667){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{decibels}\end{tabular}}}}}%
+    \put(0.78741667,0.01558333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{bins}\end{tabular}}}}%
+    \put(0.78741667,0.46675){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Fourier transform}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{hamming_frequency_response.pdf}}%
+    \put(0.76341667,0.07783333){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.368}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{hamming_frequency_response.pdf}}%
+  \end{picture}%
+\endgroup%

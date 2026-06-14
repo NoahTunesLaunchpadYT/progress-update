@@ -1,0 +1,71 @@
+  ════════════════════════════════════════════════════════
+  Ground Truths:                         30
+  Detections:                            5898
+  ════════════════════════════════════════════════════════
+
+  ── Detection Coverage ──
+  ────────────────────────────────────────────────────────
+  True points with no detections:        0
+  True points with >= 1 detections:      30
+  Detections doubling up:                5868
+
+  ── All Detection Performance  (range error < 30 m) ──
+  ────────────────────────────────────────────────────────
+  Range-TP detections (|det_r - gt_r| < 30 m): 1231
+  Range-FP detections (|det_r - gt_r| >= 30 m): 4667
+  Range-TP power sum (linear):           2.831e+24
+  Range-FP power sum (linear):           7.777e+23
+  SNR = 10·log10(range-TP / range-FP power): +5.61 dB
+
+  Position accuracy — range-TP dets (range error < 30 m):
+  ························································
+  RMS error:                231.259 m
+  Mean error:               175.015 m
+  Median error:             136.780 m
+  Max error:               2197.032 m
+  Min error:                  2.901 m
+  Std dev:                  151.164 m
+  CEP50:                    136.780 m
+  CEP90:                    332.906 m
+  Polar errors:         
+    Range   mean:            +0.196 m
+            RMS:              5.486 m
+            std:              5.482 m
+    Bearing mean:           +0.1471 deg
+            RMS:             7.7650 deg
+            std:             7.7636 deg
+    Elev    mean:           +0.0160 deg
+            RMS:             4.5877 deg
+            std:             4.5877 deg
+
+  ── Angle Sensing Performance  (range < 30 m  +  az/el < 1°) ──
+  ────────────────────────────────────────────────────────
+  TP dets at correct range and angle:    43
+  FP dets at correct range, wrong angle: 1188
+
+  Position accuracy — angle TP dets (range < 30 m, az/el < 1°):
+  ························································
+  RMS error:                 19.815 m
+  Mean error:                18.616 m
+  Median error:              19.526 m
+  Max error:                 32.149 m
+  Min error:                  2.901 m
+  Std dev:                    6.787 m
+  CEP50:                     19.526 m
+  CEP90:                     27.363 m
+  Polar errors:         
+    Range   mean:            -0.844 m
+            RMS:              3.376 m
+            std:              3.269 m
+    Bearing mean:           -0.1012 deg
+            RMS:             0.4621 deg
+            std:             0.4509 deg
+    Elev    mean:           +0.1471 deg
+            RMS:             0.5872 deg
+            std:             0.5684 deg
+
+  ── Ground Truth Sensitivity ──
+  ────────────────────────────────────────────────────────
+  TP  GT points with >= 1 close detection: 29
+  FN  GT points with no close detection: 1
+  ════════════════════════════════════════════════════════

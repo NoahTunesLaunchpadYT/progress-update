@@ -1,0 +1,112 @@
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'taylor_frequency_response.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{900bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.06458333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.09883334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.13316666){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.16741666){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.3}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.20166667){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.23600001){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.5}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.27024999){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.30458333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.7}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.33883334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.37316667){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.9}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{taylor_frequency_response.pdf}}%
+    \put(0.07125,0.40741667){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{taylor_frequency_response.pdf}}%
+    \put(0.08,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{taylor_frequency_response.pdf}}%
+    \put(0.46491669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{N}\end{tabular}}}}%
+    \put(0.03383333,0.24991667){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.27241666,0.01558334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
+    \put(0.27241666,0.46675){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Taylor window}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.06458333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.10058334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.17324999){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.24583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.31841667){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{taylor_frequency_response.pdf}}%
+    \put(0.58625,0.4245){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{taylor_frequency_response.pdf}}%
+    \put(0.595,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-0.5}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{taylor_frequency_response.pdf}}%
+    \put(0.69125,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-0.25}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{taylor_frequency_response.pdf}}%
+    \put(0.78741669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{taylor_frequency_response.pdf}}%
+    \put(0.88366669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.25}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{taylor_frequency_response.pdf}}%
+    \put(0.97991669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.5}\end{tabular}}}}%
+    \put(0.54833333,0.24991667){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.78741669,0.01558334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{normalised frequency}\end{tabular}}}}%
+    \put(0.78741669,0.46675){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{frequency response}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{taylor_frequency_response.pdf}}%
+  \end{picture}%
+\endgroup%

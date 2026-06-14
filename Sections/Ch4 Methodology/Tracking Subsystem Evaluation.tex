@@ -8,7 +8,7 @@ sequentially (see Figure \ref{fig:dat-dataflow}): CFAR, clustering, monopulse
 angle sensing, sidelobe suppression (blanking), and multi-target tracking.
 Below are the implementation and experiment details for each of the operations.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \incfig[1]{detection_and_tracking_dataflow} 
     \caption[Dataflow diagram for the detection and tracking subsystem.]{Dataflow for the detection 
@@ -84,12 +84,22 @@ trade off against latency and throughput under SWaP constraints.
 The literature gap regarding algorithmic selection is address through an exploration of different CFAR
 algorithms, including OS-CFAR, CA-CFAR, SO-CFAR, and GO-CFAR. The effect of these algorithms on detection
 sensitivity and track quality is compared. For intuition, Figure \ref{fig:cfar-algorithms} illustrates
-the difference in performance of the algorithms on a synthetic signal with 5 peaks, 
+the difference in performance of the algorithms on a synthetic signal with 5 peaks. This work 
+compares the performance of GO-CFAR, SO-CFAR, and CA-CFAR on simulated data and discusses
+the downstream effects of this selection, addressing the literature gap regarding the impact of 
+detection algorithms in the noise regimes of miniature radar. Additionally, by analysing the 
+performance of both CPU and GPU implementations of CFAR, the literature gap regarding the 
+algorithmic implementation under SWaP constraints is addressed. 
 
 \begin{figure}
     \centering
-    \includesvg[width=0.81\linewidth]{Images/cfar_stacked_matched_colours}
-    \caption{ Performance of four CFAR variants. Each algorithm registers a detection when its threshold is below the signal. The test signal has 5 peaks that are each surrounded by different noisy distributions. The bottom plot illustrates the detections made by each algorithm. OS-CFAR performs well in this example.}
+    \incfig[0.81]{cfar_stacked_matched_colours}
+    \caption{ Performance of four CFAR variants. Each 
+    algorithm registers a detection when its threshold is 
+    below the signal. The test signal has 5 peaks that are 
+    each surrounded by different noisy distributions. The bottom 
+    plot illustrates the detections made by each algorithm. 
+    OS-CFAR performs well in this example.}
     \label{fig:cfar-algorithms}
 \end{figure}
 
@@ -154,19 +164,22 @@ detections that are close in range to a stronger detection at the same time step
 \begin{figure}[htbp]
 \end{figure}
 
-The blanking stage will be implemented on both the CPU and GPU. After clustering and angle sensing, 
+The blanking stage will be implemented on both the CPU. After clustering and angle sensing, 
 the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
 for each time step, iterating through each of the lists simultaneously and sorting them into one ordered list in O(N) 
 time. Then iterating through the ordered list and eliminating detections that are close in range to
-a stronger detection. A GPU implementation would involve creating a thread per detection per quadruplet, 
-performing 3 binary searches to figure out how many detections are nearer than it in range to the radar,
-and mapping itself to the corresponding place in the fully sorted list. In a second pass then, each 
-thread would check the detections near it in the fully sorted list to see if there are any stronger
-detections in range. Since this problem is a standard k-way merge sort, the CUDA Thrust library 
-implementation will be used. This stage can also double as a receiver fusion stage, as detections
-from multiple receivers across different chirps that are close in not just range but also angular 
-position can be merged 
-together. 
+a stronger detection. 
+
+% GPU DETAILS BELOW, POTENTIALLY USEFUL
+% A GPU implementation would involve creating a thread per detection per quadruplet, 
+% performing 3 binary searches to figure out how many detections are nearer than it in range to the radar,
+% and mapping itself to the corresponding place in the fully sorted list. In a second pass then, each 
+% thread would check the detections near it in the fully sorted list to see if there are any stronger
+% detections in range. Since this problem is a standard k-way merge sort, the CUDA Thrust library 
+% implementation will be used. This stage can also double as a receiver fusion stage, as detections
+% from multiple receivers across different chirps that are close in not just range but also angular 
+% position can be merged 
+% together. 
 
 \subsection{Multi-Target Tracking}
 
@@ -188,13 +201,13 @@ together.
 
 The multi-target tracking stage with be implemented entirely on the CPU due to its sequential nature. 
 Amplitude based association will be compared to non-amplitude based association for their impact on
-track quality. The multi-target tracker has over 20 parameters that can be tuned, and a sweep of 
-these parameters will be conducted to understand their impact on track quality. Experiments will
-be conducted in a variation of SNR, number of targets, and target ranges, in simulated data. Real 
+track quality. The multi-target tracker has over 20 parameters that can be tuned, and one 
+configuration of these parameters will be validated and discussed. Experiments will
+be conducted in a variation of SNR, and number of targets, in simulated data. Real 
 data will be used to validate the results on static targets. The literature gap regarding the impact
 of algorithmic choices in the tracking stage on track quality is addressed through this experiment. 
 
 % EXPLORE MORE
-- Non amplitude based association
-- Amplitude based association
-- ringing 
+% - Non amplitude based association
+% - Amplitude based association
+% - ringing 
