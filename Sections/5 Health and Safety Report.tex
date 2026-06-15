@@ -1,5 +1,246 @@
-\section{Work Health and Safety Report}
-\todo{Write the health and safety report}
-\todo{I don't quite know what this involves, but it is worth 5\% so I shouldn't ignore it}
-\subsection{Work, Health and Safety at Mission Systems}
-\subsection{Incidents and Preventions During Placement}
+% ---------------------------------------------------------------
+\section*{Work, Health and Safety at Mission Systems}
+% ---------------------------------------------------------------
+ 
+Mission Systems Pty Ltd is an Australian defence technology company specialising in radar and
+sensor systems for uncrewed aerial systems (UAS). The placement involved contributing to the
+development and testing of a radar system under a contract with the Australian 
+Department of Defence. Work during the placement was split between office-based
+engineering at Mission Systems' Lane Cove West office and field trials conducted in
+Singleton in the Hunter Valley, NSW. Both environments introduced distinct
+health and safety considerations that are addressed in this report.
+ 
+\subsection*{Policies and Regulatory Framework}
+ 
+Mission Systems manages employee health and safety in accordance with the
+\textit{Australian Work Health and Safety Act 2011} and relevant state and territory WHS
+Regulations, supplemented by the following domain-specific standards and regulatory bodies:
+ 
+\begin{itemize}
+    \item \textbf{Australian Radiation Protection and Nuclear Safety Agency (ARPANSA)} ---
+    \textit{Radiation Protection Standard for Limiting Exposure to Radiofrequency Fields
+    (100\,kHz to 300\,GHz, 2021)}, based on the ICNIRP 2020 recommendations. This standard
+    defines mandatory basic restrictions on RF exposure and set the quantitative limits
+    governing all radar safety assessments during the placement.
+ 
+    \item \textbf{Australian Communications and Media Authority (ACMA)} --- spectrum licensing
+    and authorisation requirements, with Third Party Authorisation (TPA) from the Defence
+    Spectrum Office (DSO) required before the radar could be operated outdoors within its
+    designated frequency band (15.3--17.2\,GHz).
+ 
+    \item \textbf{Civil Aviation Safety Authority (CASA)} regulations for Remotely Piloted
+    Aircraft Systems (RPAS), including Remote Operator Certificate (ReOC) requirements and
+    Visual Line of Sight (VLOS) operating conditions for all drone flight activities.
+ 
+    \item \textbf{Mission Systems internal Standard Operating Procedures (SOPs)}, covering
+    RPAS flight operations, lithium battery charging and storage, radar payload operation, and
+    general office safety.
+\end{itemize}
+ 
+The key RF exposure limits relevant to this placement under the ARPANSA standard apply to
+the 6--300\,GHz frequency band. For the general public, the maximum time-averaged absorbed
+power density is 20\,W/m$^2$ (for averaging intervals of 6 minutes or more), while the
+occupational limit is 100\,W/m$^2$. These limits formed the quantitative basis for all RF
+safety calculations conducted on the radar-DAA hardware.
+ 
+\subsection*{Training Undertaken}
+ 
+Prior to participating in any radar operations or field activities, the following training
+and induction activities were undertaken:
+ 
+\begin{itemize}
+    \item \textbf{Office induction} --- familiarisation with the Lane Cove West office
+    including the locations of first aid kits, fire extinguishers, designated first aiders,
+    fire wardens, and emergency evacuation procedures and assembly points.
+ 
+    \item \textbf{Workstation ergonomics assessment} --- as a significant portion of the
+    placement involved sustained computer-based work, a self-assessment of the workstation
+    setup was completed in accordance with Mission Systems' ergonomics guidelines, covering
+    monitor height, seating posture, keyboard and mouse positioning, and lighting.
+ 
+    \item \textbf{RF and radar safety} --- a briefing covering the relevant ARPANSA exposure
+    limits, the methodology for near-field and far-field power density calculations as applied
+    to the DAA hardware, and the specific safe-distance requirements derived for both
+    the single sub-array and four-sub-array cluster configurations.
+ 
+    \item \textbf{RPAS operations induction} --- familiarisation with Mission Systems' RPAS
+    Operations Register and flight SOPs, including pre-flight checklists, emergency procedures,
+    the 1:1 altitude-to-distance rule for pilot and ground personnel separation, and NOTAM
+    requirements for operations above 400\,ft AGL.
+ 
+    \item \textbf{Lithium battery handling} --- coverage of Mission Systems' SOP for charging,
+    storing, and handling Lithium (Li) batteries, including the mandatory use of battery-safe
+    enclosures and requirement for F-500 fire extinguishers and fire blankets at all take-off
+    and landing sites.
+ 
+    \item \textbf{Physical security training} --- given the Commercial-in-Confidence and
+    OFFICIAL classification of project documentation under Contract AFHQ/JDI/14/25, an
+    induction into information handling procedures was completed, covering approved data access,
+    management of visitors and contractors in the office, and ensuring workstations were clear
+    of sensitive information when unattended.
+ 
+    \item \textbf{Cybersecurity awareness} --- training in the identification and reporting of
+    phishing attempts, appropriate use of the company VPN when accessing external connections,
+    and multi-factor authentication requirements for all company systems.
+\end{itemize}
+ 
+% ---------------------------------------------------------------
+\section*{Hazard Identification and Risk Management}
+% ---------------------------------------------------------------
+ 
+The placement required active engagement with several categories of occupational hazard
+across both the office and field environments. The most significant are described below,
+alongside the controls applied.
+ 
+\subsection*{Office Ergonomics and Sedentary Work}
+ 
+A substantial portion of the placement involved sustained computer-based work including
+software development, data analysis, and documentation. Prolonged sitting without adequate
+ergonomic setup can lead to neck, back, and shoulder strain, as well as eye fatigue from
+extended screen use.
+ 
+To mitigate these risks, the workstation was configured with a monitor at an appropriate
+height to encourage a neutral neck posture, and seating was adjusted to provide adequate
+lumbar support. Regular short breaks were taken throughout the working day to reduce eye
+strain and encourage movement, including periodic focus changes from screen to distance to
+reset natural eye focus. Where possible, working patterns were varied to avoid extended
+unbroken sitting.
+ 
+\subsection*{Mental Health and Wellbeing}
+ 
+Periods of intensive project work, particularly in the lead-up to field trials, carry a risk
+of overwork and burnout. Awareness of these risks was maintained throughout the placement,
+with deliberate effort made to maintain a balanced routine including regular physical activity
+outside working hours. Mission Systems' internal culture of open communication between team
+members also provided an informal check-in mechanism, consistent with a proactive approach
+to workplace mental health.
+ 
+\subsection*{Physical and Cybersecurity}
+ 
+Given that Mission Systems operates under defence contracts with classified deliverables,
+physical and information security represented an ongoing WHS-adjacent obligation throughout
+the placement. Relevant practices observed included:
+ 
+\begin{itemize}
+    \item Ensuring workstations were locked when unattended and that sensitive documents were
+    not left visible in shared areas of the office.
+    \item Verifying the identity of visitors before granting access to working areas, and
+    ensuring external guests were accompanied by staff at all times.
+    \item Using multi-factor authentication for all company system logins and connecting via
+    VPN when accessing company resources remotely.
+    \item Identifying and reporting suspicious emails to the relevant internal contact,
+    consistent with training on social engineering and phishing recognition.
+\end{itemize}
+ 
+\subsection*{Radiofrequency Radiation Exposure}
+ 
+The primary technical hazard associated with the DAA radar is exposure to
+radiofrequency (RF) electromagnetic radiation. Formal safety calculations were conducted and
+documented, applying the ARPANSA standard to both the single sub-array and four-sub-array
+cluster configurations.
+ 
+For the \textbf{single sub-array} (0.5\,W radiated power), the near-field power density
+(within 37\,mm of the antenna face) was calculated to reach up to 1,559\,W/m$^2$ ---
+approximately 78 times the general public continuous exposure limit of 20\,W/m$^2$. In the
+far field, the minimum safe working distance was determined to be \textbf{220\,mm} from the
+radiating face. For the \textbf{four-sub-array cluster} (2\,W total radiated power), the
+near-field power density reached up to 1,667\,W/m$^2$ (83 times the public limit), with a
+corresponding safe distance of \textbf{775\,mm}.
+ 
+Due to the high operating frequency ($\approx$16.5\,GHz), the skin depth of microwave
+radiation in human tissue is between 6 and 12\,mm, limiting any physiological effects to
+the body surface. Eye exposure was identified as warranting particular caution, with direct
+exposure to the radiating antenna face to be avoided at any range.
+ 
+The following controls were applied:
+ 
+\begin{itemize}
+    \item A \textbf{software-based altitude cut-out} was implemented to prevent radar
+    activation below a defined altitude threshold during flight, eliminating near-field RF
+    exposure to ground personnel during airborne operations by design.
+    \item Minimum safe working distances (220\,mm single sub-array; 775\,mm four-sub-array
+    cluster) were enforced during all ground handling and bench testing.
+    \item Personnel were instructed not to position themselves in the antenna beam path during
+    powered testing and not to look directly into the radiating face at any range.
+    \item Radar activation during ground tests was announced and controlled, with the test
+    area clear of non-essential personnel prior to transmission.
+\end{itemize}
+ 
+\subsection*{RPAS Flight Operations}
+ 
+Field testing near Singleton involved the flight of T-drones M1200 uncrewed
+aircraft systems (sub-25\,kg RPAS) carrying the radar payload ($\approx$3\,kg), and in some
+test serials a second M1200 as an airborne target. The kinetic energy of a sub-25\,kg UAS
+in flight represents a significant hazard to personnel and property.
+ 
+Testing was conducted on a private farm property near Singleton, which offered sufficient
+open space and low obstructions for the test geometry required. While less remote than a
+dedicated military training area, the rural setting still required careful pre-trial planning
+to confirm access to power, identify the nearest emergency services, and ensure the test area
+was clear of livestock and other personnel not associated with the trial. The following
+operational controls were in place:
+ 
+\begin{itemize}
+    \item All flights were conducted under Mission Systems' ReOC by accredited remote pilots
+    operating within VLOS of their respective aircraft at all times.
+    \item The \textbf{1:1 altitude-to-ground-distance rule} was applied for pilot and ground
+    personnel positioning throughout all test serials.
+    \item Both host and target aircraft were flown on pre-programmed waypoint paths to ensure
+    repeatable, ground-truth-referenced trajectories, while pilots retained full manual
+    override authority at all times.
+    \item A \textbf{500\,m no-fly zone} around the DAA test platform hover position was
+    nominated during multi-aircraft operations, with all parallel activities on the base
+    formally coordinated and deconflicted prior to flight.
+    \item NOTAM filing was completed for operations above 400\,ft AGL, and a DRePL-qualified
+    defence pilot was identified as a requirement for any BVLOS operations.
+\end{itemize}
+ 
+\subsection*{Lithium Battery Handling}
+ 
+The M1200 platform is powered by a 12S (27\,Ah) Lithium-Ion battery pack at 48\,V,
+presenting a fire and chemical hazard if mishandled. Mission Systems' SOP for Charging,
+Storing, and Handling Lithium Batteries was followed at all times, including the use of
+battery-safe enclosures on the ground and the availability of F-500 fire extinguishers and
+fire blankets at both host and target platform take-off and landing sites.
+ 
+% ---------------------------------------------------------------
+\section*{Incidents and Preventions During Placement}
+% ---------------------------------------------------------------
+ 
+No reportable safety incidents occurred during the placement. The following describes the
+principal preventive measures taken across both the office and field environments.
+ 
+\subsection*{Office-Based Work}
+ 
+The most consistent day-to-day safety practice involved maintaining good ergonomic habits
+during sustained computer work. On reviewing the initial workstation setup, adjustments were
+made to monitor positioning and seating to better align with Mission Systems' ergonomics
+guidelines, reducing the risk of developing postural strain over the course of the placement.
+Regular breaks and deliberate changes in focus distance were incorporated into the daily
+routine to manage eye fatigue. These measures were informed by the initial workstation
+assessment and maintained throughout the placement.
+ 
+With respect to cybersecurity, several unsolicited emails were received during the placement
+that exhibited characteristics consistent with phishing attempts, including mismatched sender
+domains and language designed to create urgency. These were identified using skills developed
+during cybersecurity training and were promptly reported to the relevant internal contact,
+consistent with company policy.
+ 
+\subsection*{Field Trials at Singleton}
+ 
+The field trial near Singleton was the first opportunity to operate the DAA radar
+outdoors at full power within its licensed spectrum band. The most significant preventive
+measure was the completion of RF safety calculations prior to departure, ensuring that all
+personnel were briefed on safe distances and operational procedures before arriving on site.
+ 
+Pre-trial planning confirmed access to power at the farm property and identified the nearest
+emergency services in Singleton township. The test area was inspected on arrival to ensure
+it was clear of livestock, overhead powerlines, and other obstructions within the flight
+envelope. Battery handling procedures were rehearsed prior to departure, and the required
+fire safety equipment was confirmed as part of the pre-departure checklist. No battery
+anomalies or other incidents were encountered during the trial.
+ 
+Battery handling procedures were rehearsed prior to the trial, and the required fire safety
+equipment was confirmed as part of the pre-departure checklist. No battery anomalies were
+encountered during the trial.
+ 

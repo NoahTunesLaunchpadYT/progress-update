@@ -19,19 +19,19 @@ the target.
 \begin{figure}[htb]
     \incfig[0.6]{radar_operation}
     \label{fig:radar_operation}
-    \caption[Radar illustration]{A illustrative diagram of a radar detecting an object. Objects 
+    \caption[Radar illustration]{An illustrative diagram of a radar detecting an object. Objects 
     are detected through the reflection of transmitted radio waves. The time delay and power of 
     the reflected signal provides information about the range and size of the object}
 \end{figure}
 
-To measure the range of targets, radar systems need to transmit the signal as pulses. Pulses are 
-generally preferred over continuous constant frequency signal because the time difference between
+To measure the range of targets, radar systems need to transmit the signal as pulses. Pulses are
+generally preferred over continuous constant-frequency signals because the time difference between
 the transmitted pulse and the received echo can be easily measured to estimate range. The 
 transmitted signal is often modulated in frequency or phase. Linear frequency modulation,
 (LFM) creates pulses that involve a continuous sweep of frequencies during the pulse duration
 (see Figure \ref{fig:LFM}). Advantages of such a modulation include reduced sensitivity to
 frequency dependent interference, and improved range resolution due to the effect of pulse compression \cite{Richards2005FundamentalsRadarSP}.
-Through pulse compression, the long duration LFM pulse can be compressed in time, resulting a 
+Through pulse compression, the long duration LFM pulse can be compressed in time, resulting in a 
 signal that illustrates the difference between the transmitted and received signals. One pulse
 compression technique for LFM signals is described as "de-chirping", which involves mixing
 (term-wise multiplying) the received signal with the transmitted signal to produce a "beat"
@@ -57,7 +57,7 @@ term from equation \ref{eqn:cosine-product}, which is the beat frequency.
     \label{fig:de-chirping}
     \caption[Transmitted LFM chirp, echo, and beat signal for close and far targets.]{The transmitted LFM chirp (top), delayed echo (middle), and resulting beat
     signal after mixing and low-pass filtering (bottom), shown for a close target (left, 0.5 µs
-    delay) and far target (right, 2 µs delay). The far target has a higher beat frequency that the
+    delay) and far target (right, 2 µs delay). The far target has a higher beat frequency than the
     close target.}
 \end{figure}
 
@@ -77,7 +77,7 @@ modulation (\(\theta\)/\(s^2\)).
 % targets. To mitigate this, radar systems rapidly switch between transmission and reception modes 
 % so that the transmitter isn't active when receiving. 
 
-The compressed pulses are often pass through a low pass filter and sampled at a lower 
+The compressed pulses are often passed through a low-pass filter and sampled at a lower 
 rate than the original signal by an Analog to Digital Converter (ADC), attenuating the frequency 
 sum \(\cos(\omega_1+\omega_2)\) while preserving the useful difference frequency 
 \(\cos(\omega_1-\omega_2)\).  
@@ -86,8 +86,8 @@ Exiting the analogue domain and entering the digital domain, the frequency infor
 radar signals can be extracted by applying a \gls{dft} to the sampled data.
 At this stage the range of clear targets can be estimated by identifying the peaks in the \gls{dft} output.
 At this stage many radar systems also apply a long time Fourier transform on a larger time scale 
-(slow time) to extract the Doppler frequency shift, which provides information on the target's 
-radial frequency. 
+(slow time) to extract the Doppler frequency shift, which provides information on the target's
+radial velocity. 
 
 When a finite segment of a signal is passed to the \gls{dft}, an implicit rectangular window 
 is applied --- the signal is assumed to be zero outside the observed interval. Term-wise 
@@ -111,7 +111,7 @@ The Hann and Hamming windows are members of the generalised cosine family:
 \end{equation}
 
 where the Hann window uses $\alpha = 0.5,\ \beta = 0.5$ and the Hamming window uses 
-$\alpha = 0.54,\ \beta = 0.46$. These window's sidelobes decay at $-31$ dB and $-41$ dB
+$\alpha = 0.54,\ \beta = 0.46$. These windows' sidelobes decay at $-31$ dB and $-41$ dB
 respectively, resulting in a less destructive spectral leakage pattern when compared to
 the rectangular window, (see Figure \ref{fig:hann fourier transform}).
 

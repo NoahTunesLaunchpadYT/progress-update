@@ -1,9 +1,9 @@
 \section{Processing Subsystem Evaluation}
 \label{sec:processing_app}
-The proposed preprocessing subsystem is responsible for receiving the raw radar data from the AWR2242 
+The proposed processing subsystem is responsible for receiving the raw radar data from the AWR2243
 radar chips, depicted in Figure \ref{fig:AWR2243},
-and preparing the data for detection. An instance of the subsystem runs per incoming video stream. 
-Before outputting the data to the aggregator subsystem which is upstream of the detection and 
+and preparing the data for detection. An instance of the subsystem runs per incoming video stream,
+before outputting the data to the aggregator subsystem, which is upstream of the detection and
 tracking subsystem. The subsystem performs the following operations sequentially: formatting, windowing, FFT, and 
 integration, (see Figure \ref{fig:preprocessing-dataflow}). Below are the implementation and 
 experiment details for each of the operations. 
@@ -11,7 +11,7 @@ experiment details for each of the operations.
 \begin{figure}[htbp]
     \centering
     \incfig[1]{preprocessing_dataflow} 
-    \caption[Dataflow for the preprocessing subsystem.]{Dataflow for the preprocessing subsystem. Multiple instances of the subsystem run on
+    \caption[Dataflow for the processing subsystem.]{Dataflow for the processing subsystem. Multiple instances of the subsystem run on
     separate processes, with each instance receiving compressed baseband radar data samples from an
     incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards
     empty chirps. The windowing stage applies a window function to the data to reduce spectral smearing
@@ -54,7 +54,7 @@ FFT, spectral leakage can be reduced, as shown in Figure \ref{fig:hann filter}.
     \label{fig:hann filter}
 \end{figure}
 
-This thesis evaluates four window functions applied to the range-Doppler processing chain: Hann,
+This thesis evaluates five window functions applied to the range-Doppler processing chain: Hann,
 Hamming, Blackman, Kaiser, and Taylor. Each window is a point-wise multiplication applied to the input
 chirp data prior to the FFT, shaping the spectral leakage characteristics of the resulting
 range-time map. The choice of window governs a fundamental trade-off between mainlobe width
@@ -203,12 +203,11 @@ monotonically.}
 % positively affect the ending track quality. 
 
 \subsection{Integration}
-Coherent integration is compared with non coherent integration for their resulting SNR 
+Coherent integration is compared with non-coherent integration for their resulting SNR 
 improvement, angle estimation quality, and track quality on real and simulated data. 
 The relationship between coherent integration window size and the performance metrics 
 is also explored. 
 
-After, the latency and throughput of coherent integration is characterised in relation to
-the other stages, and the integration window size. The trade off analysis is 
-between SNR and latency is performed. The integration stage is also evaluated in the
+Subsequently, the latency and throughput of coherent integration is characterised in relation to
+the other stages and the integration window size. The trade-off between SNR and latency is then analysed. The integration stage is also evaluated in the
 ablation study of the processing application. 

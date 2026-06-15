@@ -1,293 +1,315 @@
 \FloatBarrier
 \section{Constant False Alarm Rate}
 \subsection{Correctness}
-Under the assumption of an 8-degrees of freedom chi-squared distribution of sample noise 
-power for a given quadruplet of receivers, the CFAR threshold coefficient $\alpha$ is 
-calculated numerically for a range of false alarm 
-rates. The actual false alarm rate is then measured by running the CFAR algorithm on a noise-only
-synthetic dataset. Figure \ref{fig:alpha-cfar-results} illustrates the results.
+Under the assumption of an 8-degrees of freedom chi-squared distribution of sample noise
+power for a given quadruplet of receivers, the CFAR threshold coefficient $\alpha$ is
+calculated numerically for a range of false alarm rates. The actual false alarm rate is
+then measured by running the CFAR algorithm on a noise-only synthetic dataset. The results
+are shown in Figure \ref{fig:alpha-cfar-results}.
 
 \begin{figure}[htbp]
     \centering
-    \incfig[0.4]{pfa_comparison} 
-    \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{The actual 
-    false alarm rate closely matches the desired false alarm rate across a range
-    of false alarm rates. The numerical solution for $\alpha$ is therefore accurate under the assumption
-    of an 8-degrees of freedom chi-squared distribution of sample noise power across a quadruplet of 
-    receivers.}
+    \incfig[0.4]{pfa_comparison}
+    \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{Actual
+    vs desired false alarm rate across a range of target rates. The dashed line indicates
+    perfect agreement.}
     \label{fig:alpha-cfar-results}
 \end{figure}
 
-The results indicate that the numerical solution for $\alpha$ is accurate, with the actual false alarm 
-rate closely matching the desired. The successful performance of CFAR with a false alarm rate of 
-\(0.001\) is illustrated in Figure \ref{fig:cfar-0.001-waterfall}.
+The actual false alarm rate closely matches the desired across all tested values, confirming
+that the numerical solution for $\alpha$ is accurate under the assumed chi-squared noise
+model. The successful performance of CFAR at a false alarm rate of \(0.001\) is illustrated
+in Figure \ref{fig:cfar-0.001-waterfall}.
 
 \begin{figure}[htbp]
     \centering
     \incfig[0.8]{cfar-0.001-waterfall}
     \label{fig:cfar-0.001-waterfall}
-    \caption[CFAR waterfall at false alarm rate of 0.001.]{CFAR with a desired false alarm rate of \(0.001\) infrequently detects peaks in what is
-    predominantly noise, as expected. The figure is a waterfall plot, with chirp on the y-axis and range
-    on the x-axis. The brightness of the cell reflects the power of the corresponding chirp's range bin.
-    The black space indicates that most cells are masked by CFAR.} 
+    \caption[CFAR waterfall at false alarm rate of 0.001.]{CFAR output at a desired false
+    alarm rate of \(0.001\). The waterfall has chirp on the y-axis and range on the x-axis;
+    brightness reflects range bin power. Black cells have been masked by CFAR.}
 \end{figure}
 
+At a false alarm rate of 0.001, CFAR infrequently detects peaks in predominantly noise, as
+expected.
+
 \subsection{Computational Performance}
-The speed of each of the three CFAR implementations is measured across a range of buffer sizes, from 
-one frame of 767 samples, to 4042 frames of 767 samples. This sweep is performed on both the desktop 
-and the Xavier. The results are illustrated in Figures \ref{fig:cfar-implementation-performance-Xavier} 
-and \ref{fig:cfar-implementation-performance-desktop}.
+The speed of each of the three CFAR implementations is measured across a range of buffer
+sizes, from one frame of 767 samples to 4042 frames of 767 samples, on both the desktop
+and the Xavier. The results are shown in Figures
+\ref{fig:cfar-implementation-performance-desktop} and
+\ref{fig:cfar-implementation-performance-Xavier}.
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.75\linewidth]{CFAR implementation speed on desktop.svg} 
-    \caption[CFAR implementation speed vs buffer size on the desktop.]{Computational Performance of three CFAR implementations as a function of buffer size on the
-    desktop setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes,
-    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation
-    is the slowest across all buffer sizes.}
+    \includesvg[width=0.75\linewidth]{CFAR implementation speed on desktop.svg}
+    \caption[CFAR implementation speed vs buffer size on the desktop.]{Computational
+    performance of three CFAR implementations as a function of buffer size on the desktop.}
     \label{fig:cfar-implementation-performance-desktop}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.75\linewidth]{CFAR implementation speed on Xavier.svg} 
-    \caption[CFAR implementation speed vs buffer size on the Xavier.]{Computational Performance of three CFAR implementations as a function of buffer size on the
-    Xavier NX setup. The CPU implementation with a prefix sum tables is the fastest for small buffer sizes,
-    but the GPU implementation is slightly faster for larger buffer sizes. The naive CPU implementation
-    is the slowest across all buffer sizes.}
+    \includesvg[width=0.75\linewidth]{CFAR implementation speed on Xavier.svg}
+    \caption[CFAR implementation speed vs buffer size on the Xavier.]{Computational
+    performance of three CFAR implementations as a function of buffer size on the Xavier NX.}
     \label{fig:cfar-implementation-performance-Xavier}
 \end{figure}
 
-The speed is also plotted as a function of the number of CFAR training cells. The results are illustrated 
-in Figures \ref{fig:cfar-implementation-performance-Xavier-training-cells} and 
-\ref{fig:cfar-implementation-performance-desktop-training-cells}. The desktop results illustrate that both
-the GPU and the prefix sum table implementations are not significantly affected by the number of training
-cells, while the naive CPU implementation's speed increases linearly with the number of training cells. 
-The Xavier results illustrate that while the prefix sum table implementation remains invariant to the 
-number of training cells (as we expect), the GPU implementation's speed does increase with the number 
-of training cells, due to the fact that each thread has more work to do to calculate the noise statistic. 
-Results on the Xavier show that the GPU implementation is faster than either CPU implementation 
-for window sizes within the practical range of 10 - 100 training cells.  
+On the desktop (Figure \ref{fig:cfar-implementation-performance-desktop}), the prefix-sum
+CPU implementation is fastest for small buffer sizes, but the GPU implementation becomes
+slightly faster at larger buffer sizes. The naive CPU implementation is slowest across all
+buffer sizes. On the Xavier (Figure \ref{fig:cfar-implementation-performance-Xavier}), the
+GPU implementation is faster than either CPU implementation across all buffer sizes tested.
+
+The speed is also measured as a function of the number of CFAR training cells, shown in
+Figures \ref{fig:cfar-implementation-performance-desktop-training-cells} and
+\ref{fig:cfar-implementation-performance-Xavier-training-cells}.
 
 \begin{figure}
     \centering
-    \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10.svg} 
-    \caption[CFAR implementation speed vs training cells on the desktop.]{Computational Performance of three CFAR implementations as a function of the number of
-    training cells on the Desktop Setup. Buffer size is fixed at 10 quadruplet chirps per frame.}
+    \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10.svg}
+    \caption[CFAR implementation speed vs training cells on the desktop.]{Computational
+    performance of three CFAR implementations as a function of number of training cells on
+    the desktop. Buffer size is fixed at 10 quadruplet chirps per frame.}
     \label{fig:cfar-implementation-performance-desktop-training-cells}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10 Xavier.svg} 
-    \caption[CFAR implementation speed vs training cells on the Xavier.]{Computational Performance of three CFAR implementations as a function of the number of
-    training cells on the Xavier Setup. Buffer size is fixed at 10 quadruplet chirps per frame.}
+    \includesvg[width=0.8\linewidth]{CFAR implementation speed over window size 10 Xavier.svg}
+    \caption[CFAR implementation speed vs training cells on the Xavier.]{Computational
+    performance of three CFAR implementations as a function of number of training cells on
+    the Xavier. Buffer size is fixed at 10 quadruplet chirps per frame.}
     \label{fig:cfar-implementation-performance-Xavier-training-cells}
 \end{figure}
 
-Three implementations of CFAR, CA-CFAR, GO-CFAR, and SO-CFAR, were tested on the DS2 dataset with
-six different noise intensities: no noise, -20, -10, 0, 10 and 20dB SNR. Figure 
-\ref{fig:cfar-recall} illustrates the recall, the number of 
-ground truth range bins with a detection within them, and clutter to signal
-ratio as a function of noise and CFAR algorithm. Figure \ref{fig:cfar-clutter-to-signal} 
-illustrates the clutter to signal ratio of each of the CFAR algorithms as noise increases, 
-and Figure \ref{fig:cfar-position-error} illustrates the RMS position error of the true 
-positives of each of the CFAR algorithms as noise increases.  
+On the desktop (Figure \ref{fig:cfar-implementation-performance-desktop-training-cells}),
+both the GPU and prefix-sum table implementations are largely unaffected by the number of
+training cells, while the naive CPU implementation slows linearly. On the Xavier (Figure
+\ref{fig:cfar-implementation-performance-Xavier-training-cells}), the prefix-sum table
+implementation remains invariant to training cell count as expected, but the GPU
+implementation slows as each thread accumulates more work to compute the noise statistic.
+Despite this, the GPU implementation is faster than either CPU implementation for all
+window sizes in the practical range of 10--100 training cells on the Xavier.
+
+Three implementations of CFAR, CA-CFAR, GO-CFAR, and SO-CFAR, were tested on the DS2
+dataset with six different noise intensities: no noise, -20, -10, 0, 10 and 20\,dB SNR.
+The recall, clutter-to-signal ratio, and position error of each algorithm are shown in
+Figures \ref{fig:cfar-recall}, \ref{fig:cfar-clutter-to-signal}, and
+\ref{fig:cfar-position-error}.
 
 \begin{figure}
     \centering
-    \incfig[0.8]{cfar_recall} 
-    \caption[CFAR recall vs noise and algorithm.]{Recall of three CFAR algorithms as a 
-    function of noise. The figure shows that the recall decreases with increasing noise, 
-    and that CA-CFAR features the lowest clutter power for the noisiest regimes.}
+    \incfig[0.8]{cfar_recall}
+    \caption[CFAR recall vs noise and algorithm.]{Recall of three CFAR algorithms as a
+    function of noise intensity.}
     \label{fig:cfar-recall}
 \end{figure}
 
 \begin{figure}
     \centering
-    \incfig[0.8]{cfar_clutter_to_signal} 
-    \caption[CFAR clutter to signal ratio vs noise and algorithm.]{Clutter to signal 
-    ratio of three CFAR algorithms as a function of noise. The figure shows that the 
-    clutter to signal ratio increases with increasing noise, and that CA-CFAR 
-    features the lowest clutter power for the noisiest regimes, while GO-CFAR 
-    performs well in the low noise intensities.}
+    \incfig[0.8]{cfar_clutter_to_signal}
+    \caption[CFAR clutter to signal ratio vs noise and algorithm.]{Clutter-to-signal ratio
+    of three CFAR algorithms as a function of noise intensity.}
     \label{fig:cfar-clutter-to-signal}
 \end{figure}
 
 \begin{figure}
     \centering
-    \incfig[0.8]{cfar_position_error} 
-    \caption[CFAR position error vs noise and algorithm.]{RMS position error of the 
-    true positives of three CFAR algorithms as a function of noise. The figure shows 
-    that the position error increases with increasing noise, and that all CFAR 
-    algorithms perform with similar accuracy. CA-CFAR features slightly better 
-    accuracy in the noisiest regimes }
+    \incfig[0.8]{cfar_position_error}
+    \caption[CFAR position error vs noise and algorithm.]{RMS position error of true
+    positives for three CFAR algorithms as a function of noise intensity.}
     \label{fig:cfar-position-error}
 \end{figure}
 
-\subsection{Clustering}
-The clustering stage is validated on the DS2 dataset with no noise. The ground truths are 
-depicted in Figure \ref{fig:angle-3d-plot}. The results are illustrated
-in Figure \ref{fig:clustering-results}. The figure shows that the clustering stage successfully
-maps contiguous blocks of detected range bins into single detections with continuous
-range. 
+Recall decreases with increasing noise for all three algorithms (Figure
+\ref{fig:cfar-recall}). CA-CFAR maintains the lowest clutter-to-signal ratio in the
+noisiest regimes (Figure \ref{fig:cfar-clutter-to-signal}), while GO-CFAR produces
+lower clutter at low noise intensities. All three algorithms produce similar position
+accuracy (Figure \ref{fig:cfar-position-error}), with CA-CFAR performing marginally
+better in the noisiest conditions.
+
+\section{Clustering}
+The clustering stage is validated on the DS2 dataset with no noise. The ground truths are
+depicted in Figure \ref{fig:angle-3d-plot}. The results are shown in Figure
+\ref{fig:clustering-results}.
 
 \begin{figure}
     \centering
     \incfig[0.9]{cluster-experiment}
-    \caption[Clustering results on the DS2 dataset with no noise.]{Clustering results on the 
-    DS2 dataset with no noise. The figure shows that the clustering stage successfully
-maps contiguous blocks of detected range bins into single detections with continuous
-range. The y-axis is time and the x-axis is range. The colour is amplitude. The bright 
-pink line in the first two subplots corresponds to the green and yellow line in the cluster 
-output.}
+    \caption[Clustering results on the DS2 dataset with no noise.]{Clustering output on
+    DS2 with no noise. The y-axis is time and the x-axis is range; colour indicates
+    amplitude. The bright pink line in the first two subplots corresponds to the green and
+    yellow line in the cluster output.}
     \label{fig:clustering-results}
 \end{figure}
 
+The clustering stage successfully maps contiguous blocks of detected range bins into single
+detections with sub-range-bin continuous range, as shown in Figure
+\ref{fig:clustering-results}.
 
-\subsection{Monopulse Angle Sensing}
+\section{Monopulse Angle Sensing}
 \subsection{Correctness}
-With the same DS2 dataset from the CFAR evaluation with 0 noise, the monopulse angle sensing 
-algorithm is validated by comparing it's azimuth and elevation estimates to the ground truth. 
-The results are illustrated in Figures \ref{fig:angle-polar-error} and 
-\ref{fig:angle-3d-plot}. Seeing low error suggests that the monopulse angle sensing is 
-correctly applying the reverse transformation that the radio wave simulation piece utilised
-to convert position to multi-change signal data. 
+With the DS2 dataset at zero noise, the monopulse angle sensing algorithm is validated by
+comparing its azimuth and elevation estimates to the ground truth. The ground truth
+positions are shown in Figure \ref{fig:angle-3d-plot}, and the polar error of the estimates
+is shown in Figure \ref{fig:angle-polar-error}.
 
 \begin{figure}
     \includegraphics[width=0.8\textwidth]{angle-ground-truth-3d.png}
     \centering
-    \caption[Angle experiment Ground Truth 3D plot]{The ground truth measurements of the angle sensing DS2
-    dataset plotted in 3D. Points are coloured by signal strength and points are arranged in a 
-    polar array.}
+    \caption[Angle experiment Ground Truth 3D plot]{Ground truth positions of the angle
+    sensing DS2 dataset plotted in 3D. Points are coloured by signal strength and arranged
+    in a polar array.}
     \label{fig:angle-3d-plot}
 \end{figure}
 
 \begin{figure}
     \incfig[0.8]{angle_polar_error_scatter_plot}
     \centering
-    \caption[Monopulse angle sensing polar error scatter plot.]{Polar error scatter plot
-    of the monopulse angle sensing algorithm on the DS2 dataset with 0 noise. The figure 
-    shows that the polar error of the angle estimates is generally below 0.3 degrees in 
-    az el and rng and the range error is less than 1.5 meters over the tested range. } 
+    \caption[Monopulse angle sensing polar error scatter plot.]{Polar error scatter plot of
+    the monopulse angle sensing algorithm on DS2 with zero noise. Each point represents one
+    detection; axes show azimuth error, elevation error, and range error.}
     \label{fig:angle-polar-error}
 \end{figure}
 
-Under -10dB SNR, the 3D plot view fills up with clutter and angle sensing accuracy 
-quickly degrades. But plotting the amplitude of the detections and accumulating 
-detections over 64 chirps per grid position in the dataset, clusters around the 
-true target positions can be visually identified, validating the effectiveness of 
-monopulse angle sensing in high noise conditions (calculated azimuth and elevation
-seem to be unbiased estimators of the true azimuth and elevation). The phenomenon 
-is illustrated in Figure \ref{fig:angle-3d-plot-noise}.
+Azimuth and elevation errors are generally below 0.3 degrees and range error is below
+1.5\,m across the tested range, as shown in Figure \ref{fig:angle-polar-error}. The low
+error confirms that the monopulse angle sensing is correctly applying the inverse
+transformation of the radio wave simulation used to generate the synthetic data.
+
+Under $-10$\,dB SNR, the 3D plot view fills with clutter and individual detection accuracy
+degrades with increasing range, as shown in Figure \ref{fig:angle-3d-plot-noise}. However,
+accumulating detections over 64 chirps per grid position reveals clusters centred on the
+true target positions, confirming that the angle estimates are unbiased estimators of the
+true azimuth and elevation even at high noise when temporal integration is applied upstream.
 
 \begin{figure}
     \includegraphics[width=0.7\linewidth]{angle squares light mode noisy.png}
-    \caption[Monopulse angle sensing 3D plot with noise.]{3D plot of the monopulse 
-    angle sensing algorithm on the DS2 dataset with -10dB SNR at max range. The 
-    figure shows the 
-    degradation in angle sensing accuracy under high noise conditions as range increases}
+    \caption[Monopulse angle sensing 3D plot with noise.]{Accumulated detections from the
+    monopulse angle sensing algorithm on DS2 at $-10$\,dB SNR at maximum range, plotted in
+    3D. Colour indicates signal strength.}
     \label{fig:angle-3d-plot-noise}
 \end{figure}
 
-To understand the failure modes of monopulse angle sensing for multiple targets, 
-a simulation tool was built to validate the monopulse angle sensing algorithm on 
-synthetic data. The tool allows the 
-user to create multiple targets, and specify the bearing/elevation ratios of each 
-target. The simulated data is then 
-processed by the preprocessing subsystem, the aggregator, CFAR, and the monopulse 
-angle sensing algorithm. The 
-resulting angle estimates are visualised live in a 3D plot. A frame of this view is 
-illustrated in Figure 
+To understand the failure modes of monopulse angle sensing for multiple targets, a
+simulation tool was built allowing the user to place multiple targets at specified
+bearing/elevation ratios. The simulated data is processed by the preprocessing subsystem,
+aggregator, CFAR, and the monopulse angle sensing algorithm, with the resulting estimates
+visualised live in 3D. A frame of this view is shown in Figure
 \ref{fig:monopulse-angle-sensing-results}.
 
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{monopulse_angle_sensing_results.png}
-    \caption[Monopulse angle sensing results on synthetic data.]{Results of the monopulse angle sensing algorithm on synthetic data. The colour of the dots indicate
-    the range of the detections, with green being close and orange being far away. The opacity of the dots indicate
-    the strength of the detections, with more opaque dots being stronger. The plot features the most recently 1000
-    detections. The spread of the dots increases with range as expected, and the
-    upper and lower bounds of elevation and bearing match the field of view
-    defined by the calibration polynomial.}
+    \caption[Monopulse angle sensing results on synthetic data.]{Live 3D visualisation of
+    monopulse angle sensing on synthetic multi-target data. Dot colour indicates range
+    (green: close, orange: far); opacity indicates detection strength. The 1000 most
+    recent detections are shown.}
     \label{fig:monopulse-angle-sensing-results}
 \end{figure}
 
-The relative latency cost of the angle and CFAR operations were measured through an ablation study on the detection 
-subsystem. The results are illustrated in Figure \ref{fig:tracking-latency-trials} which shows the latency 
-of just CFAR, just angle sensing, and both, and Figure \ref{fig:tracking-latency-breakdown}. 
+The spread of detections increases with range as expected, and the upper and lower bounds
+of elevation and bearing match the field of view defined by the calibration polynomial.
+
+The relative latency of the CFAR and angle sensing operations was measured through an
+ablation study on the detection subsystem. The results are shown in Figures
+\ref{fig:tracking-latency-trials} and \ref{fig:tracking-latency-breakdown}.
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_trials.svg}
-    \caption[Detection subsystem latency for CFAR, angle sensing, and both.]{Latency of the subsystem running CFAR, angle sensing, and both on a log scale.
-    The latency of the subsystem
-    running CFAR is similar to the latency of the subsystem running both, while angle sensing
-    is 1.5-5 times faster than either,
-    suggesting that CFAR dominates the latency of the subsystem.}
+    \caption[Detection subsystem latency for CFAR, angle sensing, and both.]{Latency of
+    the detection subsystem running CFAR only, angle sensing only, and both, on a log
+    scale.}
     \label{fig:tracking-latency-trials}
 \end{figure}
 
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_breakdown.svg}
-    \caption[Detection subsystem latency breakdown from ablation study.]{A breakdown of the latency of the subsystem estimated from the ablation study.
-    Most of the latency is split
-    between CFAR and the overhead of handling the data, which involves synchronising threads
-    and migrating data between the CPU and GPU.}
+    \caption[Detection subsystem latency breakdown from ablation study.]{Estimated latency
+    breakdown of the detection subsystem from the ablation study, split by stage and
+    overhead.}
     \label{fig:tracking-latency-breakdown}
 \end{figure}
 
-The angle stage has no parameters to tune other than the coefficients of the calibration
-polynomial, which are determined by the beam shape of the receivers. Therefore, the latency 
-and correctness analysis is all that can be done. 
+CFAR dominates the latency of the detection subsystem: the latency of CFAR alone is
+similar to that of running both stages, while angle sensing alone is 1.5--5 times faster
+(Figure \ref{fig:tracking-latency-trials}). The breakdown in Figure
+\ref{fig:tracking-latency-breakdown} shows that most remaining latency is split between
+CFAR and the overhead of thread synchronisation and CPU-GPU data migration. The angle
+sensing stage has no tunable parameters beyond the calibration polynomial coefficients,
+which are determined by the receiver beam shape.
 
-\subsection{Tracking}
-To validate the tracking stage, 12 scenarios were selected from the DS2 dataset. 
-These scenarios involve 1, 2 and 3 targets at no noise, -20, -10, and 0 SNR. Figures 
-\ref{fig:tracking-initiation-accuracy} and \ref{fig:tracking-position-accuracy} 
-demonstrate the effect of noise and target count on track initiation accuracy, 
-position accuracy, and track health.  
+\section{Tracking}
+To validate the tracking stage, 12 scenarios were selected from the DS2 dataset.
+Instead of simply sweeping azimuth, elevation and range, the scenarios were designed
+to feature targets flying in randomly generated trajectories in the radar's field of view,
+as shown in Figure \ref{fig:tracking-scenarios}. Figure \ref{fig:tracking-3d-results}
+shows the resulting tracks for the three-target, no-noise scenario.
 
-%include 4 figures
-% track_basic_stats
-% track_MOTA_stats
-% track_RMS Angle Error
-% track_RMS Distance
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{tracking-ground-truth.png}
+    \caption[Tracking scenarios with randomly generated trajectories.]{Ground truth
+    trajectories for a three-target scenario. Coloured lines show the azimuth and elevation
+    limits of each receiver, converging at the radar. Targets are at approximately 500,
+    1000, and 1500\,m. White dots are detections with no noise.}
+    \label{fig:tracking-scenarios}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{tracking-tracks-3d.png}
+    \caption[3D tracking results.]{3D visualisation of tracking output for the three-target,
+    no-noise scenario.}
+    \label{fig:tracking-3d-results}
+\end{figure}
+
+In the no-noise case, the reproduced tracks are identical to the ground truth. The 12
+scenarios span 1, 2, and 3 targets at no noise and SNRs of $-20$, $-10$, and 0\,dB.
+Track initiation accuracy, MOTA/MOTP statistics, angle error, and distance error are shown
+in Figures \ref{fig:tracking-initiation-accuracy}, \ref{fig:tracking-position-accuracy},
+\ref{fig:tracking-angle-error}, and \ref{fig:tracking-distance-error}.
 
 \begin{figure}
     \incfig[1]{track_basic_stats}
-    \caption[Tracking initiation accuracy and track health.]{Tracking accuracy and 
-    track health across 12 scenarios with different noise and target count. The figure shows 
-    that track-level accuracy, precision, recall, are highest when there is some noise, and 
-    only one target. Point level accuracy, precision and recall are also highest in that 
-    scenario.}
+    \caption[Tracking initiation accuracy and track health.]{Track-level and point-level
+    accuracy, precision, and recall across 12 scenarios varying noise intensity and target
+    count.}
     \label{fig:tracking-initiation-accuracy}
 \end{figure}
 
 \begin{figure}
     \incfig[1]{track_MOTA_stats}
-    \caption[Tracking MOTA (Multi-Object Tracking Accuracy) statistics.]{MOTA is highest in the presence of some 
-    noise and one target. MOTP (Multi-Object Tracking Precision) strictly increases with noise for all target 
-    counts. Mean completeness, mean delay until initiation, fragmentation, and survival 
-    ratio are also depicted. }
+    \caption[Tracking MOTA statistics.]{MOTA, MOTP, mean completeness, mean initiation
+    delay, fragmentation, and survival ratio across 12 scenarios.}
     \label{fig:tracking-position-accuracy}
 \end{figure}
 
 \begin{figure}
     \incfig[0.8]{track_RMS_Angle_Error}
-    \caption[Tracking RMS angle error.]{Tracking RMS angle error across 12 scenarios 
-    with different noise and target count. The figure shows that RMS angle error 
-    degrades with increasing noise and target count.}
+    \caption[Tracking RMS angle error.]{RMS angle error across 12 scenarios varying noise
+    intensity and target count.}
     \label{fig:tracking-angle-error}
 \end{figure}
 
 \begin{figure}
     \incfig[0.8]{track_RMS_Distance}
-    \caption[Tracking RMS distance error.]{Tracking RMS distance error across 12 scenarios 
-    with different noise and target count. The figure shows that RMS distance error 
-    degrades with increasing noise and target count.}
+    \caption[Tracking RMS distance error.]{RMS distance error across 12 scenarios varying
+    noise intensity and target count.}
     \label{fig:tracking-distance-error}
 \end{figure}
 
-% Here include basic stats and fancy stats. 
-% Talk more about random targets instead of sweep
-% Show the ground truth for three targets and some view-tracks.py images. 
-% Get everyone to understand how much the tracking stage is doing.
+Track-level accuracy, precision, and recall are highest when there is some noise and only
+one target (Figure \ref{fig:tracking-initiation-accuracy}). Counterintuitively, the
+completely noise-free scenario produces slightly lower track quality because spectral
+artefacts from the windowing stage are mistaken for faint targets. MOTA is similarly
+highest with some noise and one target, while MOTP strictly degrades with increasing noise
+across all target counts (Figure \ref{fig:tracking-position-accuracy}). RMS angle error
+and distance error both degrade with increasing noise and target count (Figures
+\ref{fig:tracking-angle-error} and \ref{fig:tracking-distance-error}). In the most
+demanding scenario ($-20$\,dB SNR), recall on the farthest target falls from 67\% to 33\%
+relative to lower-noise conditions, reflecting the $r^{-4}$ power-distance relationship
+that disproportionately attenuates distant returns. Despite this, position error remains
+below 22\,m RMS across all noise regimes, owing to the smoothing provided by the Kalman
+filter.

@@ -39,13 +39,13 @@ $P_{fa}(\alpha;N)$ at the midpoint, updating the lower or upper bound depending 
 false alarm rate is above or below the target. This continues until the interval is sufficiently small. 
 In this way, $\alpha$ is obtained as the numerical solution that gives the required false alarm rate.
 
-Additionally, three different implementations of CFAR are compared for their latency, a naive 
-implementation on the CPU an implementation that uses a prefix sum table, and a naive solution on the 
-GPU. Additionally different noise assumptions are tested. The naive implementation involves calculating 
+Additionally, three different implementations of CFAR are compared for their latency: a naive
+implementation on the CPU, an implementation that uses a prefix sum table, and a naive solution on the
+GPU. Additionally, different noise assumptions are tested. The naive implementation involves calculating 
 the noise statistic with a repeated sum per sample of interest (see Figure \ref{fig:naive-cfar}). 
 The prefix sum table method reduces the 
-number of sums required to four per sample of interest regardless of the number of training cells, the 
-start and ends of the left and right window (see 
+number of sums required to four per sample of interest regardless of the number of training cells, the
+start and end of the left and right window (see 
 Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see 
 Figure \ref{fig:gpu-cfar}). A sweep of window size, guard size, frame buffer size and false alarm rate values is 
 conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, 
@@ -69,19 +69,19 @@ trade off against latency and throughput under SWaP constraints.
     \caption[CFAR using a prefix sum table for constant-time noise statistics.]{CFAR implementation using a prefix sum table (cumulative signal power). The prefix sum
     table allows the noise statistic to be calculated with a fixed number of sums per sample of
     interest, regardless of the number of training cells. In this specific case, after the cumulative
-    signal power is calculated in preprocessing, it only takes four sums of to find the sum of eight
+    signal power is calculated in processing, it only takes four sums of to find the sum of eight
     training cells.}
 \end{figure}
 
 \begin{figure}[htbp]
     \incfig[0.75]{gpu_cfar}
     \label{fig:gpu-cfar}
-    \caption[Parallel GPU CFAR implementation.]{CFAR implementation on the GPU. Threads (each depicted as a unique colours) are each
+    \caption[Parallel GPU CFAR implementation.]{CFAR implementation on the GPU. Threads (each depicted as unique colours) are each
     responsible for a sample, allowing for parallel processing of the CFAR algorithm across the entire
     range profile. Each thread calculates its own noise statistic, threshold, and mask.}
 \end{figure}
 
-The literature gap regarding algorithmic selection is address through an exploration of different CFAR
+The literature gap regarding algorithmic selection is addressed through an exploration of different CFAR
 algorithms, including OS-CFAR, CA-CFAR, SO-CFAR, and GO-CFAR. The effect of these algorithms on detection
 sensitivity and track quality is compared. For intuition, Figure \ref{fig:cfar-algorithms} illustrates
 the difference in performance of the algorithms on a synthetic signal with 5 peaks. This work 
@@ -112,7 +112,7 @@ from the same target, which motivates a stage that groups these samples into a s
 detection.
 The algorithm that addresses both of these problems, clustering, iterates through the 
 range profile, and creates a cluster for each contiguous set of 
-detection samples. Then, the complex signal from each of the samples are summed together. 
+detection samples. Then, the complex signals from each of the samples are summed together. 
 SNR is expected to improve, as noise will be incoherent within clusters, but the signal
 that corresponds to a target will have the same phase across samples, and thus will be 
 coherent. The latency of both CPU and GPU implementations of the clustering algorithm 
@@ -124,14 +124,12 @@ Angle sensing converts multi-channel detections into azimuth, elevation and rang
 drive association and tracking. We assess candidate angle discriminators by running controlled 
 sweeps over SNR, channel 
 imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
-The latency and throughput of CPU and GPU implementations are measured. The trade off being software
-implementation details such as warp divergence, and instruction-level parallelism. 
+The latency and throughput of CPU and GPU implementations are measured. The trade-off involves software implementation details such as warp divergence and instruction-level parallelism. 
 
 The angle sensing algorithm features a few early returns that result in warp divergence on the GPU. 
 For example, if the bearing and elevation ratios are outside of the domain over which the polynomial
 fit is valid. Instruction level parallelism is a measure of how many instructions can be executed 
-in parallel on a single thread. By changing the order of operations, we can potentially increase
-instruction level parallelism, potentially reduce the latency of the GPU implementation.
+in parallel on a single thread. By changing the order of operations, we can potentially increase instruction-level parallelism and reduce the latency of the GPU implementation.
 
 \subsection{Sidelobe Suppression (Blanking)}
 When a target exists outside of the field of view of a given radar receiver, the receiver may still
@@ -148,7 +146,7 @@ detections that are close in range to a stronger detection at the same time step
         \centering
         \incfig[1]{sidelobes}
         \caption[Sidelobes of the antenna pattern.]{Receivers R1 and R3, which are pointing away from the target,
-        still receive significant power from the 1st sidelobes lining up with the target. }
+        still receive significant power from the first sidelobes lining up with the target. }
         \label{fig:sidelobes}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
@@ -156,7 +154,7 @@ detections that are close in range to a stronger detection at the same time step
         \incfig[1]{blanking}
         \caption[Blanking for sidelobe suppression.]{Detections from the sidelobes of R1 and R3 are weaker 
         than R2's detection from the main lobe, and are close in range to R2's detection. R1 and R3's
-        Detections that are close in range to a stronger detection at the same time step are eliminated.}
+        detections that are close in range to a stronger detection at the same time step are eliminated.}
         \label{fig:blanking}
     \end{minipage}
 \end{figure}
@@ -164,7 +162,7 @@ detections that are close in range to a stronger detection at the same time step
 \begin{figure}[htbp]
 \end{figure}
 
-The blanking stage will be implemented on both the CPU. After clustering and angle sensing, 
+The blanking stage will be implemented on the CPU. After clustering and angle sensing, 
 the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
 for each time step, iterating through each of the lists simultaneously and sorting them into one ordered list in O(N) 
 time. Then iterating through the ordered list and eliminating detections that are close in range to
@@ -199,7 +197,7 @@ a stronger detection.
     \label{fig:tracking-dataflow}
 \end{figure}
 
-The multi-target tracking stage with be implemented entirely on the CPU due to its sequential nature. 
+The multi-target tracking stage will be implemented entirely on the CPU due to its sequential nature. 
 Amplitude based association will be compared to non-amplitude based association for their impact on
 track quality. The multi-target tracker has over 20 parameters that can be tuned, and one 
 configuration of these parameters will be validated and discussed. Experiments will

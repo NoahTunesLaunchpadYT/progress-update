@@ -12,7 +12,7 @@ Before the per stage performance is presented, a wholistic view of the pipeline'
 given, including the tracking performance of the pipeline as a whole, and the contribution of each
 stage to the overall latency of the pipeline.  
 
-The pipeline demonstrates full real-time Multi Target Tracking Functionality on an NVDIA Xavier 
+The pipeline demonstrates full real-time multi-target tracking functionality on an NVIDIA Xavier 
 AGX on the DS2 and DS3 datasets, with a latency of less than 50ms while processing 4 video streams
 of 256 chirps, each with 767 samples, per frame at a rate of 10 frames per second. On top of this,
 the harness used for visualisation can also run online, allowing the user to see the correct 
@@ -25,7 +25,10 @@ and \ref{fig:track-visual2}).
     \centering
     \includegraphics[width=0.9\textwidth]{visual-fft.png} 
     \caption[Visualisation of the FFT stage.]{Visualisation of the FFT stage for visual
-    validation. The y-axis is time and the x-axis is range. The colour is amplitude.}
+    validation. The y-axis is time and the x-axis is range. The colour is amplitude. With 
+    yellow indicating highest amplitude. A constant range target appears to be present in 
+    the right hand 
+    side of the waterfall.}
     \label{fig:fft-visual}
 \end{figure}
 
@@ -82,7 +85,7 @@ and \ref{fig:track-visual2}).
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{visual-track2.png}
+    \includegraphics[width=0.6\textwidth]{visual-track2.png}
     \caption[Tracker Visualisation Zoomed In]{A close up view of 
     the tracking stage identifying a target at around 1 km from the
     radar in high noise conditions. As the ground truth progresses 
@@ -112,7 +115,7 @@ a stage is added. The results are depicted in Figures
     \centering
     \incfig[1]{Ablation_Cumulative_Pipeline_Latency}
     \caption{Cumulative Pipeline Latency per Frame, split between
-    the preprocessing subsystem "tinysar-bat-redux" and the 
+    the processing subsystem "tinysar-bat-redux" and the 
     detection and tracking subsystem "tinysar-data". "Segments"
     refers to the number of integrated output chirps for every 
     256 input chirps.}
@@ -127,7 +130,7 @@ chirps are summed together in the integration stage of the processing
 subsystem. Notably, the integrate stage contributes the most time to 
 the pipeline latency when it is doing the least work (no integration,
 outputting 256 chirps for every 256 input chirps). Figure 
-\ref{fig:ablation-latency-breakdown} illustrates that the preprocessing
+\ref{fig:ablation-latency-breakdown} illustrates that the processing
 application is mainly invariant to the number of segments, while 
 the detection and tracking subsystem's latency increases 
 proportionally with it. As a result, the first stage is faster 
@@ -139,7 +142,7 @@ segment counts below 4.
     \incfig[1]{Ablation_Latency_Breakdown}
     \caption{Pipeline Latency Breakdown as stages are added for 
     different integration segment counts (number of output chirps for 
-    every 256 inputs chirps). Split into the preprocessing subsystem
+    every 256 inputs chirps). Split into the processing subsystem
     "tinysar-bat-redux" the detection and tracking subsystem, 
     "tinysar-data", and a combined view.}
     \label{fig:ablation-latency-breakdown}
@@ -163,6 +166,43 @@ two-orders-of-magnitude difference between latency and
 throughput is due to the fact that multiple frames are processed 
 simultaneously by the pipeline. While memory is available, a 
 thread will be spun up to process each incoming frame.
+
+\subsection{Tracking performance on real-world data}
+The radar hardware was taken to an open air field test site in New South Wales 
+where it and a target drone were flown in a variety of scenarios. Figure 
+\ref{fig:real-world-tracking} depicts one such air to air scenario. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{air-to-air.png}
+    \caption{The radar is flown into the air and is pointed at a target drone carrying
+    a reflective marker 200m away.}
+    \label{fig:real-world-tracking}
+\end{figure}
+
+The results of the tracking subsystem failed to produce any tracks of the ariel target, 
+due to high electrical noise at the beginning of each pulse that masked the close field
+where the target was. Fortunately, the radar detected high cross-section targets 
+in the distance. This is illustrated in the visualisation of the angle sensing stage
+in Figure \ref{fig:points-over-map}, where detections from the radar line up with
+a silo and trees.    
+
+\begin{figure}
+    \centering
+    \incfig[0.8]{points-over-map-singleton}
+    \caption[Field Trial Silo Detection]{The detected points from the radar are plotted 
+    over a map of the area. There is a high correspondence between detected points and
+    the three main high cross-section targets in the area: a silo 603 meters away, 
+    building 706 m away, and trees surrounding a building 410 meters away. }
+    \label{fig:points-over-map}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{field-and-silo.png}
+    \caption[silo]{A silo in the distances and a property surrounded by trees are large 
+    visible targets for the radar when it is airborne.}
+    \label{fig:field-and-silo}
+\end{figure}
 
 \FloatBarrier
 \input{Sections/Ch5 Results/Processing Subsystem.tex}

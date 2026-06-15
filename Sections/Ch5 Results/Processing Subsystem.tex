@@ -1,182 +1,183 @@
 \section{Windowing}
 The Hann (with $\alpha = 0.5$) and Hamming windows are first evaluated for the prominence of their main lobe and sidelobes
-in the frequency domain on the synthetic datasets. Figure \ref{fig:clean filters} illustrates the 
-performance of each of the filters on a clear sine wave with no noise. Figure \ref{fig:noisy filters}
-illustrates the performance of each of the filters on the noisy simulated data with an SNR of 1.  
+in the frequency domain on the synthetic datasets. Figure \ref{fig:clean filters} shows the
+performance of each filter on a noise-free sine wave, and Figure \ref{fig:noisy filters}
+shows the same comparison at an SNR of 1.
 
 \begin{figure}
     \incfig[0.7]{filter_clear_comparison}
-    \caption[Window filter comparison on a noise-free signal.]{Results of an \gls{fft} performed on a single frequency signal without noise without a filter,
-    with a Hann window, and a Hamming window. Each of the tests correctly produces a peak near
-    bin 334, the target range. The no filter option's peak is wider than the filtered options.
-    The Hann window performs the best globally, with a 100 dB reduction in power when more than 40
-    bin away from the target bin. The Hamming window performs significantly worse globally, with
-    only a 70 dB reduction when more than 40 bins away, but has a steeper drop-off near the
-    target bin, which may result in better resolution of closely spaced targets.}
+    \caption[Window filter comparison on a noise-free signal.]{FFT of a single-frequency
+    noise-free signal with no window, a Hann window, and a Hamming window. The x-axis is
+    frequency bin and the y-axis is power in dB.}
     \label{fig:clean filters}
 \end{figure}
 
 \begin{figure}
     \incfig[0.7]{filter_noisy_comparison}
-    \caption[Window filter comparison at SNR of 1.]{Results of an \gls{fft} performed on a single frequency signal with an SNR of 1 with no
-    window filter, with a Hann window filter, and a Hamming window filter. The no filter option's
-    spectral leakage acts to deform the peak at bin 334. The Hann and Hamming windows perform similarly
-    globally but the Hamming window features a slightly higher peak, and less spectral leakage into
-    the adjacent bins.}
+    \caption[Window filter comparison at SNR of 1.]{FFT of a single-frequency signal at
+    SNR~$= 1$ with no window, a Hann window, and a Hamming window. The x-axis is frequency
+    bin and the y-axis is power in dB.}
     \label{fig:noisy filters}
 \end{figure}
 
-In terms of computational performance, the latency contribution of the filters does not significantly 
-differ across implementations. Figure \ref{fig:latency} shows the time taken to process
-a single frame of 10 000 chirps each with 767 samples, averaged over 50 runs. 
+In the noise-free case all three options correctly produce a peak near bin 334. The Hann
+window achieves the greatest global sidelobe suppression, with a 100\,dB reduction in power
+more than 40 bins from the target. The Hamming window achieves only 70\,dB global
+suppression, but features a steeper drop-off near the target bin, which may improve
+resolution of closely spaced targets. Under an SNR of 1, unwindowed spectral leakage
+deforms the peak at bin 334. The Hann and Hamming windows perform similarly at a global
+level, but the Hamming window maintains a slightly higher peak and less leakage into
+adjacent bins.
+
+In terms of computational performance, the latency contribution of the filters does not
+significantly differ across implementations. Figure \ref{fig:latency} shows the time
+taken to process a single frame of 10\,000 chirps each with 767 samples, averaged over
+50 runs.
 
 \begin{figure}
     \incfig[0.7]{filter_latency_comparison}
-    \caption[Windowing stage latency across implementations.]{Latency contribution of the windowing stage to the overall pipeline. The latency does not
-    significantly differ across implementations, with all implementations taking around 9-12 ms to
-    process 7 670 000 samples. The insignificant difference in latency between no filter
-    and filters suggests that the delay is primarily due to the overhead of handling the data.}
+    \caption[Windowing stage latency across implementations.]{Latency of the windowing
+    stage for no filter, Hann, and Hamming implementations processing 7\,670\,000 samples,
+    averaged over 50 runs.}
     \label{fig:latency}
 \end{figure}
 
-The experiments were then extended to the Blackman, Kaiser, and Taylor windows. Using dataset DS2,
-the multi-receiver signal of a target sweep azimuth, elevation and range, fifteen filter 
-configurations were applied to the data: \verb|Hann|, \verb|Hamming|, \verb|Blackman|, 
-\verb|Kaiser6|, \verb|Kaiser8|, \verb|Kaiser10|, \verb|Kaiser12|, \verb|Taylor1_30|, 
-\verb|Taylor2_30|, \verb|Taylor_3_30|, \verb|Taylor_4_30|, \verb|Taylor1_50|, \verb|Taylor2_50|
-\verb|Taylor_3_50|, \verb|Taylor_4_50|. The parameter suffix of the Kaiser windows indicate the 
-\(\beta\) parameter and the two suffixes of the Taylor windows indicate \(\bar{n}\) and the 
-sidelobe level in -dB respectively.  
+All implementations take between 9 and 12\,ms, with no statistically significant
+difference between the windowed and unwindowed cases. This indicates that the observed
+latency is dominated by data handling overhead rather than the windowing computation
+itself, and confirms that window selection can be made independently of hardware
+configuration.
 
-Six noise intensities were applied to the data: no noise, and SNRs of -20, -10, 
-0, 10 and 20 dB. Detections at ranges where the target is not were labelled as clutter, they 
-were tallied and their total power was recorded. Figures \ref{fig:recall_vs_clutter} and 
-\ref{fig:recall_vs_clutter_power} illustrate the relationship between noise, windows, and their
-effect on recall and clutter.  
+The experiments were then extended to the Blackman, Kaiser, and Taylor windows. Using dataset DS2,
+the multi-receiver signal of a target sweep azimuth, elevation and range, fifteen filter
+configurations were applied to the data: \verb|Hann|, \verb|Hamming|, \verb|Blackman|,
+\verb|Kaiser6|, \verb|Kaiser8|, \verb|Kaiser10|, \verb|Kaiser12|, \verb|Taylor1_30|,
+\verb|Taylor2_30|, \verb|Taylor_3_30|, \verb|Taylor_4_30|, \verb|Taylor1_50|, \verb|Taylor2_50|
+\verb|Taylor_3_50|, \verb|Taylor_4_50|. The parameter suffix of the Kaiser windows indicate the
+\(\beta\) parameter and the two suffixes of the Taylor windows indicate \(\bar{n}\) and the
+sidelobe level in -dB respectively.
+
+Six noise intensities were applied to the data: no noise, and SNRs of -20, -10,
+0, 10 and 20\,dB. Detections at ranges where the target is not present were labelled as
+clutter, tallied, and their total power recorded. The results are shown in Figures
+\ref{fig:recall_vs_clutter} and \ref{fig:recall_vs_clutter_power}.
 
 \begin{figure}
     \incfig[0.8]{windowing_recall_vs_clutter}
-    \caption[Recall vs clutter for different window functions.]{Recall vs clutter for different 
-    window functions. The recall of the target detections decreases from 1 to 0.45 with increasing 
-    noise, and the number of clutter detections increases with increasing noise from 3 to 12 per 
-    actual truth. Window choice trades less clutter for sensitivity. The Taylor windows calibrated
-    to -50dB noise achieve high recall without introducing more clutter than the other windows. The choice of window does 
-    not significantly affect recall or clutter, though the Hamming window performs slightly 
-    better at high SNRs.}
+    \caption[Recall vs clutter for different window functions.]{Recall vs number of clutter
+    detections per ground truth for fifteen window configurations across six noise
+    intensities.}
     \label{fig:recall_vs_clutter}
 \end{figure}
 
 \begin{figure}
     \incfig[0.8]{windowing_recall_vs_clutter_power}
-    \caption[Recall vs clutter power for different window functions.]{Recall vs clutter power 
-    for different window functions. While producing slightly higher clutter power, the four 
-    -50 dB Taylor windows achieve higher recall than the other windows in the three noisiest 
-    conditions.}
+    \caption[Recall vs clutter power for different window functions.]{Recall vs total clutter
+    power for fifteen window configurations across six noise intensities.}
     \label{fig:recall_vs_clutter_power}
 \end{figure}
 
+Recall decreases from 1 to 0.45 as noise increases, while clutter detections rise from 3
+to 12 per ground truth, illustrating the fundamental trade-off between sensitivity and
+clutter suppression. The Taylor windows calibrated to $-50$\,dB sidelobe levels achieve
+the highest recall in the three noisiest conditions without introducing proportionally
+more clutter than other windows, because their sidelobes are suppressed to the level at
+which CFAR masks them. In terms of clutter power (Figure \ref{fig:recall_vs_clutter_power}),
+the $-50$\,dB Taylor windows produce slightly higher clutter power than alternatives but
+maintain superior recall under the highest noise intensities.
+
 \FloatBarrier
 \section{Integration}
-The integration stage is validated on synthetic test data from software scripts and the 
-test-source mode of the AWR2243 radar chips. The results from the former illustrate the expected increase
-in SNR with increasing integration window size as demonstrated in Figure \ref{fig:integration-waterfall}. 
-The results from the latter illustrate no increase in SNR because the test-source mode does not generate 
-any noise. Meaningfully, the results from the AWR test-source mode indicate that the integration stage 
-behaves correctly on data from the radar chips, (see Figure \ref{fig:integration-waterfall-orac}). The 
-subsystem can process the data at a rate of 9.8 times the incoming data rate on the desktop setup, and 
-3.8 times the incoming data rate on the Xavier setup. We also find that the latency of the integration 
-stage increases with the integration's factor of reduction, since in our implementation,
-each thread performs all the sum operations for its corresponding range bin
-(which increases with the reduction factor of the integration stage). 
-
+The integration stage is validated on synthetic test data from software scripts and the
+test-source mode of the AWR2243 radar chips. Figure \ref{fig:integration-waterfall} shows
+the expected SNR improvement with increasing integration window size on synthetic data.
+Figure \ref{fig:integration-waterfall-orac} shows the output on AWR2243 test-source data,
+which generates no noise and therefore produces no change in amplitude. The unchanged
+amplitude confirms that the integration stage behaves correctly on data from the radar chips.
+The subsystem can process data at a rate of 9.8 times the incoming data rate on the desktop
+setup, and 3.8 times on the Xavier setup. The latency of the integration stage increases
+with the integration's factor of reduction, since each thread performs all sum operations
+for its corresponding range bin.
 
 \begin{figure}
     \incfig[0.57]{integration_waterfall}
-    \caption[Integration on synthetic data showing SNR improvement.]{Results of the integration stage on synthetic data.
-    The top window shows a low SNR waterfall plot of data, with the y-axis
-    representing range samples and
-    the x-axis representing chirps that are streaming into the integration stage. The
-    colour indicates the power of the range bin, with yellow being the most intense.
-    The output of the integration stage below has less noise, and the target
-    signal is more prominent.} 
+    \caption[Integration on synthetic data showing SNR improvement.]{Integration stage
+    output on synthetic data. Top: low-SNR input waterfall with range on the y-axis and
+    chirps on the x-axis; colour indicates power with yellow being most intense. Bottom:
+    integrated output showing reduced noise and a more prominent target signal.}
     \label{fig:integration-waterfall}
 \end{figure}
 
 \begin{figure}
     \incfig[0.57]{integration_waterfall_orac}
-    \caption[Integration on AWR2243 test-source data.]{Results of the integration stage on AWR2243 test-source data.
-    The 8 windows correspond to 8 channels. 128 chirps are being compressed into a single
-    chirp with no noise. There is
-    no change in amplitude, validating that the integration stage behaves
-    correctly on radar chip data.}
+    \caption[Integration on AWR2243 test-source data.]{Integration stage output on
+    AWR2243 test-source data across 8 channels, compressing 128 chirps into one with
+    no noise present.}
     \label{fig:integration-waterfall-orac}
 \end{figure}
 
-The latency of the integration stage increases with the reduction factor of the integration stage,
-as demonstrated in Figure \ref{fig:ablation-cumulative-latency}. Many of this latency is due to 
-the overhead associated with handling the data and the launching the application. By finding the 
-time taken
-to process as a function of the number of input frames we can approximate the startup time of the 
-pipeline and subtract it from the total time to find the time taken to process each frame. 
-This is done with coherent integration, non-coherent integration, and no integration as a 
-baseline. 
-Additionally, for this trial, the pipeline has been patched to not input or output any data, just processing
-empty buffers, which allows us to avoid measuring the overhead of handling the data.  
+The latency of the integration stage increases with the reduction factor, as shown in
+Figure \ref{fig:ablation-cumulative-latency}. Much of this latency is due to the overhead
+of handling data and launching the application. To isolate the per-frame processing cost,
+the time taken to process is measured as a function of the number of input frames, allowing
+the startup time to be approximated from the y-intercept of a line of best fit. This is
+done for coherent integration, non-coherent integration, and no integration as a baseline,
+with the pipeline patched to process empty buffers and avoid measuring data I/O overhead.
+The results are shown in Figure \ref{fig:integration-latency-per-frame}.
 
 \begin{figure}
     \incfig[0.7]{integration_throughput}
-    \caption[Integration stage latency per frame.]{Processing time as a function of the number 
-    of input frames. The startup time of the pipeline is approximated 
-    by finding the y-intercept of the line of best fit, which is 195 ms for all three scenarios. 
-    The figure also illustrates that there is only a small difference between the processing time
-    of either integration strategy and no integration at all, with the non-coherent integration
-    taking 0.02 milliseconds more per frame than no integration, and the coherent integration. 
-    }
+    \caption[Integration stage latency per frame.]{Processing time as a function of the
+    number of input frames for coherent integration, non-coherent integration, and no
+    integration. The y-intercept approximates pipeline startup time; the slope is the
+    per-frame processing cost.}
     \label{fig:integration-latency-per-frame}
 \end{figure}
 
-Dataset DS2 sweeps az el and range in the six noise regimes, -20, -10, 0, 10 and 20dB SNR and no noise. 
-SNRs were tuned to detections at the further ranges. Closer detections have higher SNRs than 
-what is listed. 
-Figure \ref{fig:integration-setup} illustrates the ground truths and 64 detections per ground truth
-for one of the noisy scenarios. 
+The startup time is approximately 195\,ms across all three configurations. Once running,
+coherent and non-coherent integration each add only 0.02\,ms per frame over the
+no-integration baseline, confirming that the computational cost of the summation itself
+is negligible and that integration length can be increased without significant latency
+penalty.
+
+Dataset DS2 sweeps azimuth, elevation and range across six noise regimes: -20, -10, 0, 10,
+and 20\,dB SNR and no noise. SNRs were tuned to detections at the furthest ranges; closer
+detections have higher SNRs than those listed. Figure \ref{fig:integration-setup}
+illustrates the ground truths and 64 detections per ground truth for one of the noisy
+scenarios. The recall and position error results are shown in Figures
+\ref{fig:integration-angle-recall-per-segment} and \ref{fig:integration-RMS-position-error}.
 
 \begin{figure}
     \includegraphics[width=0.9\textwidth]{integration_setup.png}
-    \caption[Integration experiment ground truths and detections.]{The setup of the integration 
-    stage experiment for accuracy evaluation. The figure shows the detections of a target 
-    sweeping azimuth, elevation and range in a noisy scenario. Each line segment indicates the 
-    ground truth on one end and the detection on the other. Purple crosses indicate ground 
-    truths with no detections within 1 degree in azimuth and elevation of them. The triangle 
-    marks the radar position and heading.}
+    \caption[Integration experiment ground truths and detections.]{Ground truths and
+    detections for a target sweeping azimuth, elevation, and range in a noisy scenario.
+    Each line segment connects a ground truth to its detection. Purple crosses mark ground
+    truths with no detection within 1 degree in azimuth and elevation. The triangle marks
+    the radar position and heading.}
     \label{fig:integration-setup}
 \end{figure}
 
-The results of the experiment are illustrated in Figures 
-\ref{fig:integration-angle-recall-per-segment} and
-\ref{fig:integration-RMS-position-error}.
-
 \begin{figure}
     \incfig[0.9]{integration_angle_recall_per_segment}
-    \caption[Recall Integration Experiment.]{Recall, the proportion of ground truths 
-    with at least one detection within 1 degree in azimuth and elevation of them, of 
-    the integration stage experiment as the integration length (number of chirps integrated
-    together) increases, for both coherent and non-coherent integration in the six noise 
-    intensities. As the integration length increases, the recall of the detections increases,
-    with the coherent integration performing consistently better than the non-coherent integration
-    across all noise intensities. Through coherent integration of 64 chirps, the recall in the 
-    worst noise regime increased from near 0 to 0.9.}
+    \caption[Recall Integration Experiment.]{Recall (proportion of ground truths with at
+    least one detection within 1 degree in azimuth and elevation) as a function of
+    integration length for coherent and non-coherent integration across six noise
+    intensities.}
     \label{fig:integration-angle-recall-per-segment}
 \end{figure}
 
 \begin{figure}
     \incfig[0.9]{integration_RMS_position_error}
-    \caption[Position Error Integration Experiment.]{RMS position error of the integration 
-    stage experiment as the integration length (number of chirps integrated together) increases, 
-    for both coherent and non-coherent integration in the six noise intensities. The figure 
-    shows that integration directly improves position accuracy, with coherent integration 
-    performing slightly better than non-coherent integration when the 
-    integration length is larger than 4. }
+    \caption[Position Error Integration Experiment.]{RMS position error as a function of
+    integration length for coherent and non-coherent integration across six noise
+    intensities.}
     \label{fig:integration-RMS-position-error}
 \end{figure}
 
+As integration length increases, recall improves for both strategies across all noise
+intensities, as shown in Figure \ref{fig:integration-angle-recall-per-segment}. Coherent
+integration consistently outperforms non-coherent integration. Through coherent integration
+of 64 chirps, recall in the worst noise regime increased from near 0 to 0.9. Integration
+also directly improves position accuracy, as shown in Figure
+\ref{fig:integration-RMS-position-error}. Coherent integration performs slightly better
+than non-coherent when integration length exceeds 4 chirps.

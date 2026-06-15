@@ -37,8 +37,8 @@ divergent branches must be executed serially, reducing parallelism (see Figure
 
 Memory access patterns also affect throughput. Global memory is accessed most 
 efficiently when threads in a warp read or write contiguous memory locations 
-simultaneously, a pattern known as coalesced access. Non-coalesced access doesn't 
-utilise memory bandwidth efficiently by not accessing contiguous memory locations. 
+simultaneously, a pattern known as coalesced access. Non-coalesced access wastes
+memory bandwidth by reading non-contiguous memory locations.
 Figure \ref{fig:coalesced-access} illustrates one such situation. The warps will need 
 to retrieve data from global memory more frequently when accessing non-contiguous 
 memory. For this reason, ensuring that as much as possible of the data in each cache 

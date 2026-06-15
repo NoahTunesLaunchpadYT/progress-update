@@ -1,0 +1,87 @@
+\chapter{Conclusion and Future Work}
+
+\section{Summary}
+
+This thesis designed, implemented, and evaluated a software-defined radar tracking pipeline
+for \gls{uav} detect-and-avoid under strict \gls{swap} constraints. The work was motivated
+by the convergence of miniaturised millimetre-wave radar hardware, capable embedded
+\gls{gpu} compute, and an evolving regulatory landscape that increasingly requires
+non-cooperative target sensing for \gls{bvlos} UAV operations. Three gaps in the existing
+literature were identified: the absence of end-to-end pipeline validation against small
+moving airborne targets; the lack of low-level implementation benchmarking on embedded
+GPU hardware representative of UAV platforms; and the failure of prior work to characterise
+how algorithm and implementation conclusions transfer across hardware configurations.
+Each gap was addressed, but not fully filled, through the experiments conducted in this thesis.
+
+The pipeline was structured into three subsystems: a processing subsystem performing
+formatting, windowing, \gls{fft}, and coherent integration; a detection and tracking subsystem
+performing \gls{cfar}, monopulse angle sensing, clustering, and multi-target tracking; and
+an aggregation layer combining data from multiple receiver quadruplets. The full pipeline
+demonstrated real-time multi-target tracking on an NVIDIA Xavier AGX, processing four
+video streams of 256 chirps each at ten frames per second with end-to-end latency below
+50\,ms, establishing that a complete sensing-to-tracking pipeline is feasible within the
+SWaP constraints of a medium UAV.
+
+Regarding the first gap, the pipeline was validated on synthetic datasets spanning a wide
+range of noise intensities and target geometries, including multi-target scenarios with
+targets at 500, 1000, and 1500\,m. End-to-end tracking performance was characterised
+quantitatively across windowing, integration, \gls{cfar}, angle sensing, and tracking
+algorithm choices. Taylor windows calibrated to $-50$\,dB sidelobe levels were found to
+minimise \gls{cfar} false alarms without recall penalty; coherent integration was the most
+effective mechanism for extending detection sensitivity, raising recall from near zero to
+0.9 with 64 chirps; and CA-CFAR outperformed GO-CFAR and SO-CFAR in high-noise conditions
+owing to its more stable noise floor estimate. The system was also deployed in a live
+airborne field trial. Detection of a small drone target at close range was not achieved
+due to a hardware noise artefact, but the pipeline correctly geolocated high cross-section
+static targets at up to 706\,m, confirming that the processing chain produces physically
+meaningful outputs in the field. The trial also exposed a gap between synthetic and
+real-world performance that synthetic evaluation alone cannot reveal.
+
+Regarding the second gap, GPU-based implementations of windowing, coherent integration,
+and \gls{cfar} were benchmarked against CPU alternatives across buffer sizes and training
+window configurations on both the desktop and Xavier platforms. The profiling identified
+\gls{cfar} as the dominant latency contributor in the detection subsystem and quantified
+host-device data transfer and thread synchronisation as the primary remaining overhead,
+providing the hardware-constrained implementation analysis that prior UAV DAA radar work
+lacked.
+
+Regarding the third gap, monopulse angle sensing was integrated into a complete
+end-to-end range-detection-to-track pipeline and evaluated across six noise intensities.
+The algorithm was shown to be an unbiased estimator of target bearing and elevation even
+at $-10$\,dB SNR when detections are accumulated over time, and its failure modes under
+multiple co-range targets were characterised. Together, the three bodies of work advance
+the state of the art from isolated sub-system demonstrations toward a unified,
+empirically grounded understanding of the design space for compact airborne radar.
+
+The field trial in New South Wales placed the radar airborne in air-to-air configurations
+against a target drone at 200\,m. The aerial target was not tracked due to high electrical
+noise at the beginning of each transmitted pulse, which obscured the close-field region
+where the target flew. Despite this, the pipeline successfully detected and geolocated
+high cross-section static targets at up to 706\,m, with detected point clouds aligning
+closely with known map positions. The result validates the pipeline's ability to produce
+physically meaningful detections in a live airborne setting, while highlighting that
+hardware characterisation must be part of any credible DAA system evaluation.
+
+\section{Future Work}
+
+Several directions remain open. On the algorithm side, the monopulse angle sensing stage
+should be extended to handle multiple targets per range bin through target separation
+strategies. The \gls{cfar} stage should be compared against a broader set of detectors,
+including OS-CFAR, MTI filters, and machine learning based detectors, evaluated under
+the non-Gaussian noise statistics of real airborne data. A wider sweep of clustering
+algorithms including DBSCAN should be assessed with quantitative metrics and their
+downstream effects on tracking performance characterised. The tracking stage should be
+extended to compare GNN-Kalman against MHT, JPDAF, and PHD-based approaches.
+
+On the implementation and hardware side, the dominant source of remaining latency is
+host-device data transfer and thread synchronisation overhead, and future work should
+focus on reducing it. The integration stage's current single-threaded reduction
+should be parallelised to distribute the summation work across GPU threads. The pipeline
+has been evaluated on the Xavier NX and Xavier AGX; extending this evaluation to newer
+platforms such as the Orin Nano and Orin NX would provide updated hardware-aware
+recommendations as the embedded compute landscape continues to mature.
+
+Most critically, the pipeline should be re-evaluated on the real-world D3 dataset with
+the electrical noise artefact characterised or corrected. Achieving airborne drone tracking
+against a small non-cooperative target in a live flight test remains the long term goal 
+for the project. 

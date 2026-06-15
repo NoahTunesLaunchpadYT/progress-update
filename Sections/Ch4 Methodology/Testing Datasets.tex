@@ -27,7 +27,7 @@ in advance. This makes it possible to verify algorithmic correctness while also 
 throughput without the additional complexity introduced by real-world phenomena such as multipath 
 propagation, data corruption, and non-gaussian noise. An interactive variation of this dataset is 
 also used for debugging, allowing the user to adjust parameters such as SNR, range, and bearing/elevation
-ratios in real. Figure \ref{fig:synthetic-signal} illustrates an example of a synthetic signal generated 
+ratios in real time. Figure \ref{fig:synthetic-signal} illustrates an example of a synthetic signal generated 
 for testing.
 
 \begin{figure}
@@ -39,12 +39,11 @@ for testing.
     successive chirps are stacked vertically and amplitude is depicted with colour, where yellow is the highest 
     amplitude. 2nd plot is produced by applying an \gls{fft} to each synthetic chirp from the first plot. 
     The transform allow us to visually validate that the frequency to range conversion is correct, 
-    and the preprocessing stage is behaving as expected.}
+    and the processing stage is behaving as expected.}
     \label{fig:synthetic-signal}
 \end{figure}
 
-While every component of the software can be tested with this first dataset, stages such as windowing
-CFAR, angle sensing and track benefit from more realistic data. The choice of window heavily relies
+While every component of the software can be tested with this first dataset, stages such as windowing, CFAR, angle sensing, and tracking benefit from more realistic data. The choice of window heavily relies
 on the spectral characteristics of the pulse compressed signal; the choice of the CFAR algorithm
 relies on the distribution of noise and clutter; the validation of the angle sensing stage requires
 knowledge of the beam shape of the receivers, and the tracking stage relies on the above as well
