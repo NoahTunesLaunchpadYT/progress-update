@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'integration_waterfall.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{571.50000865bp}%
+    \setlength{\unitlength}{649.40112016bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,12 +50,17 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,1.03024602)%
+  \begin{picture}(1,1.01796053)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.33807631,0.96587969){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17357745\unitlength}\raggedright \end{minipage}}}%
+    \put(0.35114317,0.91424084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15275538\unitlength}\raggedright \end{minipage}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{integration_waterfall.pdf}}%
-    \put(0.58763555,0.54256677){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrate \\128 chirps -> 1\end{tabular}}}}%
+    \put(0.57076569,0.54170786){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrate \\128 chirps to 1\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{integration_waterfall.pdf}}%
+    \put(0.03509833,0.85211747){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Time\end{tabular}}}}}%
+    \put(0.03890784,0.32287378){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Time\end{tabular}}}}}%
+    \put(0.85325038,0.00960922){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Range\end{tabular}}}}%
+    \put(0.85604272,0.55754196){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Range\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{integration_waterfall.pdf}}%
   \end{picture}%
 \endgroup%

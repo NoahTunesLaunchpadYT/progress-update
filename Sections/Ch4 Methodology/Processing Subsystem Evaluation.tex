@@ -10,7 +10,7 @@ experiment details for each of the operations.
 
 \begin{figure}[htbp]
     \centering
-    \incfig[1]{preprocessing_dataflow} 
+    \incfig[0.9]{preprocessing_dataflow} 
     \caption[Dataflow for the processing subsystem.]{Dataflow for the processing subsystem. Multiple instances of the subsystem run on
     separate processes, with each instance receiving compressed baseband radar data samples from an
     incoming video stream. Formatting organises samples into contiguous blocks in memory, and discards
@@ -46,7 +46,7 @@ FFT, spectral leakage can be reduced, as shown in Figure \ref{fig:hann filter}.
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.6\linewidth]{Images/ffts1}
+    \includesvg[width=0.9\linewidth]{Images/ffts1}
     \caption[FFT with and without a Hann window showing spectral leakage reduction.]{Results of an \gls{fft} performed on a signal with two frequencies and Gaussian noise, with
     and without a Hann window. Without the Hann window, the bins close to the peak frequency bins 40
     and 45 are significantly elevated due to spectral leakage from those peaks, which would cause
@@ -106,7 +106,7 @@ The Blackman window extends the raised-cosine family to three harmonic terms, pr
 sidelobe level of approximately $-58$\,dB. The steeper sidelobe roll-off comes at the cost of a
 wider mainlobe (approximately $2.35$ bins at $-3$\,dB), making it better suited to environments
 with strong clutter at the expense of reduced Doppler resolution. The standard Blackman window has
-no tunable parameters and is defined as
+no tunable parameters and is defined as:
 
 \begin{equation}
     w(n) = 0.42 - 0.50\cos\!\left(\frac{2\pi n}{N-1}\right)

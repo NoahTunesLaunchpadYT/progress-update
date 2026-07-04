@@ -10,7 +10,7 @@ Below are the implementation and experiment details for each of the operations.
 
 \begin{figure}[H]
     \centering
-    \incfig[1]{detection_and_tracking_dataflow} 
+    \incfig[0.9]{detection_and_tracking_dataflow} 
     \caption[Dataflow diagram for the detection and tracking subsystem.]{Dataflow for the detection 
     and tracking subsystem. The subsystem receives the processed radar data across all radar 
     channels from the aggregator subsystem, and produces tracks of targets in the radar's 
@@ -56,7 +56,7 @@ trade off against latency and throughput under SWaP constraints.
 
 \begin{figure}[!ht]
     \incfig[0.75]{cfar}
-    \caption[Naive CPU CFAR implementation.]{Naive Implementation of CFAR for the CPU. Each sample is compared to a threshold
+    \caption[Naive CPU CFAR implementation.]{Naive implementation of CFAR for the CPU. Each sample is compared to a threshold
     determined by the power of the samples around it. The threshold is calculated by taking the
     average power of the surrounding samples and multiplying it by a factor \(\alpha\) determined
     by the desired false alarm rate.}
@@ -93,7 +93,7 @@ algorithmic implementation under SWaP constraints is addressed.
 
 \begin{figure}
     \centering
-    \incfig[0.81]{cfar_stacked_matched_colours}
+    \incfig[0.9]{cfar_stacked_matched_colours}
     \caption{ Performance of four CFAR variants. Each 
     algorithm registers a detection when its threshold is 
     below the signal. The test signal has 5 peaks that are 
@@ -164,7 +164,8 @@ detections that are close in range to a stronger detection at the same time step
 
 The blanking stage will be implemented on the CPU. After clustering and angle sensing, 
 the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
-for each time step, iterating through each of the lists simultaneously and sorting them into one ordered list in O(N) 
+for each time step, iterating through each of the lists simultaneously and sorting them into one 
+ordered list in O(n) 
 time. Then iterating through the ordered list and eliminating detections that are close in range to
 a stronger detection. 
 
@@ -178,12 +179,11 @@ a stronger detection.
 % from multiple receivers across different chirps that are close in not just range but also angular 
 % position can be merged 
 % together. 
-
 \subsection{Multi-Target Tracking}
 
 \begin{figure}[htbp]
     \centering
-    \incfig[1]{tracking_dataflow} 
+    \incfig[0.9]{tracking_dataflow} 
     \caption[Dataflow diagram for the tracking subsystem.]{Dataflow for the tracking stage of the 
     detection and tracking subsystem. Detections are fed into the
     associator of the multi-target tracker, and are then fed into the hypothesiser. 

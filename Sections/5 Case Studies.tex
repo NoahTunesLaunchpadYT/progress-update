@@ -11,11 +11,12 @@ evaluation required to meet its research contributions.
 \subsubsection*{LO1. \emph{Approach research papers in a professional and research-
 orientated manner, and conduct critical reviews of these papers}}
 This learning objective is fully met through the thesis literature review (Chapter 3),
-which critically evaluates over 30 papers across four domains: UAV DAA radar sensing,
+which critically evaluates over 20 papers across four domains: UAV DAA radar sensing,
 GPU-accelerated radar processing, monopulse angle estimation under low SNR, and
 multi-target tracking. For each work, assumptions are interrogated, experimental
 limitations are identified (e.g.\ the absence of end-to-end pipeline validation in
-Zaknoun et al.\ and the GPU benchmarking gap in Newmeyer et al.), and design decisions
+Zaknoun et al.\ \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} 
+and the GPU benchmarking gap in Newmeyer et al.\ \cite{7577322}), and design decisions
 are justified with reference to evidence. The review culminates in a structured
 synthesis of three literature gaps that directly motivate the thesis contributions,
 demonstrating the critical engagement with research central to this learning objective.
@@ -52,8 +53,8 @@ optimality criterion, finding that CA-CFAR's larger training cell count produces
 a more stable noise floor estimate and outperforms GO-CFAR and SO-CFAR in high-noise
 conditions. Windowing evaluation across Hann, Hamming, Blackman, Kaiser, and Taylor
 functions similarly frames each choice in terms of the resolution--sidelobe-attenuation
-trade-off under SWaP constraints. This aligns with Weeks 02--03 (optimality-driven
-algorithms) and Weeks 07--09 (estimation, uncertainty, robustness).
+trade-off under SWaP constraints. This aligns with the unit's theme of optimal 
+control and estimation, and Week 09's content (System uncertainty).
 
 \subsubsection*{LO4. \emph{Understand how cost functions are used to define mission
 objectives in a mathematical form, so that autonomous systems can make decisions about
@@ -96,9 +97,9 @@ multiplications whose frequency-domain effect is analysed as a convolution with 
 window's spectral response, quantifying the sidelobe attenuation and mainlobe width
 trade-off for each. \textbf{Coherent integration} accumulates complex FFT outputs by
 summation, exploiting phase coherence of genuine target returns while averaging out
-incoherent noise. The Kalman filter's predict--update equations use \textbf{covariance
+incoherent noise. The Kalman filter's prediction and update equations use \textbf{covariance
 matrices} to propagate measurement and process uncertainty, and the Mahalanobis
-distance is a covariance-normalised norm used for gating. These elements together
+distance is a covariance-normalised scalar used for gating. These elements together
 demonstrate mastery of convolution, transforms, spectral analysis, filtering, and
 covariance as described in this learning objective.
 
@@ -128,9 +129,10 @@ and applying the \textbf{range--Doppler time-frequency model} to jointly represe
 and velocity. The synthetic dataset DS1 generates binary streams of complex sine waves
 with additive Gaussian noise, providing a controlled sinusoidal signal model against
 which FFT output can be analytically verified. The spectral leakage behaviour of each
-window function is characterised through its frequency-domain response --- a
-\textbf{convolutional model} linking the window's spectral shape to the observed
-sidelobes in the range map. The effect of low SNR on signal model validity is studied
+window function is characterised through its frequency-domain response. Windowing
+can be modelled as a \textbf{convolution} in the frequency domain, and this understanding
+is used to link the window's shape to sidelobe attenuation and mainlobe width.  
+The effect of low SNR on signal model validity is studied
 empirically: at $-10$\,dB SNR, individual monopulse angle detections become noisy, but
 accumulating detections over time recovers unbiased estimates, consistent with the
 linear model's noise averaging properties. This aligns with Week 02 (signal models),

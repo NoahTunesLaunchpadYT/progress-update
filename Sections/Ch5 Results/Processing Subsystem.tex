@@ -49,11 +49,13 @@ itself, and confirms that window selection can be made independently of hardware
 configuration.
 
 The experiments were then extended to the Blackman, Kaiser, and Taylor windows. Using dataset DS2,
-the multi-receiver signal of a target sweep azimuth, elevation and range, fifteen filter
-configurations were applied to the data: \verb|Hann|, \verb|Hamming|, \verb|Blackman|,
-\verb|Kaiser6|, \verb|Kaiser8|, \verb|Kaiser10|, \verb|Kaiser12|, \verb|Taylor1_30|,
-\verb|Taylor2_30|, \verb|Taylor_3_30|, \verb|Taylor_4_30|, \verb|Taylor1_50|, \verb|Taylor2_50|
-\verb|Taylor_3_50|, \verb|Taylor_4_50|. The parameter suffix of the Kaiser windows indicate the
+the multi-receiver signal of a target sweep azimuth, elevation and range, 
+fifteen filter configurations were applied: \texttt{Hann}, \texttt{Hamming},
+\texttt{Blackman}, \texttt{Kaiser6}, \texttt{Kaiser8}, \texttt{Kaiser10},
+\texttt{Kaiser12}, \texttt{Taylor1\_30}, \texttt{Taylor2\_30},
+\texttt{Taylor3\_30}, \texttt{Taylor4\_30}, \texttt{Taylor1\_50},
+\texttt{Taylor2\_50}, \texttt{Taylor3\_50}, and \texttt{Taylor4\_50}.
+The parameter suffix of the Kaiser windows indicate the
 \(\beta\) parameter and the two suffixes of the Taylor windows indicate \(\bar{n}\) and the
 sidelobe level in -dB respectively.
 
@@ -109,8 +111,9 @@ for its corresponding range bin.
 \end{figure}
 
 \begin{figure}
-    \incfig[0.57]{integration_waterfall_orac}
-    \caption[Integration on AWR2243 test-source data.]{Integration stage output on
+    \incfig[0.7]{integration_waterfall_orac}
+    \caption[Integration on AWR2243 test-source data.]{Integration 
+    stage output on
     AWR2243 test-source data across 8 channels, compressing 128 chirps into one with
     no noise present.}
     \label{fig:integration-waterfall-orac}
@@ -162,7 +165,7 @@ scenarios. The recall and position error results are shown in Figures
     \caption[Recall Integration Experiment.]{Recall (proportion of ground truths with at
     least one detection within 1 degree in azimuth and elevation) as a function of
     integration length for coherent and non-coherent integration across six noise
-    intensities.}
+    intensities. Note: recall is always 1 for both the no-noise, and SNR 20 scenarios.}
     \label{fig:integration-angle-recall-per-segment}
 \end{figure}
 
@@ -170,7 +173,8 @@ scenarios. The recall and position error results are shown in Figures
     \incfig[0.9]{integration_RMS_position_error}
     \caption[Position Error Integration Experiment.]{RMS position error as a function of
     integration length for coherent and non-coherent integration across six noise
-    intensities.}
+    intensities. Note: position error is always near 0 for both the no-noise, 
+    and SNR 20 scenarios.}
     \label{fig:integration-RMS-position-error}
 \end{figure}
 

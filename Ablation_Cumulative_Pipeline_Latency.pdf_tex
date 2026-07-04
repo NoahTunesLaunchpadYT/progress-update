@@ -54,5 +54,8 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{Ablation_Cumulative_Pipeline_Latency.pdf}}%
+    \put(0.26487187,0.36629336){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Processing\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{Ablation_Cumulative_Pipeline_Latency.pdf}}%
+    \put(0.69893089,0.36602741){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Detection and Tracking\end{tabular}}}}%
   \end{picture}%
 \endgroup%

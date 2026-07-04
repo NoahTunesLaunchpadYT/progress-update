@@ -24,15 +24,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="2.3061709"
-     inkscape:cx="379.4168"
-     inkscape:cy="146.7801"
+     inkscape:zoom="1.1530855"
+     inkscape:cx="401.53139"
+     inkscape:cy="133.98834"
      inkscape:window-width="1850"
      inkscape:window-height="1136"
      inkscape:window-x="70"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg335" />
+     inkscape:current-layer="figure_1" />
   <defs
      id="defs1">
     <style
@@ -1202,77 +1202,17 @@
              d="M 54.890625 54.6875  L 35.109375 28.078125  L 55.90625 0  L 45.3125 0  L 29.390625 21.484375  L 13.484375 0  L 2.875 0  L 24.125 28.609375  L 4.6875 54.6875  L 15.28125 54.6875  L 29.78125 35.203125  L 44.28125 54.6875  z "
              id="DejaVuSans-120" />
         </defs>
-        <g
-           transform="translate(97.678834 9.56928)scale(0.12 -0.12)"
-           id="g133">
-          <use
-             xlink:href="#DejaVuSans-116"
-             id="use117" />
-          <use
-             x="39.208984"
-             xlink:href="#DejaVuSans-105"
-             id="use118" />
-          <use
-             x="66.992188"
-             xlink:href="#DejaVuSans-110"
-             id="use119" />
-          <use
-             x="130.371094"
-             xlink:href="#DejaVuSans-121"
-             id="use120" />
-          <use
-             x="189.550781"
-             xlink:href="#DejaVuSans-115"
-             id="use121" />
-          <use
-             x="241.650391"
-             xlink:href="#DejaVuSans-97"
-             id="use122" />
-          <use
-             x="302.929688"
-             xlink:href="#DejaVuSans-114"
-             id="use123" />
-          <use
-             x="343.949219"
-             xlink:href="#DejaVuSans-45"
-             id="use124" />
-          <use
-             x="380.033203"
-             xlink:href="#DejaVuSans-98"
-             id="use125" />
-          <use
-             x="443.509766"
-             xlink:href="#DejaVuSans-97"
-             id="use126" />
-          <use
-             x="504.789062"
-             xlink:href="#DejaVuSans-116"
-             id="use127" />
-          <use
-             x="543.998047"
-             xlink:href="#DejaVuSans-45"
-             id="use128" />
-          <use
-             x="580.082031"
-             xlink:href="#DejaVuSans-114"
-             id="use129" />
-          <use
-             x="621.164062"
-             xlink:href="#DejaVuSans-101"
-             id="use130" />
-          <use
-             x="682.6875"
-             xlink:href="#DejaVuSans-100"
-             id="use131" />
-          <use
-             x="746.164062"
-             xlink:href="#DejaVuSans-117"
-             id="use132" />
-          <use
-             x="809.542969"
-             xlink:href="#DejaVuSans-120"
-             id="use133" />
-        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:12px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.75"
+           x="150.65912"
+           y="11.972349"
+           id="text1"><tspan
+             sodipodi:role="line"
+             id="tspan1"
+             style="stroke-width:0.75"
+             x="119.75385"
+             y="11.972349">Processing</tspan></text>
       </g>
     </g>
     <g
@@ -2546,57 +2486,6 @@
            style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"
            id="path291" />
       </g>
-      <g
-         id="text_28">
-        <!-- tinysar-dat -->
-        <g
-           transform="translate(364.690407 9.56928)scale(0.12 -0.12)"
-           id="g301">
-          <use
-             xlink:href="#DejaVuSans-116"
-             id="use291" />
-          <use
-             x="39.208984"
-             xlink:href="#DejaVuSans-105"
-             id="use292" />
-          <use
-             x="66.992188"
-             xlink:href="#DejaVuSans-110"
-             id="use293" />
-          <use
-             x="130.371094"
-             xlink:href="#DejaVuSans-121"
-             id="use294" />
-          <use
-             x="189.550781"
-             xlink:href="#DejaVuSans-115"
-             id="use295" />
-          <use
-             x="241.650391"
-             xlink:href="#DejaVuSans-97"
-             id="use296" />
-          <use
-             x="302.929688"
-             xlink:href="#DejaVuSans-114"
-             id="use297" />
-          <use
-             x="343.949219"
-             xlink:href="#DejaVuSans-45"
-             id="use298" />
-          <use
-             x="380.033203"
-             xlink:href="#DejaVuSans-100"
-             id="use299" />
-          <use
-             x="443.509766"
-             xlink:href="#DejaVuSans-97"
-             id="use300" />
-          <use
-             x="504.789062"
-             xlink:href="#DejaVuSans-116"
-             id="use301" />
-        </g>
-      </g>
     </g>
     <g
        id="legend_1">
@@ -2963,6 +2852,17 @@
         </g>
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+       x="397.55188"
+       y="12.12362"
+       id="text1-7"><tspan
+         sodipodi:role="line"
+         id="tspan1-5"
+         style="stroke-width:0.75"
+         x="397.55188"
+         y="12.12362">Detection and Tracking</tspan></text>
   </g>
   <defs
      id="defs335">

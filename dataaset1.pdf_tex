@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.1.2 (0a00cf5339, 2022-02-04), www.inkscape.org
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'dataaset1.pdf' (pdf, eps, ps)
 %%
@@ -54,8 +54,9 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{dataaset1.pdf}}%
-    \put(0.82491998,0.51308659){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FFT\end{tabular}}}}%
-    \put(0.03335696,0.59085584){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Chirps (time domain)\end{tabular}}}}%
-    \put(0.03312827,0.42597275){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Chirps (range/frequency domain)\end{tabular}}}}%
+    \put(0.34807678,0.55941403){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FFT\end{tabular}}}}%
+    \put(0.69862795,0.01894874){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Range\end{tabular}}}}%
+    \put(0.06072343,0.2191413){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Time\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{dataaset1.pdf}}%
   \end{picture}%
 \endgroup%

@@ -25,8 +25,8 @@
 With more \gls{uav}s in the air each year, and a growing desire 
 for them to operate in controlled airspaces, there is a concern regarding their ability 
 to maintain separation from hazards in the air. United States and European federal 
-agencies are developing policy that would require detect-and-avoid (DAA) systems for 
-UAVs, which parallel the visual and instrument flight rules (VFR \& IFR) that dictate 
+agencies are developing policy that would require \gls{daa} systems for
+\gls{uav}s, which parallel the \gls{vfr} \& \gls{ifr} that dictate
 how human pilots avoid traffic \cite{easa_easy_access_uas_2024} \cite{rtca_sc228_2025} 
 \cite{serres_wu_2021_nasa_tm}.
 
@@ -42,56 +42,55 @@ mode or an additional sensing mode will improve the perception capabilities, and
 the safety, of UAVs.
 
 Historically, airborne radar has been used for large aircraft, where size weight and 
-power (SWaP) constraints are not strict. The size and weight of radar systems has been 
+power (SWaP) constraints are not strict. The size and weight of radar systems has been
 the largest barrier to their use on smaller platforms, \cite{Lies2020}, \cite{McLain2015},
-\cite{Wang2016}. This historical constraint is now weakening because both sides of the 
-radar stack have miniaturised. Texas Instrument's AWR2243 is a single 76-81 GHz radar chip 
-that integrates phase-locked loops (PLLs), three transmitters, four receivers, a mixer, an 
-ADC, and self calibration, all on a 10.4mm $\times$ 10.4mm printed circuit board (PCB)
--friendly package. Higher frequency, lower noise, electronics and the miniaturisation of 
+\cite{Wang2016}. This historical constraint is now weakening because both sides of the
+radar stack have miniaturised. Texas Instrument's AWR2243 is a single 76-81 GHz radar chip
+that integrates \gls{pll}s, three transmitters, four receivers, a mixer, an
+\gls{adc}, and self calibration, all on a 10.4mm $\times$ 10.4mm \gls{pcb}-friendly package. Higher frequency, lower noise, electronics and the miniaturisation of 
 the transistor have been key enablers of this technology. Higher frequency radar allows for
 higher resolution imaging or smaller aperture; lower noise allows for increased
 sensitivity to targets. On the compute side, modern UAV systems often have a dedicated, 
-high compute companion computer in addition to the flight compute. NVIDIA's Jetson series 
-computers such as Xavier NX, Orin Nano and Orin NX provide 21, 67, and 157 trillion 
-operations per second (TOPS) on 8-bit integers respectively, while each weigh under 
-50g (without a heat sink). 
+high compute companion computer in addition to the flight compute. NVIDIA’s Jetson series
+computers such as Xavier NX, Orin Nano and Orin NX provide 21, 67, and 157 \gls{tops}
+on 8-bit integers respectively, while each weigh under
+50g (without a heat sink).
 
-Plextek’s mmWave-based 60 GHz sense-and-avoid radar for UAVs demonstrates the feasibility 
-of pairing miniaturised radar hardware with modern edge computing for the detection of 
-people, vehicles, poles, and buildings at ranges of hundreds of metres \cite{}. Echodyne's 
-EchoFlight, a 817 g commercial radar systems for UAVs that can detect small drone targets 
-at a range of 750 m, reflects the onset of the technology into industry \cite{Echodyne2024}. The wider UAV market shows a similar shift toward more computationally 
-demanding onboard tasks. Skydio’s X10, for instance, incorporates both an NVIDIA Jetson 
-Orin SoC and a Qualcomm QRB5165 SoC within a 2.11 kg platform while retaining up to 40 
-minutes of flight time \cite{}, illustrating that substantial embedded compute is now 
-compatible with practical UAV SWaP limits. These developments suggest that recent 
+Plextek’s mmWave-based 60 GHz sense-and-avoid radar for \gls{uav}s demonstrates the feasibility
+of pairing miniaturised radar hardware with modern edge computing for the detection of
+people, vehicles, poles, and buildings at ranges of hundreds of metres \cite{Plextek2024}. Echodyne’s
+EchoFlight, a 817 g commercial radar systems for \gls{uav}s that can detect small drone targets
+at a range of 750 m, reflects the onset of the technology into industry \cite{Echodyne2024}. The wider \gls{uav} market shows a similar shift toward more computationally
+demanding onboard tasks. Skydio’s X10, for instance, incorporates both an NVIDIA Jetson
+Orin \gls{soc} and a Qualcomm QRB5165 \gls{soc} within a 2.11 kg platform while retaining up to 40
+minutes of flight time \cite{Skydio2023}, illustrating that substantial embedded compute is now
+compatible with practical \gls{uav} \gls{swap} limits. These developments suggest that recent 
 improvements in radar miniaturisation and embedded heterogeneous computing are promoting a 
 new class of computation-heavy UAV sensing systems, making it timely to revisit radar 
 target tracking and to determine the most suitable signal-processing pipeline for UAV 
 detect-and-avoid applications. 
 
-Despite the challenges, UAVs are the fastest growing market for radar systems, projected 
-to grow with a compound annual growth rate (CAGR) of 11.22\% globally through 2030 \cite{mordor_airborne_radars_market_2025}. To make these emerging radar systems more 
+Despite the challenges, \gls{uav}s are the fastest growing market for radar systems, projected
+to grow with a \gls{cagr} of 11.22\% globally through 2030 \cite{mordor_airborne_radars_market_2025}. To make these emerging radar systems more 
 performant, accessible, and safe, it would be valuable to find the most suitable radar 
 signal processing pipeline for UAV DAA systems, revisiting the old problem of radar target 
 tracking in the face of unique hardware conditions.
 
-Software-defined architecture (SDAs) are increasingly preferred over hardware defined 
-radar systems for UAV applications as software modifications can be shipped faster than 
-hardware modifications \cite{mordor_airborne_radars_market_2025}. As a result, graphics 
-processing units (GPUs) are favoured over non-programmable digital signal processors such 
-as application specific integrated circuits (ASICs). GPU-accelerated implementations are 
-also favourable for computationally intensive stages of the radar processing chain, as 
-many core operations, such as fast Fourier transforms (FFTs) and matrix operations, are 
-highly data-parallel, allowing for large increases in throughput when compared to serial 
-processors. Additionally, GPU-based pipelines can leverage mature developer friendly, GPU 
-software ecosystems and optimised libraries \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. Additionally, 
-the incorporation of AI into radar tracking algorithms has further encouraged these highly 
-parallel, GPU-based pipelines \cite{electronics13214251}. Key open questions remain around 
-balancing the compute saved through GPU parallelism against the cost of data movement and 
-synchronisation, and how unified (shared) CPU--GPU memory on embedded platforms changes 
-this trade-off. 
+Software-defined architecture (SDAs) are increasingly preferred over hardware defined
+radar systems for \gls{uav} applications as software modifications can be shipped faster than
+hardware modifications \cite{mordor_airborne_radars_market_2025}. As a result, \gls{gpu}s
+are favoured over non-programmable digital signal processors such as \gls{asic}s.
+\gls{gpu}-accelerated implementations are also favourable for computationally intensive
+stages of the radar processing chain, as many core operations, such as \gls{fft}s and
+matrix operations, are highly data-parallel, allowing for large increases in throughput
+when compared to serial processors. Additionally, \gls{gpu}-based pipelines can leverage
+mature developer friendly, \gls{gpu} software ecosystems and optimised libraries
+\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. Additionally,
+the incorporation of AI into radar tracking algorithms has further encouraged these highly
+parallel, \gls{gpu}-based pipelines \cite{electronics13214251}. Key open questions remain around
+balancing the compute saved through \gls{gpu} parallelism against the cost of data movement and
+synchronisation, and how unified (shared) \gls{cpu}--\gls{gpu} memory on embedded platforms changes
+this trade-off.
 
 Given the miniaturisation of radar enabling technology, the potential benefits for radar 
 base DAA systems, and the range limitations of systems suitable for small radar systems. 
@@ -160,8 +159,8 @@ trade-offs.
 By benchmarking alternative implementations of radar signal processing stages and comparing 
 tracking algorithms, this work quantifies how these choices affect detection sensitivity, 
 false alarm rate, and computational performance. In addition to characterising the algorithms 
-themselves, the project produces a reproducible evaluation framework — including computational 
-profiling, ablation studies, and parameter sweeps — that can be applied to comparable radar 
+themselves, the project produces a reproducible evaluation framework (including computational 
+profiling, ablation studies, and parameter sweeps) that can be applied to comparable radar 
 research. The resulting design recommendations provide an evidence-based guide for engineers 
 developing small radar systems, and support the integration of UAVs into civil airspace where 
 reliable onboard tracking of non-cooperative targets is essential.

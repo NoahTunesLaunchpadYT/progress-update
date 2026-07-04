@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'integration_waterfall_orac.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{451.7133049bp}%
+    \setlength{\unitlength}{461.1478358bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,12 +50,30 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.77292731)%
+  \begin{picture}(1,0.78098811)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.43254913,0.64035108){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21960725\unitlength}\raggedright \end{minipage}}}%
+    \put(0.4236997,0.62725027){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21511435\unitlength}\raggedright \end{minipage}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{integration_waterfall_orac.pdf}}%
-    \put(0.25347468,0.40178094){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrate 128 input chirps \\per 1 output chirp\end{tabular}}}}%
+    \put(0.24828889,0.39356099){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Integrate 128 input chirps \\per 1 output chirp\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{integration_waterfall_orac.pdf}}%
+    \put(0.74745639,0.71337896){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Time\end{tabular}}}}%
+    \put(0.86514821,0.56177067){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Range\end{tabular}}}}%
+    \put(0.07249015,0.67114317){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH0\end{tabular}}}}%
+    \put(0.32418472,0.67114317){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH1\end{tabular}}}}%
+    \put(0.57587929,0.67114317){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH2\end{tabular}}}}%
+    \put(0.82757383,0.67114317){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH3\end{tabular}}}}%
+    \put(0.07249015,0.50172497){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH4\end{tabular}}}}%
+    \put(0.32418472,0.50172497){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH5\end{tabular}}}}%
+    \put(0.57587929,0.50172497){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH6\end{tabular}}}}%
+    \put(0.82757383,0.50172497){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH7\end{tabular}}}}%
+    \put(0.07194411,0.23446877){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH0\end{tabular}}}}%
+    \put(0.32363868,0.23446877){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH1\end{tabular}}}}%
+    \put(0.57533325,0.23446877){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH2\end{tabular}}}}%
+    \put(0.82702779,0.23446877){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH3\end{tabular}}}}%
+    \put(0.07194411,0.06505056){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH4\end{tabular}}}}%
+    \put(0.32363868,0.06505056){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH5\end{tabular}}}}%
+    \put(0.57533325,0.06505056){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH6\end{tabular}}}}%
+    \put(0.82702779,0.06505056){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CH7\end{tabular}}}}%
   \end{picture}%
 \endgroup%

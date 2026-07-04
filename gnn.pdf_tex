@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'gnn.pdf' (pdf, eps, ps)
 %%
@@ -65,8 +65,8 @@
     \put(0.58807797,0.15413502){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D2\end{tabular}}}}%
     \put(0.71656449,0.29404232){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D3\end{tabular}}}}%
     \put(0.42342497,0.72233067){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D4\end{tabular}}}}%
-    \put(0.38734246,0.05610434){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}T1, T2, T3 - Targets\end{tabular}}}}%
-    \put(0.39054561,0.00558155){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D1, D2, D3, D4 - Detections\end{tabular}}}}%
+    \put(0.50124295,0.02908725){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}T1, T2, T3 - Targets\end{tabular}}}}%
+    \put(0.49881571,-0.02143553){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}D1, D2, D3, D4 - Detections\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{gnn.pdf}}%
   \end{picture}%
 \endgroup%

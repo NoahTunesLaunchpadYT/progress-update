@@ -79,7 +79,7 @@
     \put(0.08,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{taylor_frequency_response.pdf}}%
     \put(0.46491669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{N}\end{tabular}}}}%
-    \put(0.03383333,0.24991667){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.0205,0.24991666){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
     \put(0.27241666,0.01558334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
     \put(0.27241666,0.46675){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Taylor window}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{taylor_frequency_response.pdf}}%
@@ -104,9 +104,9 @@
     \put(0.88366669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.25}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=24]{taylor_frequency_response.pdf}}%
     \put(0.97991669,0.04583333){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.5}\end{tabular}}}}%
-    \put(0.54833333,0.24991667){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.53666667,0.24991666){\color[rgb]{0.14901961,0.14901961,0.14901961}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
     \put(0.78741669,0.01558334){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{normalised frequency}\end{tabular}}}}%
-    \put(0.78741669,0.46675){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{frequency response}\end{tabular}}}}%
+    \put(0.78741669,0.46675){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Fourier transform}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=25]{taylor_frequency_response.pdf}}%
   \end{picture}%
 \endgroup%

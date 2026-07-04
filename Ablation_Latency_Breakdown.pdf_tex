@@ -54,5 +54,9 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{Ablation_Latency_Breakdown.pdf}}%
+    \put(0.18254255,0.37252091){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Processing\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{Ablation_Latency_Breakdown.pdf}}%
+    \put(0.5261897,0.37219875){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Detection and Tracking\end{tabular}}}}%
+    \put(0.86672371,0.37182497){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Combined\end{tabular}}}}%
   \end{picture}%
 \endgroup%

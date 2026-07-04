@@ -20,13 +20,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.4575"
-     inkscape:cx="600.34305"
-     inkscape:cy="300.17153"
+     inkscape:zoom="0.72875"
+     inkscape:cx="498.11321"
+     inkscape:cy="231.21784"
      inkscape:window-width="1850"
      inkscape:window-height="1136"
-     inkscape:window-x="70"
-     inkscape:window-y="27"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg39" />
   <rect
@@ -275,13 +275,15 @@
      id="text19">N</text>
   <!-- Left axis labels -->
   <text
-     transform="translate(40.6,300.1) rotate(-90)"
+     transform="rotate(-90)"
      text-anchor="middle"
-     font-family="Microsoft Sans Serif"
+     font-family="'Microsoft Sans Serif'"
      font-weight="bold"
-     font-size="28"
-     fill="rgb(38,38,38)"
-     id="text20">amplitude</text>
+     font-size="28px"
+     fill="#262626"
+     id="text20"
+     x="-300.10001"
+     y="24.599998">amplitude</text>
   <text
      x="326.9"
      y="581.3"
@@ -501,13 +503,15 @@
      id="text35">0.5</text>
   <!-- Right axis labels -->
   <text
-     transform="translate(658,300.1) rotate(-90)"
+     transform="rotate(-90)"
      text-anchor="middle"
-     font-family="Microsoft Sans Serif"
+     font-family="'Microsoft Sans Serif'"
      font-weight="bold"
-     font-size="28"
-     fill="rgb(38,38,38)"
-     id="text36">power (dB)</text>
+     font-size="28px"
+     fill="#262626"
+     id="text36"
+     x="-300.10001"
+     y="644">power (dB)</text>
   <text
      x="944.9"
      y="581.3"
@@ -518,14 +522,14 @@
      fill="rgb(38,38,38)"
      id="text37">normalised frequency</text>
   <text
-     x="944.9"
-     y="39.9"
+     x="944.90002"
+     y="39.900002"
      text-anchor="middle"
-     font-family="Microsoft Sans Serif"
+     font-family="'Microsoft Sans Serif'"
      font-weight="bold"
-     font-size="28"
-     fill="rgb(0,0,0)"
-     id="text38">frequency response</text>
+     font-size="28px"
+     fill="#000000"
+     id="text38">Fourier transform</text>
   <path
      fill="rgb(217,95,2)"
      fill-opacity="0.75"

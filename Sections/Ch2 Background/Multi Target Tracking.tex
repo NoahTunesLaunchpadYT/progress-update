@@ -46,6 +46,7 @@ measurement corrects the prediction.
 The variables used throughout the filter derivation are depicted in Table \ref{tab:EKF_variables}
 \begin{table}[h]
 \centering
+\caption{Variables used in the Kalman filter derivation.}
 \begin{tabular}{cl}
 \hline
 \textbf{Symbol} & \textbf{Description} \\
@@ -248,7 +249,7 @@ scans \cite{reid1979mht} (see Figure \ref{fig:mht}).
     as triangles. The blue and red shaded circles represent several potential
     posterior estimates of each of the two targets at the current timestep,
     reflecting the ambiguity in associating the measurements to the targets
-    amongst the clutter. There is also an uncertain "no detection' hypothesis
+    amongst the clutter. There is also an uncertain "no detection" hypothesis
     for each target indicated by the large circles. The size of the shaded circles 
     indicate 3 standard deviations of uncertainty.}
 \end{figure}

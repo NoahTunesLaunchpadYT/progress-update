@@ -23,22 +23,21 @@ and \ref{fig:track-visual2}).
 % Filenames: visual-fft-png, visual-angle.png, visual-cfar.png, visual-cluster.png, visual-track.png
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{visual-fft.png} 
+    \incfig[0.9]{visual-fft}
     \caption[Visualisation of the FFT stage.]{Visualisation of the FFT stage for visual
-    validation. The y-axis is time and the x-axis is range. The colour is amplitude. With 
-    yellow indicating highest amplitude. A constant range target appears to be present in 
-    the right hand 
-    side of the waterfall.}
+    validation. The y-axis is time and the x-axis is range. The colour indicates signal 
+    power at that range. With 
+    yellow indicating highest amplitude. There is a target at range "a" in this example.}
     \label{fig:fft-visual}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{visual-cfar.png} 
+    \incfig[0.9]{visual-cfar}
     \caption[Visualisation of the CFAR stage.]{Visualisation of the CFAR stage for visual
     validation. The y-axis is time and the x-axis is range. The colour is amplitude
     and no colour (black) indicates that that range bin has a value below the 
-    threshold.}
+    threshold. In this example, there is a target at range "a".}
     \label{fig:cfar-visual}
 \end{figure}
 
@@ -72,14 +71,12 @@ and \ref{fig:track-visual2}).
     \caption[Visualisation of the tracking stage.]{A 3D plot containing all detections
     tentative tracks, confirmed tracks, and hypotheses accumulated over time with 
     playback controls. 
-    stage for visual validation. 
-    validation. Ellipses indicate the uncertainty of the element at its
-    centre. For example, white white spheres indicate measurement 
+    Ellipses indicate the uncertainty of the element at its
+    centre. For example, white spheres indicate measurement 
     uncertainty, and yellow indicates track update uncertainty. The FOV 
     of each of the five quadruplets is depicted as coloured lines. The image 
-    currently depicted a second of mostly clutter, with a cluster of 
-    detections at around 1 km from the radar (middle of bottom third 
-    of scene). }
+    depicts mostly clutter collected over a second, with a cluster of 
+    detections at around 1 km from the radar in the red circle. }
     \label{fig:track-visual1}
 \end{figure}
 
@@ -114,15 +111,16 @@ a stage is added. The results are depicted in Figures
 \begin{figure}
     \centering
     \incfig[1]{Ablation_Cumulative_Pipeline_Latency}
-    \caption{Cumulative Pipeline Latency per Frame, split between
-    the processing subsystem "tinysar-bat-redux" and the 
-    detection and tracking subsystem "tinysar-data". "Segments"
+    \caption{Cumulative pipeline latency per frame, 
+    split between
+    the processing subsystem and the 
+    detection and tracking subsystem. "Segments"
     refers to the number of integrated output chirps for every 
     256 input chirps.}
     \label{fig:ablation-cumulative-latency}
 \end{figure}
 
-From the figure depicting the cumulative latency of 
+From the figures depicting the cumulative latency of 
 each of the pipeline stages (Figures \ref{fig:ablation-cumulative-latency} 
 and \ref{fig:ablation-latency-breakdown}), it can be seen that the latency
 of the pipeline is highly dependent on the degree to which the input 
@@ -140,11 +138,11 @@ segment counts below 4.
 \begin{figure}
     \centering
     \incfig[1]{Ablation_Latency_Breakdown}
-    \caption{Pipeline Latency Breakdown as stages are added for 
+    \caption{Pipeline latency breakdown as stages are added for 
     different integration segment counts (number of output chirps for 
     every 256 inputs chirps). Split into the processing subsystem
-    "tinysar-bat-redux" the detection and tracking subsystem, 
-    "tinysar-data", and a combined view.}
+    the detection and tracking subsystem, 
+    and a combined view.}
     \label{fig:ablation-latency-breakdown}
 \end{figure}
 
@@ -167,7 +165,7 @@ throughput is due to the fact that multiple frames are processed
 simultaneously by the pipeline. While memory is available, a 
 thread will be spun up to process each incoming frame.
 
-\subsection{Tracking performance on real-world data}
+\subsection{Tracking Performance on Real-world Data}
 The radar hardware was taken to an open air field test site in New South Wales 
 where it and a target drone were flown in a variety of scenarios. Figure 
 \ref{fig:real-world-tracking} depicts one such air to air scenario. 
@@ -199,7 +197,7 @@ a silo and trees.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{field-and-silo.png}
-    \caption[silo]{A silo in the distances and a property surrounded by trees are large 
+    \caption[Radar field of view with silo]{A silo in the distances and a property surrounded by trees are large 
     visible targets for the radar when it is airborne.}
     \label{fig:field-and-silo}
 \end{figure}

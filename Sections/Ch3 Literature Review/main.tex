@@ -2,12 +2,17 @@
 \label{ch:literature_review}
 
 \section{Compact Airborne Radar for UAV DAA}
-
+ASTM F3442/F3442M-23 specifies maintaining a horizontal distance of 2,000 
+feet and a vertical distance of 250 feet between a small UAS and crewed 
+aircraft. The literature on radar for UAV DAA has therefore focused on 
+the design of compact radar systems capable of detecting small targets at
+long ranges. 
+ 
 The work of Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
 Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015}
 each tackle important subproblems in the design of a radar DAA system for
-small UAVs, but each leave important gaps unaddressed in the literature.
+small UAVs, but also leave important gaps unaddressed in the literature.
 
 Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}
@@ -16,7 +21,9 @@ on medium UAV platforms, integrating a multi-channel forward-looking antenna
 with FPGA-based pulse compression on a single 60 gram PCB, with average power
 below 80 Watts. Field trials demonstrate reliable detection of large obstacles
 at 1--3 km (see Figure \ref{fig:sysak}), as well as detection of a 3.15 m
-wingspan UAV from 6.4 km. The work validates a simple online pipeline from
+wingspan UAV from 6.4 km which is well above the detection range generally
+considered sufficient for UAV DAA. The work validates a simple online 
+pipeline from
 range compression to \gls{tcpa} estimation, but does not characterise the
 pipeline's latency or tracking performance, nor explain whether detections
 were made during live sensing or post-processed from recorded data.
@@ -25,7 +32,8 @@ were made during live sensing or post-processed from recorded data.
     \incfig[0.9]{sysak_radar}
     \caption{Sysak et al.'s experimental set up and results. The radar is
     capable of detecting large targets at 1--3 km with high ranging accuracy.
-    We observe peaks in amplitude over range that correspond to target position.}
+    We observe peaks in amplitude over range that correspond to target position
+    \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}.}
     \label{fig:sysak}
 \end{figure}
 
@@ -51,17 +59,17 @@ themselves note that higher transmit power would be needed.
 
 \begin{figure}[htbp]
     \centering
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.44\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Moses 2013 quad copter.png}
-        \caption{Moses et al.'s miniature radar mounted on a small quadcopter.}
+        \caption{Moses et al.'s miniature radar mounted on a small quadcopter \cite{6044363}.}
         \label{fig:moses-quadcopter}
     \end{minipage}
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\linewidth]{moses-2014.png}
         \caption{Second generation of Moses et al.'s miniature radar, with
-        angle sensing capabilities.}
+        angle sensing capabilities \cite{Moses2015}.}
         \label{fig:moses-2014}
     \end{minipage}
 \end{figure}
@@ -82,7 +90,11 @@ absent.
 
 Taken together, these works establish the physical feasibility of miniature
 radar for UAV DAA but consistently stop short of validating a complete
-sensing-to-tracking pipeline under realistic airborne conditions.
+sensing-to-tracking pipeline under realistic airborne conditions. The 
+abundance of simulation-only studies reflect a broad community perception 
+of UAV DAA as a problem of signal processing, rather than a 
+systems engineering problem. Through field trials and online live 
+hardware demonstrations, this thesis addresses this gap. 
 
 \section{GPU-based Radar Processing Under SWaP Constraints}
 
@@ -93,10 +105,13 @@ an onboard FPGA and offboard post-processing, and signal coherence problems
 prevented real-world validation.
 
 Newmeyer et al.\ \cite{7577322} demonstrated a 120 gram, 8 Watt \gls{fmcw}
-phased array pipeline on a Zynq ARM CPU, closely monitoring power, latency
+phased array pipeline on a Zynq ARM System-on-Chip, closely monitoring power, latency
 distributions, and hardware resources --- clearly establishing that radar DAA
 can operate under strict SWaP constraints. However, only one hardware
-configuration and one algorithm sequence are evaluated.
+configuration and one algorithm sequence are evaluated. The use 
+of an FPGA contrasts with the GPU-based approach of other works and 
+warrents further investigation beyond this thesis, which focuses on GPU
+acceleration.
 
 Zhao et al.\ \cite{rs15225421} implement CUDA acceleration for a passive
 bistatic radar pipeline, reporting up to a 113.13$\times$ speedup over a CPU
@@ -119,8 +134,8 @@ tracking, achieving an 11$\times$ speedup over a CPU implementation without
 loss of track quality (see Figure \ref{fig:fang_pipeline}).
 
 \begin{figure}
-    \includegraphics[width=0.6\textwidth]{fang2-p5-fang-large.png}
-    \caption{Fang et al.'s GPU radar processing pipeline (source: \cite{Fang2024})}
+    \includegraphics[width=0.7\textwidth]{fang2-p5-fang-large.png}
+    \caption{Fang et al.'s GPU radar processing pipeline \cite{Fang2024}}
     \label{fig:fang_pipeline}
 \end{figure}
 
@@ -155,7 +170,12 @@ Ezuma et al.\ \cite{ezuma2019microuav} demonstrate that Gaussian and Rayleigh
 clutter assumptions --- the basis of CA-CFAR --- already fail for ground-based
 mmWave radar detecting UAVs, finding that a Weibull distribution provides a
 significantly better fit to measured clutter statistics, and explicitly noting
-that prior UAV detection work had neglected this. The airborne case introduces
+that prior UAV detection work had neglected this. This finding directly 
+undermines the Gaussian noise assumption of the CFAR algorithm and 
+the noise assumptions of many of the simulation-based studies. This leaves
+the selection of an appropriate detection algorithm an open question that 
+is investigated in this work. The airborne 
+case introduces
 further departures from the homogeneous Gaussian noise model: a vibrating
 platform subject to altitude variation, aspect angle changes, and
 platform-induced interference all corrupt the assumptions underpinning standard

@@ -42,7 +42,7 @@ and the Xavier. The results are shown in Figures
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.75\linewidth]{CFAR implementation speed on desktop.svg}
+    \incfig[0.75]{CFAR_implementation_speed_on_desktop}
     \caption[CFAR implementation speed vs buffer size on the desktop.]{Computational
     performance of three CFAR implementations as a function of buffer size on the desktop.}
     \label{fig:cfar-implementation-performance-desktop}
@@ -50,7 +50,7 @@ and the Xavier. The results are shown in Figures
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.75\linewidth]{CFAR implementation speed on Xavier.svg}
+    \incfig[0.75]{CFAR_implementation_speed_on_Xavier}
     \caption[CFAR implementation speed vs buffer size on the Xavier.]{Computational
     performance of three CFAR implementations as a function of buffer size on the Xavier NX.}
     \label{fig:cfar-implementation-performance-Xavier}
@@ -102,7 +102,8 @@ Figures \ref{fig:cfar-recall}, \ref{fig:cfar-clutter-to-signal}, and
 \begin{figure}
     \centering
     \incfig[0.8]{cfar_recall}
-    \caption[CFAR recall vs noise and algorithm.]{Recall of three CFAR algorithms as a
+    \caption[CFAR recall vs noise and algorithm.]{Recall and Clutter-to-signal
+    ratio of three CFAR algorithms as a
     function of noise intensity.}
     \label{fig:cfar-recall}
 \end{figure}
@@ -119,7 +120,9 @@ Figures \ref{fig:cfar-recall}, \ref{fig:cfar-clutter-to-signal}, and
     \centering
     \incfig[0.8]{cfar_position_error}
     \caption[CFAR position error vs noise and algorithm.]{RMS position error of true
-    positives for three CFAR algorithms as a function of noise intensity.}
+    positives for three CFAR algorithms as a function of noise intensity. The 
+    error is calculated for all detections at the same range bin as the 
+    ground truth to avoid biasing the error with clutter.}
     \label{fig:cfar-position-error}
 \end{figure}
 
