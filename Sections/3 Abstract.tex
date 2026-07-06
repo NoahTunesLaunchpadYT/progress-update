@@ -9,8 +9,8 @@
 %     \item Ultimately, our work provides a reference for engineers and policy makers...
 % \end{itemize}
 
-Radar is a promising category of sensor for collision avoidance 
-systems for \gls{uav}s offering long-range, all-weather detection
+Radar is a promising technology that enables collision avoidance 
+systems for \gls{uav}s, offering long-range, all-weather detection
 independent of target cooperation. Recent miniaturisation of millimetre-wave
 radar hardware and the availability of capable embedded \gls{gpu} compute have made
 onboard radar processing feasible for small \gls{uav} platforms. However, existing
@@ -23,7 +23,8 @@ implementing, and evaluating a software-defined monopulse radar tracking
 pipeline on NVIDIA Jetson Xavier embedded \gls{gpu} platforms, systematically
 comparing algorithm choices and low-level implementations across hardware
 configurations. The pipeline achieves real-time multi-target tracking with
-end-to-end latency below 50\,ms. Taylor windows calibrated to the \gls{cfar} noise
+end-to-end latency below 50\,ms. Taylor windows calibrated to the \gls{cfar} 
+noise
 floor are found to minimise false alarms without recall penalty; coherent
 integration raises detection recall from near zero to 0.9 in the worst noise
 regime tested; and CA-\gls{cfar} outperforms competing variants in high-noise
@@ -34,7 +35,8 @@ selection cannot be made platform-agnostically. Monopulse angle sensing
 is validated as an unbiased bearing and elevation estimator even at
 $-10$\,dB \gls{snr}, and a Kalman-filter-based multi-target tracker maintains
 position errors below 22\,m RMS across all noise regimes tested. A live
-airborne field trial successfully geolocated static ground targets at up to
+airborne field trial appears to correctly geolocate static ground targets at up 
+to
 706\,m, confirming physical pipeline validity but fell short of tracking
 an aerial target due to hardware noise artefacts. Together, these results
 provide hardware-aware design guidance for engineers developing compact radar

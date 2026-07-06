@@ -642,3 +642,56 @@ doi = {10.1109/MAES.2016.150164}
   url          = {https://www.skydio.com/x10},
   note         = {Accessed: 2024}
 }
+
+@article{Yasin2020,
+  author = {Yasin, Jawad N. and Mohamed, Sherif A. S. and Haghbayan, Mohammad-Hashem and Heikkonen, Jukka and Tenhunen, Hannu and Plosila, Juha},
+  year = {2020},
+  title = {Unmanned Aerial Vehicles (UAVs): Collision Avoidance Systems and Approaches},
+  journal = {IEEE Access},
+  volume = {8},
+  pages = {105139--105155},
+  doi = {10.1109/ACCESS.2020.3000964}
+}
+
+@Article{rs16050756,
+AUTHOR = {Lai, Ying-Chih and Lin, Tzu-Yun},
+TITLE = {Vision-Based Mid-Air Object Detection and Avoidance Approach for Small Unmanned Aerial Vehicles with Deep Learning and Risk Assessment},
+JOURNAL = {Remote Sensing},
+VOLUME = {16},
+YEAR = {2024},
+NUMBER = {5},
+ARTICLE-NUMBER = {756},
+URL = {https://www.mdpi.com/2072-4292/16/5/756},
+ISSN = {2072-4292},
+ABSTRACT = {With the increasing demand for unmanned aerial vehicles (UAVs), the number of UAVs in the airspace and the risk of mid-air collisions caused by UAVs are increasing. Therefore, detect and avoid (DAA) technology for UAVs has become a crucial element for mid-air collision avoidance. This study presents a collision avoidance approach for UAVs equipped with a monocular camera to detect small fixed-wing intruders. The proposed system can detect any size of UAV over a long range. The development process consists of three phases: long-distance object detection, object region estimation, and collision risk assessment and collision avoidance. For long-distance object detection, an optical flow-based background subtraction method is utilized to detect an intruder far away from the host. A mask region-based convolutional neural network (Mask R-CNN) model is trained to estimate the region of the intruder in the image. Finally, the collision risk assessment adopts the area expansion rate and bearing angle of the intruder in the images to conduct mid-air collision avoidance based on visual flight rules (VFRs) and conflict areas. The proposed collision avoidance approach is verified by both simulations and experiments. The results show that the system can successfully detect different sizes of fixed-wing intruders, estimate their regions, and assess the risk of collision at least 10 s in advance before the expected collision would happen.},
+DOI = {10.3390/rs16050756}
+}
+
+
+@Article{drones8110638,
+AUTHOR = {Munir, Adnan and Siddiqui, Abdul Jabbar and Anwar, Saeed and El-Maleh, Aiman and Khan, Ayaz H. and Rehman, Aqsa},
+TITLE = {Impact of Adverse Weather and Image Distortions on Vision-Based UAV Detection: A Performance Evaluation of Deep Learning Models},
+JOURNAL = {Drones},
+VOLUME = {8},
+YEAR = {2024},
+NUMBER = {11},
+ARTICLE-NUMBER = {638},
+URL = {https://www.mdpi.com/2504-446X/8/11/638},
+ISSN = {2504-446X},
+ABSTRACT = {Unmanned aerial vehicle (UAV) detection in real-time is a challenging task despite the advances in computer vision and deep learning techniques. The increasing use of UAVs in numerous applications has generated worries about possible risks and misuse. Although vision-based UAV detection methods have been proposed in recent years, a standing open challenge and overlooked issue is that of adverse weather. This work is the first, to the best of our knowledge, to investigate the impact of adverse weather conditions and image distortions on vision-based UAV detection methods. To achieve this, a custom training dataset was curated with images containing a variety of UAVs in diverse complex backgrounds. In addition, this work develops a first-of-its-kind dataset, to the best of our knowledge, with UAV-containing images affected by adverse conditions. Based on the proposed datasets, a comprehensive benchmarking study is conducted to evaluate the impact of adverse weather and image distortions on the performance of popular object detection methods such as YOLOv5, YOLOv8, Faster-RCNN, RetinaNet, and YOLO-NAS. The experimental results reveal the weaknesses of the studied models and the performance degradation due to adverse weather, highlighting avenues for future improvement. The results show that even the best UAV detection model’s performance degrades in mean average precision (mAP) by −50.62 points in torrential rain conditions, by −52.40 points in high noise conditions, and by −77.0 points in high motion blur conditions. To increase the selected models’ resilience, we propose and evaluate a strategy to enhance the training of the selected models by introducing weather effects in the training images. For example, the YOLOv5 model with the proposed enhancement strategy gained +35.4, +39.3, and +44.9 points higher mAP in severe rain, noise, and motion blur conditions respectively. The findings presented in this work highlight the advantages of considering adverse weather conditions during model training and underscore the significance of data enrichment for improving model generalization. The work also accentuates the need for further research into advanced techniques and architectures to ensure more reliable UAV detection under extreme weather conditions and image distortions.},
+DOI = {10.3390/drones8110638}
+}
+
+@Article{aerospace9120829,
+AUTHOR = {Wang, Zhaoyang and Zhao, Dan and Cao, Yunfeng},
+TITLE = {Image Quality Enhancement with Applications to Unmanned Aerial Vehicle Obstacle Detection},
+JOURNAL = {Aerospace},
+VOLUME = {9},
+YEAR = {2022},
+NUMBER = {12},
+ARTICLE-NUMBER = {829},
+URL = {https://www.mdpi.com/2226-4310/9/12/829},
+ISSN = {2226-4310},
+ABSTRACT = {Aiming at the problem that obstacle avoidance of unmanned aerial vehicles (UAVs) cannot effectively detect obstacles under low illumination, this research proposes an enhancement algorithm for low-light airborne images, which is based on the camera response model and Retinex theory. Firstly, the mathematical model of low-illumination image enhancement is established, and the relationship between the camera response function (CRF) and brightness transfer function (BTF) is constructed by a common parameter equation. Secondly, to solve the problem that the enhancement algorithm using the camera response model will lead to blurred image details, Retinex theory is introduced into the camera response model to design an enhancement algorithm framework suitable for UAV obstacle avoidance. Thirdly, to shorten the time consumption of the algorithm, an acceleration solver is adopted to calculate the illumination map, and the exposure matrix is further calculated via the illumination map. Additionally, the maximum exposure value is set for low signal-to-noise ratio (SNR) pixels to suppress noise. Finally, a camera response model and exposure matrix are used to adjust the low-light image to obtain an enhanced image. The enhancement experiment for the constructed dataset shows that the proposed algorithm can significantly enhance the brightness of low-illumination images, and is superior to other similar available algorithms in quantitative evaluation metrics. Compared with the illumination enhancement algorithm based on infrared and visible image fusion, the proposed algorithm can achieve illumination enhancement without introducing additional airborne sensors. The obstacle object detection experiment shows that the proposed algorithm can increase the AP (average precision) value by 0.556.},
+DOI = {10.3390/aerospace9120829}
+}

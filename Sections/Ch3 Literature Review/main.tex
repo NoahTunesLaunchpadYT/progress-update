@@ -2,12 +2,37 @@
 \label{ch:literature_review}
 
 \section{Compact Airborne Radar for UAV DAA}
-ASTM F3442/F3442M-23 specifies maintaining a horizontal distance of 2,000 
+The ASTM F3442/F3442M-23 standard outlines practical requirements for 
+autonomous detect and avoid systems. While the safe range from other 
+aircraft is dependent on its type, speed, and whether it is cooperative 
+with an \gls{adsb} system, the minimum range required is in no case 
+less than 2,000 feet (609.6 m) horizontally and 250 feet (76.2 m) 
+vertically \cite{astm_f3442_2023}. Currently methodologies for 
+producing detections on this scale are classified into categories 
+each with advantages and limitations \cite{Yasin2020}. 
+
+The extensive research on camera-based detection systems for UAVs, 
+demonstrates the high angular resolution, and recognition capabilities 
+of cameras in well-lit conditions \cite{rs16050756}, but also highlights 
+their susceptibility to conditions such as low-light, 
+precipitation, and motion blur \cite{drones8110638}. While there are 
+techniques to mitigate these issues, such as through the use of cameras 
+that operate in different spectra such as infrared cameras or through 
+image enhancement techniques \cite{aerospace9120829}, they provide limited 
+performance improvements in harsh real world weather conditions. Another
+important shortcoming of cameras is that they do not naturally provide
+range information, which is critical for collision avoidance.
+A review paper from Yasin et al. suggests that DAA systems should use 
+a combination of sensor modalities to make up for these limitations. 
+
+Another category of sensors for UAV DAA is LiDAR. 
+ specifies maintaining a horizontal distance of 2,000 
 feet and a vertical distance of 250 feet between a small UAS and crewed 
 aircraft. The literature on radar for UAV DAA has therefore focused on 
 the design of compact radar systems capable of detecting small targets at
 long ranges. 
- 
+
+% pointless
 The work of Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
 Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015}
