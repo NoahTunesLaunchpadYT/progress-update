@@ -8,36 +8,52 @@ aircraft is dependent on its type, speed, and whether it is cooperative
 with an \gls{adsb} system, the minimum range required is in no case 
 less than 2,000 feet (609.6 m) horizontally and 250 feet (76.2 m) 
 vertically \cite{astm_f3442_2023}. Currently methodologies for 
-producing detections on this scale are classified into categories 
+producing detections on this scale 
 each with advantages and limitations \cite{Yasin2020}. 
+% Should I mention that according to McCalmont and https://www.control.isy.liu.se/research/reports/Ph.D.Thesis/PhD1231.pdf
+% humans can see 3000 m? 
 
 The extensive research on camera-based detection systems for UAVs, 
 demonstrates the high angular resolution, and recognition capabilities 
 of cameras in well-lit conditions \cite{rs16050756}, but also highlights 
 their susceptibility to conditions such as low-light, 
 precipitation, and motion blur \cite{drones8110638}. While there are 
-techniques to mitigate these issues, such as through the use of cameras 
-that operate in different spectra such as infrared cameras or through 
+techniques to mitigate these issues, such as through the use of infrared 
+cameras or  
 image enhancement techniques \cite{aerospace9120829}, they provide limited 
 performance improvements in harsh real world weather conditions. Another
 important shortcoming of cameras is that they do not naturally provide
 range information, which is critical for collision avoidance.
 A review paper from Yasin et al. suggests that DAA systems should use 
-a combination of sensor modalities to make up for these limitations. 
+a combination of sensor modalities to make up for these limitations 
+\cite{Yasin2020}. 
 
-Another category of sensors for UAV DAA is LiDAR. 
- specifies maintaining a horizontal distance of 2,000 
-feet and a vertical distance of 250 feet between a small UAS and crewed 
-aircraft. The literature on radar for UAV DAA has therefore focused on 
-the design of compact radar systems capable of detecting small targets at
-long ranges. 
+Another category of sensors for UAV DAA is LiDAR, which create precise 
+3D maps based on returns from laser pulses. As an active sensor, LiDAR 
+performs better than cameras in low light. However, surveys   
+identify the susceptibility of LiDAR to strong light sources in the 
+environment, and weather conditions such as snow, rain and fog \cite{ZHANG2023146}.
+Furthermore, multibeam LiDAR systems designed for small UAVs often must
+trade off performance, limiting lightweight models to ranges of 100--200m 
+or low frame rates \cite{benewake_tfa1200}  
+\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}. 
+While improvements to range and resolution continue, the fundamental 
+limitation of LiDAR motivate the exploration of a more all-weather capable
+modality.   
 
-% pointless
+Radar enables long-range detections of small 
+targets in all weather \cite{9635901} and provides direct range and velocity 
+measurements \cite{skolnik2001radar}, which are critical for collision avoidance.
+While radar has been previously too heavy and power-hungry for small UAVs, 
+\cite{Lies2020, McLain2015, Wang2016}, papers from as early as 2006 and 
+2009 outline 
+radar based solutions with awareness of their miniaturisation potential 
+\cite{4148337}, \cite{5438372}. 
 The work of Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
-Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015}
-each tackle important subproblems in the design of a radar DAA system for
-small UAVs, but also leave important gaps unaddressed in the literature.
+Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015} 
+demonstrate this feasibility, but important problems remain before radar 
+\gls{daa} can be widely adopted.
 
 Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}
@@ -46,8 +62,8 @@ on medium UAV platforms, integrating a multi-channel forward-looking antenna
 with FPGA-based pulse compression on a single 60 gram PCB, with average power
 below 80 Watts. Field trials demonstrate reliable detection of large obstacles
 at 1--3 km (see Figure \ref{fig:sysak}), as well as detection of a 3.15 m
-wingspan UAV from 6.4 km which is well above the detection range generally
-considered sufficient for UAV DAA. The work validates a simple online 
+wingspan UAV from 6.4 km, a range above the minimum required by standards
+\cite{astm_f3442_2023}. The work validates a simple online 
 pipeline from
 range compression to \gls{tcpa} estimation, but does not characterise the
 pipeline's latency or tracking performance, nor explain whether detections
