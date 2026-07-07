@@ -8,12 +8,20 @@ autonomous detect and avoid systems. While the safe range from other
 aircraft is dependent on its type, speed, and whether it is cooperative 
 with an \gls{adsb} system, the minimum range required is in no case 
 less than 2,000 feet (609.6 m) horizontally and 250 feet (76.2 m) 
-vertically \cite{astm_f3442_2023}. Currently methodologies for 
+vertically \cite{astm_f3442_2023}. This forms a cylindrical volume 
+referred to as the "well clear zone". On top of this, a DAA system 
+should detect targets well in advance. Using the F3442 35 second 
+lead time as a guide, a radar would need to have a range of 
+6120 metres in order to detect a target travelling at 100 metres per 
+second \cite{Wang2016}. This would put it on a similar performance level 
+to humans. % source needed
+Currently methodologies for 
 producing detections on this scale 
-each with advantages and limitations \cite{Yasin2020}. 
+each have advantages and limitations \cite{Yasin2020}. 
 % Should I mention that according to McCalmont and https://www.control.isy.liu.se/research/reports/Ph.D.Thesis/PhD1231.pdf
 % humans can see 3000 m? 
 
+% Maybe say electro-optical
 The extensive research on camera-based detection systems for UAVs, 
 demonstrates the high angular resolution, and recognition capabilities 
 of cameras in well-lit conditions \cite{rs16050756}, but also highlights 
@@ -40,7 +48,7 @@ or low frame rates \cite{benewake_tfa1200}
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}. 
 While improvements to range and resolution continue, the fundamental 
 limitation of LiDAR motivate the exploration of a more all-weather capable
-modality.   
+modality.
 
 Radar enables long-range detections of small 
 targets in all weather \cite{9635901} and provides direct range and velocity 
@@ -50,11 +58,122 @@ While radar has been previously too heavy and power-hungry for small UAVs,
 2009 outline 
 radar based solutions with awareness of their miniaturisation potential 
 \cite{4148337}, \cite{5438372}. 
-The work of Sysak et al.\
+The work of Sysak et al.\ % Reorder list
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
-Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, Moses2015} 
+Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, 
+uavborne_moses_2011, Moses2015} 
 demonstrate this feasibility, but important problems remain before radar 
 \gls{daa} can be widely adopted.
+
+Some of the first radar systems tested on small (<25 kg) \gls{uav}s were
+shown in a set of feasibility studies by Moses, Rutherford, and Valavanis 
+published in 2011 \cite{6044363, uavborne_moses_2011} validate a 
+miniature X-Band radar system. One of the studies
+\cite{6044363} mounts the 230 gram radar on a small quadcopter (see 
+Figure \ref{fig:moses-quadcopter}), and successfully demonstrated target
+detection and identification in a laboratory environment. Their 
+evaluation emphasises target identification via micro-Doppler signatures rather
+than ranging or tracking, achieving a 100\% detection rate at 7 metres from
+the target. When distance increased and both platform and target took to the
+air, accuracy dropped significantly --- a result that highlights the importance
+of validating radar pipelines under realistic encounter conditions. The other
+study outlines the post-detection decision making and avoidance manoeuvre as 
+a control problem, but doesn't conduct airborne tests to validate the system 
+in realistic conditions. While the works together outline the software pipeline 
+from end to end, they do not 
+characterise individual stage performances in areas such as latency or 
+throughput, nor do they compare alternative algorithmic choices.
+
+A follow-up 2014 publication by this group (Moses et al.\ \cite{Moses2015})
+presents an even smaller radar (see Figure \ref{fig:moses-2014}) with now 
+incorporates angle sensing and collision avoidance algorithms. The system is
+evaluated indoors against large reflective targets. While the collision
+avoidance algorithms are compared thoroughly, no other algorithm choices are
+evaluated and readiness for open-air tests was not demonstrated --- the authors
+themselves note that higher transmit power would be needed to detect targets 
+at the ranges for safe UAV operation. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.44\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Moses 2013 quad copter.png}
+        \caption{Moses et al.'s miniature radar mounted on a small quadcopter \cite{6044363}.}
+        \label{fig:moses-quadcopter}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{moses-2014.png}
+        \caption{Second generation of Moses et al.'s miniature radar, with
+        angle sensing capabilities \cite{Moses2015}.}
+        \label{fig:moses-2014}
+    \end{minipage}
+\end{figure}
+
+% Spencer, Newmeyer, Fasano, Yasin and Wang all reference Moses 
+% Shi and Iticia performed airborne tests on fixed winged class 2 UAVs
+Shi et al. \cite{6712628} and Itcia et al. \cite{fmcw_itcia_2013} 
+and Fasano et al. \cite{Giancarmine2016} each demonstrate airborne 
+radar tracking on class 3 (greater than 25 kg) UAVs demonstrating detections 
+of class 2 (greater than 10 kg) UAVs at kilometre ranges, filling gaps in 
+Moses et al.'s work, but with a larger radar unsuitable for smaller UAVs. 
+Wang et al.\ 
+\cite{Wang2016} builds upon the Moses et al.'s work through the 
+design and simulation of a similarly sized miniature radar with  
+ranging capabilities similar to those of Shi et al. and Itcia et al. The 
+authors design a low-SWaP \gls{lfmcw} system
+for group 2/3 (greater than 10 kg) \gls{uas} incorporating \gls{fft}-based 
+detection, digital
+beamforming, and a GPU-accelerated \gls{fft} for a high frame rate. The
+research establishes the feasibility of ranging targets beyond 5 km through
+beamforming for miniature radar, but angle sensing is not explored, performance 
+is validated in
+simulation only, and compute and latency constraints are not considered.
+
+Spencer directly builds on the works of Moses, Shi, Itcia, 
+and Fasano by
+designing a compact four-element 250 gram phased array radar 
+system that meets the SWaP constraints of a UAVs less than 25 kg in mass 
+\cite{compact_spencer_2015} (see Figure \ref{fig:spencer}).
+Experiments reveal that the radar can detect targets of less than 0.1 m$^2$ 
+cross-section at ranges of 150 meters. This makes the work one of the first
+to demonstrate feasibility on this scale. The work found heavy 
+clutter caused by electromagnetic interference, and demonstrated 
+the use of the Levinson algorithm to generate filter coefficients % Need a source for Levinson algorithm
+to suppress static clutter, and the Recursive Random Sample
+Consensus Algorithm (R-RANSAC) to maintain an accurate 
+world model in the presense of clutter. The system block 
+diagram is depicted in Figure \ref{fig:spencer dsp}, and 
+resembles the pipeline of this thesis. 
+
+% Spencer does cfar after angle sensing to enjoy higher SNR
+% as a consequence, he needs to apply an arbitrary threshold 
+% to beam-forming to save on compute. We apply a technique 
+% that allows us to apply CFAR before angle sensing without
+% reducing detection sensitivity.  
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{spencer radar.png}
+        \caption{Spencer et al.'s miniature radar system with a mass of 250 grams. \cite{compact_spencer_2015}.}
+        \label{fig:spencer}
+    \end{minipage}\hfill
+    \begin{minipage}{0.52\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{spencer dsp.png}
+        \caption{Spencer's digital signal processing pipeline block diagram \cite{compact_spencer_2015}.}
+        \label{fig:spencer dsp}
+    \end{minipage}
+\end{figure}
+
+Mohammad Karimi et al.\ \cite{Mohammadkarimi2024} support the feasibility of
+electronically scanning to measure azimuth and elevation of targets, but
+similarly validate ranging and angle estimation in simulation only. While the
+work is mathematically rigorous in its treatment of \gls{daa} requirements,
+empirical validation of the software pipeline under UAV SWaP constraints is
+absent.
 
 Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}
@@ -78,57 +197,6 @@ were made during live sensing or post-processed from recorded data.
     \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}.}
     \label{fig:sysak}
 \end{figure}
-
-Moses et al.\ \cite{6044363} introduce a 230 gram miniature radar mountable
-on a small quadcopter (see Figure \ref{fig:moses-quadcopter}), demonstrating
-the feasibility of integrating radar sensing onto very small platforms. Their
-evaluation emphasises target identification via micro-Doppler signatures rather
-than ranging or tracking, achieving a 100\% detection rate at 7 metres from
-the target. When distance increased and both platform and target took to the
-air, accuracy dropped significantly --- a result that highlights the importance
-of validating radar pipelines under realistic encounter conditions. The work
-provides a dataflow diagram for the processing pipeline but does not
-characterise stage latency, compare alternative algorithmic choices, or
-report the final weight, size, and power consumption of the system.
-
-A follow-up 2014 publication by the same group (Moses et al.\ \cite{Moses2015})
-presents an even smaller radar (see Figure \ref{fig:moses-2014}) with angle
-sensing capabilities and collision avoidance algorithms. Here the radar is
-evaluated only indoors against large reflective targets. While the collision
-avoidance algorithms are compared thoroughly, no other algorithm choices are
-evaluated and readiness for open-air tests was not demonstrated --- the authors
-themselves note that higher transmit power would be needed.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}{0.44\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Moses 2013 quad copter.png}
-        \caption{Moses et al.'s miniature radar mounted on a small quadcopter \cite{6044363}.}
-        \label{fig:moses-quadcopter}
-    \end{minipage}
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{moses-2014.png}
-        \caption{Second generation of Moses et al.'s miniature radar, with
-        angle sensing capabilities \cite{Moses2015}.}
-        \label{fig:moses-2014}
-    \end{minipage}
-\end{figure}
-
-Wang et al.\ \cite{Wang2016} demonstrate a complete low-SWaP LFMCW system
-design for group 2/3 UAS incorporating FFT-based detection, digital
-beamforming, and GPU-accelerated \gls{fft} for update rate improvement. The
-research establishes the feasibility of ranging targets beyond 5 km through
-beamforming, but angle sensing is not explored, performance is validated in
-simulation only, and compute and latency constraints are not considered.
-
-Mohammad Karimi et al.\ \cite{Mohammadkarimi2024} support the feasibility of
-electronically scanning to measure azimuth and elevation of targets, but
-similarly validate ranging and angle estimation in simulation only. While the
-work is mathematically rigorous in its treatment of \gls{daa} requirements,
-empirical validation of the software pipeline under UAV SWaP constraints is
-absent.
 
 Taken together, these works establish the physical feasibility of miniature
 radar for UAV DAA but consistently stop short of validating a complete
