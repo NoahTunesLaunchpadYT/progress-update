@@ -30,6 +30,37 @@ agencies are developing policy that would require \gls{daa} systems for
 how human pilots avoid traffic \cite{easa_easy_access_uas_2024} \cite{rtca_sc228_2025} 
 \cite{serres_wu_2021_nasa_tm}.
 
+% Maybe say electro-optical
+The extensive research on \gls{eo} detection systems for UAVs, 
+demonstrates the high angular resolution, and recognition capabilities 
+of \gls{eo} sensors in well-lit conditions \cite{rs16050756}, but also highlights 
+their susceptibility to conditions such as low-light, 
+precipitation, and motion blur \cite{drones8110638}. While there are 
+techniques to mitigate these issues, such as through the use of infrared 
+cameras or  
+image enhancement techniques \cite{aerospace9120829}, they provide limited 
+performance improvements in harsh real world weather conditions. Another
+important shortcoming of \gls{eo} sensors is that they do not naturally provide
+range information, which is critical for collision avoidance.
+A review paper from Yasin et al. suggests that DAA systems should use 
+a combination of sensor modalities to make up for these limitations 
+\cite{Yasin2020}.
+
+Another category of sensors for UAV DAA is LiDAR, which create precise 
+3D maps based on returns from laser pulses. As an active sensor, LiDAR 
+performs better than cameras in low light. However, surveys   
+identify the susceptibility of LiDAR to strong light sources in the 
+environment, and weather conditions such as snow, rain and fog \cite{ZHANG2023146}.
+Furthermore, multibeam LiDAR systems designed for small UAVs often must
+trade off performance, limiting lightweight models to ranges of 100--200m 
+or low frame rates \cite{benewake_tfa1200}  
+\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}. 
+While improvements to range and resolution continue, the fundamental 
+limitation of LiDAR motivate the exploration of a more all-weather capable
+modality. Acoustic detection has also been explored for UAV DAA, but its 
+short effective range makes it unsuitable for the well clear zone requirements 
+of ASTM F3442/F3442M-23.
+
 While many DAA systems utilise optical and infrared sensors 
 \cite{serres_wu_2021_nasa_tm} \cite{5651028}, radar sensors may also be suitable for 
 the task, as they can perform 
