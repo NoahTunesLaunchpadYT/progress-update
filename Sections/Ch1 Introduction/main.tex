@@ -1,27 +1,4 @@
 \chapter{Introduction}
-% \begin{figure}
-%     \incfig{test}
-%     \caption{Just a test diagram}
-% \end{figure}
-% \begin{figure}
-%     \incfig{figure2} 
-%     \caption{Abstract Art}
-% \end{figure}
-
-% \begin{figure}
-%     \label{fig:monopulse}
-%     \incfig{monopulse}
-%     \caption{A monopulse radar}
-% \end{figure}
-
-% \begin{figure}
-%     \incfig[1]{monopulse2}
-%     \caption{A diagram of a monopulse radar}
-% \end{figure}
-
-% \input{Sections/Ch1 Introduction/motivation.tex}
-% \input{Sections/Ch1 Introduction/knowledge_gaps.tex}
-% \input{Sections/Ch1 Introduction/contributions.tex}
 With more \gls{uav}s in the air each year, and a growing desire 
 for them to operate in controlled airspaces, there is a concern regarding their ability 
 to maintain separation from hazards in the air. United States and European federal 
@@ -30,47 +7,39 @@ agencies are developing policy that would require \gls{daa} systems for
 how human pilots avoid traffic \cite{easa_easy_access_uas_2024} \cite{rtca_sc228_2025} 
 \cite{serres_wu_2021_nasa_tm}.
 
-% Maybe say electro-optical
 The extensive research on \gls{eo} detection systems for UAVs, 
 demonstrates the high angular resolution, and recognition capabilities 
 of \gls{eo} sensors in well-lit conditions \cite{rs16050756}, but also highlights 
-their susceptibility to conditions such as low-light, 
+their susceptibility to low-light, 
 precipitation, and motion blur \cite{drones8110638}. While there are 
 techniques to mitigate these issues, such as through the use of infrared 
 cameras or  
 image enhancement techniques \cite{aerospace9120829}, they provide limited 
-performance improvements in harsh real world weather conditions. Another
+performance improvements in harsh real-world weather conditions. Another
 important shortcoming of \gls{eo} sensors is that they do not naturally provide
 range information, which is critical for collision avoidance.
-A review paper from Yasin et al. suggests that DAA systems should use 
-a combination of sensor modalities to make up for these limitations 
-\cite{Yasin2020}.
 
-Another category of sensors for UAV DAA is LiDAR, which create precise 
+Another category of sensors for UAV DAA is LiDAR, which creates precise 
 3D maps based on returns from laser pulses. As an active sensor, LiDAR 
 performs better than cameras in low light. However, surveys   
 identify the susceptibility of LiDAR to strong light sources in the 
 environment, and weather conditions such as snow, rain and fog \cite{ZHANG2023146}.
-Furthermore, multibeam LiDAR systems designed for small UAVs often must
-trade off performance, limiting lightweight models to ranges of 100--200m 
+Furthermore, multibeam LiDAR systems designed for small UAVs often sacrifice 
+performance, limiting lightweight models to ranges of 100--200 m 
 or low frame rates \cite{benewake_tfa1200}  
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}. 
 While improvements to range and resolution continue, the fundamental 
-limitation of LiDAR motivate the exploration of a more all-weather capable
-modality. Acoustic detection has also been explored for UAV DAA, but its 
-short effective range makes it unsuitable for the well clear zone requirements 
-of ASTM F3442/F3442M-23.
+limitation of LiDAR motivates the exploration of a more all-weather capable
+modality. 
 
-While many DAA systems utilise optical and infrared sensors 
-\cite{serres_wu_2021_nasa_tm} \cite{5651028}, radar sensors may also be suitable for 
-the task, as they can perform 
+Radar sensors may be the most suitable for \gls{daa}, as they can perform 
 sensing over great distances in all weather conditions, due to their relatively low 
 atmospheric attenuation \cite{borden_radar_imaging_airborne_targets_1999}. The 
 inconvenient side effect of their long wavelength property is that angular resolution 
 is much lower compared to similarly sized optical systems. If the challenges stemming 
 from this limitation are overcome, the implementation of radar as the primary sensing 
-mode or an additional sensing mode will improve the perception capabilities, and thus 
-the safety, of UAVs.
+mode or an additional sensing mode onto \gls{uav}s will improve their perception capabilities 
+and safety.
 
 Historically, airborne radar has been used for large aircraft, where size weight and 
 power (SWaP) constraints are not strict. The size and weight of radar systems has been
@@ -176,7 +145,7 @@ DAA under SWaP constraints. The scope covers processing stages from raw radar sa
 windowing, FFT, coherent integration, CFAR detection, monopulse angle estimation, data 
 association, and tracking filters, on embedded GPU platforms suitable for small and medium UAVs.
 
-Radar hardware design, full-scale field trials, FPGA and ASIC implementations, and comparisons 
+Radar hardware design, full-scale field trials, FPGA and ASIC implementations, and fusion  
 with optical or infrared sensing are outside scope. The thesis does not claim certification 
 readiness; it provides comparative evidence and design guidance for onboard radar processing 
 under realistic embedded constraints.

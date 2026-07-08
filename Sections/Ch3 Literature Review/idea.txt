@@ -131,4 +131,31 @@ i.e.
 - Different programming techniques
 - Different hardware 
 
+Specs
 
+Moses 2011
+230 g, 3 meters,  
+System Mass 	230 grams
+System Dimensions 	15.5, 10, 9 cm
+Power Consumption 	4.5 Watts
+Input Voltage Range 	10 to 42 VDC
+Transmit Frequency 	10.5 GHz
+Transmit Power 	10mW
+
+Moses 2014
+Sensor mass 230 g
+Sensor dimensions 15.5, 10, 9 cm
+Power consumption 4.5 W
+Input voltage range 10–42 VDC
+Transmit frequency 10.5 GHz
+Transmit power 10 mW
+Range (against 1-m2 RCS target) 66 m
+
+Lies
+The RadarLog accurately estimated the DJI drone’s range
+at 120 m using only linear range bin shifting and noncoherent
+integration. Accounting for free space path loss, RCS gain, and
+atmospheric attenuation, (29) implies that the RadarLog can be
+expected to yield an accurate range estimate for a typically-sized
+VTOL aircraft up to at least 535 m under similar conditions with
+no modification to the hardware

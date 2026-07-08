@@ -2,9 +2,9 @@
 % link to graph https://app.litmaps.com/shared/697576cb-ab15-4656-b20a-59ad337a9664
 \label{ch:literature_review}
 
-\section{Compact Airborne Radar for UAV DAA}
+\section{Miniature Compact Airborne Radar for UAV DAA}
 The ASTM F3442/F3442M-23 standard outlines practical requirements for 
-autonomous detect and avoid systems. While the safe range from other 
+autonomous \gls{daa} systems. While the safe range from other 
 aircraft is dependent on its type, speed, and whether it is cooperative 
 with an \gls{adsb} system, the minimum range required is in no case 
 less than 2,000 feet (609.6 m) horizontally and 250 feet (76.2 m) 
@@ -12,23 +12,21 @@ vertically \cite{astm_f3442_2023}. This forms a cylindrical volume
 referred to as the "well clear zone". On top of this, a DAA system 
 should detect targets well in advance. Using the F3442 35 second 
 lead time as a guide, a radar would need to have a range of 
-6120 metres in order to detect a target travelling at 100 metres per 
-second \cite{Wang2016}. This would put it on a similar performance level 
-to humans. % source needed
-Currently methodologies for 
+3500 metres in order to detect and avoid a target travelling at 
+100 metres per 
+second \cite{Wang2016}. 
+Methodologies for 
 producing detections on this scale 
 each have advantages and limitations \cite{Yasin2020}. 
-% Should I mention that according to McCalmont and https://www.control.isy.liu.se/research/reports/Ph.D.Thesis/PhD1231.pdf
-% humans can see 3000 m? 
 
 Radar enables long-range detections of small 
 targets in all weather \cite{9635901} and provides direct range and velocity 
 measurements \cite{skolnik2001radar}, which are critical for collision avoidance.
-While radar has been previously too heavy and power-hungry for small UAVs, 
+While radar has been previously too heavy and power-hungry for small UAVs 
 \cite{Lies2020, McLain2015, Wang2016}, papers from as early as 2006 and 
 2009 outline 
-radar based solutions with awareness of their miniaturisation potential 
-\cite{4148337}, \cite{5438372}. 
+radar-based solutions with awareness of their miniaturisation potential 
+\cite{4148337, 5438372}. 
 The work of Sysak et al.\ % Reorder list
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
 Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, 
@@ -38,8 +36,8 @@ demonstrate this feasibility, but important problems remain before radar
 
 Some of the first radar systems tested on small (<25 kg) \gls{uav}s were
 shown in a set of feasibility studies by Moses, Rutherford, and Valavanis 
-published in 2011 \cite{6044363, uavborne_moses_2011} validate a 
-miniature X-Band radar system. One of the studies
+published in 2011 \cite{6044363, uavborne_moses_2011} that validate a 
+miniature X-band radar system. One of the studies
 \cite{6044363} mounts the 230 gram radar on a small quadcopter (see 
 Figure \ref{fig:moses-quadcopter}), and successfully demonstrated target
 detection and identification in a laboratory environment. Their 
@@ -82,14 +80,14 @@ at the ranges for safe UAV operation.
 \end{figure}
 
 % Spencer, Newmeyer, Fasano, Yasin and Wang all reference Moses 
-% Shi and Iticia performed airborne tests on fixed winged class 2 UAVs
-Shi et al. \cite{6712628} and Itcia et al. \cite{fmcw_itcia_2013} 
+% Shi and Itcia performed airborne tests on fixed winged class 2 UAVs
+Shi et al. \cite{6712628}, Itcia et al. \cite{fmcw_itcia_2013} 
 and Fasano et al. \cite{Giancarmine2016} each demonstrate airborne 
-radar tracking on class 3 (greater than 25 kg) UAVs demonstrating detections 
-of class 2 (greater than 10 kg) UAVs at kilometre ranges, filling gaps in 
+radar tracking on group 3 (greater than 25 kg) UAVs of group 2 
+(greater than 10 kg) UAVs at kilometre ranges, filling gaps in 
 Moses et al.'s work, but with a larger radar unsuitable for smaller UAVs. 
 Wang et al.\ 
-\cite{Wang2016} builds upon the Moses et al.'s work through the 
+\cite{Wang2016} builds upon Moses et al.'s work through the 
 design and simulation of a similarly sized miniature radar with  
 ranging capabilities similar to those of Shi et al. and Itcia et al. The 
 authors design a low-SWaP \gls{lfmcw} system
@@ -103,10 +101,10 @@ simulation only, and compute and latency constraints are not considered.
 
 Spencer directly builds on the works of Moses et al.\, Shi et al.\, Itcia et al.\, 
 and Fasano et al.\ by designing a compact four-element 250 gram phased array radar 
-system that meets the SWaP constraints of a UAVs less than 25 kg in mass 
+system that meets the SWaP constraints of a \gls{uav} less than 25 kg in mass 
 \cite{compact_spencer_2015} (see Figure \ref{fig:spencer}).
 Experiments reveal that the radar can detect targets of less than 0.1 m$^2$ 
-cross-section at ranges of 150 meters. This makes the work one of the first
+cross-section at ranges of 150 metres. This makes the work one of the first
 to demonstrate feasibility on this scale. The work found heavy 
 clutter caused by electromagnetic interference, and demonstrated 
 the use of the Levinson--Durbin algorithm to generate filter coefficients
@@ -139,7 +137,7 @@ resembles the pipeline of this thesis.
     \end{minipage}
 \end{figure}
 
-Mohammad Karimi et al.\ \cite{Mohammadkarimi2024} support the feasibility of
+Mohammadkarimi et al.\ \cite{Mohammadkarimi2024} support the feasibility of
 electronically scanning to measure azimuth and elevation of targets, but
 similarly validate ranging and angle estimation in simulation only. While the
 work is mathematically rigorous in its treatment of \gls{daa} requirements,
@@ -150,98 +148,112 @@ absent.
 % pointed radar because of computational constraints. 
 % Maybe mention echodyne
 
-Lies et al.\ across two studies in 2020, and 2021 aim to support the adoption 
-of radar DAA systems by small UAVs by improving the performance of 
-commercially available radar chipsets \cite{Lies2020} \cite{9380893}. 
-Through phase correction and careful parameter selection, the authors demonstrate 
-the capability for a 77 GHz radar chipset to detect medium to large vehicles at 
-a range of 1 kilometre at the cost of only a few Watts 
-\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}. 
+Lies et al.\ across two studies in 2020 and 2021 aim to support the adoption 
+of radar DAA by small UAVs by extending the range of commercially available, 
+low-\gls{swap} radar chipsets \cite{Lies2020, 9380893}. Rather than have the radar 
+scan for targets, their technique uses a camera to supply a target's azimuth 
+and elevation, so that the radar processes returns from only that direction; 
+this delegation relaxes the computational load and frees measurement time for 
+SNR-increasing techniques such as long dwell intervals, coherent integration, 
+and phase-drift and range-bin-migration correction. Using a 77~GHz development 
+kit, the authors detect a small hovering drone at 120~m --- a range limited by 
+flight-altitude regulations rather than the radar --- and, through a 
+link-budget extrapolation, argue that a large VTOL-sized aircraft would be 
+detectable at approximately 1~km under the same hardware \cite{9380893}. 
+Notably, the 2021 study compares four range-estimation algorithms 
+(FFT, discrete polynomial transform, noncoherent integration, and spectral 
+entropy), one of the few works to treat algorithm choice as a design variable. 
+However, this comparison is confined to a single pipeline stage 
+(range estimation), evaluated in simulation against a single target under white 
+Gaussian noise, with computational metrics such as latency and throughput
+considered but not measured, and without any treatment of angle 
+estimation, detection, or tracking.
+
 Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance} (2025)
-improves upon and validates the findings of Lies et al.\, presenting a 
-lightweight X-band monopulse radar for mid-air collision avoidance
-on medium UAV platforms, integrating a multi-channel forward-looking antenna
-with FPGA-based pulse compression on a single 60 gram PCB, with average power
-below 80 Watts. Field trials demonstrate reliable detection of large obstacles
-at 1--3 km (see Figure \ref{fig:sysak}), as well as detection of a 3.15 m
-wingspan UAV from 6.4 km, a range now capable of providing at least 35 seconds of 
-warning time for almost all encounter scenarios \cite{astm_f3442_2023}. 
-The work validates a simple online pipeline from
-range compression to \gls{tcpa} estimation, but does not characterise the
-pipeline's latency or tracking performance, nor explain whether detections
-were made during live sensing or post-processed from recorded data.
+present a lightweight X-band pulse radar for mid-air collision avoidance on
+medium UAV platforms, using a fixed forward-looking antenna and FPGA-based pulse
+compression. In a ground-based field campaign, the radar reliably detected large
+static urban structures at 1--3\,km with a 1.5\% false-alarm probability, though
+detection is characterised almost exclusively against these large, high-RCS
+targets under low, spatially uniform clutter using a single CA-CFAR detector,
+leaving the sensitivity floor against small moving airborne targets
+uncharacterised. A separate trial detected a 3.15\,m-wingspan UAV at 6.4\,km
+(see Figure~\ref{fig:sysak}), demonstrating kilometre-scale detection within a
+mediumaUAV power budget, but at markedly lower peak-to-background ratio and
+without systematic sensitivity statistics. The validated system performs range
+estimation only, deferring angle sensing to a future upgrade, and although a
+range-rate tracker and \gls{tcpa} logic are described, no tracking-quality or
+latency results are reported.
 
 \begin{figure}
     \incfig[0.9]{sysak_radar}
-    \caption{Sysak et al.'s experimental set up and results. The radar is
+    \caption{Sysak et al.'s experimental setup and results. The radar is
     capable of detecting large targets at 1--3 km with high ranging accuracy.
     We observe peaks in amplitude over range that correspond to target position
     \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance}.}
     \label{fig:sysak}
 \end{figure}
 
-Taken together, these works establish the physical feasibility of miniature
-radar for UAV DAA but no work has demonstrated further-than-kilometre air-to-air 
-detection of small UAVs. Additionally, the abundance of simulation-only studies 
-reflect a broad community perception 
-of UAV DAA as a problem of signal processing, rather than a 
-systems engineering problem. Through field trials and live 
-hardware demonstrations, this thesis addresses this gap. 
+Taken together, these works establish that radar hardware small and low-power
+enough for \gls{uav} \gls{daa} is feasible, shifting attention towards the
+design of software pipelines suitable for the compute constraints and detection 
+requirements of \gls{daa} systems.
 
 \section{GPU-based Radar Processing Under SWaP Constraints}
 
-Shi et al.\ \cite{6712628} describe a small \gls{fmcw} phased array built
-from off-the-shelf development boards, validating that continuous real-time 2D
-FFTs are achievable on a 100 MHz FPGA. However, processing was split between
-an onboard FPGA and offboard post-processing, and signal coherence problems
-prevented real-world validation.
+Historically, literature that explores the software pipelines for radar 
+processing on embedded platforms have focused on \gls{fpga}s to achieve
+high performance with low power and weight. Shi et al.\ \cite{6712628} 
+describe a small \gls{fmcw} phased array built from off-the-shelf development 
+boards, validating that continuous real-time 2D FFTs are achievable on a 100 
+MHz FPGA. However, processing was split between an onboard FPGA and offboard 
+post-processing, and signal coherence problems prevented real-world validation. % kinda related to the problem that Lies solves
+Newmeyer et al.\ \cite{7577322} go further, demonstrating a 120 gram, 8 Watt 
+\gls{fmcw}
+phased array pipeline on a Zynq ARM System-on-Chip. Through closely monitoring 
+power, latency
+distributions, and hardware resources the work establishes that embedded 
+compute platforms can run radar processing algorithms in real time, even 
+under strict SWaP constraints. Only one hardware
+configuration and one algorithm sequence are evaluated. 
 
-Newmeyer et al.\ \cite{7577322} demonstrated a 120 gram, 8 Watt \gls{fmcw}
-phased array pipeline on a Zynq ARM System-on-Chip, closely monitoring power, latency
-distributions, and hardware resources --- clearly establishing that radar DAA
-can operate under strict SWaP constraints. However, only one hardware
-configuration and one algorithm sequence are evaluated. The use 
-of an FPGA contrasts with the GPU-based approach of other works and 
-warrants further investigation beyond this thesis, which focuses on GPU
-acceleration.
+The efficiency of FPGAs comes at the cost of long development cycles, and 
+hardware description expertise. The maturation of high level parallel 
+programming frameworks such as \gls{cuda} and the arrival of small but 
+powerful embedded GPU modules such as NVIDIA's Jetson line, has made 
+\gls{gpu}s a practical alternative to \gls{fpga}s for 
+embedded radar processing. This is reflected by a growing body of work 
+that demonstrates the feasibility of GPU acceleration for radar processing. 
 
 Zhao et al.\ \cite{rs15225421} implement CUDA acceleration for a passive
-bistatic radar pipeline, reporting up to a 113.13$\times$ speedup over a CPU
-baseline across clutter suppression, range--Doppler processing, and CA-CFAR
-detection. The study omits angle estimation, coordinate transforms, and Kalman
-filtering, and does not discuss memory reallocation or thread synchronisation
-costs.
-
-Mondal et al.\ \cite{Mondal2024_gpu_radar} provide a per-stage analysis of an
-entire radar processing pipeline on a GPU, describing techniques for optimising
-memory access and parallelism across \gls{mti}, Pulse Doppler Processing, and
-CA-CFAR. The evaluation was performed on a NVIDIA Quadro FX 1800, which
-differs architecturally from the NVIDIA Jetson edge computers more commonly
-used in autonomous drones, and only a single pipeline configuration is
-assessed.
-
-Fang et al.\ \cite{Fang2024} analyse a GPU-based pipeline performing
-\gls{mti}, \gls{mtd}, clutter map detection, point fusion, and trajectory
-tracking, achieving an 11$\times$ speedup over a CPU implementation without
-loss of track quality (see Figure \ref{fig:fang_pipeline}).
+bistatic radar pipeline spanning clutter suppression, range--Doppler
+processing, and CA-CFAR detection, reporting a maximum acceleration ratio of
+113.13$\times$ over a CPU baseline, but omit angle estimation, coordinate
+transforms, and tracking, and do not discuss memory reallocation or thread
+synchronisation costs. Fang et al.\
+\cite{Fang2024} cover more of the chain, including \gls{mti}, \gls{mtd}, clutter map
+detection, point fusion, and trajectory tracking. The design achieves an 11$\times$
+speedup over a CPU implementation without loss of track quality (see Figure
+\ref{fig:fang_pipeline}), but only evaluates a single platform and pipeline configuration. 
+Mondal et al.\ \cite{Mondal2024_gpu_radar} provide the
+closest treatment of implementation detail, analysing memory-access and
+parallelism optimisations per stage across \gls{mti}, Pulse Doppler Processing,
+and CA-CFAR, but their evaluation is confined to a single desktop-class NVIDIA
+Quadro FX~1800, architecturally distinct from the Jetson-class edge platforms
+typical of autonomous drones, and to a single pipeline configuration. Zaknoun
+\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} treats GPU radar
+software architecture for real-time processing in depth, but outside a UAV DAA
+context and without evaluation under UAV SWaP constraints. The pipeline lands
+packets of raw radar data directly onto the GPU, bypassing CPU staging and 
+host-device transfer, and finds a bottleneck in CPU-side post-processing. 
+% Refer to that last finding in the discussion
 
 \begin{figure}
-    \includegraphics[width=0.7\textwidth]{fang2-p5-fang-large.png}
+    \includegraphics[width=0.7\textwidth]{fang-dataflow.png}
     \caption{Fang et al.'s GPU radar processing pipeline \cite{Fang2024}}
     \label{fig:fang_pipeline}
 \end{figure}
-
-Zaknoun \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} provides
-a comprehensive treatment of GPU radar software architecture for real-time
-processing, though not situated in a UAV DAA context and without evaluation
-under UAV SWaP constraints.
-
-While these works demonstrate the potential of GPU acceleration for radar
-processing, none benchmark a complete pipeline --- including angle estimation
-and tracking --- on embedded GPU hardware representative of small UAV
-platforms, nor do they profile host--device transfer and synchronisation
-overhead explicitly.
 
 \section{Sensitivity and Detection in Low-SNR Regimes}
 
@@ -301,19 +313,25 @@ data \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance,
 6044363, Moses2015}. Simulation-only studies make no attempt at empirical
 validation \cite{Wang2016, Mohammadkarimi2024}. As a result, the relative
 merit of competing algorithm choices for CFAR, angle estimation, and tracking
-has not been assessed under the noise conditions and target characteristics
+has not been assessed under the (non-Gaussian \cite{ezuma2019microuav}) 
+noise conditions and target characteristics
 representative of small UAV encounters, leaving algorithm selection for this
 regime without empirical grounding. Second, while GPU acceleration studies
 demonstrate large aggregate speedups, they do not treat the implementation of
 algorithms as a design variable. No work systematically compares
 implementations with different parallelisation strategies, memory layouts, or
-host--device transfer patterns. These are choices that directly determine the
+host--device transfer patterns. These choices directly determine the
 latency, throughput, and memory requirements of the pipeline. Third, existing
 GPU studies evaluate a single hardware platform, typically a desktop GPU
 \cite{rs15225421, Mondal2024_gpu_radar} or a non-UAV embedded system
-\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. No work examines
-how algorithm and implementation conclusions transfer across the embedded
-hardware configurations available for UAV deployment. Given that embedded GPU
+\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. Several 
+of the works surveyed acknowledge that algorithm choice is driven by available 
+compute. Spencer applies an arbitrary 
+threshold before angle sensing to reduce computational load, and Fiorio et al.
+utilise a camera to perform some detection work to find areas of interest 
+in the radar data. No work systematically examines 
+the effect that hardware selection has on the range of viable algorithms 
+and implementations. Given that embedded GPU
 architectures differ substantially from desktop GPUs in memory bandwidth,
 parallelism, and thermal constraints, conclusions drawn from one platform
 cannot be assumed to generalise.
