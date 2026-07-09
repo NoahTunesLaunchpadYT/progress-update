@@ -159,3 +159,38 @@ atmospheric attenuation, (29) implies that the RadarLog can be
 expected to yield an accurate range estimate for a typically-sized
 VTOL aircraft up to at least 535 m under similar conditions with
 no modification to the hardware
+
+
+Gaps 
+Miniature compact airborne radar for UAV DAA
+
+Algorithmic choice comparison
+no open air tests
+Comprehensive clutter chracterisation
+Evaluating pipelines under SWaP
+Treating algorithmic selection as a design variable 
+
+
+
+Moses - We'll be doing online detection with ranging.
+Itcia, Fasano - We'll be doing it from a medium sizes quadcopter.
+Wang - we will conduct real world tests instead of just sim
+Spencer - We will utilise similar methods to reduce static clutter if encountered 
+Mohammadkarimi - Analyse our pipeline under swap constraints
+Fiorio - Utilises Jetson Nano. 
+Lies - 
+Sysak
+
+GPU-based radar processing
+Shi - strongly motivates the use of GPU in our work
+Newmeyer
+Zhao 
+Fang
+Mondal
+Zaknoun
+
+Sensitivity and Detection in Low-SNR regimes
+Shi - Struggles with angle precision
+An
+Aubry
+Ezuma 

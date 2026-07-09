@@ -9,12 +9,11 @@ aircraft is dependent on its type, speed, and whether it is cooperative
 with an \gls{adsb} system, the minimum range required is in no case 
 less than 2,000 feet (609.6 m) horizontally and 250 feet (76.2 m) 
 vertically \cite{astm_f3442_2023}. This forms a cylindrical volume 
-referred to as the "well clear zone". On top of this, a DAA system 
+referred to as the ``well clear zone''. On top of this, a DAA system 
 should detect targets well in advance. Using the F3442 35 second 
 lead time as a guide, a radar would need to have a range of 
-3500 metres in order to detect and avoid a target travelling at 
-100 metres per 
-second \cite{Wang2016}. 
+6120 metres in order to detect and avoid fast travelling targets 
+\cite{Wang2016}. 
 Methodologies for 
 producing detections on this scale 
 each have advantages and limitations \cite{Yasin2020}. 
@@ -27,12 +26,9 @@ While radar has been previously too heavy and power-hungry for small UAVs
 2009 outline 
 radar-based solutions with awareness of their miniaturisation potential 
 \cite{4148337, 5438372}. 
-The work of Sysak et al.\ % Reorder list
-\cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance},
-Wang et al.\ \cite{Wang2016}, and Moses et al.\ \cite{6044363, 
-uavborne_moses_2011, Moses2015} 
+Literature including works by Moses et al., Spencer, and Sysak et al., 
 demonstrate this feasibility, but important problems remain before radar 
-\gls{daa} can be widely adopted.
+\gls{daa} can be widely adopted. 
 
 Some of the first radar systems tested on small (<25 kg) \gls{uav}s were
 shown in a set of feasibility studies by Moses, Rutherford, and Valavanis 
@@ -46,14 +42,15 @@ than ranging or tracking, achieving a 100\% detection rate at 7 metres from
 the target. When distance increased and both platform and target took to the
 air, accuracy dropped significantly --- a result that highlights the importance
 of validating radar pipelines under realistic encounter conditions. The other
-study outlines the post-detection decision making and avoidance manoeuvre as 
+study of theirs outlines the post-detection decision making and avoidance manoeuvre 
+as 
 a control problem, but doesn't conduct airborne tests to validate the system 
 in realistic conditions. While the works together outline the software pipeline 
 from end to end, they do not 
 characterise individual stage performances in areas such as latency or 
 throughput, nor do they compare alternative algorithmic choices.
 
-A follow-up 2014 publication by this group (Moses et al.\ \cite{Moses2015})
+A follow-up 2014 publication by this group (Moses et al.\ \cite{Moses2014})
 presents an even smaller radar (see Figure \ref{fig:moses-2014}), now with 
 angle sensing and collision avoidance algorithms. The system is
 evaluated indoors against large reflective targets. While the collision
@@ -74,30 +71,30 @@ at the ranges for safe UAV operation.
         \centering
         \includegraphics[width=\linewidth]{moses-2014.png}
         \caption{Second generation of Moses et al.'s miniature radar, with
-        angle sensing capabilities \cite{Moses2015}.}
+        angle sensing capabilities \cite{Moses2014}.}
         \label{fig:moses-2014}
     \end{minipage}
 \end{figure}
 
 % Spencer, Newmeyer, Fasano, Yasin and Wang all reference Moses 
-% Shi and Itcia performed airborne tests on fixed winged class 2 UAVs
+% Shi, Itcia, and Fasano performed airborne tests on fixed winged class 2 UAVs
 Shi et al. \cite{6712628}, Itcia et al. \cite{fmcw_itcia_2013} 
 and Fasano et al. \cite{Giancarmine2016} each demonstrate airborne 
-radar tracking on group 3 (greater than 25 kg) UAVs of group 2 
-(greater than 10 kg) UAVs at kilometre ranges, filling gaps in 
-Moses et al.'s work, but with a larger radar unsuitable for smaller UAVs. 
-Wang et al.\ 
+radar tracking on group 3 (greater than 25 kg) UAV platforms and of group 2 
+(greater than 10 kg) UAV targets at the kilometre ranges that Moses et al. 
+couldn't reach, but on platforms too large to inform the small-UAV case.
 \cite{Wang2016} builds upon Moses et al.'s work through the 
-design and simulation of a similarly sized miniature radar with  
-ranging capabilities similar to those of Shi et al. and Itcia et al. The 
-authors design a low-SWaP \gls{lfmcw} system
-for group 2/3 (greater than 10 kg) \gls{uas} incorporating \gls{fft}-based 
-detection, digital
-beamforming, and a GPU-accelerated \gls{fft} for a high frame rate. The
-research establishes the feasibility of ranging targets beyond 5 km through
-beamforming for miniature radar, but angle sensing is not explored, performance 
-is validated in
-simulation only, and compute and latency constraints are not considered.
+design and simulation of comparable \gls{swap} with  
+ranging capabilities similar to those of Shi et al. and Itcia et al. 
+The work begins to treat compute as resource to be allocated across
+pipeline stages. They propose a low-SWaP \gls{lfmcw} architecture 
+with six enabling techniques, two of which are compute allocation 
+decisions: GPU accelerated FFT, and a floodlight-illumination-then-beamform
+pipeline, avoiding the computationally expensive beamforming step until 
+after detection. Simulated coverage varies from 4.4 km to 9.4 km depending 
+on transmit power, beam-forming and FFT length, illustrating the impact of compute
+allocation on detection range. Despite this, the allocation of compute is 
+not measured. 
 
 Spencer directly builds on the works of Moses et al.\, Shi et al.\, Itcia et al.\, 
 and Fasano et al.\ by designing a compact four-element 250 gram phased array radar 
@@ -113,7 +110,16 @@ to suppress static clutter, and the Recursive Random Sample
 Consensus Algorithm (R-RANSAC) to maintain an accurate 
 world model in the presence of clutter. The system block 
 diagram is depicted in Figure \ref{fig:spencer dsp}, and 
-resembles the pipeline of this thesis. 
+resembles the pipeline of this thesis. Spencer's choice to 
+perform CFAR after angle sensing directly contends with the design 
+of Wang et al., who perform CFAR before angle sensing to save on compute. 
+Spencer claims that per-channel CA-CFAR before angle sensing reduces 
+sensitivity by the root of the number of channels. Whether a 
+detection scheme exists that 
+recovers multi-channel SNR gain without the cost of Spencer's per-cell 
+angle sensing 
+or whether it holds up under non-Gaussian clutter are open questions that this 
+thesis addresses.
 
 % Spencer does cfar after angle sensing to enjoy higher SNR
 % as a consequence, he needs to apply an arbitrary threshold 
@@ -137,54 +143,58 @@ resembles the pipeline of this thesis.
     \end{minipage}
 \end{figure}
 
-Mohammadkarimi et al.\ \cite{Mohammadkarimi2024} support the feasibility of
-electronically scanning to measure azimuth and elevation of targets, but
-similarly validate ranging and angle estimation in simulation only. While the
-work is mathematically rigorous in its treatment of \gls{daa} requirements,
-empirical validation of the software pipeline under UAV SWaP constraints is
-absent.
-
 % Fiorio does a really good camera-radar sensor fusion, maybe mention in the conclusion. 
 % pointed radar because of computational constraints. 
 % Maybe mention echodyne
 
-Lies et al.\ across two studies in 2020 and 2021 aim to support the adoption 
-of radar DAA by small UAVs by extending the range of commercially available, 
-low-\gls{swap} radar chipsets \cite{Lies2020, 9380893}. Rather than have the radar 
-scan for targets, their technique uses a camera to supply a target's azimuth 
-and elevation, so that the radar processes returns from only that direction; 
-this delegation relaxes the computational load and frees measurement time for 
-SNR-increasing techniques such as long dwell intervals, coherent integration, 
-and phase-drift and range-bin-migration correction. Using a 77~GHz development 
-kit, the authors detect a small hovering drone at 120~m --- a range limited by 
-flight-altitude regulations rather than the radar --- and, through a 
-link-budget extrapolation, argue that a large VTOL-sized aircraft would be 
-detectable at approximately 1~km under the same hardware \cite{9380893}. 
-Notably, the 2021 study compares four range-estimation algorithms 
-(FFT, discrete polynomial transform, noncoherent integration, and spectral 
-entropy), one of the few works to treat algorithm choice as a design variable. 
-However, this comparison is confined to a single pipeline stage 
-(range estimation), evaluated in simulation against a single target under white 
-Gaussian noise, with computational metrics such as latency and throughput
-considered but not measured, and without any treatment of angle 
-estimation, detection, or tracking.
+Lies et al.\ \cite{Lies2020, 9380893}, across two studies in 2020 and 2021, approach 
+low-\gls{swap} \gls{daa} by treating algorithm 
+implementation as a design variable that utilises a limited compute budget, 
+a strategy adopted by this present thesis.  
+The central architectural argument of the first work is a compute-allocation 
+decision. By 
+delegating angle sensing to a camera, the compute budget freed from blind 2D 
+scanning is reallocated to SNR-recovering techniques — long dwell intervals, 
+coherent integration, and correction of phase drift and range bin migration — that 
+extend the range of a low-cost 77~GHz chipset from ~120~m (measured against a 
+hovering DJI Mavic~2) to a link-budget-extrapolated ~1~km against a \gls{vtol}-sized 
+target. Notably, instead of demonstrating one solution to the radar detection problem, 
+the 2021 study compares four range-
+estimation algorithms (FFT, discrete polynomial transform, noncoherent integration, 
+spectral entropy) against a success-probability metric, and derives an explicit 
+compute-vs-fidelity tradeoff for its motion model. It is also 
+one of the few works to measure phase drift and range bin migration on a real 
+target at long dwell, documenting the platform-motion 
+artefacts that other works do not characterise. Three gaps remain: the comparison 
+is confined to a single pipeline 
+stage; validation is in simulation under white Gaussian noise, with the 
+experimental campaign restricted to ground-based measurement of a hovering target; 
+and the reallocated compute budget itself is quantified in Big-O rather than 
+measured in latency or throughput on a specific platform. This thesis extends Lies'
+s methodology to the full detection, angle-estimation, and tracking pipeline, 
+measures the compute allocation empirically across embedded hardware platforms, 
+and validates under the non-Gaussian noise regime that arises in genuinely 
+airborne encounter conditions.
 
 Sysak et al.\
 \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance} (2025)
-present a lightweight X-band pulse radar for mid-air collision avoidance on
+present the most recent and complete system-level demonstration in the surveyed 
+literature: a lightweight X-band pulse radar for mid-air collision avoidance on
 medium UAV platforms, using a fixed forward-looking antenna and FPGA-based pulse
 compression. In a ground-based field campaign, the radar reliably detected large
-static urban structures at 1--3\,km with a 1.5\% false-alarm probability, though
-detection is characterised almost exclusively against these large, high-RCS
+static urban structures at 1--3\,km, though
+detection is characterised almost exclusively against large, high-\gls{rcs}
 targets under low, spatially uniform clutter using a single CA-CFAR detector,
 leaving the sensitivity floor against small moving airborne targets
 uncharacterised. A separate trial detected a 3.15\,m-wingspan UAV at 6.4\,km
 (see Figure~\ref{fig:sysak}), demonstrating kilometre-scale detection within a
-mediumaUAV power budget, but at markedly lower peak-to-background ratio and
-without systematic sensitivity statistics. The validated system performs range
+medium UAV power budget, but without systematic sensitivity statistics. The 
+validated system performs range
 estimation only, deferring angle sensing to a future upgrade, and although a
 range-rate tracker and \gls{tcpa} logic are described, no tracking-quality or
-latency results are reported.
+latency results are reported. Sensitivity against small moving airborne targets, 
+pipeline completeness through angle sensing and tracking, and the latency of the 
+resulting configuration are all questions this present thesis investigates.
 
 \begin{figure}
     \incfig[0.9]{sysak_radar}
@@ -195,16 +205,21 @@ latency results are reported.
     \label{fig:sysak}
 \end{figure}
 
-Taken together, these works establish that radar hardware small and low-power
-enough for \gls{uav} \gls{daa} is feasible, shifting attention towards the
-design of software pipelines suitable for the compute constraints and detection 
-requirements of \gls{daa} systems.
+Taken together, these works establish that radar hardware small and low-power 
+enough for \gls{uav} \gls{daa} is feasible. Two questions about the software 
+pipelines that run on it remain open. First, a tight compute budget has been 
+consistently recognised but never measured across the surveyed decade of miniature 
+\gls{uav} \gls{daa} research. Second, Wang and Spencer disagree on the optimal 
+ordering of CFAR and angle sensing, and no subsequent work has resolved the 
+question empirically. This thesis takes up both.
+% in final summary, mention noise regimes, don't discuss here due to overlap with section 3. 
 
 \section{GPU-based Radar Processing Under SWaP Constraints}
 
 Historically, literature that explores the software pipelines for radar 
 processing on embedded platforms have focused on \gls{fpga}s to achieve
-high performance with low power and weight. Shi et al.\ \cite{6712628} 
+high performance with low power and weight. Shi et al.\ \cite{6712628}, (whose
+airborne platform is discussed above), 
 describe a small \gls{fmcw} phased array built from off-the-shelf development 
 boards, validating that continuous real-time 2D FFTs are achievable on a 100 
 MHz FPGA. However, processing was split between an onboard FPGA and offboard 
@@ -215,7 +230,7 @@ phased array pipeline on a Zynq ARM System-on-Chip. Through closely monitoring
 power, latency
 distributions, and hardware resources the work establishes that embedded 
 compute platforms can run radar processing algorithms in real time, even 
-under strict SWaP constraints. Only one hardware
+under strict SWaP constraints. However, only one hardware
 configuration and one algorithm sequence are evaluated. 
 
 The efficiency of FPGAs comes at the cost of long development cycles, and 
@@ -225,6 +240,8 @@ powerful embedded GPU modules such as NVIDIA's Jetson line, has made
 \gls{gpu}s a practical alternative to \gls{fpga}s for 
 embedded radar processing. This is reflected by a growing body of work 
 that demonstrates the feasibility of GPU acceleration for radar processing. 
+For these reasons, this thesis focuses on GPU acceleration of radar 
+processing pipelines. 
 
 Zhao et al.\ \cite{rs15225421} implement CUDA acceleration for a passive
 bistatic radar pipeline spanning clutter suppression, range--Doppler
@@ -255,48 +272,85 @@ host-device transfer, and finds a bottleneck in CPU-side post-processing.
     \label{fig:fang_pipeline}
 \end{figure}
 
-\section{Sensitivity and Detection in Low-SNR Regimes}
+Read together, these works establish that embedded GPUs can accelerate the
+radar chain by an order of magnitude, but they divide on what counts as a
+meaningful performance claim. Zhao, Fang, and Mondal each benchmark against a
+CPU baseline, a comparison Zaknoun calls close to trivial, since GPU dominance 
+over CPU on massively parallel workloads is already well established. He argues 
+the more informative measure is the fraction of a GPU's peak throughput an 
+implementation actually attains.
+Similar metrics are not absent from the wider literature: Newmeyer et al.\
+\cite{7577322}, working under SWaP constraints where energy-per-operation is
+the natural currency, report throughput and energy-per-FFT rather than a
+headline ratio. The open question is therefore not whether GPUs help, but how
+much of their potential a given implementation reaches, a quantity that shifts
+with hardware, parallelisation strategy, and memory layout, and that no
+single-configuration speedup ratio can reveal. This motivates the present
+thesis's treatment of low-level implementation as a set of design variables
+that can change between hardware contexts.
 
-An et al.\
-\cite{an2024_time_varying_angle_estimation_unresolved_extended_targets_monopulse}
-propose an efficient method for resolving two unresolved targets within a
-single monopulse cell, but evaluate it only under simulated white-noise
-conditions without integration into an end-to-end pipeline. Explicit failure
-modes exist for same-angle targets and cells containing three or more targets.
+\section{Detection of Small Targets in Low-SNR Regimes}
+
+The detection and angle-estimation stages of the pipeline are the ones
+most exposed to the low-\gls{snr}, cluttered conditions that a small
+target at kilometre range produces. Two strategies for coping with this
+regime recur in the literature: recovering sensitivity by treating
+detection and angle estimation jointly rather than sequentially, and
+abandoning the Gaussian clutter model that classical detectors assume.
 
 Aubry et al.\
 \cite{aubry2020_single_pulse_simultaneous_detection_angle_estimation_multichannel}
-demonstrate that detection and angle estimation can be treated jointly in a
-multichannel array, increasing sensitivity to targets not visible in any single
-channel and avoiding brittleness of early thresholding under low SNR. Validation
-is limited to single simulated targets in Gaussian interference.
+challenge the convention, which they trace through the monopulse
+literature, that angle estimation is a separate stage activated only
+after a detection event is triggered. Instead they detect and estimate
+angle jointly from a single pulse across a multichannel array, which
+recovers sensitivity to targets not visible in any individual channel
+and avoids the brittleness of thresholding each channel independently
+under low SNR.
+The result is established, however, only for single simulated targets
+in homogeneous Gaussian interference. The limitations of this work
+motivate the extension of the detection and angle-sensing algorithm to
+non-Gaussian interference, multiple targets, and stationary clutter.
+% make sure to tie this thread to the Wang Spencer debate from section 1 in section 4.
+% alluding to the work of spencer
 
-Ezuma et al.\ \cite{ezuma2019microuav} demonstrate that Gaussian and Rayleigh
-clutter assumptions --- the basis of CA-CFAR --- already fail for ground-based
-mmWave radar detecting UAVs, finding that a Weibull distribution provides a
-significantly better fit to measured clutter statistics, and explicitly noting
-that prior UAV detection work had neglected this. This finding directly 
-undermines the Gaussian noise assumption of the CFAR algorithm and 
-the noise assumptions of many of the simulation-based studies. This leaves
-the selection of an appropriate detection algorithm an open question that 
-is investigated in this work. The airborne 
-case introduces
-further departures from the homogeneous Gaussian noise model: a vibrating
-platform subject to altitude variation, aspect angle changes, and
-platform-induced interference all corrupt the assumptions underpinning standard
-windowing and CFAR algorithm selection. No published work has measured or
-modelled these statistics for a miniature airborne FMCW radar in real flight
-conditions.
+An et al.\
+\cite{an2024_time_varying_angle_estimation_unresolved_extended_targets_monopulse}
+propose an efficient method for resolving multiple unresolved targets
+within a single monopulse cell, but evaluate it only under simulated
+white-noise conditions without integration into an end-to-end pipeline.
+Explicit failure modes exist for same-angle targets and cells containing
+three or more targets. The work motivates an investigation into these
+failure modes of monopulse angle sensing and mitigation strategies.
 
-Existing angle estimation and detection algorithms have therefore been
-validated only under idealised noise conditions that are unlikely to reflect
-the environment experienced by a miniature airborne radar.
+Ezuma et al.\ \cite{ezuma2019microuav} demonstrate that the Gaussian and
+Rayleigh clutter assumptions that both of the above works rely on fail
+for ground-based mmWave radar detecting UAVs. They find that a Weibull
+distribution provides a significantly better fit to measured clutter
+statistics, and explicitly note that prior UAV detection work had
+neglected this. This finding directly undermines the Gaussian noise
+assumption of the CFAR algorithm and the noise assumptions of many of
+the simulation-based studies. This leaves the selection of an appropriate
+detection algorithm an open question that is investigated in this work.
+The airborne case introduces further departures from the homogeneous
+Gaussian noise model: a vibrating platform subject to altitude variation,
+aspect angle changes, and platform-induced interference all corrupt the
+assumptions underpinning standard windowing and CFAR algorithm selection.
+No published work has measured or modelled these statistics for a
+miniature airborne \gls{fmcw} radar in real flight conditions.
+
+Taken together, the detection and angle-estimation techniques best suited
+to small, low-SNR targets have been validated only under idealised noise,
+and none has been characterised inside a complete pipeline or measured for
+latency on representative hardware. Which detector and angle-estimation
+choices survive genuinely airborne, non-Gaussian clutter, and at what cost,
+are therefore questions this thesis resolves empirically.
 
 \section{Summary and Research Gap}
 
 Across the three areas surveyed above, the literature makes meaningful
 progress in three directions. Compact radar hardware has been demonstrated on
-platforms as small as a quadcopter \cite{6044363, Moses2015}, with some works
+platforms as small as a quadcopter \cite{6044363, Moses2014}, with some works
 achieving detection ranges beyond 5 km \cite{Wang2016}. GPU and embedded
 compute platforms have been shown capable of accelerating the core stages of a
 radar signal processing chain by an order of magnitude or more
@@ -308,33 +362,41 @@ aubry2020_single_pulse_simultaneous_detection_angle_estimation_multichannel}.
 However, the field consistently falls short in three areas. First, no work
 validates a complete sensing-to-tracking pipeline under realistic airborne
 encounter conditions against small moving targets. Hardware demonstrations
-either use ground-based setups, large reflective targets, or post-processed
+use ground-based setups, large reflective targets, or post-processed
 data \cite{sysak2025_lightweight_compact_pulse_radar_uav_collision_avoidance,
-6044363, Moses2015}. Simulation-only studies make no attempt at empirical
-validation \cite{Wang2016, Mohammadkarimi2024}. As a result, the relative
+6044363, Moses2014}. Simulation-only studies make no attempt at empirical
+validation \cite{Wang2016, Lies2020}. As a result, the relative
 merit of competing algorithm choices for CFAR, angle estimation, and tracking
 has not been assessed under the (non-Gaussian \cite{ezuma2019microuav}) 
 noise conditions and target characteristics
-representative of small UAV encounters, leaving algorithm selection for this
-regime without empirical grounding. Second, while GPU acceleration studies
-demonstrate large aggregate speedups, they do not treat the implementation of
-algorithms as a design variable. No work systematically compares
-implementations with different parallelisation strategies, memory layouts, or
-host--device transfer patterns. These choices directly determine the
-latency, throughput, and memory requirements of the pipeline. Third, existing
-GPU studies evaluate a single hardware platform, typically a desktop GPU
-\cite{rs15225421, Mondal2024_gpu_radar} or a non-UAV embedded system
-\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. Several 
-of the works surveyed acknowledge that algorithm choice is driven by available 
-compute. Spencer applies an arbitrary 
-threshold before angle sensing to reduce computational load, and Fiorio et al.
-utilise a camera to perform some detection work to find areas of interest 
-in the radar data. No work systematically examines 
-the effect that hardware selection has on the range of viable algorithms 
-and implementations. Given that embedded GPU
-architectures differ substantially from desktop GPUs in memory bandwidth,
-parallelism, and thermal constraints, conclusions drawn from one platform
-cannot be assumed to generalise.
+representative of small UAV encounters. In particular, there exists 
+a disagreement between Wang et al. and Spencer over whether CFAR should precede 
+or follow angle sensing \cite{Wang2016,compact_spencer_2015} and An et al.'s 
+monopulse algorithm failure modes are uncharacterised under realistic noise 
+conditions.
+
+Second, GPU-acceleration studies report large aggregate speedups, but a headline 
+ratio against a CPU baseline reveals little about how much of a platform's 
+throughput an implementation actually reaches. Nor do these studies treat the 
+implementation of an algorithm as a design variable: no work systematically 
+compares implementations with different parallelisation strategies, memory layouts
+, or host--device transfer patterns, or measures the per-stage latency these 
+choices produce. This is distinct from the choice of algorithm and its ordering in 
+the first gap: the same algorithm admits many implementations, and their cost has 
+not been measured on representative hardware.
+
+Third, existing GPU studies evaluate a single hardware platform, typically a 
+desktop GPU \cite{rs15225421, Mondal2024_gpu_radar} or a non-UAV embedded system 
+\cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}. Several of the works 
+surveyed acknowledge that algorithm choice is driven by available compute: Spencer 
+applies an arbitrary threshold before angle sensing to reduce load 
+\cite{compact_spencer_2015}, and Lies et al.\ delegate angle sensing to a camera 
+to free 
+budget for SNR recovery \cite{Lies2020}. Yet no work systematically examines how 
+hardware selection changes the range of viable algorithms and implementations. 
+Given that embedded GPU architectures differ substantially from desktop GPUs in 
+memory bandwidth, parallelism, and thermal constraints, conclusions drawn from one 
+platform cannot be assumed to generalise.
 
 This thesis addresses these gaps by characterising detection and tracking
 sensitivity against small moving airborne targets across a representative
