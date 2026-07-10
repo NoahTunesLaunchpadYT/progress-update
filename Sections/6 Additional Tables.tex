@@ -1,0 +1,30 @@
+\section{Additional Tables}
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Full hardware and software specifications for all three
+    experimental platforms. Jetson figures were read directly from each
+    device; version strings are reported for reproducibility.}
+  \label{tab:hardware-specs-full}
+  \begin{tabular}{@{}p{0.18\textwidth}p{0.24\textwidth}p{0.25\textwidth}p{0.25\textwidth}@{}}
+    \hline
+    \textbf{Spec.} & \textbf{Workstation} & \textbf{Xavier NX (Dev Kit)} & \textbf{AGX Xavier 32\,GB} \\
+    \hline
+    GPU             & 2$\times$ RTX A6000 (Ampere) & 384-core Volta, 48 Tensor cores & 512-core Volta, 64 Tensor cores \\
+    GPU memory      & 48\,GB GDDR6 $\times$2 (96\,GB) & Shared (unified)          & Shared (unified) \\
+    AI perf.\ (INT8) & ---                          & 21 TOPS                   & 32 TOPS \\
+    CPU             & Threadripper 3960X (24C/48T) & 6-core Carmel ARMv8.2     & 8-core Carmel ARMv8.2 \\
+    CPU max clock   & ---                          & 1.42\,GHz (20\,W)         & 2.27\,GHz (MAXN) \\
+    CPU cache       & ---                          & 6\,MB L2, 4\,MB L3        & 8\,MB L2, 4\,MB L3 \\
+    System memory   & 128\,GB                      & 8\,GB LPDDR4x (51.2\,GB/s) & 32\,GB LPDDR4x (137\,GB/s) \\
+    Storage         & ---                          & microSD                   & 32\,GB eMMC 5.1 \\
+    Power mode      & Workstation                  & 20\,W, 6-core (mode 8)    & MAXN (mode 0) \\
+    GPU max clock   & ---                          & 1.11\,GHz                 & 1.38\,GHz \\
+    OS / L4T        & Ubuntu 20.04.6               & Ubuntu 20.04, L4T R35.4.1 & Ubuntu 20.04, L4T R35.4.1 \\
+    JetPack         & ---                          & 5.1.2                     & 5.1.2 \\
+    CUDA            & 12.2                         & 11.4                      & 11.4 \\
+    NVIDIA driver   & 535.261.03                   & via L4T                   & via L4T \\
+    \hline
+  \end{tabular}
+\end{table}

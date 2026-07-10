@@ -369,7 +369,13 @@ validation \cite{Wang2016, Lies2020}. As a result, the relative
 merit of competing algorithm choices for CFAR, angle estimation, and tracking
 has not been assessed under the (non-Gaussian \cite{ezuma2019microuav}) 
 noise conditions and target characteristics
-representative of small UAV encounters. In particular, there exists 
+representative of small UAV encounters. Windowing in particular is used but 
+rarely examined: of the
+surveyed works, only three employ a sidelobe-suppressing window at all, and only
+Zaknoun \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing} compares
+alternatives, contrasting a rectangular window against Blackman--Harris. The
+mainlobe--sidelobe trade-off and its downstream effect on detection therefore
+remain uncharacterised for this application. Further down the pipeline, there exists 
 a disagreement between Wang et al. and Spencer over whether CFAR should precede 
 or follow angle sensing \cite{Wang2016,compact_spencer_2015} and An et al.'s 
 monopulse algorithm failure modes are uncharacterised under realistic noise 

@@ -60,7 +60,9 @@ connected by a bus such as PCIe, and data must be explicitly transferred between
 and device memory. In system-on-chip (SoC) platforms such as the NVIDIA Jetson family, 
 the CPU and GPU share the same physical DRAM. This is called physically shared memory. 
 Both processors access the same physical addresses, and the memory subsystem handles 
-coherency, eliminating the explicit transfer step.
+coherency, eliminating the explicit transfer step. While this eliminates transfer cost,
+it also means the CPU and GPU compete for memory bandwidth rather than drawing from 
+separate pools, creating a risk of contention. 
 
 Shared memory is a separate, small, low-latency scratchpad memory local to each SM, 
 explicitly managed by the programmer. It allows threads within a thread block to 

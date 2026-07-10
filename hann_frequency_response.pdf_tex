@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
+%% Creator: Inkscape 1.3.2 (1:1.3.2+202311252150+091e20ef0f), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'hann_frequency_response.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{900bp}%
+    \setlength{\unitlength}{1239.89785767bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,81 +50,185 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.5)%
+  \begin{picture}(1,1.28091941)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.06458333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0.29547546,0.04739264){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.09883333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.1}\end{tabular}}}}%
+    \put(0.29547546,0.0906535){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.13316667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0.29547546,0.1338617){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.16741667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.3}\end{tabular}}}}%
+    \put(0.29547546,0.17712262){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.20166667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0.29547546,0.22038341){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.236){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.5}\end{tabular}}}}%
+    \put(0.29547546,0.26364426){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.27025){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0.30182681,0.0307263){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.3045){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.7}\end{tabular}}}}%
+    \put(0.58122482,0.0307263){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{N}\end{tabular}}}}%
+    \put(0.21024659,0.16429673){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.44149557,0.01648438){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.33883333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0.70438015,0.07010058){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.37308333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.9}\end{tabular}}}}%
+    \put(0.70438015,0.11593716){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{hann_frequency_response.pdf}}%
-    \put(0.07125,0.40733333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0.70438015,0.16172108){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{hann_frequency_response.pdf}}%
-    \put(0.08,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0.70438015,0.207505){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{hann_frequency_response.pdf}}%
-    \put(0.46491667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{  N}\end{tabular}}}}%
-    \put(0.03383333,0.24991667){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
-    \put(0.27241667,0.01558333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{samples}\end{tabular}}}}%
-    \put(0.27241667,0.46675){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Hann window}\end{tabular}}}}%
+    \put(0.70438015,0.27442011){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.06458333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-130}\end{tabular}}}}%
+    \put(0.7107313,0.02830669){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-0.5}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.09108333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0.78059585,0.02830669){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-0.25}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.1175){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-110}\end{tabular}}}}%
+    \put(0.85039997,0.02830669){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.144){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0.92026459,0.02830669){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.25}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.17041667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-90}\end{tabular}}}}%
+    \put(0.99012922,0.02830669){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0.5}\end{tabular}}}}%
+    \put(0.6151593,0.16429673){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.85039996,0.00317653){\color[rgb]{0.14901961,0.14901961,0.14901961}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{normalised frequency}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.19691667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(-0.0000827,0.24940978){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Taylor window}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.22333333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-70}\end{tabular}}}}%
+    \put(0.29165239,0.29412493){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=21]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.24983333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0.29165239,0.33738578){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=22]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.27633333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-50}\end{tabular}}}}%
+    \put(0.29165239,0.38059407){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=23]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.30275){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0.29165239,0.42385492){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=24]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.32925){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-30}\end{tabular}}}}%
+    \put(0.29165239,0.46711577){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=25]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.35566667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0.29165239,0.51032406){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=26]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.38216667){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-10}\end{tabular}}}}%
+    \put(0.2112627,0.4110291){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=27]{hann_frequency_response.pdf}}%
-    \put(0.58625,0.40858333){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0.70055704,0.31084054){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=28]{hann_frequency_response.pdf}}%
-    \put(0.595,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-40}\end{tabular}}}}%
+    \put(0.70055704,0.34421921){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=29]{hann_frequency_response.pdf}}%
-    \put(0.69125,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{-20}\end{tabular}}}}%
+    \put(0.70055704,0.37759787){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=30]{hann_frequency_response.pdf}}%
-    \put(0.7875,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{0}\end{tabular}}}}%
+    \put(0.70055704,0.41097654){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=31]{hann_frequency_response.pdf}}%
-    \put(0.88366667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{20}\end{tabular}}}}%
+    \put(0.70055704,0.4443552){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=32]{hann_frequency_response.pdf}}%
-    \put(0.97991667,0.04583333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{40}\end{tabular}}}}%
-    \put(0.54008333,0.24991667){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{decibels}\end{tabular}}}}}%
-    \put(0.78741667,0.01558333){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{bins}\end{tabular}}}}%
-    \put(0.78741667,0.46675){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Fourier transform}\end{tabular}}}}%
+    \put(0.70055704,0.47773387){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=33]{hann_frequency_response.pdf}}%
-    \put(0.76341667,0.07783333){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.500}\end{tabular}}}}%
+    \put(0.70055704,0.51111253){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=34]{hann_frequency_response.pdf}}%
+    \put(0.82915634,0.30248273){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.795}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{hann_frequency_response.pdf}}%
+    \put(-0.00155475,0.50477979){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Kaiser window (}\textbf{α = 3}\textbf{)}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.53996216){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.58322301){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.6264313){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.66969215){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.71295301){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.75616129){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{hann_frequency_response.pdf}}%
+    \put(0.2112627,0.65686633){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.55667777){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.59005644){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.6234351){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.65681377){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.69019244){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.7235711){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.75694977){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{hann_frequency_response.pdf}}%
+    \put(0.82915634,0.54831997){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.727}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{hann_frequency_response.pdf}}%
+    \put(-0.00155475,0.74975098){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Blackman window}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.78493337){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.82819423){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.87140251){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.91466337){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{hann_frequency_response.pdf}}%
+    \put(0.29165239,0.95792422){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.00113251){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{hann_frequency_response.pdf}}%
+    \put(0.2112627,0.90183755){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.80164899){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.83502765){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.86840632){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.90178498){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.93516365){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=64]{hann_frequency_response.pdf}}%
+    \put(0.70055704,0.96854231){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=65]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.00192098){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=66]{hann_frequency_response.pdf}}%
+    \put(0.82915634,0.79329118){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.368}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=67]{hann_frequency_response.pdf}}%
+    \put(-0.00072776,0.99454367){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Hamming window}\\\textbf{a}\textbf{0}\textbf{= 0.53836}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=68]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.02972606){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=69]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.07298691){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.2}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=70]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.1161952){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.4}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=71]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.15945605){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.6}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=72]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.20271691){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0.8}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=73]{hann_frequency_response.pdf}}%
+    \put(0.29165239,1.24592519){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{1}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=74]{hann_frequency_response.pdf}}%
+    \put(0.2112627,1.14663024){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{amplitude}\end{tabular}}}}}%
+    \put(0.43767248,1.26973706){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Window}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=75]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.04644168){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-120}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=76]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.07982034){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-100}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=77]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.11319901){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-80}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=78]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.14657767){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-60}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=79]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.17995634){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-40}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=80]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.213335){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{-20}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=81]{hann_frequency_response.pdf}}%
+    \put(0.70055704,1.24671367){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}\textbf{0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=82]{hann_frequency_response.pdf}}%
+    \put(0.84657713,1.26973706){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Fourier transform}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=83]{hann_frequency_response.pdf}}%
+    \put(0.82915634,1.03808387){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{B = 1.500}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=84]{hann_frequency_response.pdf}}%
+    \put(-0.00155475,1.24258553){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Hann window}\end{tabular}}}}%
+    \put(0.6151593,0.41380657){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.6151593,0.66331647){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.6151593,0.91282634){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
+    \put(0.6151593,1.16233621){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{power (dB)}\end{tabular}}}}}%
   \end{picture}%
 \endgroup%

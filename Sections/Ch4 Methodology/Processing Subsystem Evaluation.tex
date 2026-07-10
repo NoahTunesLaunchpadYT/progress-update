@@ -21,16 +21,8 @@ experiment details for each of the operations.
     \label{fig:preprocessing-dataflow}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{AWR2243.png}
-    \caption[Texas Instruments AWR2243 radar chip.]{Photo of the Texas Instruments AWR2243 radar chip, which is
-    used in the radar module. The chip has 3 transmitters and 4 receivers, and outputs the radar data over a CSI
-    video stream. The chip is only 10.4mm x 10.4mm, making it suitable for placement on UAV PCBs.}
-    \label{fig:AWR2243}
-\end{figure}
-
 \subsection{Windowing}
+% Zaknoun compared rect with Blackman Harris
 To reveal target range from a single radar pulse, an \gls{fft} is applied to the
 de-chirped pulse. 
 % The  assumes the finite signal repeats periodically, so when the signal does
@@ -54,7 +46,13 @@ FFT, spectral leakage can be reduced, as shown in Figure \ref{fig:hann filter}.
     \label{fig:hann filter}
 \end{figure}
 
-This thesis evaluates five window functions applied to the range-Doppler processing chain: Hann,
+As established in the literature review (\ref{ch:literature_review}), window
+choice is almost entirely unexamined as a comparative design variable in
+miniature UAV radar: prior work either fixes a single window or compares 
+a window against a rectangular window. 
+
+This thesis expands on the limited analysis by evaluating five window functions applied to 
+samples prior to the \gls{fft}: Hann,
 Hamming, Blackman, Kaiser, and Taylor. Each window is a point-wise multiplication applied to the input
 chirp data prior to the FFT, shaping the spectral leakage characteristics of the resulting
 range-time map. The choice of window governs a fundamental trade-off between mainlobe width
@@ -62,7 +60,22 @@ range-time map. The choice of window governs a fundamental trade-off between mai
 affect downstream detection performance: a wider mainlobe reduces the ability to resolve closely
 spaced targets, while higher sidelobes raise the effective noise floor and increase false alarm
 rates in CFAR processing. The windows evaluated here are compared for their ability to maximise
-true positive detections and minimise clutter power.
+true positive detections and minimise clutter power. The time-domain shape and frequency response
+of all five windows are compared in Figure \ref{fig:windows_frequency_response}.
+
+\begin{figure}
+    \centering
+    \incfig[0.90]{windows_frequency_response}
+    \caption[Time-domain shape and frequency response of the five window functions.]{Time-domain
+    shape and frequency response of the five evaluated window functions. The Hann window reaches a
+    first sidelobe level of approximately $-31.5$\,dB and the Hamming window approximately
+    $-43$\,dB, while the three-term Blackman window suppresses its first sidelobe to approximately
+    $-58$\,dB. The parametric Kaiser window is shown at $\beta = 3.0$ (first sidelobe approximately
+    $-70$\,dB) and the Taylor window at $\text{SLL} = -35$\,dB with $\bar{n} = 4$ near-equiripple
+    sidelobes ($N = 64$ samples). Wider mainlobes accompany greater sidelobe suppression across
+    the family.}
+    \label{fig:windows_frequency_response}
+\end{figure}
 
 The Hann window is a raised-cosine taper that smoothly reduces the signal to zero at both ends
 of the aperture. It provides moderate sidelobe suppression with a first sidelobe level of
@@ -74,15 +87,6 @@ window. It has no tunable parameters. For a sequence of length $N$, the Hann win
     \label{eq:hann}
 \end{equation}
 
-\begin{figure}
-    \centering
-    \incfig[0.9]{hann_frequency_response}
-    \caption[Hann window and frequency response]{Time-domain shape and frequency response of the
-    Hann window. The first sidelobe lies at approximately $-31.5$\,dB relative to the mainlobe
-    peak.}
-    \label{fig:hann_frequency_response}
-\end{figure}
-
 The Hamming window is also a raised-cosine taper, but with a non-zero pedestal chosen to place a
 null at the first sidelobe. This reduces the first sidelobe level to approximately $-43$\,dB,
 improving on Hann in the near-sidelobe region, though the far sidelobes decay more slowly. Like
@@ -92,15 +96,6 @@ the Hann window, it has no tunable parameters. The Hamming window is defined as
     w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right), \quad 0 \le n \le N-1.
     \label{eq:hamming}
 \end{equation}
-
-\begin{figure}
-    \centering
-    \incfig[0.9]{hamming_frequency_response}
-    \caption[Hamming window and frequency response]{Time-domain shape and frequency response of the
-    Hamming window. The near sidelobe is suppressed to approximately $-43$\,dB, though far
-    sidelobes decay more slowly than those of the Hann window.}
-    \label{fig:hamming_frequency_response}
-\end{figure}
 
 The Blackman window extends the raised-cosine family to three harmonic terms, producing a first
 sidelobe level of approximately $-58$\,dB. The steeper sidelobe roll-off comes at the cost of a
@@ -113,15 +108,6 @@ no tunable parameters and is defined as:
                + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right), \quad 0 \le n \le N-1.
     \label{eq:blackman}
 \end{equation}
-
-\begin{figure}
-    \centering
-    \incfig[0.9]{blackman_frequency_response}
-    \caption[Blackman window and frequency response]{Time-domain shape and frequency response of
-    the Blackman window. The three-term cosine expansion suppresses the first sidelobe to
-    approximately $-58$\,dB.}
-    \label{fig:blackman_frequency_response}
-\end{figure}
 
 The Kaiser window is a parametric taper whose shape is controlled by a single
 parameter $\beta$. Increasing $\beta$ raises sidelobe suppression at the cost of
@@ -142,17 +128,6 @@ For a sequence of length $N$ the Kaiser window is defined as
 first kind, and representative values are $\beta \approx 5.0$ for sidelobe
 attenuation near $-57$\,dB and $\beta \approx 8.6$ for approximately $-90$\,dB,
 with mainlobe width increasing accordingly.
-
-\begin{figure}
-    \centering
-    \incfig[0.9]{kaiser_frequency_response}
-    \caption[Kaiser window and frequency response]{Time-domain shape and frequency
-    response of the Kaiser window at $\beta = 3.0$, giving a first sidelobe level
-    of approximately $-70$\,dB. Increasing $\beta$ raises sidelobe suppression at
-    the cost of a wider mainlobe. As $\beta $ increases, the main lobe widens and
-    the sidelobes are suppressed further.}
-    \label{fig:kaiser_frequency_response}
-\end{figure}
 
 The Taylor window is a parametric taper designed to balance mainlobe width against
 sidelobe suppression. Rather than enforcing a uniform sidelobe level across all
@@ -179,17 +154,6 @@ $\bar{n}$. In this work the Taylor window is
 evaluated at $\text{SLL} = -30, \text{and } -50$\,dB and $\bar{n} = 1,2,3, 
 \text{and } 4$.
 
-\begin{figure}
-    \centering
-    \incfig[0.9]{taylor_frequency_response}
-    \caption[Taylor window and frequency response]{Time-domain shape and frequency
-response of the Taylor window with peak sidelobe level $\text{SLL} = -35$\,dB,
-$\bar{n} = 4$ near-equiripple sidelobes, and $N = 64$ samples. The first
-$\bar{n} - 1 = 3$ sidelobes are held at or below $-35$\,dB before decaying
-monotonically.}
-    \label{fig:taylor_frequency_response}
-\end{figure}
-
 % This thesis evaluates a range of practical window functions and their implementation on CPU and GPU. 
 % Candidate windows include common real-time tapers such as Hann and Hamming, lower-sidelobe windows 
 % such as Blackman and Blackman--Harris, and adjustable-parameter windows such as Kaiser, which allow 
@@ -203,6 +167,7 @@ monotonically.}
 % positively affect the ending track quality. 
 
 \subsection{Integration}
+% Talk about phase drift (maybe from Lies)
 Coherent integration is compared with non-coherent integration for their resulting SNR 
 improvement, angle estimation quality, and track quality on real and simulated data. 
 The relationship between coherent integration window size and the performance metrics 
