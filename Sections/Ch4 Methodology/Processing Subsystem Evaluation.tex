@@ -34,7 +34,8 @@ When an \gls{fft} is performed on a finite signal, it is implicitly multiplied b
 A term-wise multiplication in time corresponds to a convolution in the frequency domain, and the
 rectangular window's sinc-shaped frequency response has large sidelobes that spread energy from
 each frequency bin into its neighbours. By applying a more suitable window function prior to the
-FFT, spectral leakage can be reduced, as shown in Figure \ref{fig:hann filter}.
+FFT, such as one with less prominent sidelobes that those of the rectangular window, spectral leakage 
+can be reduced, as shown in Figure \ref{fig:hann filter}.
 
 \begin{figure}[htbp]
     \centering
@@ -167,8 +168,21 @@ evaluated at $\text{SLL} = -30, \text{and } -50$\,dB and $\bar{n} = 1,2,3,
 % positively affect the ending track quality. 
 
 \subsection{Integration}
-% Talk about phase drift (maybe from Lies)
-Coherent integration is compared with non-coherent integration for their resulting SNR 
+\label{sec:method-integration}
+While existing literature has established the relative detection performance of
+coherent and non-coherent integration for point-like targets
+\cite{Richards2010}, the experiments in this thesis are instead centred on the
+downstream computational effects of integration: the relationship between
+integration parameters and hardware, and the trade-off between information loss,
+sensitivity, and memory utilisation. The theoretical gains derived in
+\S\ref{sec:background-integration} do not determine which integration method 
+is most suitable in a context where coherence is not guaranteed, and where 
+compute resources are limited.   
+
+% linking can be better between paragraphs
+% Talk about phase drift (maybe from Lies), probably in the discussion section 
+In this work, coherent integration is compared with non-coherent integration for their 
+resulting SNR 
 improvement, angle estimation quality, and track quality on real and simulated data. 
 The relationship between coherent integration window size and the performance metrics 
 is also explored. 

@@ -59,8 +59,12 @@ the non-idealities of real radar data such as multipath propagation, and non-Gau
 The third dataset consists of recorded data from the AWR2243 radar system operating in field 
 trial conditions. This dataset is used to validate the behaviour of the processing pipeline 
 under real-world conditions, including the effects of multipath propagation, non-Gaussian noise, 
-clutter, and other phenomena that are not captured in the synthetic datasets. Table 
-\ref{tab:datasets} summarises the datasets and their characteristics.
+clutter, and other phenomena that are not captured in the synthetic datasets. 
+
+The forth dataset is constructed to make up for the low availability of the third. It is a pseudo-real dataset 
+that incorporates the clutter and noise characteristics from a recording of a stationary radar pointing at the 
+empty sky and adds synthetic targets to it. 
+Table \ref{tab:datasets} summarises the datasets and their characteristics.
 
 \begin{table}[htbp]
     \centering
@@ -79,6 +83,9 @@ clutter, and other phenomena that are not captured in the synthetic datasets. Ta
         DS3 & Validation under real-world conditions & Real radar data recorded from the 
         AWR2243 radar system. Contains all expected non-idealities. & 
         Contains timing uncertainties and is in limited supply. \\
+        \hline
+        DS4 & Validation under real-world clutter & Real data with simulated targets added. &
+        Does not model non-idealities of target signals such as multipath propagation. \\
         \hline
     \end{tabular}
     \label{tab:datasets}

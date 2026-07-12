@@ -51,8 +51,9 @@ Figure \ref{fig:gpu-cfar}). A sweep of window size, guard size, frame buffer siz
 conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, 
 false alarm rate, sensitivity, and track quality) is compared across configurations in a cost benefit 
 analysis. 
-This addresses the literature gap in understanding how detection sensitivity and false alarm behaviour 
-trade off against latency and throughput under SWaP constraints.
+This addresses the second literature gap in treating implementation strategy as a design 
+variable. Through this experiment, insight is gain into the viability of different CFAR implementations
+in different hardware contexts, address part of the third literature gap. 
 
 \begin{figure}[!ht]
     \incfig[0.75]{cfar}
@@ -86,10 +87,10 @@ algorithms, including OS-CFAR, CA-CFAR, SO-CFAR, and GO-CFAR. The effect of thes
 sensitivity and track quality is compared. For intuition, Figure \ref{fig:cfar-algorithms} illustrates
 the difference in performance of the algorithms on a synthetic signal with 5 peaks. This work 
 compares the performance of GO-CFAR, SO-CFAR, and CA-CFAR on simulated data and discusses
-the downstream effects of this selection, addressing the literature gap regarding the impact of 
-detection algorithms in the noise regimes of miniature radar. Additionally, by analysing the 
-performance of both CPU and GPU implementations of CFAR, the literature gap regarding the 
-algorithmic implementation under SWaP constraints is addressed. 
+the downstream effects of this selection, addressing the first literature gap regarding the selection of 
+algorithms in the noise regimes of miniature radar.  
+
+% Dont worry about Spencer Wang disagreement because it is solved and will be covered in the discussion section.
 
 \begin{figure}
     \centering
@@ -104,32 +105,80 @@ algorithmic implementation under SWaP constraints is addressed.
 \end{figure}
 
 \subsection{Clustering}
-After CFAR occurs, most of the samples (range bins) will be zero. The efficiency loss from 
-processing so many zero samples motivates a stage that transforms the detection sparse 
-representation into a dense one. Additionally, the widening of the main lobe of each of 
+After CFAR occurs, most of the samples (range bins) will be masked with zeros. The 
+efficiency loss from 
+processing so many zero samples motivates a stage that transforms the detection-sparse 
+representation into a detection-dense one. 
+Additionally, the widening of the main lobe of each of 
 the detections due to the windowing stage creates multiple range bins with detections 
-from the same target, which motivates a stage that groups these samples into a single 
-detection.
-The algorithm that addresses both of these problems, clustering, iterates through the 
+from the same target. The algorithm that addresses both of these problems, clustering, iterates through the 
 range profile, and creates a cluster for each contiguous set of 
-detection samples. Then, the complex signals from each of the samples are summed together. 
+detection samples.
+Then, the complex signals from each of the samples are summed together 
+(see Figure \ref{fig:clustering-sparse-dense}). 
 SNR is expected to improve, as noise will be incoherent within clusters, but the signal
 that corresponds to a target will have the same phase across samples, and thus will be 
 coherent. The latency of both CPU and GPU implementations of the clustering algorithm 
 is measured. Different clustering parameters are tested for their impact on tracking performance, such 
 as the allowed gap size between detections.
 
+Clustering is the stage at which the main-lobe width
+cost of windowing is paid. The performance of the stage is coupled to the 
+type of windowing used, and the parameters of the prior CFAR stage. 
+Characterisation of this coupling addresses the 
+lack of algorithm selection analysis identified in the literature
+(gap one). Additionally, the latency analysis allows for a better 
+understanding of the feasibility of running complex clustering 
+algorithms on different platforms in real time. 
+% We only explore one clustering algo for now.
+
+% Also a little related to implementation details 
+
+\begin{figure}
+    \incfig[0.7]{clustering_sparse_dense}
+    \caption[Transformation of sparse detections to dense representation]
+    {Transformation from detection-sparse to detection-dense representation.
+    Bin indices are highlighted in blue, and sample data in green. The first 
+    pair of rows shows sample indices and values pre-\gls{cfar}. \gls{cfar}}
+    masks the samples in-place, and the clustering operation creates a 
+    dense record of detections. In this implementation, contiguous non-zero samples 
+    after \gls{cfar} are grouped into clusters, are (coherently) summed together, 
+    and their "index"
+    is the weighted average of the indices of the samples in the cluster.
+    \label{fig:clustering-sparse-dense}
+\end{figure}
+
 \subsection{Monopulse Angle Sensing}
 Angle sensing converts multi-channel detections into azimuth, elevation and range estimates that 
 drive association and tracking. We assess candidate angle discriminators by running controlled 
 sweeps over SNR, channel 
 imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
-The latency and throughput of CPU and GPU implementations are measured. The trade-off involves software implementation details such as warp divergence and instruction-level parallelism. 
 
-The angle sensing algorithm features a few early returns that result in warp divergence on the GPU. 
-For example, if the bearing and elevation ratios are outside of the domain over which the polynomial
+The 
+multi-target proximity sweep characterises the point at which angle estimates 
+degrade as two resolvable targets approach one another, and, together with the SNR 
+sweep, extends the single-target joint detection-and-angle-estimation result of 
+Aubry et al.\ 
+\cite{aubry2020_single_pulse_simultaneous_detection_angle_estimation_multichannel} 
+beyond the single simulated target in homogeneous Gaussian interference to which it 
+is presently confined. The harder case of multiple unresolved targets within a 
+single monopulse cell, treated by An et al.\ 
+\cite{an2024_time_varying_angle_estimation_unresolved_extended_targets_monopulse}, 
+is outside the scope of this work; the proximity sweep is restricted to targets the 
+array can resolve. This addresses the angle-estimation half of gap~1: whether the 
+monopulse algorithm survives multiple resolvable targets under the SNR and channel-imbalance
+of a real-world miniature radar. 
+
+% todo: experiments on angle sensing warp divergence (in the code already) 
+The latency and throughput of CPU and GPU implementations are measured. The trade-off involves 
+software implementation details such as warp divergence and instruction-level parallelism. 
+The angle sensing algorithm could feature few early returns that result in warp divergence on the GPU. 
+One such case could be when the bearing and elevation ratios are outside of the domain over which the 
+polynomial
 fit is valid. Instruction level parallelism is a measure of how many instructions can be executed 
-in parallel on a single thread. By changing the order of operations, we can potentially increase instruction-level parallelism and reduce the latency of the GPU implementation.
+in parallel on a single thread. By changing the order of operations, we can potentially increase 
+instruction-level parallelism and reduce the latency of the GPU implementation.
+% We didn't cover it enough in the discussion yet % todo
 
 \subsection{Sidelobe Suppression (Blanking)}
 When a target exists outside of the field of view of a given radar receiver, the receiver may still
@@ -139,6 +188,16 @@ field of view, it will land in the main lobe of some receivers and the sidelobes
 in a strong detection in the correct direction and weaker detections in the wrong directions, all at
 the same range. The blanking stage eliminates detections that are likely to be sidelobes by eliminating
 detections that are close in range to a stronger detection at the same time step. 
+
+Together with the preceding CFAR, clustering, and angle-sensing 
+stages, blanking is a constituent of the complete sensing-to-tracking chain that gap~1 
+concerns: prior compact-radar demonstrations validate the chain only partway. 
+
+% Phrase the below as a con in the discussion section. Our system is not general
+% The 
+% radar system of the present work is unique in that receivers are arranged in a 
+% conformal arrangement. Due to this unique circumstance, the suppression of side-lobe 
+% detections will be 
 
 \begin{figure}[htbp]
     \centering
@@ -159,9 +218,6 @@ detections that are close in range to a stronger detection at the same time step
     \end{minipage}
 \end{figure}
 
-\begin{figure}[htbp]
-\end{figure}
-
 The blanking stage will be implemented on the CPU. After clustering and angle sensing, 
 the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
 for each time step, iterating through each of the lists simultaneously and sorting them into one 
@@ -179,6 +235,9 @@ a stronger detection.
 % from multiple receivers across different chirps that are close in not just range but also angular 
 % position can be merged 
 % together. 
+
+% Maybe not worth it. 
+
 \subsection{Multi-Target Tracking}
 
 \begin{figure}[htbp]
@@ -197,15 +256,24 @@ a stronger detection.
     \label{fig:tracking-dataflow}
 \end{figure}
 
+Tracking is the terminal stage of the detection-and-tracking subsystem and the point 
+at which the compounded effect of every upstream choice across windowing, CFAR, 
+clustering, and angle sensing becomes visible. It is therefore central to 
+gap~1: the relative merit of competing 
+algorithm choices for CFAR, angle estimation, and tracking has not been assessed 
+end-to-end under the noise and target conditions representative of small UAV encounters, 
+and tracking is the stage at which that assessment is finally cashed out. The tracker 
+exposes over twenty tunable parameters; an exhaustive sweep of this space is 
+outside the scope of this work. The tracking contribution is therefore scoped to 
+empirically
+exploring the effects of some parameter choices on track quality in realistic noise regimes 
+(gap 1), and understanding 
+the impacts of the stage on latency and throughput (gap 2).
+
 The multi-target tracking stage will be implemented entirely on the CPU due to its sequential nature. 
 Amplitude based association will be compared to non-amplitude based association for their impact on
-track quality. The multi-target tracker has over 20 parameters that can be tuned, and one 
-configuration of these parameters will be validated and discussed. Experiments will
-be conducted in a variation of SNR, and number of targets, in simulated data. Real 
-data will be used to validate the results on static targets. The literature gap regarding the impact
-of algorithmic choices in the tracking stage on track quality is addressed through this experiment. 
+track quality. Experiments will
+be conducted across variations in SNR, and number of targets, in simulated data and pseudo-real data. 
 
 % EXPLORE MORE
-% - Non amplitude based association
 % - Amplitude based association
-% - ringing 

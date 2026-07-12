@@ -12,89 +12,28 @@ Before the per stage performance is presented, a wholistic view of the pipeline'
 given, including the tracking performance of the pipeline as a whole, and the contribution of each
 stage to the overall latency of the pipeline.  
 
-The pipeline demonstrates full real-time multi-target tracking functionality on an NVIDIA Xavier 
-AGX on the DS2 and DS3 datasets, with a latency of less than 50ms while processing 4 video streams
-of 256 chirps, each with 767 samples, per frame at a rate of 10 frames per second. On top of this,
-the harness used for visualisation can also run online, allowing the user to see the correct 
-behaviour of each of the stages of the pipeline in real time, (see Figures \ref{fig:fft-visual}, 
+The pipeline demonstrates full real-time multi-target tracking functionality on each of the three
+hardware platforms: the desktop workstation, the NVIDIA Xavier 
+AGX, and the NVIDIA Xavier NX. On the more performant Jetson computer, a latency of less than 50mc 
+while processing 4 videos streams of 256 chirps, each with 767 samples, per frame at a rate of 10 
+frames per second is achieved.
+
+On top of this, the harness used for visualisation can also run online, 
+allowing the user to see the correct 
+behaviour of each of the stages of the pipeline in real time. Examples of these visualisations are
+for each of these stages are depicted in Appendix Figures  \ref{fig:fft-visual}, 
 \ref{fig:cfar-visual}, \ref{fig:cluster-visual}, \ref{fig:angle-visual}, \ref{fig:track-visual1}, 
-and \ref{fig:track-visual2}).
+and \ref{fig:track-visual2}. These figures have been included as a reference for how to visualise
+and validate the intermediate stages of a radar processing pipeline. Understanding these 
+visualisations is also important for interpreting 
+the following figures in this section: \ref{fig:integration-waterfall}, 
+\ref{fig:integration-waterfall-orac}, \ref{fig:integration-setup}, \ref{fig:cfar-0.001-waterfall},
+\ref{fig:clustering-results}, \ref{fig:angle-2d-plot}, \ref{fig:angle-3d-plot-noise},
+\ref{fig:tracking-scenarios}, \ref{fig:tracking-3d-results}.
 
 % Filenames: visual-fft-png, visual-angle.png, visual-cfar.png, visual-cluster.png, visual-track.png
-\begin{figure}
-    \centering
-    \incfig[0.9]{visual-fft}
-    \caption[Visualisation of the FFT stage.]{Visualisation of the FFT stage for visual
-    validation. The y-axis is time and the x-axis is range. The colour indicates signal 
-    power at that range. With 
-    yellow indicating highest amplitude. There is a target at range "a" in this example.}
-    \label{fig:fft-visual}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \incfig[0.9]{visual-cfar}
-    \caption[Visualisation of the CFAR stage.]{Visualisation of the CFAR stage for visual
-    validation. The y-axis is time and the x-axis is range. The colour is amplitude
-    and no colour (black) indicates that that range bin has a value below the 
-    threshold. In this example, there is a target at range "a".}
-    \label{fig:cfar-visual}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\textwidth]{visual-cluster.png} 
-    \caption[Visualisation of the clustering stage.]{Visualisation of the clustering 
-    stage for visual
-    validation. The y-axis is time and the x-axis is range. The colour is amplitude. 
-    This time, range is a continuous variable instead of in discrete bins. 
-    In this example, there is a \~ -40dB target at around 1 km surrounded 
-    by a high level of -47dB clutter.}
-    \label{fig:cluster-visual}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\textwidth]{visual-angle.png} 
-    \caption[Visualisation of the angle sensing stage.]{Visualisation of the angle 
-    sensing stage for visual
-    validation. Depicted is a 3D plot of all detections accumulated over time.
-    The colour yellow indicates high power detections and purple indicates 
-    the lowest power detections. Depicted are two collections of points that
-    correspond to targets that were once in those positions. }
-    \label{fig:angle-visual}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{visual-track.png} 
-    \caption[Visualisation of the tracking stage.]{A 3D plot containing all detections
-    tentative tracks, confirmed tracks, and hypotheses accumulated over time with 
-    playback controls. 
-    Ellipses indicate the uncertainty of the element at its
-    centre. For example, white spheres indicate measurement 
-    uncertainty, and yellow indicates track update uncertainty. The FOV 
-    of each of the five quadruplets is depicted as coloured lines. The image 
-    depicts mostly clutter collected over a second, with a cluster of 
-    detections at around 1 km from the radar in the red circle. }
-    \label{fig:track-visual1}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{visual-track2.png}
-    \caption[Tracker Visualisation Zoomed In]{A close up view of 
-    the tracking stage identifying a target at around 1 km from the
-    radar in high noise conditions. As the ground truth progresses 
-    (turquoise line), a tentative track is born (red line, blue dot),
-    is updated (yellow dots), and is promoted to a confirmed track.
-    Noisy detections (white) are associated with the track (green lines)
-    and eventually, the track converges to the target's true state.}
-    \label{fig:track-visual2}
-\end{figure}
-
 \subsection{Pipeline Ablation Study}
-An ablation study is performed on the desktop computer 
+An ablation study is performed on each of the devices 
 to determine the contribution of
 each stage to the overall latency of the pipeline and their
 marginal effects on its throughput. Latency is measured as 
@@ -106,23 +45,23 @@ second after processing 1000 frames. Dataset DS2 simulates the
 receiver signals of targets across a wide variety of ranges in
 high noise. The pipeline is run on the data. On each trial,
 a stage is added. The results are depicted in Figures
-\ref{fig:ablation-cumulative-latency}, \ref{fig:ablation-latency-breakdown}, and \ref{fig:ablation-throughput-segments}.
+\ref{fig:ablation-latency-breakdown}, and \ref{fig:ablation-throughput-segments}.
 
-\begin{figure}
-    \centering
-    \incfig[1]{Ablation_Cumulative_Pipeline_Latency}
-    \caption{Cumulative pipeline latency per frame, 
-    split between
-    the processing subsystem and the 
-    detection and tracking subsystem. "Segments"
-    refers to the number of integrated output chirps for every 
-    256 input chirps.}
-    \label{fig:ablation-cumulative-latency}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \incfig[1]{Ablation_Cumulative_Pipeline_Latency}
+%     \caption{Cumulative pipeline latency per frame, 
+%     split between
+%     the processing subsystem and the 
+%     detection and tracking subsystem. "Segments"
+%     refers to the number of integrated output chirps for every 
+%     256 input chirps.}
+%     \label{fig:ablation-cumulative-latency}
+% \end{figure}
 
 From the figures depicting the cumulative latency of 
-each of the pipeline stages (Figures \ref{fig:ablation-cumulative-latency} 
-and \ref{fig:ablation-latency-breakdown}), it can be seen that the latency
+each of the pipeline stages (Figure
+\ref{fig:ablation-latency-breakdown}), it can be seen that the latency
 of the pipeline is highly dependent on the degree to which the input 
 chirps are summed together in the integration stage of the processing
 subsystem. Notably, the integrate stage contributes the most time to 
