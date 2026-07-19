@@ -139,12 +139,12 @@ algorithms on different platforms in real time.
     \caption[Transformation of sparse detections to dense representation]
     {Transformation from detection-sparse to detection-dense representation.
     Bin indices are highlighted in blue, and sample data in green. The first 
-    pair of rows shows sample indices and values pre-\gls{cfar}. \gls{cfar}}
+    pair of rows shows sample indices and values pre-\gls{cfar}. \gls{cfar}
     masks the samples in-place, and the clustering operation creates a 
     dense record of detections. In this implementation, contiguous non-zero samples 
     after \gls{cfar} are grouped into clusters, are (coherently) summed together, 
     and their "index"
-    is the weighted average of the indices of the samples in the cluster.
+    is the weighted average of the indices of the samples in the cluster.}
     \label{fig:clustering-sparse-dense}
 \end{figure}
 

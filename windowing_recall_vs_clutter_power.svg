@@ -24,15 +24,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.7717014"
-     inkscape:cx="353.76377"
-     inkscape:cy="292.21147"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="578.41335"
+     inkscape:cy="129.40054"
      inkscape:window-width="1850"
      inkscape:window-height="1136"
-     inkscape:window-x="70"
-     inkscape:window-y="27"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="axes_1" />
+     inkscape:current-layer="axes_1"
+     showgrid="false" />
   <defs
      id="defs1">
     <style
@@ -1455,35 +1456,6 @@
              id="path323" />
         </g>
         <g
-           id="text_30"
-           style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round">
-          <!-- SNR -->
-          <defs
-             id="defs323">
-            <path
-               d="M 9.8125,72.90625 H 23.09375 L 55.421875,11.921875 V 72.90625 h 9.5625 V 0 h -13.28125 l -32.3125,60.984375 V 0 H 9.8125 Z"
-               id="path33" />
-          </defs>
-          <g
-             transform="matrix(0.1,0,0,-0.1,587.82031,27.290438)"
-             id="g326"
-             style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round">
-            <use
-               xlink:href="#DejaVuSans-83"
-               id="use324"
-               style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round" />
-            <use
-               x="63.476562"
-               xlink:href="#DejaVuSans-78-8"
-               id="use325"
-               style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round" />
-            <path
-               d="m 182.67187,34.1875 q 3.17188,-1.078125 6.17188,-4.59375 3,-3.515625 6.03125,-9.671875 L 204.89062,0 h -10.60937 l -9.3125,18.703125 q -3.625,7.328125 -7.01563,9.71875 -3.39062,2.390625 -9.25,2.390625 h -10.75 V 0 h -9.85937 v 72.90625 h 22.26562 q 12.5,0 18.65625,-5.234375 6.15625,-5.21875 6.15625,-15.765625 0,-6.890625 -3.20312,-11.4375 -3.20313,-4.53125 -9.29688,-6.28125 z m -24.71875,30.609375 v -25.875 h 12.40625 q 7.125,0 10.76563,3.296875 3.64062,3.296875 3.64062,9.6875 0,6.390625 -3.64062,9.640625 -3.64063,3.25 -10.76563,3.25 z"
-               id="use326"
-               style="stroke-width:0.694273" />
-          </g>
-        </g>
-        <g
            id="line2d_53"
            style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round" />
         <g
@@ -1837,6 +1809,18 @@
                style="stroke-width:0.694273;stroke-linecap:butt;stroke-linejoin:round" />
           </g>
         </g>
+        <text
+           xml:space="preserve"
+           style="font-size:11.1084px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:none;stroke-width:0.361512"
+           x="582.35284"
+           y="28.161457"
+           id="text43"
+           transform="scale(0.99920691,1.0007937)"><tspan
+             sodipodi:role="line"
+             id="tspan43"
+             style="stroke-width:0.361512"
+             x="582.35284"
+             y="28.161457">Noise</tspan></text>
       </g>
       <g
          id="matplotlib.axis_1">

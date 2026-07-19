@@ -35,29 +35,31 @@ shown in a set of feasibility studies by Moses, Rutherford, and Valavanis
 published in 2011 \cite{6044363, uavborne_moses_2011} that validate a 
 miniature X-band radar system. One of the studies
 \cite{6044363} mounts the 230 gram radar on a small quadcopter (see 
-Figure \ref{fig:moses-quadcopter}), and successfully demonstrated target
+Figure \ref{fig:moses-quadcopter}), and successfully demonstrates target
 detection and identification in a laboratory environment. Their 
 evaluation emphasises target identification via micro-Doppler signatures rather
-than ranging or tracking, achieving a 100\% detection rate at 7 metres from
-the target. When distance increased and both platform and target took to the
+than ranging or tracking, achieving a 100\% detection rate when around three metres 
+from the target. When distance increased and both platform and target took to the
 air, accuracy dropped significantly --- a result that highlights the importance
 of validating radar pipelines under realistic encounter conditions. The other
-study of theirs outlines the post-detection decision making and avoidance manoeuvre 
-as 
-a control problem, but doesn't conduct airborne tests to validate the system 
+study of theirs tackles post-detection avoidance manoeuvres from a control perspective, 
+but they do not conduct airborne tests to validate the system 
 in realistic conditions. While the works together outline the software pipeline 
-from end to end, they do not 
+from end to end, they do not justify their choice in algorithms through
+comparison with alternatives. They also do not 
 characterise individual stage performances in areas such as latency or 
-throughput, nor do they compare alternative algorithmic choices.
+throughput.
 
 A follow-up 2014 publication by this group (Moses et al.\ \cite{Moses2014})
 presents an even smaller radar (see Figure \ref{fig:moses-2014}), now with 
-angle sensing and collision avoidance algorithms. The system is
+angle sensing and a collision avoidance algorithm. The system is
 evaluated indoors against large reflective targets. While the collision
-avoidance algorithms are compared thoroughly, no other algorithm choices are
+avoidance algorithms are compared thoroughly, the algorithm for turning detections
+into trajectories is not de, no other algorithm choices are
 evaluated and readiness for open-air tests was not demonstrated --- the authors
 themselves note that higher transmit power would be needed to detect targets 
-at the ranges for safe UAV operation. 
+at the ranges for safe UAV operation. Our work completes both validates the radar pipeline
+in open-air tests
 
 \begin{figure}[htbp]
     \centering
