@@ -162,6 +162,15 @@ evaluated at $\text{SLL} = -30, \text{and } -50$\,dB and $\bar{n} = 1,2,3,
 % multiplication, it is naturally suited to single instruction, multiple data (SIMD) execution. These 
 % implementations are compared for their resulting spectral behaviour. 
 
+The metrics of clutter power, and sensitivity were identified as the most relevant for evaluating 
+window performance. These values are obtained from the detector's response downstream; false detections
+count towards clutter power and detections that match the range of a target are considered true positives.
+The dataset on which this analysis is done is a sweep of azimuth elevation and range in a sweep of noise 
+amplitudes using the pseudo-real dataset D4. The best window will be that which reduces clutter power while 
+maintaining 
+high sensitivity to targets, since both false alarms and missed detections are detrimental to 
+\gls{daa} systems. The windows are also compared for their contributions to pipeline latency. 
+
 % The sidelobe attenuation and resolution loss are compared for each window and a trade off analysis 
 % is performed to determine when each window is the most suitable. These procedures provide a basis 
 % for selecting windows that are spectrally well behaved, sensitive, and 
@@ -175,7 +184,7 @@ coherent and non-coherent integration for point-like targets
 downstream computational effects of integration: the relationship between
 integration parameters and hardware, and the trade-off between information loss,
 sensitivity, and memory utilisation. The theoretical gains derived in
-\S\ref{sec:background-integration} do not determine which integration method 
+\S\ref{sec:background-radar-processing} do not determine which integration method 
 is most suitable in a context where coherence is not guaranteed, and where 
 compute resources are limited.   
 
@@ -183,7 +192,7 @@ compute resources are limited.
 % Talk about phase drift (maybe from Lies), probably in the discussion section 
 In this work, coherent integration is compared with non-coherent integration for their 
 resulting SNR 
-improvement, angle estimation quality, and track quality on real and simulated data. 
+improvement, angle estimation quality, and track quality on dataset D2. 
 The relationship between coherent integration window size and the performance metrics 
 is also explored. 
 

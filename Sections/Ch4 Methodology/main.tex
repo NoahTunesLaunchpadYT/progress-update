@@ -7,10 +7,7 @@ This thesis designs, implements, and evaluates a software-defined radar processi
 pipeline for a small monopulse radar system, assessing both computational efficiency 
 and tracking accuracy on an NVIDIA Jetson Xavier NX, an NVIDIA Jetson Xavier AGX, and 
 a desktop computer. Table \ref{tab:hardware-specs} summarises the hardware 
-specifications of the three platforms. Each platform is
-treated as a categorical experimental condition and run in an appropriate deployment 
-configuration. Full software-stack and version details are
-given in Appendix~\ref{tab:hardware-specs-full}.
+specifications of the three platforms. 
 
 % ------------------------------------------------------------
 %  BODY TABLE — distilled comparison
@@ -48,7 +45,8 @@ The software processing pipeline is designed to receive the radar data from mult
 Texas Instruments 
 AWR2243 radar chips, and produce tracks of targets in the radar's field of view. For 
 the experiments performed in this work, we utilise data from a conformal synthetic 
-aperture radar. Both the radar hardware and the software are designed to be modular. 
+aperture radar, with monopulse angle sensing. Both the radar hardware and the software 
+are designed to be modular. 
 The radar module, depicted in Figure \ref{fig:radar-module},
 has up to 12 receiver patches that are arranged in a 6x2 grid, conforming to a curved surface.
 For testability, the software system is broken up into three subsystems, which are in turn 
@@ -79,6 +77,21 @@ This subsystem level design is depicted in Figure \ref{fig:system-level-dataflow
     targets in the radar's field of view.}
     \label{fig:system-level-dataflow}
 \end{figure}
+
+The contribution of each processing stage to the overall computational cost is 
+assessed through an ablation study. Rather than measuring stages in isolation, 
+the pipeline is run end-to-end and the per-stage latency is recorded, yielding a 
+breakdown of how total processing time is distributed across formatting, 
+windowing, FFT, integration, CFAR, clustering, angle sensing, blanking, and 
+tracking. This breakdown identifies which stages dominate the compute budget and 
+therefore where implementation effort and compute allocation are best directed. 
+The measurement is repeated on each of the three hardware platforms in 
+Table~\ref{tab:hardware-specs}; because these platforms differ substantially in 
+GPU microarchitecture, core count, memory configuration, and thermal envelope, a 
+stage that is inexpensive on one may dominate on another, and the per-platform 
+breakdown makes these shifts visible. To produce a lower bound on performance, a frame 
+size of 52.5 MB is used, which is the largest frame configuration used by the current
+radar prototype.   
 
 The methodology is organised into three parts. Firstly, we propose a design of a \mbox{(pre-)processing} 
 subsystem that performs formatting, windowing, FFTs, and coherent integration on dense radar data. 

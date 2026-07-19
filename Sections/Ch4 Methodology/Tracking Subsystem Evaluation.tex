@@ -20,9 +20,24 @@ Below are the implementation and experiment details for each of the operations.
 \end{figure}
 
 \subsection{CFAR}
-For finding the CFAR coefficient $\alpha$ (defined in \ref{eqn:threshold}) that gives a desired false 
-alarm rate $P_{fa}^{\star}$. The relationship between these variables (Equation 
-\ref{eqn:cfar_false_alarm}), cannot be rearranged into a closed-form expression. 
+For finding the CFAR coefficient $\alpha$ (defined in \ref{eqn:threshold}) 
+that gives a desired false 
+alarm rate $P_{fa}^{\star}$, a technique novel to field of UAV detect and avoid is applied. 
+While works like Spencer et al. \cite{compact_spencer_2015} apply \gls{cfar} after angle sensing, we apply
+\gls{cfar} before angle sensing. Additionally, unlike the works that find detections before angle 
+sensing \cite{Wang2016, Moses2014}, which threshold each channel independently, we apply \gls{cfar} across
+across every possible quadruplet of four receivers in our array, improving SNR power by a factor of four 
+(groupings shown in Figure 
+\ref{fig:overlapping_quadruplets}). This \gls{cfar} strategy obtains the pre-angle-sensing compute savings 
+Wang et al.
+seeks while recovering the compute that Spencer wastes by performing angle sensing on samples that will
+get masked out sacrifices. 
+As identified in the Background \ref{sec:background-radar-processing},
+the power sum across multiple receivers is a chi-squared distributions, for which the relationship between 
+false alarm rate, the number of training 
+cells, and the threshold multiplier $\alpha$ is known \cite{Richards2005FundamentalsRadarSP}. 
+
+The relationship cannot be rearranged into a closed-form expression. 
 
 \begin{equation}
     P_{fa}(\alpha;N) = \left( \frac{N}{N+\alpha} \right)^N
@@ -30,7 +45,17 @@ alarm rate $P_{fa}^{\star}$. The relationship between these variables (Equation
     \left( \frac{\alpha}{N+\alpha} \right)^k
 \end{equation}
 
-Since $P_{fa}(\alpha;N)$ is strictly decreasing in $\alpha$, bisection can be used 
+\begin{figure}
+    \centering
+    \includesvg[width=0.9\linewidth]{pfa_vs_alpha.svg}
+    \caption[False alarm rate as a function of the CFAR coefficient $\alpha$.]{False alarm rate as a function 
+    of the CFAR coefficient $\alpha$ for different numbers of training cells $N$. The relationship is strictly 
+    decreasing, allowing for bisection to find the value of $\alpha$ that gives the desired false alarm rate 
+    \(P_{fa}^{\star}\).}
+    \label{fig:pfa_vs_alpha}
+\end{figure}
+
+Since $P_{fa}(\alpha;N)$ is strictly decreasing in $\alpha$ (see Figure \ref{fig:pfa_vs_alpha}), bisection can be used 
 to find the value of $\alpha$ that gives the desired false alarm rate \(P_{fa}^{\star}\).
 
 The method begins with $\alpha_{lo}=0$ and increases an upper bound $\alpha_{hi}$ until 
@@ -48,7 +73,7 @@ number of sums required to four per sample of interest regardless of the number 
 start and end of the left and right window (see 
 Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see 
 Figure \ref{fig:gpu-cfar}). A sweep of window size, guard size, frame buffer size and false alarm rate values is 
-conducted for each CFAR implementation on real and simulated data. The performance (throughput, latency, 
+conducted for each CFAR implementation on datasets D2, and D3. The performance (throughput, latency, 
 false alarm rate, sensitivity, and track quality) is compared across configurations in a cost benefit 
 analysis. 
 This addresses the second literature gap in treating implementation strategy as a design 
@@ -220,10 +245,12 @@ concerns: prior compact-radar demonstrations validate the chain only partway.
 
 The blanking stage will be implemented on the CPU. After clustering and angle sensing, 
 the detections come in an ordered list per receiver quadruplet. A CPU implementation would involve,
-for each time step, iterating through each of the lists simultaneously and sorting them into one 
-ordered list in O(n) 
-time. Then iterating through the ordered list and eliminating detections that are close in range to
-a stronger detection. 
+for each time step, iterating through each of the lists and sorting them into one 
+ordered list; this is a merge sort of n sorted lists.  
+The algorithm then iterates through the ordered list and eliminates detections that are close 
+in range to a stronger detection. This stage was not implemented on the GPU, as it is the precursor to
+a CPU stage (tracking) and the latency of this stage is expected to be small, since most samples
+have been discarded and combined. This is an assumption that will be verified through the ablation study. 
 
 % GPU DETAILS BELOW, POTENTIALLY USEFUL
 % A GPU implementation would involve creating a thread per detection per quadruplet, 
@@ -273,7 +300,7 @@ the impacts of the stage on latency and throughput (gap 2).
 The multi-target tracking stage will be implemented entirely on the CPU due to its sequential nature. 
 Amplitude based association will be compared to non-amplitude based association for their impact on
 track quality. Experiments will
-be conducted across variations in SNR, and number of targets, in simulated data and pseudo-real data. 
+be conducted across variations in SNR, and number of targets, in simulated data (D2) and pseudo-real data (D4). 
 
 % EXPLORE MORE
 % - Amplitude based association

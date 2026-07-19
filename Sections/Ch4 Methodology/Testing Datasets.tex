@@ -45,7 +45,8 @@ for testing.
     \label{fig:synthetic-signal}
 \end{figure}
 
-While every component of the software can be tested with this first dataset, stages such as windowing, CFAR, angle sensing, and tracking benefit from more realistic data. The choice of window heavily relies
+While every component of the software can be tested with this first dataset, stages such as windowing, CFAR, angle sensing, and tracking benefit from more 
+realistic data. The choice of window heavily relies
 on the spectral characteristics of the pulse compressed signal; the choice of the CFAR algorithm
 relies on the distribution of noise and clutter; the validation of the angle sensing stage requires
 knowledge of the beam shape of the receivers, and the tracking stage relies on the above as well
@@ -61,9 +62,10 @@ trial conditions. This dataset is used to validate the behaviour of the processi
 under real-world conditions, including the effects of multipath propagation, non-Gaussian noise, 
 clutter, and other phenomena that are not captured in the synthetic datasets. 
 
-The forth dataset is constructed to make up for the low availability of the third. It is a pseudo-real dataset 
-that incorporates the clutter and noise characteristics from a recording of a stationary radar pointing at the 
-empty sky and adds synthetic targets to it. 
+The fourth dataset combines the realism of the third dataset with the controllability of the second. 
+It is a pseudo-real dataset 
+that incorporates the clutter and noise characteristics from a recording of an airborne radar pointing at an 
+empty scene with synthetic targets from the physics simulation. 
 Table \ref{tab:datasets} summarises the datasets and their characteristics.
 
 \begin{table}[htbp]
@@ -80,11 +82,11 @@ Table \ref{tab:datasets} summarises the datasets and their characteristics.
         radio wave propagation, and hardware preprocessing & Does not model multipath propagation and 
         non-Gaussian noise. \\
         \hline
-        DS3 & Validation under real-world conditions & Real radar data recorded from the 
+        DS3 & Validation under air-to-air conditions & Air-to-air radar data recorded from the 
         AWR2243 radar system. Contains all expected non-idealities. & 
         Contains timing uncertainties and is in limited supply. \\
         \hline
-        DS4 & Validation under real-world clutter & Real data with simulated targets added. &
+        DS4 & Validation under air-to-air conditions & Air-to-air background noise with simulated targets added. &
         Does not model non-idealities of target signals such as multipath propagation. \\
         \hline
     \end{tabular}

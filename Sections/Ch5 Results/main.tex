@@ -9,14 +9,13 @@ presented as plots, and are accompanied by a discussion of their implications fo
 of the radar processing pipeline in the following chapter. 
 
 Before the per stage performance is presented, a wholistic view of the pipeline's performance is
-given, including the tracking performance of the pipeline as a whole, and the contribution of each
-stage to the overall latency of the pipeline.  
+given, including the ablation study on each of the hardware devices and field trial results.  
 
 The pipeline demonstrates full real-time multi-target tracking functionality on each of the three
 hardware platforms: the desktop workstation, the NVIDIA Xavier 
-AGX, and the NVIDIA Xavier NX. On the more performant Jetson computer, a latency of less than 50mc 
-while processing 4 videos streams of 256 chirps, each with 767 samples, per frame at a rate of 10 
-frames per second is achieved.
+AGX, and the NVIDIA Xavier NX. Worst case, the desktop workstation 
+performed at 150 frames per second, the Xavier AGX performed at 25 frames per second, and the Xavier 
+NX performed at 20 frames per second.  
 
 On top of this, the harness used for visualisation can also run online, 
 allowing the user to see the correct 
@@ -33,6 +32,8 @@ the following figures in this section: \ref{fig:integration-waterfall},
 
 % Filenames: visual-fft-png, visual-angle.png, visual-cfar.png, visual-cluster.png, visual-track.png
 \subsection{Pipeline Ablation Study}
+
+
 An ablation study is performed on each of the devices 
 to determine the contribution of
 each stage to the overall latency of the pipeline and their
@@ -41,68 +42,79 @@ the time between the arrival of a chirp to the capture stage of
 the processing subsystem, and the
 generation of the output of the pipeline, whatever it may be. 
 Throughput is measured as the number of frames processed per 
-second after processing 1000 frames. Dataset DS2 simulates the 
+second after processing 1000 frames each of 52.5 MB in size. 
+Dataset DS2 simulates the 
 receiver signals of targets across a wide variety of ranges in
-high noise. The pipeline is run on the data. On each trial,
-a stage is added. The results are depicted in Figures
-\ref{fig:ablation-latency-breakdown}, and \ref{fig:ablation-throughput-segments}.
+high noise. On each trial, the complete pipieline is run up until 
+a given terminating stage, for example, label "CFAR" refers to the 
+pipeline including all stages up to and including CFAR. 
+
+On the desktop, performance requirements were easily met, and 
+a frame rate of above 300 frames per seconds was achieved for lower integration segment counts 
+(see Figure \ref{fig:ablation-throughput-desktop}). 
+One optimisation that was significant was the use of several CPU threads to handle the incoming
+frames. Utilising two or four processing buffers allowed the pipeline to maintain 150+ framerate 
+even when the integration stage didn't compress the data at all (256 segments). Another finding 
+made on the desktop was that after CFAR, additional stages only marginally reduced throughput, 
+suggesting that host-device transfer, and CPU read/write operations dominated the pipeline's 
+compute time. 
+
+On the two Jetson Devices, the device-host memory architecture disallows the asynchronous 
+graph execution that was possible on the desktop, limiting CPU operations to one thread. 
+With no pipelining, framerate is the reciprocal of latency, and hence only the latency of the 
+pipeline is reported for these devices. On the AGX, a latency of less than 40 ms is achieved 
+worst case, and on the NX, that number is less than 50 ms (see Figures 
+\ref{fig:latency-breakdown-agx} and \ref{fig:latency-breakdown-nx}).
+
+% REDO THIS PART BELOW
+
+% The results are depicted in Figures
+% \ref{fig:ablation-latency-breakdown}, and \ref{fig:ablation-throughput-segments}.
+
+% From the figures depicting the cumulative latency of 
+% each of the pipeline stages (Figure
+% \ref{fig:ablation-latency-breakdown}), it can be seen that the latency
+% of the pipeline is highly dependent on the degree to which the input 
+% chirps are summed together in the integration stage of the processing
+% subsystem. Notably, the integrate stage contributes the most time to 
+% the pipeline latency when it is doing the least work (no integration,
+% outputting 256 chirps for every 256 input chirps). Figure 
+% \ref{fig:ablation-latency-breakdown} illustrates that the processing
+% application is mainly invariant to the number of segments, while 
+% the detection and tracking subsystem's latency increases 
+% proportionally with it. As a result, the first stage is faster 
+% than the second for segment counts above 4 and vice versa for
+% segment counts below 4. 
 
 % \begin{figure}
 %     \centering
-%     \incfig[1]{Ablation_Cumulative_Pipeline_Latency}
-%     \caption{Cumulative pipeline latency per frame, 
-%     split between
-%     the processing subsystem and the 
-%     detection and tracking subsystem. "Segments"
-%     refers to the number of integrated output chirps for every 
-%     256 input chirps.}
-%     \label{fig:ablation-cumulative-latency}
+%     \incfig[1]{Ablation_Latency_Breakdown}
+%     \caption{Pipeline latency breakdown as stages are added for 
+%     different integration segment counts (number of output chirps for 
+%     every 256 inputs chirps). Split into the processing subsystem
+%     the detection and tracking subsystem, 
+%     and a combined view.}
+%     \label{fig:ablation-latency-breakdown}
 % \end{figure}
 
-From the figures depicting the cumulative latency of 
-each of the pipeline stages (Figure
-\ref{fig:ablation-latency-breakdown}), it can be seen that the latency
-of the pipeline is highly dependent on the degree to which the input 
-chirps are summed together in the integration stage of the processing
-subsystem. Notably, the integrate stage contributes the most time to 
-the pipeline latency when it is doing the least work (no integration,
-outputting 256 chirps for every 256 input chirps). Figure 
-\ref{fig:ablation-latency-breakdown} illustrates that the processing
-application is mainly invariant to the number of segments, while 
-the detection and tracking subsystem's latency increases 
-proportionally with it. As a result, the first stage is faster 
-than the second for segment counts above 4 and vice versa for
-segment counts below 4. 
 
-\begin{figure}
-    \centering
-    \incfig[1]{Ablation_Latency_Breakdown}
-    \caption{Pipeline latency breakdown as stages are added for 
-    different integration segment counts (number of output chirps for 
-    every 256 inputs chirps). Split into the processing subsystem
-    the detection and tracking subsystem, 
-    and a combined view.}
-    \label{fig:ablation-latency-breakdown}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \incfig[0.8]{Ablation_Dat_Throughput_Segments}
+%     \caption{Pipeline Throughput per Frame as stages are added, for 
+%     different integration segment counts (number of output chirps for 
+%     every 256 inputs chirps). Obtained by finding average frames 
+%     per second after processing 1000 frames each with 256 input chirps.}
+%     \label{fig:ablation-throughput-segments}
+% \end{figure}
 
-
-\begin{figure}
-    \centering
-    \incfig[0.8]{Ablation_Dat_Throughput_Segments}
-    \caption{Pipeline Throughput per Frame as stages are added, for 
-    different integration segment counts (number of output chirps for 
-    every 256 inputs chirps). Obtained by finding average frames 
-    per second after processing 1000 frames each with 256 input chirps.}
-    \label{fig:ablation-throughput-segments}
-\end{figure}
-
-While latency is generally between 20 and 50 ms for segment counts 
-less than 64, the throughput of the pipeline is greater than 
-5000 frames a second, or 0.2 ms per frame. This 
-two-orders-of-magnitude difference between latency and 
-throughput is due to the fact that multiple frames are processed 
-simultaneously by the pipeline. While memory is available, a 
-thread will be spun up to process each incoming frame.
+% While latency is generally between 20 and 50 ms for segment counts 
+% less than 64, the throughput of the pipeline is greater than 
+% 5000 frames a second, or 0.2 ms per frame. This 
+% two-orders-of-magnitude difference between latency and 
+% throughput is due to the fact that multiple frames are processed 
+% simultaneously by the pipeline. While memory is available, a 
+% thread will be spun up to process each incoming frame.
 
 \subsection{Tracking Performance on Real-world Data}
 The radar hardware was taken to an open air field test site in New South Wales 

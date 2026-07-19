@@ -48,7 +48,9 @@ in realistic conditions. While the works together outline the software pipeline
 from end to end, they do not justify their choice in algorithms through
 comparison with alternatives. They also do not 
 characterise individual stage performances in areas such as latency or 
-throughput.
+throughput. The present thesis work compares the pipeline stages chosen by 
+Moses et al. such as a Hamming window and a peak detector,
+along with alternatives, and measures their computation and tracking performances.   
 
 A follow-up 2014 publication by this group (Moses et al.\ \cite{Moses2014})
 presents an even smaller radar (see Figure \ref{fig:moses-2014}), now with 
@@ -58,8 +60,9 @@ avoidance algorithms are compared thoroughly, the algorithm for turning detectio
 into trajectories is not de, no other algorithm choices are
 evaluated and readiness for open-air tests was not demonstrated --- the authors
 themselves note that higher transmit power would be needed to detect targets 
-at the ranges for safe UAV operation. Our work completes both validates the radar pipeline
-in open-air tests
+at the ranges for safe UAV operation. The present thesis work aims to fill in the 
+gap of 
+no open-air trials through its own field demonstrations. 
 
 \begin{figure}[htbp]
     \centering
@@ -83,8 +86,10 @@ in open-air tests
 Shi et al. \cite{6712628}, Itcia et al. \cite{fmcw_itcia_2013} 
 and Fasano et al. \cite{Giancarmine2016} each demonstrate airborne 
 radar tracking on group 3 (greater than 25 kg) UAV platforms and of group 2 
-(greater than 10 kg) UAV targets at the kilometre ranges that Moses et al. 
-couldn't reach, but on platforms too large to inform the small-UAV case.
+(greater than 10 kg \cite{DoD2013UASRoadmap}) UAV targets at the kilometre 
+ranges that Moses et al. 
+didn't test, but on platforms too large to inform the small-UAV case. This 
+thesis extends the work of these works to UAVs less than 25 kg in mass. 
 \cite{Wang2016} builds upon Moses et al.'s work through the 
 design and simulation of comparable \gls{swap} with  
 ranging capabilities similar to those of Shi et al. and Itcia et al. 
@@ -96,7 +101,8 @@ pipeline, avoiding the computationally expensive beamforming step until
 after detection. Simulated coverage varies from 4.4 km to 9.4 km depending 
 on transmit power, beam-forming and FFT length, illustrating the impact of compute
 allocation on detection range. Despite this, the allocation of compute is 
-not measured. 
+not measured. This thesis builds on Wang's work through measuring the allocation 
+of compute between pipeline stages through an ablation study.
 
 Spencer directly builds on the works of Moses et al.\, Shi et al.\, Itcia et al.\, 
 and Fasano et al.\ by designing a compact four-element 250 gram phased array radar 
