@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.4.4 (1:1.4.4+202605061432+dcaf3e7d9e), www.inkscape.org
+%% Creator: Inkscape 1.3.2 (1:1.3.2+202311252150+091e20ef0f), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'track_RMS_Distance.pdf' (pdf, eps, ps)
 %%
@@ -50,9 +50,20 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.5023184)%
+  \begin{picture}(1,0.51743005)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{track_RMS_Distance.pdf}}%
+    \put(0.03745973,0.28798565){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}RMS Distance Error (m)\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{track_RMS_Distance.pdf}}%
+    \put(0.54193029,0.00714435){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Signal to Noise Ratio (dB)\end{tabular}}}}%
+    \put(0.14823291,0.04168502){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}No noise\end{tabular}}}}%
+    \put(0.08429276,0.10767928){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0.07452649,0.21011802){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}10\end{tabular}}}}%
+    \put(0.07513117,0.31293646){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}15\end{tabular}}}}%
+    \put(0.07452649,0.4153752){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}20\end{tabular}}}}%
+    \put(0.41287963,0.04193815){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.67854765,0.04193815){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}-10\end{tabular}}}}%
+    \put(0.94326275,0.04193815){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}-20\end{tabular}}}}%
   \end{picture}%
 \endgroup%

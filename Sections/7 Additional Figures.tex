@@ -80,3 +80,38 @@
     and eventually, the track converges to the target's true state.}
     \label{fig:track-visual2}
 \end{figure}
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.6\textwidth]{ablation_latency_desktop.svg}
+    \caption[Pipeline latency breakdown on the desktop workstation.]{Pipeline latency breakdown as stages are added for
+    different integration sizes (factor of reduction/number of records summed together). Split into the processing subsystem
+    the detection and tracking subsystem,
+    and a combined view.}
+    \label{fig:latency-desktop}
+\end{figure}
+
+\begin{figure}
+   \centering
+    \includesvg[width=0.6\textwidth]{ablation_throughput_nx.svg} 
+    \caption[Pipeline throughput breakdown on the Jetson NX.]{Pipeline throughput breakdown as stages are added for
+    different integration sizes (factor of reduction/number of records summed together). Run on the Jetson NX.}
+    \label{fig:throughput-nx}
+\end{figure}
+
+\begin{figure}
+   \centering
+    \includesvg[width=0.6\textwidth]{ablation_throughput_agx.svg} 
+    \caption[Pipeline throughput breakdown on the Jetson AGX.]{Pipeline throughput breakdown as stages are added for
+    different integration sizes (factor of reduction/number of records summed together). Run on the Jetson AGX.}
+    \label{fig:throughput-agx}
+\end{figure}
+
+\begin{figure}
+    \incfig[0.7]{integration_waterfall_orac}
+    \caption[Integration on AWR2243 test-source data.]{Integration 
+    stage output on
+    AWR2243 test-source data across 8 channels, compressing 128 chirps into one with
+    no noise present.}
+    \label{fig:integration-waterfall-orac}
+\end{figure}

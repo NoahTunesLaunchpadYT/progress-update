@@ -1,26 +1,33 @@
 \chapter{Conclusion and Future Work}
 
 \section{Summary}
+% Add shared memory finding 
+% Add CFAR contribution
+% Dont repeat details about the field trial
+% Mention the effects of validation on DS4. 
 
 This thesis designed, implemented, and evaluated a software-defined radar tracking pipeline
 for \gls{uav} detect-and-avoid under strict \gls{swap} constraints. The work was motivated
-by the convergence of miniaturised millimetre-wave radar hardware, capable embedded
+by the miniaturisation of millimetre-wave radar hardware, capable embedded
 \gls{gpu} compute, and an evolving regulatory landscape that increasingly requires
 non-cooperative target sensing for \gls{bvlos} UAV operations. Three gaps in the existing
-literature were identified: the absence of end-to-end pipeline validation against small
+literature were identified: the absence of end-to-end pipeline validation air-to-air radar 
+tracking of small
 moving airborne targets; the lack of low-level implementation benchmarking on embedded
-GPU hardware representative of UAV platforms; and the failure of prior work to characterise
+GPU hardware representative of UAV platforms; and a lack of prior work that characterises
 how algorithm and implementation conclusions transfer across hardware configurations.
 Each gap was addressed, but not fully filled, through the experiments conducted in this thesis.
 
 The pipeline was structured into three subsystems: a processing subsystem performing
-formatting, windowing, \gls{fft}, and coherent integration; a detection and tracking subsystem
-performing \gls{cfar}, monopulse angle sensing, clustering, and multi-target tracking; and
+formatting, windowing, an \gls{fft}, and coherent integration; a detection and tracking subsystem
+performing \gls{cfar}, clustering monopulse angle sensing, blanking, and multi-target tracking; 
+and
 an aggregation layer combining data from multiple receiver quadruplets. The full pipeline
-demonstrated real-time multi-target tracking on an NVIDIA Xavier AGX, processing four
-video streams of 256 chirps each at ten frames per second with end-to-end latency below
-50\,ms, establishing that a complete sensing-to-tracking pipeline is feasible within the
-SWaP constraints of a medium UAV.
+demonstrated real-time multi-target tracking on an NVIDIA Xavier AGX, meeting a 
+requirement of processing four
+video streams of 256 chirps at ten frames per second with end-to-end latency below
+50\,ms. The results establish that a complete sensing-to-tracking pipeline is feasible within the
+SWaP constraints of a small \gls{uav} of less than 25 kg.
 
 Regarding the first gap, the pipeline was validated on synthetic datasets spanning a wide
 range of noise intensities and target geometries, including multi-target scenarios with
@@ -30,37 +37,92 @@ algorithm choices. Taylor windows calibrated to $-50$\,dB sidelobe levels were f
 minimise \gls{cfar} false alarms without recall penalty; coherent integration was the most
 effective mechanism for extending detection sensitivity, raising recall from near zero to
 0.9 with 64 chirps; and CA-CFAR outperformed GO-CFAR and SO-CFAR in high-noise conditions
-owing to its more stable noise floor estimate. The system was also deployed in a live
-airborne field trial. Detection of a small drone target at close range was not achieved
-due to a hardware noise artefact, but the pipeline correctly geolocated high cross-section
-static targets at up to 706\,m, confirming that the processing chain produces physically
-meaningful outputs in the field. The trial also exposed a gap between synthetic and
-real-world performance that synthetic evaluation alone cannot reveal.
+owing to its more stable noise floor estimate. The pipelines resolves a literature contention 
+through the use of a CFAR technique that is both efficient and sensitive. A gap regarding
+multi-target tracking was addressed through the validation of the monopulse angle sensing stage and
+multi-target tracker, which were shown to be unbiased estimators of target bearing and elevation even at
+$-10$\,dB SNR with three targets in the air simultaneously. 
 
-Regarding the second gap, GPU-based implementations of windowing, coherent integration,
+The system was also deployed in a live
+airborne field trial. Detection of a small drone target at close range was not achieved
+due to a receiver-transmitter coupling, but the pipeline correctly geolocated high cross-section
+static targets at up to 706\,m, confirming that the processing chain produces physically
+meaningful outputs in the field. The data from the trial formed the basis for further analysis, 
+which incorporated the noise from the real-world data into the simulated data to produce DS4. 
+The validating in this data revealed differences in the real and assumed noise regimes, but also
+confirmed robustness of the pipeline design to those differences. 
+
+Regarding the second gap, an ablation study was performed to understand the contribution 
+to latency made by each of the stages in the pipeline. On the embedded NVIDIA Jetsons, the 
+capture, integration, aggregation, and cfar stages were the most expensive to implement performance-wise.
+GPU-based implementations of windowing, coherent integration,
 and \gls{cfar} were benchmarked against CPU alternatives across buffer sizes and training
 window configurations on both the desktop and Xavier platforms. The profiling identified
-\gls{cfar} as the dominant latency contributor in the detection subsystem and quantified
-host-device data transfer and thread synchronisation as the primary remaining overhead,
-providing the hardware-constrained implementation analysis that prior UAV DAA radar work
-lacked.
+\gls{cfar} as the dominant latency contributor in the detection and tracking subsystem 
+and quantified
+host-device data transfer and thread synchronisation as the primary remaining overhead. 
+These findings provide the hardware-constrained implementation analysis that prior UAV DAA 
+radar work lacked.
 
-Regarding the third gap, monopulse angle sensing was integrated into a complete
-end-to-end range-detection-to-track pipeline and evaluated across six noise intensities.
-The algorithm was shown to be an unbiased estimator of target bearing and elevation even
-at $-10$\,dB SNR when detections are accumulated over time, and its failure modes under
-multiple co-range targets were characterised. Together, the three bodies of work advance
-the state of the art from isolated sub-system demonstrations toward a unified,
-empirically grounded understanding of the design space for compact airborne radar.
+Regarding the third gap, the same algorithm and implementation choices were evaluated 
+across three platforms of differing architecture, the desktop workstation, the Xavier NX
+, and the Xavier AGX, to test whether conclusions drawn on one transfer to another. 
+They did not. The fastest CFAR implementation differed by platform: on the Xavier the 
+GPU implementation was preferable across all practical training-cell counts, whereas on 
+the desktop the prefix-sum CPU implementation was faster until buffers exceeded roughly 
+fifty chirp records, confirming that implementation selection cannot be made platform-
+agnostically. More strikingly, the two unified-memory Jetson devices achieved higher 
+pipeline throughput than the discrete-GPU desktop despite far lower compute. This unexpected outcome
+can be attributed to their shared CPU-GPU memory removing the host-device transfer that 
+dominates the desktop on this transfer-bound workload. This result inverts the 
+intuition that greater GPU capability yields greater throughput, and demonstrates that 
+hardware architecture changes which algorithms and implementations are viable. 
+Together, the three bodies of work advance the state of 
+the art from isolated sub-system demonstrations toward a unified, empirically grounded 
+understanding of the design space for compact airborne radar.
 
-The field trial in New South Wales placed the radar airborne in air-to-air configurations
-against a target drone at 200\,m. The aerial target was not tracked due to high electrical
-noise at the beginning of each transmitted pulse, which obscured the close-field region
-where the target flew. Despite this, the pipeline successfully detected and geolocated
-high cross-section static targets at up to 706\,m, with detected point clouds aligning
-closely with known map positions. The result validates the pipeline's ability to produce
-physically meaningful detections in a live airborne setting, while highlighting that
-hardware characterisation must be part of any credible DAA system evaluation.
+\section{Significance}
+% A section that links back to the significance claims in the introduction. Relate the 
+% findings of the work to the significance
+% \section{Significance}
+
+The engineering significance of this work is that it lowers a specific barrier to 
+putting radar on small uncrewed aircraft. Radar is the one detect-and-avoid sensor that 
+keeps working through darkness, rain, dust, and glare, but it has historically been too 
+heavy, too power-hungry, and too coarse in angle to carry on a sub-25,kg platform. This 
+thesis shows that a complete sensing-to-tracking pipeline can run in real time within 
+that platform's size, weight, and power budget, and it replaces guesswork with measured 
+evidence about which processing choices make such a system sensitive enough and fast 
+enough to be useful. Just as importantly, it produces a reusable way of answering that 
+question, an evaluation framework of profiling, ablation, and parameter sweeps, so that 
+as embedded hardware continues to change, the conclusions can be regenerated rather 
+than re-guessed. This matters because the pace of the field is set less by new radar 
+physics than by what can be made to run on the compute a drone can actually carry.
+
+The larger reason this matters lies beyond the engineering. Reliable, all-weather 
+sensing of non-cooperative aircraft is the single capability standing between where 
+uncrewed aviation is now, confined largely to line-of-sight and segregated airspace, 
+and where regulators are preparing for it to be: routine beyond-visual-line-of-sight 
+flight in shared skies. The regulatory bodies now drafting the rules for that 
+transition are doing without at complete understanding of the sensing capabilities 
+that will be available in the future, and 
+work that reduces the uncertainty about what compact radar can actually achieve feeds 
+directly into that live policy process. The economic stake is substantial: the uncrewed 
+area is the fastest-growing part of the airborne radar market, and the services it 
+unlocks, from same-day medical and parcel logistics to continuous inspection of power 
+lines, and transport corridors, depend on small aircraft being trusted to see and 
+avoid hazards without a human in the loop.
+
+In Australia, beyond-visual-line-of-sight drones are already identified as tools for 
+bushfire 
+monitoring and response, where the ability to fly through smoke and low visibility, 
+exactly the conditions that blind optical sensors, determines whether the aircraft is 
+useful at all. The same all-weather sensing that lets a drone hold separation from 
+other traffic is what lets it work over a fire front or a disaster zone at night. By 
+making that perception achievable within the constraints of a small, affordable platform
+, radar-based detect-and-avoid helps extend these capabilities to the regional councils
+, volunteer services, and small operators for whom a lightweight, low-cost sensor is 
+the only viable option.
 
 \section{Future Work}
 
@@ -71,17 +133,44 @@ including OS-CFAR, MTI filters, and machine learning based detectors, evaluated 
 the non-Gaussian noise statistics of real airborne data. A wider sweep of clustering
 algorithms including DBSCAN should be assessed with quantitative metrics and their
 downstream effects on tracking performance characterised. The tracking stage should be
-extended to compare GNN-Kalman against MHT, JPDAF, and PHD-based approaches.
+extended to compare GNN-Kalman against MHT, JPDAF, and PHD-based approaches. It would 
+be insightful for a future study to take the per stage analysis further than what 
+was accomplished in this thesis, by looking at joint algorithms such as the joint
+detection and angle sensing explored in \cite{an2024_time_varying_angle_estimation_unresolved_extended_targets_monopulse}
+and track before detect approaches such as particle filters. These joint approaches 
+represent a departure from the pre-stage breakdowns of this thesis, and may yield
+higher sensitivities at the cost of higher computational complexity. 
 
-On the implementation and hardware side, the dominant source of remaining latency is
-host-device data transfer and thread synchronisation overhead, and future work should
-focus on reducing it. The integration stage's current single-threaded reduction
-should be parallelised to distribute the summation work across GPU threads. The pipeline
-has been evaluated on the Xavier NX and Xavier AGX; extending this evaluation to newer
-platforms such as the Orin Nano and Orin NX would provide updated hardware-aware
+On the implementation and hardware side, the dominant source of remaining latency is 
+host-device data transfer and thread synchronisation overhead. A valuable direction 
+would be a low-level study of how to exploit unified memory in radar pipelines, 
+building on this thesis's finding that eliminating host-device transfer allowed the 
+embedded Jetson devices to out-throughput a far more powerful discrete-GPU workstation; 
+the integration stage's current single-threaded reduction, for instance, could be 
+redistributed across GPU threads under a unified-memory access pattern. The pipeline 
+was evaluated on the Xavier NX and Xavier AGX; extending this evaluation to newer 
+platforms such as the Orin Nano and Orin NX would provide updated hardware-aware 
 recommendations as the embedded compute landscape continues to mature.
 
-Most critically, the pipeline should be re-evaluated on the real-world D3 dataset with
-the electrical noise artefact characterised or corrected. Achieving airborne drone tracking
-against a small non-cooperative target in a live flight test remains the long term goal 
-for the project. 
+A further direction is the fusion of the radar pipeline with a co-located electro-
+optical camera. The most consequential limitation of the angle-sensing stage identified 
+in this work, the collapse of multiple co-range targets into a single power-weighted 
+bearing and elevation estimate, stems from the large beam width of the radar. 
+An optical sensor is complementary in precisely this respect: 
+it provides fine angular resolution but no direct range, whereas the radar provides 
+robust range and radial velocity but coarse angle. Fusing the two would allow the 
+camera to resolve targets the radar cannot separate in angle while the radar continues 
+to range and track through the poor-visibility conditions in which vision degrades. 
+Lies et al. \cite{Lies2020} already delegate angle sensing to a camera to free radar 
+compute budget for sensitivity recovery, but quantify the resulting trade-off only 
+asymptotically rather than measuring it on hardware. A fusion-oriented thesis would 
+extend this from a fixed division of labour to a genuinely fused estimator, and would 
+treat the fusion architecture itself, whether association is performed at the track 
+level, the detection level, or through a learned joint representation, as a design 
+variable in the same manner that this thesis treated the choice of window, detector, 
+and integration mode. 
+
+Ultimately, the pipeline should be re-evaluated on field-obtained data with the 
+transmitter-receiver coupling artefact characterised or corrected. Achieving airborne 
+tracking of multiple small, non-cooperative targets in a live flight test remains the 
+long-term goal for this line of work.

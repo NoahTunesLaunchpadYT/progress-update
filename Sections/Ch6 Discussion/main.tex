@@ -19,54 +19,56 @@ more appropriate alternative. By forcing the most prominent
 sidelobes to the same low power level, CFAR is less likely to 
 mistake them for targets. That being said, more work is required 
 to support the claim that the Taylor window is more appropriate. 
-It has not yet been validated in the noise regime of dataset D3,
-the real-world AWR2243 data, and the adverse effects of its large
-main lobe were avoided by only testing it on single target 
-scenarios. Because a wider main lobe means lower resolution, 
+It has not yet been validated in the noise regime of dataset DS3.
+A further limitation is that the adverse effects of its wide main 
+lobe were avoided by testing it only on single-target scenarios, so its tendency to 
+blur closely spaced targets was never exercised.
+Because a wider main lobe means lower resolution, 
 the Taylor window may be less effective at resolving closely spaced
-targets than the Hamming window. While more windows were explored 
-in this project compared to literature in the UAV DAA radar domain, 
+targets than windows with thinner main lobes such as the rectangular 
+and Hamming windows. While more windows were explored 
+in this thesis compared to other literature in the UAV DAA radar domain, 
 five filters is still a small subset of possible window functions 
 and future work should explore a wider variety of windows, such as
 the Blackman-Harris, explored in 
 \cite{zaknoun2024_realtime_gpu_accelerated_radar_processing}, with 
-a variety of parameterisations. 
+a variety of parametrisation. 
 
-The insignificant
-time difference between each of the implementations of the windowing
-stage (including no implementation) is expected given
-the simplicity of the function, with each kernel performing just one
-multiplication. The negligible latency difference across the desktop and Xavier
-platforms further indicates that window selection can be made independently of
-hardware configuration. The differing spectral leakage patterns motivate a more
-comprehensive investigation of the failure modes of each of the filters in 
-the noise regimes of miniature radar. 
+The insignificant time difference between each of the implementations of the windowing 
+stage (including no implementation) is expected, given that across all implementations, 
+the window is just a term-wise multiplication on the GPU. The ablation study revealed 
+that the windowing function had minimal impact on the desktop and Jetson platforms, 
+indicating that window selection can be made independently of hardware configuration. 
+The pipeline validation trial on DS4, however, offers early evidence that window 
+selection is not independent of the noise regime. The increase in false tracks 
+suggests that synergy between the Taylor window and CFAR degrades under non-
+Gaussian noise. This motivates a more comprehensive investigation of the 
+failure modes of each of the filters in the noise regimes of miniature radar.
 
 
 % Lies explores the advantages and disadvantages of coherent integration. Measures phase drift, these are limitations of our work. 
 The results from the coherent integration experiment find
 that the signal
-to noise ratio improves by the square root of the number of chirps summed
-together under Gaussian noise, creating a positive downstream effect on the
+to noise ratio improvement aligns with the expected "square root of N" relationship. 
+The improvement creates a positive downstream effect on the
 ability of CFAR to detect weak
 targets. Concretely, coherent integration of 64 chirps raised detection recall
 from near zero to 0.9 in the worst noise regime tested, demonstrating that
-integration length is the most impactful single parameter for extending
+integration length is one of the most impactful single parameters for extending
 detection range against weak targets. Non-coherent integration similarly improves the signal-to-noise
-ratio, but to a lesser extent. The processing subsystem achieved throughputs of
-9.8 times the incoming data rate on the desktop and 3.8 times on the Xavier NX.
-The difference between platforms is likely due to the overhead of
-handling data, such as reading and writing. This is further supported by the pipeline
-throughput experiment, that illustrated that the marginal slow down
-of the integration stage is dominated by the cost of outputting the
-integrated data and that the cost of summing many chirps is insignificant. 
+ratio, but to a lesser extent. In addition to improving sensitivity to targets,
+the integration stage is found to be 
+an effective lever at increasing throughput, as demonstrated by the pipeline
+throughput experiment. Although large integration sizes require more sums, 
+these operations are cheap on the GPU, and are overshadowed by the cost of 
+outputting data, and the cost of later stages having more data to process.  
 Still, the large amount of work that each thread has to 
 do, summing over many chirps, motivates the exploration of more parallelised 
 implementations that distribute the sums between threads. The major limitation
 of the analysis of the integration stage so far has been in assuming that 
 targets are stationary across the integrated chirps, assuming full
 phase coherence, which is not the case for faster moving targets, 
-that create changing doppler shift and phase shift as radio-wave path
+that create changing Doppler shift and phase shift as radio-wave path
 length changes. Future work should explore the effect of target velocity 
 on the performance of the integration stage, and the downstream effect 
 on CFAR and angle sensing performance.
@@ -75,7 +77,9 @@ The CFAR results outline a method for determining a threshold from a
 desired false alarm rate using the power sum from multiple receivers. 
 The experiments demonstrate the GPU implementation
 is most appropriate for the Xavier embedded platform, regardless of the size 
-of the buffer for all practical window sizes. The difference between hardware
+of the buffer for all practical window sizes, but on the desktop hardware, 
+the prefix sum approach is more efficient until more than 50 chirp records need to be 
+processed at a time. The difference between hardware
 platforms highlights the importance of hardware-aware algorithm selection. The 
 results of the angle sensing stage demonstrate the capability of the algorithm 
 to detect multiple targets with different bearing/elevation ratios. The ablation 
@@ -90,19 +94,29 @@ also draw attention to the importance of memory layout to maximise the
 cache efficiency of GPU implementation of CA-CFAR. This is an important
 consideration for future work on optimising the CFAR stage. 
 
+The open question of how to order angle sensing and CFAR is addressed
+through the application of a technique that uses the power sum of multiple receivers 
+to calculate the CFAR threshold instead of the power sum of a single receiver. 
+The technique attains the full sensitivity that Spencer \cite{compact_spencer_2015}
+sacrificed efficiency to achieve. The technique proved correct in simulation, but 
+has not yet been validated on real-world data, which is the principal limitation of this contribution.
+
 Comparing CA-CFAR, GO-CFAR, and SO-CFAR under different noise intensities
 reveals that CA-CFAR is more effective at detecting targets in high
 noise conditions while maintaining low clutter volume and power. This is 
-likely due to CA-CFAR having a less volatile noise floor estimate, using
-twice as many training cells as GO-CFAR and SO-CFAR. One possible source of
+likely due to CA-CFAR having a less volatile noise floor estimate, averages 
+across
+twice as many training cells as GO-CFAR and SO-CFAR which only average 
+across half as many. One possible source of
 bias in the results is that the GO-CFAR and SO-CFAR implementations' alpha 
 values were taken from those of CA-CFAR, causing GO-CFAR to slightly 
 over-mask and SO-CFAR to slightly under-mask. A more fair comparison would
 involve tuning the alpha values of each implementation to achieve the same
 false alarm rate, and then comparing the detection performance of each. 
-Additionally, the comparison was only performed on the synthetic datasets
-DS1 and DS2, which feature purely Gaussian noise, while the real-world 
-dataset D3 features non-Gaussian noise. Future work should explore the 
+A limitation of this comparison is that it was performed only on the synthetic datasets 
+DS1 and DS2, which feature purely Gaussian noise, whereas the real-world dataset DS3 
+features non-Gaussian noise; the ranking of the three detectors may not hold in that regime.
+Future work should explore the 
 interaction of the different CFAR implementations with the noise regime 
 of DS3. Investigating other forms of detection algorithms, such as machine learning-based
 detectors, moving target indication (MTI) filters, and ordered statistics
@@ -110,8 +124,8 @@ CFAR (OS-CFAR) (used in Newmeyer et al. \cite{7577322}), would provide
 a more comprehensive understanding of the design space for the detection 
 stage of radar pipelines. 
 
-The clustering stage's analysis is limited to a visual inspection of the
-output. Additionally, only one clustering algorithm, contiguous block
+A limitation of the clustering analysis is that it rests on visual inspection of the 
+output rather than quantitative metrics, and that only one algorithm, contiguous block 
 clustering, was implemented and evaluated. Future work should explore a
 wider variety of clustering algorithms, such as DBSCAN, and evaluate them
 using more quantitative metrics, such as true positive rate, false positive 
@@ -127,13 +141,13 @@ clustering stage design for miniature radar.
 
 The monopulse angle sensing stage's results demonstrate the capability
 of the algorithm to detect multiple targets with different bearing/elevation ratios,
-and great accuracy in low and moderate noise conditions. In high noise,
+and high accuracy in low and moderate noise conditions. In high noise,
 repeated chirps and integration effectively increase the SNR. Although individual
 detections become noisy and inaccurate, the angle estimates remain unbiased:
 accumulating detections over time produces clusters centred on the true target
 positions, confirming that the algorithm functions as an unbiased estimator of
 bearing and elevation even at $-10$\,dB SNR when temporal integration is applied
-upstream. The main weakness of the current 
+upstream. The main limitation of the current 
 design of the angle sensing stage is its susceptibility to targets
 that are close in range, but have different bearing/elevation ratios. 
 Because they occupy the same range bin, they are treated as a single target
@@ -153,22 +167,22 @@ The final stage of the pipeline, the tracking stages, demonstrates a modular,
 tunable multi-target tracking approach that is effective at tracking targets in 
 all tested noise regimes in scenarios where targets are separated in range. 
 Mahalanobis distance-based gating is effective at associating detections to
-tracks, the associater is sufficiently fast for real-time detection-to-track 
+tracks, the associator is sufficiently fast for real-time detection-to-track 
 association, and the Kalman filter is effective at smoothing tracks, providing
 predictions for gating, and applying measurement uncertainty to target state 
 estimation. Track initiation, promotion and termination are effective at
 managing a small number of targets even in high clutter. We found that 
 a small amount of noise actually improves track quality, because 
-spectral artifact from windowing get washed out by noise and are less
+spectral artifacts from windowing get washed out by noise and are less
 likely to be misinterpreted as faint targets. Due to signal strength 
 depending on the fourth power of range, the tracker had a hard time 
-maintaining a track of the farthest target in -20 db SNR conditions, 
+maintaining a track of the farthest target in -20 dB SNR conditions, 
 with recall dropping from 67\% to 33\% when compared to the lower intensity 
 noise scenarios. We also found that tracker position error estimates 
 stay accurate (less than 22 m error RMS) in all noise regimes. This is
 due to the smoothing that the Kalman filter provides. While the tracker is
-effective at tracking targets in the DS2 dataset, it has not yet been 
-validated on the real-world dataset D3, which leaves questions about how
+effective at tracking targets in the DS2, and DS4 datasets, it has not yet been 
+validated on the real-targets dataset DS3, which leaves questions about how
 the tracker performs in real life. Only one tracking algorithm was implemented in 
 this work, and future work should compare this proof of concept to a wider
 variety of tracking algorithms, such as the multiple hypothesis tracker (MHT),
@@ -178,6 +192,45 @@ power may be more effective in identifying and rejecting clutter.
 In addition to comparing different tracking algorithms, future work should 
 also explore the effect of different tuning parameters, such as the gating
 threshold, and the track promotion and termination thresholds.  
+
+The field trials, in which the radar and a target drone were flown in air-to-air 
+scenarios, exposed a limitation not visible in simulation. The tracking subsystem 
+failed to produce any tracks of the aerial target, owing to strong coupling between the 
+transmitter and receiver that saturated the beginning of every signal and masked the 
+near-field region where the target was located. The radar did, however, detect high 
+cross-section stationary targets at longer range, with detected points corresponding 
+closely to a silo, a building, and a stand of trees at ranges of roughly 400 to 700 
+metres. 
+This outcome is the most significant limitation of the present work: while the pipeline 
+is shown to track targets across all tested noise regimes in simulation, its real-world 
+performance against small aerial targets remains unproven. The cause was a hardware-
+level coupling artefact rather than a shortcoming of the processing algorithms, but the 
+limitation on real-world validation stands regardless.
+
+The trials were nonetheless valuable in two respects. They 
+confirmed the detection and angle-sensing stages against real high cross-section returns
+, and they provided a recording of genuine field noise, including a large DC offset 
+that manifested as a zero-frequency peak and produced static detections at the minimum 
+and maximum range. Addressing the transmitter-receiver coupling, whether through 
+hardware isolation or a near-field blanking stage, is a prerequisite for validating the 
+tracker against live aerial targets and is a priority for future work.
+
+The field-noise recording did, however, enable a closer approximation to real-world 
+conditions through the pseudo-real dataset DS4, which sums the recorded noise with a 
+simulated target flying a snaking trajectory through azimuth, elevation, and range. At 0
+dB SNR, the irregular field noise produced more erratic track estimates and initiated 
+some false tracks than the equivalent purely-simulated scenario. These observations 
+corroborate the findings of Ezuma et al. \cite{ezuma2019microuav},
+who notes the non-Gaussian nature of radar at this scale. This motivates future work
+to characterise the noise regime for more realistic simulation. 
+
+Despite the occasional false tracks, the tracker maintained a coherent track 
+of the target 
+throughout the trial (Figure \ref{fig:snake}). This 
+is a meaningful partial validation: it demonstrates that the tracker's gating and 
+Kalman smoothing remain robust to the non-Gaussian, DC-offset-laden noise of a real 
+recording, even though the target signal itself is still simulated. 
+The limitation of this partial validation is that, while the noise regime is realistic, the target return itself is still simulated, so phenomena such as multipath propagation, fluctuating cross-section, phase shift, and micro-Doppler are absent from the test.
 
 This work addresses each of the three research gaps identified in the
 literature review, but only partially. The comparison of windowing 
@@ -191,10 +244,13 @@ and integration length, and the latency and throughput of the entire
 pipeline. This directly addresses the second gap, providing the 
 hardware-constrained profiling
 that prior UAV DAA radar work lacked. Comparisons between the desktop 
-computer, NVIDIA Xavier NX, and NVIDIA Xavier AGX illustrate the effect 
-of hardware on the relative performances of different implementations 
-of algorithms such as CFAR and monopulse angle sensing, 
-partially addressing the third main literature gap, a lack of hardware-aware
+computer, NVIDIA Xavier NX, and NVIDIA Xavier AGX illustrate the impact of
+architectural differences such as shared memory, which caused throughput to be
+higher on the Jetson Xavier devices than on the desktop computer, possibly due
+to near instant data migration between the CPU and GPU. Additionally for the 
+CFAR algorithm, the fastest implementation was different between 
+hardware platforms. These findings build towards filling in the third  
+literature gap, a lack of hardware-aware
 design for low SWaP radar processing pipelines. 
 
 \section{Design Recommendations}

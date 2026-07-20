@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{513.7642159bp}%
+    \setlength{\unitlength}{372.03305703bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,22 +50,22 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.67863557)%
+  \begin{picture}(1,0.93717121)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{points-over-map-singleton.pdf}}%
-    \put(0.39000028,0.59454314){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.19308374\unitlength}\raggedright \end{minipage}}}%
+    \put(0.53857631,0.82104261){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.26664167\unitlength}\raggedright \end{minipage}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{points-over-map-singleton.pdf}}%
-    \put(0.50061006,0.24995659){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}234 m\end{tabular}}}}%
+    \put(0.68857867,0.39328672){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}234 m\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{points-over-map-singleton.pdf}}%
-    \put(0.30376722,0.46704231){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}727 m\end{tabular}}}}%
+    \put(0.32952468,0.78927952){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}727 m\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{points-over-map-singleton.pdf}}%
-    \put(0.59788796,0.40274547){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}602 m\end{tabular}}}}%
+    \put(0.86601981,0.67199366){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}602 m\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{points-over-map-singleton.pdf}}%
-    \put(0.30337816,0.36875257){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}423 m\end{tabular}}}}%
+    \put(0.32881501,0.60998615){\color[rgb]{0,1,1}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}423 m\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{points-over-map-singleton.pdf}}%
-    \put(0.56110789,0.43953911){\color[rgb]{1,0.95686275,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}silo: 603 m\end{tabular}}}}%
-    \put(0.34074843,0.51335909){\color[rgb]{1,0.95686275,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}buildings: 706 m\end{tabular}}}}%
-    \put(0.25697915,0.32560326){\color[rgb]{0.8745098,1,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Trees: 410 m\end{tabular}}}}%
+    \put(0.79893059,0.73911009){\color[rgb]{1,0.95686275,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}silo: 603 m\end{tabular}}}}%
+    \put(0.39698079,0.8737674){\color[rgb]{1,0.95686275,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}buildings: 706 m\end{tabular}}}}%
+    \put(0.24418025,0.53127617){\color[rgb]{0.8745098,1,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Trees: 410 m\end{tabular}}}}%
   \end{picture}%
 \endgroup%

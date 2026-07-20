@@ -9,35 +9,74 @@
 %     \item Ultimately, our work provides a reference for engineers and policy makers...
 % \end{itemize}
 
-Radar is a promising technology that enables collision avoidance 
-systems for \gls{uav}s, offering long-range, all-weather detection
-independent of target cooperation. Recent miniaturisation of millimetre-wave
-radar hardware and the availability of capable embedded \gls{gpu} compute have made
-onboard radar processing feasible for small \gls{uav} platforms. However, existing
-work consistently stops short of validating a complete sensing-to-tracking
-pipeline under realistic airborne conditions, has not benchmarked \gls{gpu}-based
-radar implementations under \gls{uav} \gls{swap} constraints,
-and has only evaluated angle estimation algorithms in idealised noise rather
-than in end-to-end pipelines. This thesis addresses these gaps by designing,
-implementing, and evaluating a software-defined monopulse radar tracking
-pipeline on NVIDIA Jetson Xavier embedded \gls{gpu} platforms, systematically
-comparing algorithm choices and low-level implementations across hardware
-configurations. The pipeline achieves real-time multi-target tracking with
-end-to-end latency below 50\,ms. Taylor windows calibrated to the \gls{cfar} 
-noise
-floor are found to minimise false alarms without recall penalty; coherent
-integration raises detection recall from near zero to 0.9 in the worst noise
-regime tested; and CA-\gls{cfar} outperforms competing variants in high-noise
-conditions. \gls{gpu}-based \gls{cfar} is shown to be the preferred implementation on the
-Xavier platform, while the optimal \gls{cpu}-versus-\gls{gpu} crossover differs between
-embedded and desktop configurations, demonstrating that implementation
-selection cannot be made platform-agnostically. Monopulse angle sensing
-is validated as an unbiased bearing and elevation estimator even at
-$-10$\,dB \gls{snr}, and a Kalman-filter-based multi-target tracker maintains
-position errors below 22\,m RMS across all noise regimes tested. A live
-airborne field trial appears to correctly geolocate static ground targets at up 
-to
-706\,m, confirming physical pipeline validity but fell short of tracking
-an aerial target due to hardware noise artefacts. Together, these results
-provide hardware-aware design guidance for engineers developing compact radar
-\gls{daa} systems and provide an evidence base for aviation policy.
+% Radar is a promising technology that enables collision avoidance 
+% systems for \gls{uav}s, offering long-range, all-weather detection
+% independent of target cooperation. Recent miniaturisation of millimetre-wave
+% radar hardware and the availability of capable embedded \gls{gpu} compute have made
+% onboard radar processing feasible for small \gls{uav} platforms. However, existing
+% work consistently stops short of validating a complete sensing-to-tracking
+% pipeline under realistic airborne conditions, has not benchmarked \gls{gpu}-based
+% radar implementations under \gls{uav} \gls{swap} constraints,
+% and has only evaluated angle estimation algorithms in idealised noise rather
+% than in end-to-end pipelines. This thesis addresses these gaps by designing,
+% implementing, and evaluating a software-defined monopulse radar tracking
+% pipeline on NVIDIA Jetson Xavier embedded \gls{gpu} platforms, systematically
+% comparing algorithm choices and low-level implementations across hardware
+% configurations. The pipeline achieves real-time multi-target tracking with
+% end-to-end latency below 50\,ms. Taylor windows calibrated to the \gls{cfar} 
+% noise
+% floor are found to minimise false alarms without recall penalty; coherent
+% integration raises detection recall from near zero to 0.9 in the worst noise
+% regime tested; and CA-\gls{cfar} outperforms competing variants in high-noise
+% conditions. \gls{gpu}-based \gls{cfar} is shown to be the preferred implementation on the
+% Xavier platform, while the optimal \gls{cpu}-versus-\gls{gpu} crossover differs between
+% embedded and desktop configurations, demonstrating that implementation
+% selection cannot be made platform-agnostically. Monopulse angle sensing
+% is validated as an unbiased bearing and elevation estimator even at
+% $-10$\,dB \gls{snr}, and a Kalman-filter-based multi-target tracker maintains
+% position errors below 22\,m RMS across all noise regimes tested. A live
+% airborne field trial appears to correctly geolocate static ground targets at up 
+% to
+% 706\,m, confirming physical pipeline validity but fell short of tracking
+% an aerial target due to hardware noise artefacts. Together, these results
+% provide hardware-aware design guidance for engineers developing compact radar
+% \gls{daa} systems and provide an evidence base for aviation policy.
+% Radar enables all-weather, long-range collision avoidance for UAVs independent of target cooperation.
+% Recent miniaturisation of millimetre-wave radar hardware and the availability of capable 
+% embedded \gls{gpu} compute have made onboard radar processing feasible for small 
+% \gls{uav} platforms. Detect-and-avoid, however, demands sensitivity to small targets at 
+% ranges of hundreds of metres to several kilometres, and existing work has yet to fully 
+% address the requirements this imposes. Complete sensing-to-tracking pipelines have not 
+% been validated under realistic airborne conditions; \gls{gpu}-based radar 
+% implementations have not been benchmarked under \gls{uav} \gls{swap} constraints; and 
+% implementation and it is not clear how algorithm conclusions differ between hardware contexts.
+% This thesis addresses 
+% these gaps by designing, implementing, and evaluating a software-defined monopulse 
+% radar tracking pipeline on desktop and NVIDIA Jetson Xavier embedded \gls{gpu} platforms. Algorithm 
+% choices and low-level implementations are compared through ablation studies, parameter 
+% sweeps over noise, number of targets, frame size, and detector configuration.
+
+% The pipeline achieves real-time multi-target tracking of three simultaneous targets, 
+% sustaining frame rates from 20 to 500 frames per second on the embedded platforms 
+% depending on integration size, with end-to-end latency below 50\,ms. Taylor windows 
+% calibrated to the \gls{cfar} noise floor minimise false alarms; 
+% coherent integration raises detection recall from near zero to 0.9 in the worst noise 
+% regime tested; and CA-\gls{cfar} outperforms competing variants in high-noise conditions. 
+% Notably, the optimal implementation of algorithms depend on hardware, with the 
+% \gls{gpu}-based \gls{cfar} being preferred on the Xaviers but not the desktop. 
+% The unified-memory Jetson modules outperform the more powerful desktop in terms of 
+% memory management, as their shared \gls{cpu}--\gls{gpu} memory removes the host-device transfer that dominates this workload. 
+% Monopulse angle sensing is validated as an unbiased bearing and elevation estimator 
+% even at -10\,dB \gls{snr} and a Kalman-filter-based multi-target tracker maintains 
+% position errors below 22\,m RMS across all noise regimes, comfortably within the 
+% separation distances a detect-and-avoid system must resolve. A live airborne field trial geolocated static ground 
+% targets at up to 706\,m, but did not track an 
+% aerial target owing to a transmitter-receiver coupling artefact that saturated the near 
+% field. Together, these results provide hardware-aware design guidance for engineers 
+% developing compact radar \gls{daa} systems and an evidence base to inform aviation policy.
+
+Radar enables all-weather, long-range collision avoidance for UAVs independent of target cooperation. Miniaturised millimetre-wave radar hardware and capable embedded \gls{gpu} compute have made onboard radar processing feasible for small \gls{uav} platforms. Detect-and-avoid, however, demands sensitivity to small targets at ranges of hundreds of metres to several kilometres, and existing work has yet to fully address this. Complete sensing-to-tracking pipelines have not been validated under realistic airborne conditions; \gls{gpu}-based implementations have not been benchmarked under \gls{uav} \gls{swap} constraints; and it is unclear how algorithm conclusions differ between hardware contexts. This thesis addresses these gaps by designing, implementing, and evaluating a software-defined monopulse radar tracking pipeline on desktop and NVIDIA Jetson Xavier embedded \gls{gpu} platforms, comparing algorithm and implementation choices through ablation studies and parameter sweeps over noise, target count, frame size, and detector configuration.
+
+The pipeline achieves real-time tracking of three simultaneous targets at 20 to 500 frames per second on the embedded platforms, with end-to-end latency below 50\,ms. Taylor windows calibrated to the \gls{cfar} noise floor minimise false alarms; coherent integration raises detection recall from near zero to 0.9 in the worst noise regime tested; and CA-\gls{cfar} outperforms competing variants in high noise. The optimal implementation depends on hardware: \gls{gpu}-based \gls{cfar} is preferred on the Xaviers but not the desktop, and the unified-memory Jetson modules outperform the more powerful desktop, as their shared \gls{cpu}--\gls{gpu} memory removes the host-device transfer that dominates this workload. Monopulse angle sensing is validated as an unbiased bearing and elevation estimator even at 
+-10
+-10\,dB \gls{snr}, and a Kalman-filter tracker maintains position errors below 22\,m RMS across all noise regimes, within the separation distances a detect-and-avoid system must resolve. A live airborne field trial geolocated static ground targets at up to 706\,m, but did not track an aerial target owing to a transmitter-receiver coupling artefact that saturated the near field. These results provide hardware-aware design guidance for engineers developing compact radar \gls{daa} systems and an evidence base to inform aviation policy.

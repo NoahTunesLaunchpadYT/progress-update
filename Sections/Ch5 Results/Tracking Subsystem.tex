@@ -11,7 +11,7 @@ are shown in Figure \ref{fig:alpha-cfar-results}.
     \centering
     \incfig[0.4]{pfa_comparison}
     \caption[Actual vs desired false alarm rate validating the numerical CFAR threshold.]{Actual
-    vs desired false alarm rate across a range of target rates. The dashed line indicates
+    vs desired false alarm rate across a range of target ranges in simulated data (DS2). The dashed line indicates
     perfect agreement.}
     \label{fig:alpha-cfar-results}
 \end{figure}
@@ -24,10 +24,10 @@ in Figure \ref{fig:cfar-0.001-waterfall}.
 \begin{figure}[htbp]
     \centering
     \incfig[0.8]{cfar-0.001-waterfall}
-    \label{fig:cfar-0.001-waterfall}
     \caption[CFAR waterfall at false alarm rate of 0.001.]{CFAR output at a desired false
     alarm rate of \(0.001\). The waterfall has chirp on the y-axis and range on the x-axis;
     brightness reflects range bin power. Black cells have been masked by CFAR.}
+    \label{fig:cfar-0.001-waterfall}
 \end{figure}
 
 At a false alarm rate of 0.001, CFAR infrequently detects peaks in predominantly noise, as
@@ -93,7 +93,7 @@ implementation slows as each thread accumulates more work to compute the noise s
 Despite this, the GPU implementation is faster than either CPU implementation for all
 window sizes in the practical range of 10--100 training cells on the Xavier.
 
-Three implementations of CFAR, CA-CFAR, GO-CFAR, and SO-CFAR, were tested on the DS2
+Three detection algorithms, CA-CFAR, GO-CFAR, and SO-CFAR, were tested on the DS2
 dataset with six different noise intensities: no noise, -20, -10, 0, 10 and 20\,dB SNR.
 The recall, clutter-to-signal ratio, and position error of each algorithm are shown in
 Figures \ref{fig:cfar-recall}, \ref{fig:cfar-clutter-to-signal}, and
@@ -156,7 +156,7 @@ detections with sub-range-bin continuous range, as shown in Figure
 \subsection{Correctness}
 With the DS2 dataset at zero noise, the monopulse angle sensing algorithm is validated by
 comparing its azimuth and elevation estimates to the ground truth. The ground truth
-positions are shown in Figure \ref{fig:angle-2d-plot}, and the polar error of the estimates
+positions are shown in Figure \ref{fig:angle-3d-plot}, and the polar error of the estimates
 is shown in Figure \ref{fig:angle-polar-error}.
 
 \begin{figure}
@@ -165,15 +165,16 @@ is shown in Figure \ref{fig:angle-polar-error}.
     \caption[Angle experiment Ground Truth 3D plot]{Ground truth positions of the angle
     sensing DS2 dataset plotted in 3D. Points are coloured by signal strength and arranged
     in a polar array.}
-    \label{fig:angle-2d-plot}
+    \label{fig:angle-3d-plot}
 \end{figure}
 
 \begin{figure}
-    \incfig[0.8]{angle_polar_error_scatter_plot}
+    \incfig[0.95]{angle_polar_error_scatter_plot}
     \centering
     \caption[Monopulse angle sensing polar error scatter plot.]{Polar error scatter plot of
     the monopulse angle sensing algorithm on DS2 with zero noise. Each point represents one
-    detection; axes show azimuth error, elevation error, and range error.}
+    detection; axes show azimuth error, elevation error, and range error. Shaded areas 
+    indicate one standard deviation of error.}
     \label{fig:angle-polar-error}
 \end{figure}
 
@@ -206,7 +207,7 @@ visualised live in 3D. A frame of this view is shown in Figure
 \begin{figure}
     \includegraphics[width=0.8\linewidth]{monopulse_angle_sensing_results.png}
     \caption[Monopulse angle sensing results on synthetic data.]{Live 3D visualisation of
-    monopulse angle sensing on synthetic multi-target data. Dot colour indicates range
+    monopulse angle sensing on synthetic three-target data (DS1). Dot colour indicates range
     (green: close, orange: far); opacity indicates detection strength. The 1000 most
     recent detections are shown.}
     \label{fig:monopulse-angle-sensing-results}
@@ -215,30 +216,29 @@ visualised live in 3D. A frame of this view is shown in Figure
 The spread of detections increases with range as expected, and the upper and lower bounds
 of elevation and bearing match the field of view defined by the calibration polynomial.
 
-The relative latency of the CFAR and angle sensing operations was measured through an
-ablation study on the detection subsystem. The results are shown in Figures
+The relative on-device time of the CFAR and angle sensing operations was measured
+through an ablation study on the detection subsystem. These measurements capture GPU
+kernel execution and host-device transfer, but exclude CPU-level data I/O and other
+system-level overhead. The results are shown in Figures
 \ref{fig:tracking-latency-trials} and \ref{fig:tracking-latency-breakdown}.
-
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_trials.svg}
-    \caption[Detection subsystem latency for CFAR, angle sensing, and both.]{Latency of
-    the detection subsystem running CFAR only, angle sensing only, and both, on a log
-    scale.}
+    \caption[Detection subsystem on-device time for CFAR, angle sensing, and both.]{GPU
+    kernel and host-device transfer time of the detection subsystem running CFAR only,
+    angle sensing only, and both, on a log scale. Times exclude CPU-level data I/O.}
     \label{fig:tracking-latency-trials}
 \end{figure}
-
 \begin{figure}
     \includesvg[width=0.8\linewidth]{tracking_latency_breakdown.svg}
-    \caption[Detection subsystem latency breakdown from ablation study.]{Estimated latency
-    breakdown of the detection subsystem from the ablation study, split by stage and
-    overhead.}
+    \caption[On-device time breakdown from ablation study.]{Estimated time breakdown of
+    the detection stages, split by stage and overhead, including host-device transfer.
+    Times do not include CPU-level data I/O.}
     \label{fig:tracking-latency-breakdown}
 \end{figure}
-
-CFAR dominates the latency of the detection subsystem: the latency of CFAR alone is
+CFAR dominates the on-device time of the detection subsystem: the time for CFAR alone is
 similar to that of running both stages, while angle sensing alone is 1.5--5 times faster
 (Figure \ref{fig:tracking-latency-trials}). The breakdown in Figure
-\ref{fig:tracking-latency-breakdown} shows that most remaining latency is split between
+\ref{fig:tracking-latency-breakdown} shows that most remaining time is split between
 CFAR and the overhead of thread synchronisation and CPU-GPU data migration. The angle
 sensing stage has no tunable parameters beyond the calibration polynomial coefficients,
 which are determined by the receiver beam shape.
@@ -246,29 +246,71 @@ which are determined by the receiver beam shape.
 \section{Tracking}
 To validate the tracking stage, 12 scenarios were selected from the DS2 dataset.
 Instead of simply sweeping azimuth, elevation and range, the scenarios were designed
-to feature targets flying in randomly generated trajectories in the radar's field of view,
-as shown in Figure \ref{fig:tracking-scenarios}. Figure \ref{fig:tracking-3d-results}
-shows the resulting tracks for the three-target, no-noise scenario.
+to feature targets flying in randomly generated trajectories in the radar's field of view. 
+With no noise, the ground truth trajectories are reproduced near-perfectly by the pipeline
+and tracker (see Figure \ref{fig:tracking-no-noise}).
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{tracking-ground-truth.png}
-    \caption[Tracking scenarios with randomly generated trajectories.]{Ground truth
-    trajectories for a three-target scenario. Coloured lines show the azimuth and elevation
-    limits of each receiver, converging at the radar. Targets are at approximately 500,
-    1000, and 1500\,m. White dots are detections with no noise.}
-    \label{fig:tracking-scenarios}
-\end{figure}
 
-\begin{figure}
-    \centering
+    \vspace{1em}
+
     \includegraphics[width=0.8\linewidth]{tracking-tracks-3d.png}
-    \caption[3D tracking results.]{3D visualisation of tracking output for the three-target,
-    no-noise scenario.}
-    \label{fig:tracking-3d-results}
+    \caption[No-noise tracking reproduces ground truth for three targets.]{In the
+    absence of noise, the tracker reproduces the ground-truth trajectories of all
+    three targets exactly. Top: ground-truth trajectories over a minute of flight,
+    with straight coloured lines showing the azimuth and elevation limits of each of
+    the five receiver quadruplets converging at the radar, and white points showing
+    the detections the pipeline produces with no noise; targets are at approximately
+    500, 1000, and 1500\,m. Bottom: the resulting tracking output for the same
+    scenario.}
+    \label{fig:tracking-no-noise}
 \end{figure}
 
-In the no-noise case, the reproduced tracks are identical to the ground truth. The 12
+The metrics used to evaluate tracking are defined in Table~\ref{tab:tracking-metrics}.
+A track-level metric treats each ground-truth trajectory as a single item that is
+either successfully tracked or not, whereas a point-level metric evaluates every
+individual detection-to-track association.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Definitions of the tracking evaluation metrics.}
+    \label{tab:tracking-metrics}
+    \begin{tabularx}{\linewidth}{l X}
+        \hline
+        Metric & Definition \\
+        \hline
+        Track-level accuracy & Proportion of ground-truth trajectories that are
+        correctly tracked for the majority of their lifetime. \\
+        Track-level precision & Proportion of reported tracks that correspond to a
+        true trajectory (i.e.\ are not false tracks). \\
+        Track-level recall & Proportion of ground-truth trajectories that are
+        assigned at least one track. \\
+        Point-level accuracy / precision / recall & As above, but computed per
+        detection-to-track association rather than per trajectory. \\
+        MOTA & Multi-object tracking accuracy: $1 - \frac{\sum_t (\text{FN}_t +
+        \text{FP}_t + \text{IDSW}_t)}{\sum_t \text{GT}_t}$, combining false
+        negatives, false positives, and identity switches over all frames $t$. \\
+        MOTP & Multi-object tracking precision: the mean positional error of all
+        correct detection-to-ground-truth matches. \\
+        Mean completeness & Mean fraction of each ground-truth trajectory's lifetime
+        for which a track is maintained. \\
+        Mean initiation delay & Mean time between a target entering the field of view
+        and a track being established for it. \\
+        Fragmentation & Number of times a single ground-truth trajectory's track is
+        interrupted and re-initiated. \\
+        Survival ratio & Mean fraction of a trajectory's duration covered by a single
+        continuous track before it is lost. \\
+        RMS angle error & Root-mean-square error between tracked and true
+        azimuth/elevation for matched detections. \\
+        RMS distance error & Root-mean-square error between tracked and true range for
+        matched detections. \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+The 12 tracking 
 scenarios span 1, 2, and 3 targets at no noise and SNRs of $-20$, $-10$, and 0\,dB.
 Track initiation accuracy, MOTA/MOTP statistics, angle error, and distance error are shown
 in Figures \ref{fig:tracking-initiation-accuracy}, \ref{fig:tracking-position-accuracy},
@@ -290,14 +332,14 @@ in Figures \ref{fig:tracking-initiation-accuracy}, \ref{fig:tracking-position-ac
 \end{figure}
 
 \begin{figure}
-    \incfig[0.8]{track_RMS_Angle_Error}
+    \incfig[0.65]{track_RMS_Angle_Error}
     \caption[Tracking RMS angle error.]{RMS angle error across 12 scenarios varying noise
     intensity and target count.}
     \label{fig:tracking-angle-error}
 \end{figure}
 
 \begin{figure}
-    \incfig[0.8]{track_RMS_Distance}
+    \incfig[0.65]{track_RMS_Distance}
     \caption[Tracking RMS distance error.]{RMS distance error across 12 scenarios varying
     noise intensity and target count.}
     \label{fig:tracking-distance-error}
@@ -311,8 +353,8 @@ highest with some noise and one target, while MOTP strictly degrades with increa
 across all target counts (Figure \ref{fig:tracking-position-accuracy}). RMS angle error
 and distance error both degrade with increasing noise and target count (Figures
 \ref{fig:tracking-angle-error} and \ref{fig:tracking-distance-error}). In the most
-demanding scenario ($-20$\,dB SNR), recall on the farthest target falls from 67\% to 33\%
-relative to lower-noise conditions, reflecting the $r^{-4}$ power-distance relationship
+demanding scenario ($-20$\,dB SNR), recall on the farthest target falls from 67\% to 33\%, 
+reflecting the $r^{-4}$ power-distance relationship
 that disproportionately attenuates distant returns. Despite this, position error remains
 below 22\,m RMS across all noise regimes, owing to the smoothing provided by the Kalman
 filter.

@@ -73,7 +73,7 @@ number of sums required to four per sample of interest regardless of the number 
 start and end of the left and right window (see 
 Figure \ref{fig:prefix-sum-table}). The GPU implementation creates a thread per sample of interest (see 
 Figure \ref{fig:gpu-cfar}). A sweep of window size, guard size, frame buffer size and false alarm rate values is 
-conducted for each CFAR implementation on datasets D2, and D3. The performance (throughput, latency, 
+conducted for each CFAR implementation on datasets DS2, and DS3. The performance (throughput, latency, 
 false alarm rate, sensitivity, and track quality) is compared across configurations in a cost benefit 
 analysis. 
 This addresses the second literature gap in treating implementation strategy as a design 
@@ -108,7 +108,7 @@ in different hardware contexts, address part of the third literature gap.
 \end{figure}
 
 The literature gap regarding algorithmic selection is addressed through an exploration of different CFAR
-algorithms, including OS-CFAR, CA-CFAR, SO-CFAR, and GO-CFAR. The effect of these algorithms on detection
+algorithms, including CA-CFAR, SO-CFAR, and GO-CFAR. The effect of these algorithms on detection
 sensitivity and track quality is compared. For intuition, Figure \ref{fig:cfar-algorithms} illustrates
 the difference in performance of the algorithms on a synthetic signal with 5 peaks. This work 
 compares the performance of GO-CFAR, SO-CFAR, and CA-CFAR on simulated data and discusses
@@ -128,36 +128,20 @@ algorithms in the noise regimes of miniature radar.
     OS-CFAR performs well in this example.}
     \label{fig:cfar-algorithms}
 \end{figure}
-
 \subsection{Clustering}
 After CFAR occurs, most of the samples (range bins) will be masked with zeros. The 
-efficiency loss from 
-processing so many zero samples motivates a stage that transforms the detection-sparse 
-representation into a detection-dense one. 
-Additionally, the widening of the main lobe of each of 
-the detections due to the windowing stage creates multiple range bins with detections 
-from the same target. The algorithm that addresses both of these problems, clustering, iterates through the 
-range profile, and creates a cluster for each contiguous set of 
-detection samples.
-Then, the complex signals from each of the samples are summed together 
-(see Figure \ref{fig:clustering-sparse-dense}). 
-SNR is expected to improve, as noise will be incoherent within clusters, but the signal
+efficiency loss from processing so many zero samples motivates a stage that transforms 
+the detection-sparse representation into a detection-dense one. Additionally, the 
+widening of the main lobe of each of the detections due to the windowing stage creates 
+multiple range bins with detections from the same target. The algorithm that addresses 
+both of these problems, clustering, iterates through the range profile and creates a 
+cluster for each contiguous set of detection samples. Then, the complex signals from 
+each of the samples are summed together (see Figure \ref{fig:clustering-sparse-dense}). 
+SNR is expected to improve, as noise will be incoherent within clusters, but the signal 
 that corresponds to a target will have the same phase across samples, and thus will be 
-coherent. The latency of both CPU and GPU implementations of the clustering algorithm 
-is measured. Different clustering parameters are tested for their impact on tracking performance, such 
-as the allowed gap size between detections.
-
-Clustering is the stage at which the main-lobe width
-cost of windowing is paid. The performance of the stage is coupled to the 
-type of windowing used, and the parameters of the prior CFAR stage. 
-Characterisation of this coupling addresses the 
-lack of algorithm selection analysis identified in the literature
-(gap one). Additionally, the latency analysis allows for a better 
-understanding of the feasibility of running complex clustering 
-algorithms on different platforms in real time. 
-% We only explore one clustering algo for now.
-
-% Also a little related to implementation details 
+coherent. Clustering is the stage at which the main-lobe width cost of windowing is paid, 
+and its behaviour is therefore coupled to the choice of window and the parameters of 
+the prior CFAR stage.
 
 \begin{figure}
     \incfig[0.7]{clustering_sparse_dense}
@@ -176,8 +160,7 @@ algorithms on different platforms in real time.
 \subsection{Monopulse Angle Sensing}
 Angle sensing converts multi-channel detections into azimuth, elevation and range estimates that 
 drive association and tracking. We assess candidate angle discriminators by running controlled 
-sweeps over SNR, channel 
-imbalance, and multi-target proximity, and measuring angular bias, mean squared error, and confidence. 
+sweeps over SNR and number of targets, and measure angular bias, and \gls{rms} distance error. 
 
 The 
 multi-target proximity sweep characterises the point at which angle estimates 
@@ -297,10 +280,8 @@ exploring the effects of some parameter choices on track quality in realistic no
 (gap 1), and understanding 
 the impacts of the stage on latency and throughput (gap 2).
 
-The multi-target tracking stage will be implemented entirely on the CPU due to its sequential nature. 
-Amplitude based association will be compared to non-amplitude based association for their impact on
-track quality. Experiments will
-be conducted across variations in SNR, and number of targets, in simulated data (D2) and pseudo-real data (D4). 
+The multi-target tracking stage will be implemented entirely on the CPU due to its sequential nature. Experiments will
+be conducted across variations in SNR, and number of targets, in simulated data (DS2) and pseudo-real data (D4). 
 
 % EXPLORE MORE
 % - Amplitude based association

@@ -1,6 +1,6 @@
 \section{Windowing}
-The Hann (with $\alpha = 0.5$) and Hamming windows are first evaluated for the prominence of their main lobe and sidelobes
-in the frequency domain on the synthetic datasets. Figure \ref{fig:clean filters} shows the
+The Hann (with $\alpha = 0.5$) and Hamming windows are first evaluated on the synthetic dataset DS1. 
+Figure \ref{fig:clean filters} shows the
 performance of each filter on a noise-free sine wave, and Figure \ref{fig:noisy filters}
 shows the same comparison at an SNR of 1.
 
@@ -48,7 +48,8 @@ latency is dominated by data handling overhead rather than the windowing computa
 itself, and confirms that window selection can be made independently of hardware
 configuration.
 
-The experiments were then extended to the Blackman, Kaiser, and Taylor windows. Using dataset DS2,
+The experiments were then extended to cover the Blackman, Kaiser, and Taylor windows. 
+Using dataset DS2,
 the multi-receiver signal of a target sweep azimuth, elevation and range, 
 fifteen filter configurations were applied: \texttt{Hann}, \texttt{Hamming},
 \texttt{Blackman}, \texttt{Kaiser6}, \texttt{Kaiser8}, \texttt{Kaiser10},
@@ -82,24 +83,26 @@ clutter, tallied, and their total power recorded. The results are shown in Figur
 Recall decreases from 1 to 0.45 as noise increases, while clutter detections rise from 3
 to 12 per ground truth, illustrating the fundamental trade-off between sensitivity and
 clutter suppression. The Taylor windows calibrated to $-50$\,dB sidelobe levels achieve
-the highest recall in the three noisiest conditions without introducing proportionally
-more clutter than other windows, because their sidelobes are suppressed to the level at
-which CFAR masks them. In terms of clutter power (Figure \ref{fig:recall_vs_clutter_power}),
+the highest recall and lowest clutter to pulse ratio in the three noisiest conditions. 
+In terms of clutter power (Figure \ref{fig:recall_vs_clutter_power}),
 the $-50$\,dB Taylor windows produce slightly higher clutter power than alternatives but
 maintain superior recall under the highest noise intensities.
 
+% Explain why in the results
+
 \FloatBarrier
 \section{Integration}
-The integration stage is validated on synthetic test data from software scripts and the
-test-source mode of the AWR2243 radar chips. Figure \ref{fig:integration-waterfall} shows
-the expected SNR improvement with increasing integration window size on synthetic data.
-Figure \ref{fig:integration-waterfall-orac} shows the output on AWR2243 test-source data,
-which generates no noise and therefore produces no change in amplitude. The unchanged
-amplitude confirms that the integration stage behaves correctly on data from the radar chips.
-The subsystem can process data at a rate of 9.8 times the incoming data rate on the desktop
-setup, and 3.8 times on the Xavier setup. The latency of the integration stage increases
-with the integration's factor of reduction, since each thread performs all sum operations
-for its corresponding range bin.
+The integration stage is validated on synthetic data and on the test-source mode of the 
+AWR2243 radar chips. Figure \ref{fig:integration-waterfall} shows the expected SNR 
+improvement with increasing integration window size on synthetic data, where coherent 
+summation raises the target above the noise floor as intended. The test-source mode 
+provides a complementary correctness check: because it emits identical, noise-free 
+chirps, a correctly functioning stage must reproduce the same signal unchanged. 
+Appendix Figure \ref{fig:integration-waterfall-orac} confirms this; the integrated 
+output over 128 chirps across 8 channels is identical to the input, verifying that the 
+stage combines chirps without misalignment, scaling, or numerical error on real 
+hardware data. Across the two tests, the integration is shown to improve SNR 
+when noise is present, preserve the signal when there is no noise.
 
 \begin{figure}
     \incfig[0.57]{integration_waterfall}
@@ -110,20 +113,12 @@ for its corresponding range bin.
     \label{fig:integration-waterfall}
 \end{figure}
 
-\begin{figure}
-    \incfig[0.7]{integration_waterfall_orac}
-    \caption[Integration on AWR2243 test-source data.]{Integration 
-    stage output on
-    AWR2243 test-source data across 8 channels, compressing 128 chirps into one with
-    no noise present.}
-    \label{fig:integration-waterfall-orac}
-\end{figure}
-
-The latency of the integration stage increases with the reduction factor, as shown in
-Figure \ref{fig:ablation-cumulative-latency}. Much of this latency is due to the overhead
-of handling data and launching the application. To isolate the per-frame processing cost,
-the time taken to process is measured as a function of the number of input frames, allowing
-the startup time to be approximated from the y-intercept of a line of best fit. This is
+The latency of the integration stage decreases with the reduction factor, as shown in
+Figure \ref{fig:latency-jetsons}. Much of this latency is due to the overhead
+of handling data and launching the application. To understand how latency varies 
+as successive frames come in, we measure processing time as a function of the number of 
+input frames. The cost of starting up the pipeline is isolated by finding the y-intercept 
+of a line of best fit of processing time over number of frames. This is
 done for coherent integration, non-coherent integration, and no integration as a baseline,
 with the pipeline patched to process empty buffers and avoid measuring data I/O overhead.
 The results are shown in Figure \ref{fig:integration-latency-per-frame}.
